@@ -1,0 +1,12 @@
+#summary MP4V2 Library
+
+= Introduction =
+
+MP4V2 Library independent of MPEG4IP.
+
+
+= Compilation Instructions =
+
+  * ./configure
+  * make
+  * make install
