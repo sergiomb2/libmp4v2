@@ -7,3 +7,5 @@
   * trak.udta.name.metadata has been deprecated in favour of trak.udta.name.value for specifying iTunes audio track names.
 
   * Compilation works for cygwin, macosx and linux, Windows native has not as yet been attempted, anyone want to try it?
+
+  * AC3 in MP4 currently sort of works, but is a hack and requires rewriting based on the since published standards.
