@@ -1,0 +1,151 @@
+Maintainer Release Instructions
+*******************************
+
+Official releases are made by creating a 'dist' bundle as supported by
+the autotools framework. This is not a normal target for users building
+the library to use, and as such it may introduce extra tool requirements.
+For example, 'makeinfo' is required to generate some documentation before
+a bundle can be created.
+
+
+Official Releases
+=================
+
+We will make some assumptions here such as the release is being created from
+the head of trunk branch and the project version of the release is 1.0.0 .
+This project uses a version tuple of MAJOR.MINOR.POINT and every release
+must increment some portion of the tuple. General rules to follow are if any
+public interface changes, bump MINOR and reset POINT. If a bug fix or other
+change does not effect the public interface, then only bump POINT. The
+MAJOR component should never be bumped except in rare cases such as a
+significant public interface change.
+
+A release is branched from either the trunk or an earlier release and
+are termed TRUNK-RELEASE and POINT-RELEASE, respectively. A TRUNK-RELEASE
+will typically bump the MINOR component and a POINT-RELEASE will bump
+the POINT component. All releases follow this URL convention:
+
+    https://mp4v2.googlecode.com/svn/release/MAJOR.MINOR.POINT
+
+Snapshots are a different beast. As they are never expected to be patched,
+there is no need to create a branch for them, except for maybe tracking
+purposes but that is overkill. It is desirable to provide some indicator
+of the version number a snapshot is chasing, which is essentially what trunk
+is: the main development branch chasing the next release. And we know
+that the POINT component is meaningless to trunk, so a snapshot should
+incorporate MAJOR.MINOR plus a reasonable serial number based on date. This
+is similar to GNU gcc snapshots and bundle naming follows this convention:
+
+    mp4v2-MAJOR.MINOR-YYYYMMDD.tar.bz2
+
+
+WORKFLOW - Official TRUNK-release
+---------------------------------
+
+    # branch release from trunk (head)
+    svn cp -m "BRANCHED: RELEASE 1.0.0" \
+        https://mp4v2.googlecode.com/svn/trunk \
+        https://mp4v2.googlecode.com/svn/release/1.0.0
+
+    # cd to your favorite work area for mp4v2
+    cd /work/mp4v2/
+    
+    # checkout release, local workdir 1.0.0 default is good
+    svn co https://mp4v2.googlecode.com/svn/release/1.0.0
+    cd 1.0.0/
+
+    # version should already be correct as per trunk and reconf
+    # if needed, edit AC_INIT() macro so 2nd arg is [1.0.0]
+    vi configure.ac
+    autoreconf -v
+
+    # if necessary, checkin configure.ac and files autoreconf generated files
+    svn status
+    svn ci -m "- prepped release 1.0.0 branch for dist"
+    svn update
+
+    # clean-room discipline
+    #   at this point there should be no pending changes in working dir
+    #   if there are, you're probably just working out kinks in the
+    #   autotool system but in the final run, all files should be
+    #   checked in at this point. do a final svn update to make sure
+    #   repo metadata has been updated.
+    #
+    # make distcheck || make dist (the latter if you're in a hurry)
+    rm -fr build/
+    mkdir build
+    cd build/
+    ../configure
+    make distcheck
+
+    # upload bundle somewhere
+    mkdir -p ~/OUTGOING
+    cp mp4v2-1.0.0.tar.bz2 ~/OUTGOING/.
+
+    # FINISHED - CLOSED: https://mp4v2.googlecode.com/svn/release/1.0.0
+    # Once the bundle is published, no more changes allowed!
+
+    # TRUNK - bump trunk's version, autoreconf and checkin.
+    # note that we bump trunk automatically to the next anticpated
+    # major-release or minor-release, as point-releases do not belong here.
+    cd /work/mp4v2/
+    svn co https://mp4v2.googlecode.com/svn/trunk/
+    cd trunk/
+    vi configure.ac # bump version to 1.1.0
+    autoreconf -v
+    svn ci -m "BUMP: TRUNK 1.1.0"
+    svn update
+
+
+WORKFLOW - Official POINT-release
+---------------------------------
+
+If a point release such as 1.0.1 needs to be one, then it is important to
+create the branch from 1.0.0 (not trunk!). Here is an example 1.0.1
+point-release.
+
+    svn cp -m "BRANCHED: RELEASE 1.0.1" \
+        https://mp4v2.googlecode.com/svn/release/1.0.0 \
+        https://mp4v2.googlecode.com/svn/release/1.0.1
+    cd 1.0.1/
+    vi configure.ac # bump version to 1.0.1
+    autoreconf -v
+    svn ci
+    svn update
+    .
+    .
+    .
+    # *** APPLY CODE CHANGES ***
+    # *** TEST ***
+    .
+    .
+    .
+    svn ci
+    svn update
+    rm -fr build/
+    mkdir build
+    cd build/
+    ../configure
+    make distcheck
+    cp mp4v2-1.0.1.tar.bz2 ~/OUTGOING/.
+    # FINISHED - CLOSED: https://mp4v2.googlecode.com/svn/release/1.0.1
+
+
+WORKFLOW - Official snapshot
+----------------------------
+
+Pay particular attention to the special requirements of making a snapshot.
+You must set an environment variable before running configure, and use
+the special target which overrides package naming to use snapshot the
+convention.
+
+    cd /work/mp4v2/
+    svn co https://mp4v2.googlecode.com/svn/trunk/
+    cd trunk/
+    autoreconf -v
+    rm -fr build/
+    mkdir build
+    cd build/
+    setenv SNAPSHOT 1 # sh syntax: export SNAPSHOT=1
+    ../configure
+    make snapshot
