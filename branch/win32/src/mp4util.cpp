@@ -27,7 +27,7 @@ namespace impl {
 
 ///////////////////////////////////////////////////////////////////////////////
 
-enum _LogLevel {
+enum LogLevel {
     _LOGLEVEL_UNDEFINED = -1,
 
     LOGLEVEL_EMERG,
@@ -40,12 +40,14 @@ enum _LogLevel {
     LOGLEVEL_DEBUG,
 
     _LOGLEVEL_MAX,
-} LogLevel;
+};
 
 ///////////////////////////////////////////////////////////////////////////////
 
 static lib_message_func_t libfunc = NULL;
-extern "C"   void MP4SetLibFunc(lib_message_func_t libf)
+
+extern "C" MP4V2_EXPORT
+void MP4SetLibFunc( lib_message_func_t libf )
 {
     libfunc = libf;
 }
@@ -185,7 +187,7 @@ char* MP4ToBase16(const uint8_t* pData, uint32_t dataSize)
     if (dataSize) {
         ASSERT(pData);
     }
-    uint32 size = 2 * dataSize + 1;
+    uint32_t size = 2 * dataSize + 1;
     char* s = (char*)MP4Calloc(size);
 
     uint32_t i, j;
@@ -381,6 +383,14 @@ const char* MP4NormalizeTrackType (const char* type,
                     printf("Attempt to normalize %s did not match\n",
                            type));
     return type;
+}
+
+MP4Timestamp MP4GetAbsTimestamp() {
+    /* MP4 epoch is midnight, January 1, 1904
+     * offset from midnight, January 1, 1970 is 2082844800 seconds
+     * 208284480 is (((1970 - 1904) * 365) + 17) * 24 * 60 * 60
+     */
+    return time::getLocalTimeSeconds() + 2082844800;
 }
 
 ///////////////////////////////////////////////////////////////////////////////

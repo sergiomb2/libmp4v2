@@ -1,9 +1,9 @@
-#ifndef MP4V2_PLATFORM_PLATFORM_H
-#define MP4V2_PLATFORM_PLATFORM_H
+#ifndef MP4V2_PLATFORM_POSIX_H
+#define MP4V2_PLATFORM_POSIX_H
 
 ///////////////////////////////////////////////////////////////////////////////
 
-#include "platform/config.h"
+#include "libplatform/config.h"
 
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -28,8 +28,7 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 
-// C++ standard-C includes are portable enough to generally avoid placement
-// into platform-specific files
+#include <string>
 
 #include <cassert>
 #include <cctype>
@@ -45,24 +44,41 @@
 #include <cwchar>
 #include <cwctype>
 
-///////////////////////////////////////////////////////////////////////////////
+#include <inttypes.h>
+#include <stdint.h>
+#include <fcntl.h>
+#include <unistd.h>
 
-#if defined( _WIN32 )
-#   include "win32/win32.h"
-#else
-#   include "posix/posix.h"
-#endif
+#include <mp4v2/mp4v2.h>
 
 ///////////////////////////////////////////////////////////////////////////////
 
 namespace mp4v2 { namespace platform {
-#if defined( _WIN32 )
-    using namespace mp4v2::platform::win32;
-#else
-    using namespace mp4v2::platform::posix;
-#endif
+    using namespace std;
+
+    using ::int8_t;
+    using ::int16_t;
+    using ::int32_t;
+    using ::int64_t;
+
+    using ::uint8_t;
+    using ::uint16_t;
+    using ::uint32_t;
+    using ::uint64_t;
 }} // namespace mp4v2::platform
 
 ///////////////////////////////////////////////////////////////////////////////
 
-#endif // MP4V2_PLATFORM_PLATFORM_H
+#define MP4V2_PATH_MAX PATH_MAX
+
+///////////////////////////////////////////////////////////////////////////////
+
+// win32 platform requires O_BINARY when using old open() calls so we add
+// this harmless bit-flag for posix to avoid .cpp platform conditionals
+#ifndef O_BINARY
+#   define O_BINARY  0
+#endif
+
+///////////////////////////////////////////////////////////////////////////////
+
+#endif // MP4V2_PLATFORM_POSIX_H

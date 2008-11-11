@@ -12,23 +12,33 @@ AC_MSG_NOTICE([
 
 AM_MAINTAINER_MODE
 AC_CONFIG_AUX_DIR([autoaux])
-AM_INIT_AUTOMAKE([1.10 foreign -Wall -Werror subdir-objects nostdinc no-dependencies no-dist-gzip dist-bzip2])
+AM_INIT_AUTOMAKE([1.10 foreign -Wall -Werror subdir-objects nostdinc no-dependencies no-dist-gzip dist-bzip2 dist-zip])
 
 AC_CONFIG_SRCDIR([src/mp4.cpp])
-
-AC_ARG_ENABLE([debug],
-    [AS_HELP_STRING([--disable-debug],[disable debugging compilation])])
-AC_ARG_ENABLE([optimize],
-    [AS_HELP_STRING([--disable-optimize],[disable optimizing compilation])])
-AC_ARG_ENABLE([largefile],
-    [AS_HELP_STRING([--disable-largefile],[disable LFS check (large file support)])])
-AC_ARG_ENABLE([cygwin-mwin32],
-    [AS_HELP_STRING([--enable-cygwin-mwin32],[enable WIN32 mode when building with Cygwin)])])
 
 # disable unused langs (improves config speed, reduces configure file size)
 AC_DEFUN([_LT_AC_LANG_F77_CONFIG], [:])
 AC_DEFUN([_LT_AC_LANG_GCJ_CONFIG], [:])
 AC_DEFUN([_LT_AC_LANG_RC_CONFIG], [:])
+
+AC_CANONICAL_HOST
+
+###############################################################################
+# add configure options
+###############################################################################
+
+AC_ARG_ENABLE([debug],
+    [AS_HELP_STRING([--disable-debug],[disable debugging compilation])])
+AC_ARG_ENABLE([optimize],
+    [AS_HELP_STRING([--disable-optimize],[disable optimizing compilation])])
+AC_ARG_ENABLE([fvisibility],
+    [AS_HELP_STRING([--disable-fvisibility],[disable use of -fvisibility])])
+AC_ARG_ENABLE([largefile],
+    [AS_HELP_STRING([--disable-largefile],[disable LFS (large file support)])])
+AC_ARG_ENABLE([cygwin_win32],
+    [AS_HELP_STRING([--enable-cygwin-win32],[when building with Cygwin use -mwin32])])
+AC_ARG_ENABLE([mingw_mt],
+    [AS_HELP_STRING([--enable-mingw-threads],[when building with MinGW use -mthreads])])
 
 ###############################################################################
 # checks for programs
@@ -39,6 +49,31 @@ AC_PROG_CXX
 AC_PROG_LIBTOOL
 
 AC_CHECK_PROG([HAVE_SVN],[svn],[yes],[no])
+
+###############################################################################
+# top-level platform check
+###############################################################################
+
+AC_MSG_CHECKING([$PACKAGE_NAME platform portability])
+X_PLATFORM=posix
+case ${host} in
+*-*-cygwin)
+    X_CXX_W="$X_CXX_W -Wno-format"
+    if test "$enable_cygwin_win32" = "yes"; then
+        X_PLATFORM=win32
+        X_CXX_ARCH="$X_CXX_ARCH -mwin32"
+    fi
+    ;;
+*-*-mingw32)
+    X_PLATFORM=win32
+    X_MINGW_LIBS="$X_MINGW_LIBS -lmsvcr80"
+    X_CXX_W="$X_CXX_W -Wno-format"
+    if test "$enable_mingw_threads" = "yes"; then
+        X_CXX_ARCH="$X_CXX_ARCH -mthreads"
+    fi
+    ;;
+esac
+AC_MSG_RESULT([$X_PLATFORM])
 
 ###############################################################################
 # prepare project metadata
@@ -91,16 +126,34 @@ AC_SUBST([PROJECT_irc])
 # checks for header files
 ###############################################################################
 
-AC_CHECK_HEADERS([sys/time.h])
-AC_CHECK_HEADERS([winsock2.h])
-
-if test "$ac_cv_header_winsock2_h" = "yes"; then
-    AC_SUBST([AC_LIB_WINSOCK2],[-lws2_32])
-fi
-
 ###############################################################################
 # checks for typedefs, structures, and compiler characteristics
 ###############################################################################
+
+###############################################################################
+# check for --disable-fvisibility
+###############################################################################
+
+if test "$enable_fvisibility" != "no" -a "$GXX" = "yes"; then
+    case ${host} in
+        *-*-cygwin)
+            ;;
+        *-*-mingw32)
+            ;;
+        *)
+            AC_LANG(C++)
+            AC_CACHE_CHECK([if $CXX supports -fvisibility],[x_cv_fvisibility],[
+                x_save="$CXXFLAGS"
+                CXXFLAGS="$CXXFLAGS -fvisibility=hidden"
+                AC_TRY_COMPILE([],[],[x_cv_fvisibility=yes],[x_cv_fvisibility=no])
+                if test "$x_cv_fvisibility" != "yes"; then
+                    CXXFLAGS="$x_save"
+                fi
+                x_save=
+            ])
+            ;;
+    esac
+fi
 
 ###############################################################################
 # check for --disable-largefile
@@ -110,28 +163,17 @@ if test "$enable_largefile" != "no" -a "$ac_cv_header_unistd_h" = "yes"; then
     case ${host_cpu} in
         i?86|ppc)
             AC_LANG(C++)
-            AC_MSG_CHECKING([for LFS (large file support) conformance])
-AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
+            AC_CACHE_CHECK([if LFS (large file support) is required],[x_cv_largefile],[
+                AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
 #include <unistd.h>
 #ifndef _LFS_LARGEFILE
     error: not LFS conformant
 #endif
-]])]
-,AC_MSG_RESULT([yes])
- AC_DEFINE([NEED_LFS_ACTIVATION],[1],[Define to 1 if LFS should be activated])
-,AC_MSG_RESULT([no]))
-            ;;
-    esac
-fi
-
-###############################################################################
-# check for --enable-cygwin-mwin32
-###############################################################################
-
-if test "$enable_cygwin_mwin32" == "yes"; then
-    case ${host} in
-        i?86-*-cygwin)
-            test "$GCC" = "yes" && AC_CXX_CYGWIN="$AC_CXX_CYGWIN -mwin32"
+                ]])],[x_cv_largefile=yes],[x_cv_largefile=no])
+            ])
+            if test "$x_cv_largefile" = "yes"; then
+                AC_DEFINE([NEED_LFS_ACTIVATION],[1],[Define to 1 if LFS should be activated])
+            fi
             ;;
     esac
 fi
@@ -143,22 +185,22 @@ fi
 if test "$GXX" = "yes"; then
     case ${host} in
         i?86-apple-darwin9*)
-            AC_CXX_ARCH="$AC_CXX_ARCH -arch i386"
+            X_CXX_ARCH="$X_CXX_ARCH -arch i386"
             ;;
         x86_64-apple-darwin9*)
-            AC_CXX_ARCH="$AC_CXX_ARCH -arch x86_64"
+            X_CXX_ARCH="$X_CXX_ARCH -arch x86_64"
             ;;
         powerpc-apple-darwin9*)
-            AC_CXX_ARCH="$AC_CXX_ARCH -arch ppc"
+            X_CXX_ARCH="$X_CXX_ARCH -arch ppc"
             ;;
         powerpc64-apple-darwin9*)
-            AC_CXX_ARCH="$AC_CXX_ARCH -arch ppc64"
+            X_CXX_ARCH="$X_CXX_ARCH -arch ppc64"
             ;;
         i?86-*|ppc-*)
-            AC_CXX_ARCH="$AC_CXX_ARCH -m32"
+            X_CXX_ARCH="$X_CXX_ARCH -m32"
             ;;
         x86_64-*|powerpc64-*)
-            AC_CXX_ARCH="$AC_CXX_ARCH -m64"
+            X_CXX_ARCH="$X_CXX_ARCH -m64"
             ;;
     esac
 fi
@@ -197,31 +239,30 @@ fi
 # checks for library functions
 ###############################################################################
 
-AC_CHECK_FUNCS([gettimeofday])
-AC_CHECK_FUNCS([getopt_long_only])
-
 ###############################################################################
 # conditional compilation
 ###############################################################################
 
-AM_CONDITIONAL([ADD_GETTIMEOFDAY],[test "$ac_cv_func_gettimeofday" = "no"])
-AM_CONDITIONAL([ADD_UTIL],[test "$ac_cv_func_getopt_long_only" = "yes"])
+AM_CONDITIONAL([ADD_PLATFORM_POSIX],[test "$X_PLATFORM" = "posix"])
+AM_CONDITIONAL([ADD_PLATFORM_WIN32],[test "$X_PLATFORM" = "win32"])
+
+AM_CONDITIONAL([ADD_UTIL],[true])
 
 ###############################################################################
 # declare common substitutions
 ###############################################################################
 
-AC_SUBST([AC_CXX_ARCH])
-AC_SUBST([AC_CXX_CYGWIN])
-AC_SUBST([AC_CXX_W])
-AC_SUBST([AC_CXX_D])
-AC_SUBST([AC_CXX_I])
+AC_SUBST([X_CXX_ARCH])
+AC_SUBST([X_CXX_W])
+AC_SUBST([X_CXX_D])
+AC_SUBST([X_CXX_I])
+AC_SUBST([X_MINGW_LIBS])
 
 ###############################################################################
 # output files
 ###############################################################################
 
-AC_CONFIG_HEADERS([src/platform/config.h])
+AC_CONFIG_HEADERS([libplatform/config.h])
 
 AC_CONFIG_FILES([GNUmakefile GNUmakefile.auto])
 AC_CONFIG_FILES([include/mp4v2/project.h])

@@ -1,10 +1,11 @@
-#ifndef MP4V2_PLATFORM_POSIX_IMPL_H
-#define MP4V2_PLATFORM_POSIX_IMPL_H
+#ifndef MP4V2_PLATFORM_IMPL_H
+#define MP4V2_PLATFORM_IMPL_H
 
 ///////////////////////////////////////////////////////////////////////////////
 
-#include "posix.h"
+#include "libplatform/platform.h"
+#include <sstream>
 
 ///////////////////////////////////////////////////////////////////////////////
 
-#endif // MP4V2_PLATFORM_POSIX_IMPL_H
+#endif // MP4V2_PLATFORM_IMPL_H
