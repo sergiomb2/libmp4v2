@@ -8,8 +8,8 @@ namespace mp4v2 { namespace platform { namespace time {
 milliseconds_t
 getLocalTimeMilliseconds()
 {
-    _timeb buf;
-    _ftime( &buf );
+    __timeb64 buf;
+    _ftime64( &buf );
     return milliseconds_t( buf.time ) * 1000 + buf.millitm;
 }
 
