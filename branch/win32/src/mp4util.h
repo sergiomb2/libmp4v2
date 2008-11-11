@@ -206,14 +206,8 @@ inline void* MP4Realloc(void* p, uint32_t newSize) {
     return p;
 }
 
-inline uint32_t STRTOINT32(const char* s) {
-    return MP4V2_NTOHL(*(uint32_t *)s);
-}
-
-inline void INT32TOSTR(uint32_t i, char* s) {
-    *(uint32_t *)s = MP4V2_HTONL(i);
-    s[4] = 0;
-}
+uint32_t STRTOINT32( const char* );
+void     INT32TOSTR( uint32_t, char* );
 
 MP4Timestamp MP4GetAbsTimestamp();
 

@@ -81,4 +81,16 @@ namespace mp4v2 { namespace platform {
 
 ///////////////////////////////////////////////////////////////////////////////
 
+// ARM seems to require integer instructions operands to have 4-byte alignment
+// so we set this macro to for some int<->string code to manually copy string
+// bytes into an int which aligns it. This is much easier than trying to
+// align pertinent string data (constants) from in text sections.
+#if defined( __arm__ )
+#   define MP4V2_INTSTRING_ALIGNMENT 1
+#else
+#   undef MP4V2_INTSTRING_ALIGNMENT
+#endif
+
+///////////////////////////////////////////////////////////////////////////////
+
 #endif // MP4V2_PLATFORM_POSIX_H
