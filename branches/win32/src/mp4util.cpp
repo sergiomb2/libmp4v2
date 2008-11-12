@@ -397,7 +397,6 @@ MP4Timestamp MP4GetAbsTimestamp() {
 uint32_t STRTOINT32( const char* s )
 {
 #if defined( MP4V2_INTSTRING_ALIGNMENT )
-fook
     // it seems ARM integer instructions require 4-byte alignment so we
     // manually copy string-data into the integer before performing ops
     uint32_t tmp;
