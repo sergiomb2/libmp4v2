@@ -179,9 +179,10 @@ nobase_nodist_include_HEADERS = include/mp4v2/project.h
 
 EXTRA_DIST = \
     README                   \
-    autoaux/svninfo.awk      \
+    doc/html/                \
+    doxygen/Doxyfile.in      \
     project/README.texi      \
-    project/project.defs     \
+    project/project.m4       \
     project/project.texi.in  \
     unit/impl.h              \
     util/impl.h              \
@@ -202,3 +203,4 @@ EXTRA_DIST = \
 
 distclean-local:
 	rm -f $(top_builddir)/README
+	rm -fr $(top_builddir)/doc/html

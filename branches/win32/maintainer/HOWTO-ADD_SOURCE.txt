@@ -18,7 +18,7 @@ If the project is in maintainer-mode, this will likely be done for you
 automagically at the next 'make'. If you're not in maintainer mode or
 would like to do it manually, then issue the following command:
 
-    autoreconf -v
+    autoreconf -fv
 
 And eventually you will be checking in your local changes. Don't be
 alarmed if generated autotool files such as configure, aclocal.m4
