@@ -98,9 +98,7 @@ bool
 StdioFile::open( string mode_, string name_ )
 {
     _name = name_;
-    close();
-    _handle = std::fopen( _name.c_str(), mode_.c_str() );
-    return _handle != 0;
+    return open( mode_ );
 }
 
 ///////////////////////////////////////////////////////////////////////////////

@@ -107,7 +107,7 @@ extern "C" int
     int mods = 0;
 
     /* Option-processing loop. */
-    int c = prog::getOptionWord( argc, argv, OPT_STRING, long_options, NULL );
+    int c = prog::getOptionSingle( argc, argv, OPT_STRING, long_options, NULL );
     while ( c != -1 ) {
         int r = 2;
         switch ( c ) {
@@ -144,7 +144,7 @@ extern "C" int
                 mods++;
         } /* end switch */
 
-        c = prog::getOptionWord( argc, argv, OPT_STRING, long_options, NULL );
+        c = prog::getOptionSingle( argc, argv, OPT_STRING, long_options, NULL );
     } /* end while */
 
     /* Check that we have at least one non-option argument */

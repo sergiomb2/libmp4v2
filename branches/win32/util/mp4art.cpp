@@ -84,7 +84,7 @@ extern "C" int main( int argc, char** argv )
             { NULL, prog::Option::NO_ARG, 0, 0 }
         };
 
-        c = prog::getOptionWord( argc, argv, "V", long_options, &option_index );
+        c = prog::getOptionSingle( argc, argv, "V", long_options, &option_index );
 
         if ( c == -1 )
             break;

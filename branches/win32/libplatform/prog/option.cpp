@@ -624,7 +624,7 @@ getOption(int nargc, char * const *nargv, const char *options,
  *	Parse argc/argv argument vector.
  */
 int
-getOptionWord(int nargc, char * const *nargv, const char *options,
+getOptionSingle(int nargc, char * const *nargv, const char *options,
                  const Option* long_options, int* idx) {
 
     return (getopt_internal(nargc, nargv, options, long_options, idx,

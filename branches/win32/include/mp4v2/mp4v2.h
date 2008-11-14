@@ -88,13 +88,24 @@ typedef void (*lib_message_func_t)(
 
 /*****************************************************************************/
 
-/* Invalid values for API types */
+/** @defgroup mp4_general MP4v2 General
+  * @{
+  */
+
+/** Invalid MP4FileHandle constant. */
 #define MP4_INVALID_FILE_HANDLE ((MP4FileHandle)NULL)
-#define MP4_INVALID_TRACK_ID    ((MP4TrackId)0)
-#define MP4_INVALID_SAMPLE_ID   ((MP4SampleId)0)
-#define MP4_INVALID_TIMESTAMP   ((MP4Timestamp)-1)
-#define MP4_INVALID_DURATION    ((MP4Duration)-1)
-#define MP4_INVALID_EDIT_ID     ((MP4EditId)0)
+/** Invalid MP4TrackId constant. */
+#define MP4_INVALID_TRACK_ID ((MP4TrackId)0)
+/** Invalid MP4SampleId constant. */
+#define MP4_INVALID_SAMPLE_ID ((MP4SampleId)0)
+/** Invalid MP4Timestamp constant. */
+#define MP4_INVALID_TIMESTAMP ((MP4Timestamp)-1)
+/** Invalid MP4Duration constant. */
+#define MP4_INVALID_DURATION ((MP4Duration)-1)
+/** Invalid MP4EditId constant. */
+#define MP4_INVALID_EDIT_ID ((MP4EditId)0)
+
+/** @} */
 
 /* Macros to test for API type validity */
 #define MP4_IS_VALID_FILE_HANDLE(x) ((x) != MP4_INVALID_FILE_HANDLE)
@@ -328,18 +339,86 @@ extern "C" {
 
 /*****************************************************************************/
 
-/* file operations */
-#define MP4_CREATE_64BIT_DATA (0x01)
-#define MP4_CREATE_64BIT_TIME (0x02) // Quicktime is not compatible with this
-#define MP4_CREATE_64BIT (MP4_CREATE_64BIT_DATA | MP4_CREATE_64BIT_TIME)
-#define MP4_CREATE_EXTENSIBLE_FORMAT (0x04)
+/** @defgroup mp4_fileops MP4v2 File I/O
+  * @{
+  */
 
+/** Bit used with MP4Create() to enable 64-bit data-atoms. */
+#define MP4_CREATE_64BIT_DATA 0x01
+/** Bit used with MP4Create() to enable 64-bit time-atoms.
+  * @warning Quicktime-incompatible
+  */
+#define MP4_CREATE_64BIT_TIME 0x02
+/** Convenience bitmask for both data and time atoms.
+  * @deprecated scheduled for removal
+  */
+#define MP4_CREATE_64BIT (MP4_CREATE_64BIT_DATA | MP4_CREATE_64BIT_TIME)
+/** Not used.
+  * @deprecated scheduled for removal
+  */
+#define MP4_CREATE_EXTENSIBLE_FORMAT 0x04
+
+/** Close an mp4 file.
+ *  MP4Close closes a previously opened mp4 file. If the file was opened
+ *  writable with MP4Create() or MP4Modify(), then MP4Close() will write
+ *  out all pending information to disk.
+ *
+ *  @param hFile mp4 filehandle to close.
+ */
+MP4V2_EXPORT
+void MP4Close(
+    MP4FileHandle hFile );
+
+/** Create a new mp4 file.
+ *
+ *  MP4Create is the first call that should be used when you want to create
+ *  a new, empty mp4 file. It is equivalent to opening a file for writing,
+ *  but also involved with creation of necessary mp4 framework structures.
+ *  ie. invoking MP4Create() followed by MP4Close() will result in a file
+ *  with a non-zero size.
+ *
+ *  @param fileName pathname of the file to be created.
+ *  @param verbosity bitmask of diagnostic details the library
+ *      should print to stdout during its functioning.
+ *      See MP4SetVerbosity() for values.
+ *  @param flags bitmask that allows the user to set 64-bit values for
+ *      data or time atoms. Valid bits may be any combination of:
+ *          @li #MP4_CREATE_64BIT_DATA
+ *          @li #MP4_CREATE_64BIT_TIME
+ *
+ *  @return On success the function returns a handle to the newly created
+ *      file for use in subsequent calls to the library.
+ *      On error, #MP4_INVALID_FILE_HANDLE is returned.
+ */
 MP4V2_EXPORT
 MP4FileHandle MP4Create(
     const char* fileName,
     uint32_t    verbosity DEFAULT(0),
     uint32_t    flags DEFAULT(0) );
 
+/** Create a new mp4 file with extended options.
+ *
+ *  MP4CreateEx is an extended version of MP4Create().
+ *
+ *  @param fileName pathname of the file to be created.
+ *  @param verbosity bitmask of diagnostic details the library
+ *      should print to stdout during its functioning.
+ *      See MP4SetVerbosity() for values.
+ *  @param flags bitmask that allows the user to set 64-bit values for
+ *      data or time atoms. Valid bits may be any combination of:
+ *          @li #MP4_CREATE_64BIT_DATA
+ *          @li #MP4_CREATE_64BIT_TIME
+ *  @param add_ftyp if true an <b>ftyp</b> atom is automatically created.
+ *  @param add_iods if true an <b>iods</b> atom is automatically created.
+ *  @param majorBrand <b>ftyp</b> brand identifier.
+ *  @param minorVersion <b>ftyp</b> informative integer for the minor version of the major brand.
+ *  @param compatibleBrands <b>ftyp</b> list of compatible brands.
+ *  @param compatibleBrandsCount is the count of items specified in compatibleBrands.
+ *
+ *  @return On success the function returns a handle to the newly created
+ *      file for use in subsequent calls to the library.
+ *      On error, #MP4_INVALID_FILE_HANDLE is returned.
+ */
 MP4V2_EXPORT
 MP4FileHandle MP4CreateEx(
     const char* fileName,
@@ -349,20 +428,73 @@ MP4FileHandle MP4CreateEx(
     int         add_iods DEFAULT(1),
     char*       majorBrand DEFAULT(0),
     uint32_t    minorVersion DEFAULT(0),
-    char**      supportedBrands DEFAULT(0),
-    uint32_t    supportedBrandsCount DEFAULT(0) );
+    char**      compatibleBrands DEFAULT(0),
+    uint32_t    compatibleBrandsCount DEFAULT(0) );
 
+/** Modify an existing mp4 file.
+ *
+ *  MP4Modify is the first call that should be used when you want to modify
+ *  an existing mp4 file. It is roughly equivalent to opening a file in
+ *  read/write mode.
+ *
+ *  Since modifications to an existing mp4 file can result in a sub−optimal
+ *  file layout, you may want to use MP4Optimize() after you have  modified
+ *  and closed the mp4 file.
+ *
+ *  @param fileName pathname of the file to be modified.
+ *  @param verbosity bitmask of diagnostic details the library
+ *      should print to stdout during its functioning.
+ *      See MP4SetVerbosity() for values.
+ *  @param flags currently ignored.
+ *
+ *  @return On success the function returns a handle to the file for use
+ *      in subsequent calls to the library.
+ *      On error, #MP4_INVALID_FILE_HANDLE is returned.
+ */
 MP4V2_EXPORT
 MP4FileHandle MP4Modify(
     const char* fileName,
     uint32_t    verbosity DEFAULT(0),
     uint32_t    flags DEFAULT(0) );
 
+/** Read an existing mp4 file.
+ *
+ *  MP4Read is the first call that should be used when you want to just
+ *  read an existing mp4 file. It is equivalent to opening a file for
+ *  reading, but in addition the mp4 file is parsed and the control
+ *  information is loaded into memory. Note that actual track samples are not
+ *  read into memory until MP4ReadSample() is called.
+ *
+ *  @param fileName pathname of the file to be read.
+ *  @param verbosity bitmask of diagnostic details the library
+ *      should print to stdout during its functioning.
+ *      See MP4SetVerbosity() for values.
+ *
+ *  @return On success the function returns a handle to the file for use
+ *      in subsequent calls to the library.
+ *      On error, #MP4_INVALID_FILE_HANDLE is returned.
+ */
 MP4V2_EXPORT
 MP4FileHandle MP4Read(
     const char* fileName,
     uint32_t    verbosity DEFAULT(0) );
 
+/** Read an existing mp4 file with extended options.
+ *
+ *  MP4ReadEx is an extended version of MP4Read() which is used when
+ *  custom I/O routines are to be used with an open file.
+ *
+ *  @param fileName pathname of the file to be read.
+ *  @param user undocumented.
+ *  @param virtual_IO undocumented.
+ *  @param verbosity bitmask of diagnostic details the library
+ *      should print to stdout during its functioning.
+ *      See MP4SetVerbosity() for values.
+ *
+ *  @return On success the function returns a handle to the file for use
+ *      in subsequent calls to the library.
+ *      On error, #MP4_INVALID_FILE_HANDLE is returned.
+ */
 MP4V2_EXPORT
 MP4FileHandle MP4ReadEx(
     const char*   fileName,
@@ -370,9 +502,7 @@ MP4FileHandle MP4ReadEx(
     Virtual_IO_t* virtual_IO,
     uint32_t      verbosity DEFAULT(0) );
 
-MP4V2_EXPORT
-void MP4Close(
-    MP4FileHandle hFile );
+/** @} */
 
 MP4V2_EXPORT
 bool MP4Optimize(
