@@ -1,0 +1,62 @@
+Maintainer Build Insutructions
+******************************
+
+Project maintainers typically build directly from the repository,
+which adds more prerequisites than the INSTALL procedure used
+with dist-bundles.
+
+
+REQUIREMENTS
+============
+
+At the time of this writing, general requirements for building from
+the repository are to have the following tools available in your
+path:
+
+GENERAL
+-------
+    - subversion 1.5.0 or higher (lower versions should work)
+    - GNU autoconf 2.61 or higher (lower versions will NOT work)
+    - GNU automake 1.10 or higher (lower versions will NOT work)
+    - GNU libtool 1.5.26 or higher (lower versions might work)
+    - GNU make 3.81 or higher (lower versions should work)
+    - GNU gcc 4.0.0 or higher (gcc 3.4.0 or higher is reported to work)
+
+DOCUMENTATION
+-------------
+    - Doxygen 1.5.7 or higher (lower versions should work)
+    - GNU texinfo 4.8 or higher (lower versions should work)
+
+PACKAGING
+---------
+    - GNU tar 1.15.1 or higher (lower versions should work)
+    - GNU gzip 1.3.10 or higher (lower versions should work)
+    - bzip2 1.0.4 or higher (lower versions should work)
+    - Info-ZIP zip 2.32 or higher (lower versions should work)
+
+
+WORKFLOW
+========
+
+1. Checkout trunk or a branch from the respoitory.
+2. Generate autotool files.
+3. Configure.
+4. Create dist-bundle.
+
+
+WORKFLOW - TRUNK-BUILD
+----------------------
+
+By default debug,optimize compiler-options are enabled, and static,shared
+libraries are created. In this example we choose to disable optimize
+and static during development and to use /tmp/TEST as the installation
+directory.
+
+    cd /work/mp4v2/
+    svn co https://mp4v2.googlecode.com/svn/trunk/
+    cd trunk/
+    autoreconf -fiv
+    mkdir build/
+    cd build/
+    ../configure --disable-optimize --disable-static --prefix=/tmp/TEST
+    make

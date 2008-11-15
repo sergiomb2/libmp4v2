@@ -1,7 +1,7 @@
 Maintainer Release Instructions
 *******************************
 
-Official releases are made by creating a 'dist' bundle as supported by
+Official releases are made by creating a dist-bundle as supported by
 the autotools framework. This is not a normal target for users building
 the library to use, and as such it may introduce extra tool requirements.
 For example, 'makeinfo' is required to generate some documentation before
@@ -81,7 +81,7 @@ WORKFLOW - MINOR-RELEASE
     vi project/project.m4
     svn ci
     svn update
-    autoreconf -fv
+    autoreconf -fiv
 
     # clean-room discipline
     #   at this point there should be no pending changes in working dir
@@ -91,7 +91,7 @@ WORKFLOW - MINOR-RELEASE
     #
     # make distcheck || make dist (the latter if you're in a hurry)
     rm -fr build/
-    mkdir build
+    mkdir build/
     cd build/
     ../configure
     make distcheck
@@ -112,7 +112,7 @@ WORKFLOW - MINOR-RELEASE
     vi project/project.m4 # bump version to 1.1.0
     svn ci -m "BUMP: TRUNK 1.1.0"
     svn update
-    autoreconf -fv
+    autoreconf -fiv
 
 
 WORKFLOW - POINT-RELEASE
@@ -128,7 +128,7 @@ to branch from 1.0.0 (not trunk!). Here is an example 1.0.1 point-release.
     vi project/project.m4 # bump version to 1.0.1
     svn ci
     svn update
-    autoreconf -fv
+    autoreconf -fiv
     .
     .
     .
@@ -139,9 +139,9 @@ to branch from 1.0.0 (not trunk!). Here is an example 1.0.1 point-release.
     .
     svn ci
     svn update
-    autoreconf -fv
+    autoreconf -fiv
     rm -fr build/
-    mkdir build
+    mkdir build/
     cd build/
     ../configure
     make distcheck
@@ -155,13 +155,13 @@ WORKFLOW - SNAPSHOT-RELEASE
 Pay particular attention to setting the required environment variable
 for making a snapshot. You *must* do this prior to forcing autoreconf!
 
+    setenv SNAPSHOT 1 # sh syntax: export SNAPSHOT=1
     cd /work/mp4v2/
     svn co https://mp4v2.googlecode.com/svn/trunk/
     cd trunk/
-    setenv SNAPSHOT 1 # sh syntax: export SNAPSHOT=1
-    autoreconf -fv
+    autoreconf -fiv
     rm -fr build/
-    mkdir build
+    mkdir build/
     cd build/
     ../configure
     make distcheck

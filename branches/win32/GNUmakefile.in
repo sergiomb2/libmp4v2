@@ -48,9 +48,16 @@ am__vpath_adj = case $$p in \
 
 ###############################################################################
 
+$(top_builddir)/BUILD: $(top_builddir)/project/project.texi
+$(top_builddir)/BUILD: $(top_srcdir)/project/BUILD/
+$(top_builddir)/BUILD: $(top_srcdir)/project/BUILD/main.texi
+	makeinfo -I$(top_builddir)/project/ --no-headers -o $@ $<
+
 $(top_builddir)/README: $(top_builddir)/project/project.texi
 $(top_builddir)/README: $(top_srcdir)/project/README.texi
 	makeinfo -I$(top_builddir)/project/ --no-headers -o $@ $<
+
+###############################################################################
 
 $(top_builddir)/doc/html:
 	doxygen $(top_builddir)/doxygen/Doxyfile

@@ -1,0 +1,29 @@
+\input texinfo @c -*- Texinfo -*-
+@c %**start of header
+@setfilename BUILD.info
+@include project.texi
+
+@paragraphindent none
+@c %**end of header
+
+@node Top
+@top @value{PROJECT_name_formal} Build Instructions
+
+@menu
+* Introduction::    Introduction.
+* Configure::       General configure options.
+* Platforms::       Notes for various platforms.
+@end menu
+
+@node Introduction,Configure,,Top
+@chapter Introduction
+This document supplements the generic autotool instructions documented in
+INSTALL. Details specific to @value{PROJECT_name} will be documented here.
+
+@node Configure,Platforms,Introduction,Top
+@chapter Configure
+@include configure.texi
+
+@node Platforms,,Configure,Top
+@chapter Platforms
+@include platforms.texi

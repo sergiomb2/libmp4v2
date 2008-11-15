@@ -36,7 +36,6 @@ AC_MSG_NOTICE([
   --> Configuring ]AC_PACKAGE_STRING[
   -->])
 
-AM_MAINTAINER_MODE
 AC_CONFIG_AUX_DIR([autoaux])
 AM_INIT_AUTOMAKE([1.10 foreign -Wall -Werror subdir-objects nostdinc no-dependencies no-dist-gzip dist-bzip2 dist-zip])
 
@@ -61,6 +60,10 @@ AC_ARG_ENABLE([fvisibility],
     [AS_HELP_STRING([--disable-fvisibility],[disable use of -fvisibility])])
 AC_ARG_ENABLE([largefile],
     [AS_HELP_STRING([--disable-largefile],[disable LFS (large file support)])])
+AC_ARG_ENABLE([bi],
+    [AS_HELP_STRING([--enable-bi=ARCH],[enable -mARCH for bi-arch compilation])])
+AC_ARG_ENABLE([ub],
+    [AS_HELP_STRING([--enable-ub@<:@=ARCHS@:>@],[enable -arch ARCH for universal-binaries (OSX only)])])
 AC_ARG_ENABLE([cygwin_win32],
     [AS_HELP_STRING([--enable-cygwin-win32],[when building with Cygwin use -mwin32])])
 AC_ARG_ENABLE([mingw_mt],
@@ -220,26 +223,43 @@ fi
 ###############################################################################
 
 if test "$GXX" = "yes"; then
-    case ${host} in
-        i?86-apple-darwin9*)
-            X_CXX_ARCH="$X_CXX_ARCH -arch i386"
+    AC_MSG_CHECKING([arch flags])
+    x_flags=
+    x_save_IFS=$IFS; IFS=,
+    for arch in ${enable_ub}; do
+        case "$arch" in
+            ""|no)
+                ;;
+            yes)
+                case ${host} in
+                    *-*-darwin*)
+                        x_flags="$xflags -arch i386 -arch x86_64 -arch ppc -arch ppc64"
+                        ;;
+                esac
+                ;;
+            *)
+                x_flags="$x_flags -arch $arch"
+                ;;
+        esac
+    done
+    IFS=$x_save_IFS
+
+    case "$enable_bi" in
+        ""|no|yes)
             ;;
-        x86_64-apple-darwin9*)
-            X_CXX_ARCH="$X_CXX_ARCH -arch x86_64"
-            ;;
-        powerpc-apple-darwin9*)
-            X_CXX_ARCH="$X_CXX_ARCH -arch ppc"
-            ;;
-        powerpc64-apple-darwin9*)
-            X_CXX_ARCH="$X_CXX_ARCH -arch ppc64"
-            ;;
-        i?86-*|ppc-*)
-            X_CXX_ARCH="$X_CXX_ARCH -m32"
-            ;;
-        x86_64-*|powerpc64-*)
-            X_CXX_ARCH="$X_CXX_ARCH -m64"
+        *)
+            x_flags="$x_flags -m${enable_bi}"
             ;;
     esac
+
+    if test -n "$x_flags"; then
+        AC_MSG_RESULT([$x_flags])
+        X_CXX_ARCH="$X_CXX_ARCH $x_flags"
+    else
+        AC_MSG_RESULT([none])
+    fi
+
+    x_flags=
 fi
 
 ###############################################################################
