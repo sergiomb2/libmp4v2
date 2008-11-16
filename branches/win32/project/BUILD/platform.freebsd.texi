@@ -1,4 +1,3 @@
-@node FreeBSD,Solaris,Linux,Platforms
 @section FreeBSD
 Building on FreeBSD is supported.
 The following are the recommended specifications for this platform; but is

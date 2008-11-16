@@ -1,4 +1,3 @@
-@node Solaris,Cygwin,FreeBSD,Platforms
 @section Solaris
 Building on Solaris is supported.
 The following are the recommended specifications for this platform; but is
@@ -14,7 +13,7 @@ not necessarily the only configuration that is possible:
 @quotation Note
 Solaris' does not (yet) really bundle a compiler. The recommendation
 is to use the companion-disk compiler for maximum c++ runtime
-compatibility. It is usually found in /usr/sfw/bin.
+compatibility. It is usually found in @file{/usr/sfw/bin}.
 @end quotation
 
 @include platform.common.conf.default.texi

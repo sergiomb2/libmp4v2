@@ -3,18 +3,9 @@ referred to posix-style. Building on
 Mac OS X, Linux, FreeBSD, Solaris, Cygwin and native Windows
 are known to work.
 
-Building on similar platforms should also work.
-Please see platform specific notes for instructions on commonly used
-options for various platforms.
-
-@menu
-* Mac OS X::    Mac OS X notes.
-* Linux::       Linux notes.
-* FreeBSD::     FreeBSD notes.
-* Solaris::     Solaris notes.
-* Cygwin::      Cygwin notes.
-* Windows::     Windows notes.
-@end menu
+Similar platforms should also build.
+Please see the following platform specific notes for instructions on commonly
+used options for various platforms.
 
 @include platform.osx.texi
 @include platform.linux.texi

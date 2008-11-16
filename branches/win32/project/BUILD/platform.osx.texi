@@ -1,4 +1,3 @@
-@node Mac OS X,Linux,,Platforms
 @section Mac OS X
 Building on OSX is well supported as it is used by maintainers of this project.
 The following are the recommended specifications for this platform; but is

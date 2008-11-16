@@ -1,5 +1,15 @@
-In addition to the usual configure options, several additional options have
-been added for @value{PROJECT_name} which are common to many platforms.
+Configure the project to build.
+It is highly recommended that you invoke configure from an empty directory.
+
+@example
+rm -fr build/
+mkdir build/
+cd build/
+../configure
+@end example
+
+Please see @file{INSTALL} for details on configure usage, and standard
+options. Additionally, the following options are available:
 
 @table @samp
 

@@ -178,7 +178,8 @@ nobase_nodist_include_HEADERS = include/mp4v2/project.h
 ###############################################################################
 
 EXTRA_DIST = \
-    BUILD                    \
+    BUILD.dist               \
+    BUILD.repo               \
     README                   \
     doc/html/                \
     doxygen/Doxyfile.in      \
@@ -204,6 +205,6 @@ EXTRA_DIST = \
 ###############################################################################
 
 distclean-local:
-	rm -f $(top_builddir)/BUILD
+	rm -f $(top_builddir)/BUILD.*
 	rm -f $(top_builddir)/README
 	rm -fr $(top_builddir)/doc/html

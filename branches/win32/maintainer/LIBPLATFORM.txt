@@ -28,7 +28,8 @@ matters further, libtool (even version 2.2.6) makes this impossible.
 So the simple solution is to add libplatform symbols to libmp4v2.
 The only problem with this is libmp4v2 becomes a little fatter than
 it needs to be, but since all the symbols are in a private namespace
-we protect our clients from inadvertantly becoming dependents.
+and we use set default symbol visibility to hidden, we protect our
+clients from inadvertantly becoming dependents.
 
 If libplatform ever becomes bulky we can revisit this issue, but at
 this time using advanced linking would only save ~10KB of binary size.

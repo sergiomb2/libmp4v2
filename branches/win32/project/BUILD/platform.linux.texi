@@ -1,4 +1,3 @@
-@node Linux,FreeBSD,Mac OS X,Platforms
 @section Linux
 Building on Linux is well supported as it is used by maintainers of this project.
 The following are the recommended specifications for this platform; but is
