@@ -1,4 +1,5 @@
 #summary MP4v2 1.0-r76 Build Instructions - Repository
+#labels Featured,Phase-Deploy
 
 == Overview ==
 
