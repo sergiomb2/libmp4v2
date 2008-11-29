@@ -1,0 +1,490 @@
+<html lang="en">
+<head>
+<title>Untitled</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="Untitled">
+<meta name="generator" content="makeinfo 4.8">
+<link title="Top" rel="top" href="#Top">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<h2 class="majorheading"><a name="TOC0"></a>MP4v2 2.0-r104 Building the Repository</h2>
+
+<div class="contents">
+<h2>Table of Contents</h2>
+<ul>
+<li><a name="toc_TOC1" href="#TOC1">1 Overview</a>
+<li><a name="toc_TOC2" href="#TOC2">2 Introduction</a>
+<li><a name="toc_TOC3" href="#TOC3">3 Quickstart</a>
+<li><a name="toc_TOC4" href="#TOC4">4 Build Process</a>
+<ul>
+<li><a href="#TOC5">4.1 Checkout Sources</a>
+<li><a href="#TOC6">4.2 Boostrap (Autotools)</a>
+<li><a href="#TOC7">4.3 Configure</a>
+<li><a href="#TOC8">4.4 Build</a>
+<li><a href="#TOC9">4.5 Install</a>
+<li><a href="#TOC10">4.6 Create Distribution</a>
+<li><a href="#TOC11">4.7 Build Documentation</a>
+</li></ul>
+<li><a name="toc_TOC12" href="#TOC12">5 Platform Notes</a>
+<ul>
+<li><a href="#TOC13">5.1 Mac OS X</a>
+<ul>
+<li><a href="#TOC14">5.1.1 Default Binaries</a>
+<li><a href="#TOC15">5.1.2 Release Binaries</a>
+<li><a href="#TOC16">5.1.3 Developer Binaries</a>
+<li><a href="#TOC17">5.1.4 Universal Binaries - all architectures</a>
+<li><a href="#TOC18">5.1.5 Universal Binaries - selected architectures</a>
+</li></ul>
+<li><a href="#TOC19">5.2 Linux</a>
+<ul>
+<li><a href="#TOC20">5.2.1 Default Binaries</a>
+<li><a href="#TOC21">5.2.2 Release Binaries</a>
+<li><a href="#TOC22">5.2.3 Developer Binaries</a>
+<li><a href="#TOC23">5.2.4 Bi-arch compilation</a>
+</li></ul>
+<li><a href="#TOC24">5.3 FreeBSD</a>
+<ul>
+<li><a href="#TOC25">5.3.1 Default Binaries</a>
+<li><a href="#TOC26">5.3.2 Release Binaries</a>
+<li><a href="#TOC27">5.3.3 Developer Binaries</a>
+<li><a href="#TOC28">5.3.4 Bi-arch compilation</a>
+</li></ul>
+<li><a href="#TOC29">5.4 Solaris</a>
+<ul>
+<li><a href="#TOC30">5.4.1 Default Binaries</a>
+<li><a href="#TOC31">5.4.2 Release Binaries</a>
+<li><a href="#TOC32">5.4.3 Developer Binaries</a>
+<li><a href="#TOC33">5.4.4 Bi-arch compilation</a>
+</li></ul>
+<li><a href="#TOC34">5.5 Cygwin</a>
+<ul>
+<li><a href="#TOC35">5.5.1 Default Binaries</a>
+<li><a href="#TOC36">5.5.2 Release Binaries</a>
+<li><a href="#TOC37">5.5.3 Developer Binaries</a>
+</li></ul>
+<li><a href="#TOC38">5.6 Windows</a>
+</li></ul>
+</li></ul>
+</div>
+
+<h2 class="chapter"><a name="TOC1"></a>1 Overview</h2>
+
+<p>The documented and supported method to build MP4v2 uses the GNU build system (also known as the Autotools). You must first obtain the sources by either downloading and extracting the source-distribution bundle or working directly MP4v2's Subversion repository. We have build documents for both methods, but unless you are a member of the MP4v2 project, you are <b>strongly encouraged</b> to use the source-distribution method.
+
+<p>On other supported platforms which lack Autotools we provide an alternative method for building the software. Please see the appropriate platform section.
+
+<h2 class="chapter"><a name="TOC2"></a>2 Introduction</h2>
+
+<p>This document describes the recommended process to build MP4v2 from the repository. This process is a <b>superset</b> of the process to build from a source-distribution bundle.  If you are interested in building from a source-distribution bundle then this document is not for you.
+
+<h2 class="chapter"><a name="TOC3"></a>3 Quickstart</h2>
+
+<p>This chapter is for the impatient or those just looking for a quick summary of all the commands used in a typical build. You may skip this summary and jump to <a href="#Build-Process">Build Process</a>.
+
+<pre class="example">svn checkout https://mp4v2.googlecode.com/svn/trunk mp4v2
+cd mp4v2
+autoreconf -fiv
+rm -fr build/
+mkdir build/
+cd build/
+../configure
+make
+make install
+make install-man
+make dist
+</pre>
+<p><a name="Build-Process"></a>
+
+<h2 class="chapter"><a name="TOC4"></a>4 Build Process</h2>
+
+<h3 class="section"><a name="TOC5"></a>4.1 Checkout Sources</h3>
+
+<p>Checkout sources from the project's Subversion repository.
+
+<p>Sources are checked out from either the trunk, release or a branch. This document was generated from one of those, and for example purposes, we will use exactly the same URL which used to create the distribution which contains this document.
+
+<p>If you are a project member, then you may add the appropriate login/password information as needed.
+
+<pre class="example">svn checkout https://mp4v2.googlecode.com/svn/trunk mp4v2
+cd mp4v2
+</pre>
+<p>It is recommended to use Subversion 1.5.0 or higher. 
+Lower versions might work.
+
+<h3 class="section"><a name="TOC6"></a>4.2 Boostrap (Autotools)</h3>
+
+<p>The following command causes forces Autotools to regenerate all files and install helper scripts needed at configure-time and to regenerate all files.
+
+<pre class="example">autoreconf -fiv
+</pre>
+<p>If you are a project member and preparing for a release, it is important to note that the versions of Autotools available in your path will directly effect files added to the bundle. At the time of writing, the following versions of Autotools are recommended; in some cases a minimum is hard-coded and warnings will be issued if in violation:
+
+     <ul>
+<li>GNU autoconf 2.61 or higher (lower versions might work)
+<li>GNU automake 1.10 or higher (lower versions might work)
+<li>GNU libtool 1.5.26 or higher (lower versions might work)
+</ul>
+
+<p><a name="Configure"></a>
+
+<h3 class="section"><a name="TOC7"></a>4.3 Configure</h3>
+
+<p>The following command configures the project for a build.  It is highly recommended that you invoke configure from an empty directory.
+
+<pre class="example">rm -fr build/
+mkdir build/
+cd build/
+../configure
+</pre>
+<p>Please see <samp><span class="file">INSTALL</span></samp> for details on configure usage, and standard options. Additionally, the following options are have been added to <samp><span class="file">configure</span></samp> for use when building MP4v2:
+
+     <dl>
+<dt>`<samp><span class="samp">--disable-optimize</span></samp>'<dd>Do not optimize. Do not direct compiler to optimize code. By default compiler optimization is enabled if the platform supports it.
+
+     <br><dt>`<samp><span class="samp">--disable-debug</span></samp>'<dd>Do not generate debug information.  Do not direct compiler to generate debugging information. By default the compiler will generate debug information if the platform supports it.
+
+     <br><dt>`<samp><span class="samp">--disable-fvisibility</span></samp>'<dd>Do not set default ELF symbol visibility. By default configure attempts to detect if the compiler supports this feature. However on some platforms detecting incompatibilty of this feature might not be accurate in which case this option should be given.
+
+     <br><dt>`<samp><span class="samp">--disable-largefile</span></samp>'<dd>On some 32-bit platforms or configurations it might be desirable to build without largefile (LFS) support. By default configure attempts to detect formal LFS support and enables it if found.
+
+     <br><dt>`<samp><span class="samp">--disable-util</span></samp>'<dd>Do not build/install utilities. This is convenience option for users who desire to skip building the utilities (eg. command-line executables) which are enabled by default.
+
+     <br><dt>`<samp><span class="samp">--enable-bi=ARCH</span></samp>'<dd>On bi-arch capable platforms it is possible to generate 32 or 64 bit code. This is supported by adding arguments `<samp><span class="samp">-m32</span></samp>' or `<samp><span class="samp">-m64</span></samp>', respectively, when compiling or linking. Use this option to override the platform-specific default.
+
+     <br><dt>`<samp><span class="samp">--enable-ub[=ARCHS]</span></samp>'<dd>On OSX systems it is possible to generate universal binaries. This is supported by adding one or more argument patterns `<samp><span class="samp">-arch ARCH</span></samp>' when compiling or linking. Use this option to either target an architecture different from the platform default, or to produce universal binaries.
+
+</dl>
+
+<h3 class="section"><a name="TOC8"></a>4.4 Build</h3>
+
+<p>The following command will build MP4v2.
+
+<pre class="example">make
+</pre>
+<p>On some platforms <code>make</code> refers to a BSD-flavor of make which is not compatible with this project. Check if <code>gmake</code> is installed, and if it is, substitute <code>gmake</code> wherever you may see <code>make</code> in this document. Otherwise you will need to install GNU make package version 3.81 or higher. Lower versions might work.
+
+<p><a name="Install"></a>
+
+<h3 class="section"><a name="TOC9"></a>4.5 Install</h3>
+
+<p>The following command will install MP4v2.
+
+<pre class="example">make install
+make install-man
+</pre>
+<h3 class="section"><a name="TOC10"></a>4.6 Create Distribution</h3>
+
+<p>The following command will create a MP4v2 source distribution. It is during this step that shipped documentation is generated.
+
+<pre class="example">make dist
+</pre>
+<p>This step in the build process introduces some significant requirements to the host system. While most of the following utilities are generally available, the GNU texinfo and Doxygen are not as ubiquitous:
+
+     <ul>
+<li>GNU texinfo 4.8 or higher (lower versions should work)
+<li>Doxygen 1.5.7 or higher (lower versions should work)
+<li>GNU tar 1.15.1 or higher (lower versions should work)
+<li>GNU gzip 1.3.10 or higher (lower versions should work)
+<li>bzip2 1.0.4 or higher (lower versions should work)
+<li>Info-ZIP zip 2.32 or higher (lower versions should work)
+</ul>
+
+<h3 class="section"><a name="TOC11"></a>4.7 Build Documentation</h3>
+
+<p>Documentation that is shipped with source-distribution is generated as part of the <a href="#Build-Process">Build Process</a> step. This section documents builds all of the supported methods to build documentation. There are three kinds of documentation in this project; man-pages, articles and API. <b>Documentation must be build from the repository</b>.
+
+<p>Man-pages are automatically generated for command-line utilities by using <samp><span class="command">html2man</span></samp> which invokes standard options <samp><span class="command">--help</span></samp> and <samp><span class="command">--version</span></samp> and gleans the information, generating a man-page in <b>nroff</b> script. Note that the utilities will first be built as they are depdendencies of man-page generation.
+
+<p>Artcles are usually hand-written and authored in Texinfo format which permits macro-expansions, simple formatting and conversion to several popular formats using the GNU <samp><span class="command">makeinfo</span></samp>. A Texinfo <a href="http://www.gnu.org/software/texinfo">manual</a> is available.
+
+<p>API is documented inline to C and C++ source files, usually headers using Doxygen comment-formatting. Doxygen is then used to post-process these files and generate documentation in various formats. A Doxygen manual is available at it's main <a href="http://www.doxygen.org">site</a> .
+
+<p>The project's goal is to document as thoroughly as possible the public API in MP4v2. Since we never have enough time to document everything, we try to set some priorities in this regard. Generally the public API is the highest priority to document. Next most important is probably underlying utility code which is shared by many developers; for example <b>libplatform</b>.
+
+<p>If you need examples of how to document C-compatible source see <samp><span class="file">include/mp4v2/mp4v2.h</span></samp> and for C++-only source
+see <samp><span class="file">libplatform/io/File.h</span></samp> .
+
+<p>The following table describes the various make targets available for building docs. Note you must first have completed the <a href="#Configure">Configure</a> step.
+
+     <dl>
+<dt>`<samp><span class="samp">make man</span></samp>'<dd>Generate man-pages for command-line utilities.
+
+     <br><dt>`<samp><span class="samp">make html</span></samp>'<dd>Generate articles in HTML format from <samp><span class="file">texi</span></samp> files.
+
+     <br><dt>`<samp><span class="samp">make txt</span></samp>'<dd>Generate articles in plaintext format from <samp><span class="file">texi</span></samp> files.
+
+     <br><dt>`<samp><span class="samp">make wiki</span></samp>'<dd>Generate articles in Google Code Wiki format from <samp><span class="file">texi</span></samp> files.
+
+     <br><dt>`<samp><span class="samp">make xml</span></samp>'<dd>Generate articles in (Texinfo) XML format from <samp><span class="file">texi</span></samp> files.
+
+     <br><dt>`<samp><span class="samp">make api</span></samp>'<dd>Generate API in HTML format from header files.
+
+     <br><dt>`<samp><span class="samp">make articles</span></samp>'<dd>Convenience; the equivalent of <samp><span class="command">make html txt wiki xml</span></samp> .
+
+     <br><dt>`<samp><span class="samp">make doc</span></samp>'<dd>Convenience; the equivalent of <samp><span class="command">make man articles api</span></samp> .
+
+</dl>
+
+<p>And finally all of the document targets have a corresponding <b>clean</b> target which cleans up generated files. Simply prefix as follows:
+
+<pre class="example">make manclean
+make htmlclean
+make txtclean
+make wikiclean
+make xmlclean
+make apiclean
+make articlesclean
+make docclean
+</pre>
+<h2 class="chapter"><a name="TOC12"></a>5 Platform Notes</h2>
+
+<p>MP4v2 builds on many unix-style platforms, also commonly referred to as posix-style systems. Building on Mac OS X, Linux, FreeBSD, Solaris, Cygwin, Windows are known to work.
+
+<p>Similar platforms should also work. Please see the following platform specific notes for instructions on commonly used options for various platforms.
+
+<h3 class="section"><a name="TOC13"></a>5.1 Mac OS X</h3>
+
+<p>Building on Mac OS X is well supported as it is used by maintainers of this project. The following are the recommended specifications for this platform; but is not necessarily the only configuration that is possible:
+
+     <ul>
+<li>Mac Intel hardware
+<li>Mac OS X 10.5.5
+<li>Xcode-3.1.2
+<li>gcc 4.0.1 (Apple Inc. build 5490)
+<li>gcc 4.2.1 (Apple Inc. build 5566)
+</ul>
+
+<blockquote>
+<b>Note:</b> It is recommended to use the platform distribution's bundled compiler for maximum C++ compatibility. If you build with a custom compiler it will likely introduce non-standard runtime requirements for your users. There are of course many valid reasons to build with unbundled compilers, but be aware that is generally unsupported and left as an exercise to the reader. 
+</blockquote>
+
+<h4 class="subsection"><a name="TOC14"></a>5.1.1 Default Binaries</h4>
+
+<p>The preferred method to produce default binaries is to run configure without any options which will compile with debug+optimize and produce static+shared libraries and dynamic executables.
+
+<pre class="example">../configure
+</pre>
+<h4 class="subsection"><a name="TOC15"></a>5.1.2 Release Binaries</h4>
+
+<p>The preferred method to produce binaries suitable for releases, (ie. which does not contain debug information) is to pass the following to configure:
+
+<pre class="example">../configure --disable-debug
+</pre>
+<h4 class="subsection"><a name="TOC16"></a>5.1.3 Developer Binaries</h4>
+
+<p>The preferred method to produce binaries suitable for development is to pass the following to configure.  Default Binaries will work, however for the best debugging experience we recommend no optimize and no static libraries.
+
+<pre class="example">../configure --disable-optimize --disable-static
+</pre>
+<h4 class="subsection"><a name="TOC17"></a>5.1.4 Universal Binaries - all architectures</h4>
+
+<p>The preferred method to produce universal binaries for all supported architectures is to pass the following option to configure. As of this writing, architectures { i386, x86_64, ppc, ppc64 } are built.
+
+<pre class="example">../configure --enable-ub
+</pre>
+<h4 class="subsection"><a name="TOC18"></a>5.1.5 Universal Binaries - selected architectures</h4>
+
+<p>The preferred method to produce universal binaries for selected architectures is to specify a comma-delimited list specifying the desired architecture identifiers. Passing the following option will produce universal binaries for architectures { i386, x86_64 }.
+
+<pre class="example">../configure --enable-ub=i386,x86_64
+</pre>
+<h3 class="section"><a name="TOC19"></a>5.2 Linux</h3>
+
+<p>Building on Linux is well supported as it is used by maintainers of this project. The following are the recommended specifications for this platform; but is not necessarily the only configuration that is possible:
+
+     <ul>
+<li>Intel 32-bit or 64-bit hardware
+<li>Fedora 9, gcc 4.3.0
+<li>gcc 3.4.0 or higher is reported to work
+</ul>
+
+<blockquote>
+<b>Note:</b> It is recommended to use the platform distribution's bundled compiler for maximum C++ compatibility. If you build with a custom compiler it will likely introduce non-standard runtime requirements for your users. There are of course many valid reasons to build with unbundled compilers, but be aware that is generally unsupported and left as an exercise to the reader. 
+</blockquote>
+
+<h4 class="subsection"><a name="TOC20"></a>5.2.1 Default Binaries</h4>
+
+<p>The preferred method to produce default binaries is to run configure without any options which will compile with debug+optimize and produce static+shared libraries and dynamic executables.
+
+<pre class="example">../configure
+</pre>
+<h4 class="subsection"><a name="TOC21"></a>5.2.2 Release Binaries</h4>
+
+<p>The preferred method to produce binaries suitable for releases, (ie. which does not contain debug information) is to pass the following to configure:
+
+<pre class="example">../configure --disable-debug
+</pre>
+<h4 class="subsection"><a name="TOC22"></a>5.2.3 Developer Binaries</h4>
+
+<p>The preferred method to produce binaries suitable for development is to pass the following to configure.  Default Binaries will work, however for the best debugging experience we recommend no optimize and no static libraries.
+
+<pre class="example">../configure --disable-optimize --disable-static
+</pre>
+<h4 class="subsection"><a name="TOC23"></a>5.2.4 Bi-arch compilation</h4>
+
+<p>The preferred method to produce a bi-arch binary is to specify the target (eg. 32-bit) with the following option to configure. This example will produce a 32-bit binary if compiling on a platform which defaults to producing 64-bit binaries. The inverse is also possible.
+
+<pre class="example">../configure --enable-bi=32
+</pre>
+<blockquote>
+<b>Warning:</b> Currently bi-arch cross-compilation is not supported due to a bug with libtool which fails miserably during linking. 
+</blockquote>
+
+<h3 class="section"><a name="TOC24"></a>5.3 FreeBSD</h3>
+
+<p>Building on FreeBSD is supported. The following are the recommended specifications for this platform; but is not necessarily the only configuration that is possible:
+
+     <ul>
+<li>Intel 32-bit or 64-bit hardware
+<li>FreeBSD 7.0 Release, gcc 4.2.1
+<li>gcc 3.4.0 or higher is reported to work
+</ul>
+
+<blockquote>
+<b>Note:</b> It is recommended to use the platform distribution's bundled compiler for maximum C++ compatibility. If you build with a custom compiler it will likely introduce non-standard runtime requirements for your users. There are of course many valid reasons to build with unbundled compilers, but be aware that is generally unsupported and left as an exercise to the reader. 
+</blockquote>
+
+<h4 class="subsection"><a name="TOC25"></a>5.3.1 Default Binaries</h4>
+
+<p>The preferred method to produce default binaries is to run configure without any options which will compile with debug+optimize and produce static+shared libraries and dynamic executables.
+
+<pre class="example">../configure
+</pre>
+<h4 class="subsection"><a name="TOC26"></a>5.3.2 Release Binaries</h4>
+
+<p>The preferred method to produce binaries suitable for releases, (ie. which does not contain debug information) is to pass the following to configure:
+
+<pre class="example">../configure --disable-debug
+</pre>
+<h4 class="subsection"><a name="TOC27"></a>5.3.3 Developer Binaries</h4>
+
+<p>The preferred method to produce binaries suitable for development is to pass the following to configure.  Default Binaries will work, however for the best debugging experience we recommend no optimize and no static libraries.
+
+<pre class="example">../configure --disable-optimize --disable-static
+</pre>
+<h4 class="subsection"><a name="TOC28"></a>5.3.4 Bi-arch compilation</h4>
+
+<p>The preferred method to produce a bi-arch binary is to specify the target (eg. 32-bit) with the following option to configure. This example will produce a 32-bit binary if compiling on a platform which defaults to producing 64-bit binaries. The inverse is also possible.
+
+<pre class="example">../configure --enable-bi=32
+</pre>
+<blockquote>
+<b>Warning:</b> Currently bi-arch cross-compilation is not supported due to a bug with libtool which fails miserably during linking. 
+</blockquote>
+
+<h3 class="section"><a name="TOC29"></a>5.4 Solaris</h3>
+
+<p>Building on Solaris is supported. The following are the recommended specifications for this platform; but is not necessarily the only configuration that is possible:
+
+     <ul>
+<li>Intel 32-bit or 64-bit hardware
+<li>Solaris 10u6, gcc 3.4.3
+<li>gcc 3.4.0 or higher is reported to work
+</ul>
+
+<blockquote>
+<b>Note:</b> It is recommended to use the platform distribution's bundled compiler for maximum C++ compatibility. If you build with a custom compiler it will likely introduce non-standard runtime requirements for your users. There are of course many valid reasons to build with unbundled compilers, but be aware that is generally unsupported and left as an exercise to the reader. 
+</blockquote>
+<blockquote>
+<b>Note:</b> Solaris' does not (yet) really bundle a compiler. The recommendation is to use the companion-disk compiler for maximum C++ runtime compatibility. It is usually found in <samp><span class="file">/usr/sfw/bin</span></samp>. 
+</blockquote>
+
+<h4 class="subsection"><a name="TOC30"></a>5.4.1 Default Binaries</h4>
+
+<p>The preferred method to produce default binaries is to run configure without any options which will compile with debug+optimize and produce static+shared libraries and dynamic executables.
+
+<pre class="example">../configure
+</pre>
+<h4 class="subsection"><a name="TOC31"></a>5.4.2 Release Binaries</h4>
+
+<p>The preferred method to produce binaries suitable for releases, (ie. which does not contain debug information) is to pass the following to configure:
+
+<pre class="example">../configure --disable-debug
+</pre>
+<h4 class="subsection"><a name="TOC32"></a>5.4.3 Developer Binaries</h4>
+
+<p>The preferred method to produce binaries suitable for development is to pass the following to configure.  Default Binaries will work, however for the best debugging experience we recommend no optimize and no static libraries.
+
+<pre class="example">../configure --disable-optimize --disable-static
+</pre>
+<h4 class="subsection"><a name="TOC33"></a>5.4.4 Bi-arch compilation</h4>
+
+<p>The preferred method to produce a bi-arch binary is to specify the target (eg. 32-bit) with the following option to configure. This example will produce a 32-bit binary if compiling on a platform which defaults to producing 64-bit binaries. The inverse is also possible.
+
+<pre class="example">../configure --enable-bi=32
+</pre>
+<blockquote>
+<b>Warning:</b> Currently bi-arch cross-compilation is not supported due to a bug with libtool which fails miserably during linking. 
+</blockquote>
+
+<h3 class="section"><a name="TOC34"></a>5.5 Cygwin</h3>
+
+<p>Building on Cygwin is supported. The following are the recommended specifications for this platform; but is not necessarily the only configuration that is possible:
+
+     <ul>
+<li>Intel 32-bit or 64-bit hardware
+<li>Cygwin, gcc 4.3.2
+<li>gcc 3.4.0 or higher is reported to work
+</ul>
+
+<blockquote>
+<b>Note:</b> As of this writing, Cygwin has available to it several versions of gcc; only one of which may be found and used in the path as <code>gcc</code> and <code>g++</code>. Configure will thus find what is probably the older more stable version of gcc in a typical Cygwin environment. If you desire to build with the newer gcc, it is found in the path as <code>gcc-4</code> and <code>g++-4</code> respectively and you must indicate to configure the desired versions. Defining the following variables beforing running configure should do the trick:
+</blockquote>
+
+<pre class="example">setenv CC gcc-4
+setenv CXX gcc-4
+../configure
+</pre>
+<h4 class="subsection"><a name="TOC35"></a>5.5.1 Default Binaries</h4>
+
+<p>The preferred method to produce default binaries is to run configure without any options which will compile with debug+optimize and produce static+shared libraries and dynamic executables.
+
+<pre class="example">../configure
+</pre>
+<h4 class="subsection"><a name="TOC36"></a>5.5.2 Release Binaries</h4>
+
+<p>The preferred method to produce binaries suitable for releases, (ie. which does not contain debug information) is to pass the following to configure:
+
+<pre class="example">../configure --disable-debug
+</pre>
+<h4 class="subsection"><a name="TOC37"></a>5.5.3 Developer Binaries</h4>
+
+<p>The preferred method to produce binaries suitable for development is to pass the following to configure.  Default Binaries will work, however for the best debugging experience we recommend no optimize and no static libraries.
+
+<pre class="example">../configure --disable-optimize --disable-static
+</pre>
+<h3 class="section"><a name="TOC38"></a>5.6 Windows</h3>
+
+<p>Native builds on Windows is supported via Microsoft's Visual Studio package. Both the commercial version and free version (express) are known to work. The following are the recommended specifications for this platform; but is not necessarily the only configuration that is possible:
+
+     <ul>
+<li>Intel 32-bit or 64-bit hardware
+<li>Windows 2000 or higher, Visual Studio 9.0 (aka. Visual Studio 2008)
+<li>Visual Studio 9.0 Express is reported to work
+</ul>
+
+<p>Only 32-bit binaries are targeted, and win32-API is set to Windows 2000 or higher. Older versions of Windows, or win32-API are not supported.
+
+<p>MP4v2 has directory <samp><span class="file">vstudio9.0/</span></samp> which contains the necessary solution+project files to produce a basic build of libmp4v2's DLL and several command-line executables. Enabling things such as debugging, optimization, etc, are all left as an exercise to the user.
+
+<blockquote>
+<b>Warning:</b> Project meta-data is stored in header <samp><span class="file">project.h</span></samp>. A proper source distribution is built using autotools and generates <samp><span class="file">TOP/include/mp4v2/project.h</span></samp> correctly, which is then bundled with our source distribution. This is adequate for building on the Windows platform.
+
+     <p>However, if you are building from the repository, be warned that there is no method to automatically generate <samp><span class="file">project.h</span></samp>. Instead, we periodically checkin a copy of this file as <samp><span class="file">vstudio9.0/include/mp4v2/project.h</span></samp> which may from time to time get out of date. If it is significantly out of date, you should find the latest source distribution and copy the <samp><span class="file">project.h</span></samp> from there. 
+</blockquote>
+
+</body></html>
+

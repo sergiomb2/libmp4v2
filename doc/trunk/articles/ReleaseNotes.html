@@ -1,0 +1,99 @@
+<html lang="en">
+<head>
+<title>Untitled</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="Untitled">
+<meta name="generator" content="makeinfo 4.8">
+<link title="Top" rel="top" href="#Top">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<h2 class="majorheading"><a name="TOC0"></a>MP4v2 2.0-r104 Release Notes</h2>
+
+<blockquote>
+<b>Warning:</b> This is a <b>developer</b> release which includes all the normal pieces of a stable release but is considered <b>unstable</b>. 
+The purpose of a developer release is to make available to MP4v2 developers features which require collaborative testing. 
+</blockquote>
+
+<div class="contents">
+<h2>Table of Contents</h2>
+<ul>
+<li><a name="toc_TOC1" href="#TOC1">1 What's New?</a>
+<li><a name="toc_TOC2" href="#TOC2">2 Breaking Changes</a>
+<ul>
+<li><a href="#TOC3">2.1 Top-level header file</a>
+<li><a href="#TOC4">2.2 Command-line utilities</a>
+</li></ul>
+<li><a name="toc_TOC5" href="#TOC5">Appendix A SCM repository details</a>
+<li><a name="toc_TOC6" href="#TOC6">Appendix B Changelog</a>
+<ul>
+<li><a href="#TOC7">B.1 Version 2.0</a>
+<li><a href="#TOC8">B.2 Version 1.6</a>
+</li></ul>
+</li></ul>
+</div>
+
+<h2 class="chapter"><a name="TOC1"></a>1 What's New?</h2>
+
+<p>Welcome! This is the inaugural release of MP4v2.
+
+<p>This project's goal is to continue development of a C-library named <samp><span class="file">libmp4v2</span></samp> which was once a part of the (now defunct) MPEG4IP project. That library, and some related command-line utilities were branched from MPEG4IP version 1.6.1 to seed this project, MP4v2.
+
+<h2 class="chapter"><a name="TOC2"></a>2 Breaking Changes</h2>
+
+<h3 class="section"><a name="TOC3"></a>2.1 Top-level header file</h3>
+
+<p>This release is <b>nearly</b> 100% API compatible with MPEG4IP, however there are some differences. There single change code using this library <b>must</b> make is to include the top-level public header file as follows. <b>This is the only supported mechanism to include the library</b>. We do not support attempts to any sub-level header files; such files are private implementation details and their naming must not be relied upon.
+
+<pre class="example">#include &lt;mp4v2/mp4v2.h&gt;
+</pre>
+<h3 class="section"><a name="TOC4"></a>2.2 Command-line utilities</h3>
+
+<p>The command-line utilities have been totally rewritten and enhanced. Help usage has been made more consistent and enhanced, please invoke the appropriate utility in this fashion for more details:
+
+<pre class="example"><i>command</i> --help
+</pre>
+<h2 class="appendix"><a name="TOC5"></a>Appendix A SCM repository details</h2>
+
+<pre class="example">url:  https://mp4v2.googlecode.com/svn/trunk
+root: https://mp4v2.googlecode.com/svn
+uuid: 6e6572fa-98a6-11dd-ad9f-f77439c74b79
+rev:  104
+date: 2008-11-29 03:19:12 -0500 (Sat, 29 Nov 2008)
+type: developer
+</pre>
+<h2 class="appendix"><a name="TOC6"></a>Appendix B Changelog</h2>
+
+<h3 class="appendixsec"><a name="TOC7"></a>B.1 Version 2.0</h3>
+
+     <ol type=1 start=1>
+<li>Renamed public API top-level header to <code>&lt;mp4v2/mp4v2.h&gt;</code> and added namespaces for implementation (private) symbols. Only public API symbols are exported for dynamic (shared) or DLL libraries. All other symbols are now private, notwithstanding static-library usage.
+
+     <li>Added initial AC3 support.
+
+     <li>Added QuickTime and Nero chapter support. 
+<br> Contributed by Ullrich Pollähne &lt;u.pollaehne@gmail.com&gt;.
+
+     <li>Added native Windows port. The port targets <code>WINVER 0x0500</code> which is Windows 2000 or higher.
+     </ol>
+
+<h3 class="appendixsec"><a name="TOC8"></a>B.2 Version 1.6</h3>
+
+     <ol type=1 start=1>
+<li>Branched libmp4v2 module from mpeg4ip project version 1.6.1.
+     </ol>
+
+</body></html>
+
