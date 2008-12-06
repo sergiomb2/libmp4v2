@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <title>MP4v2 2.0-r104 PROJECT_name: include/mp4v2/file.h Source File</title>
+    <title>MP4v2 2.0-r128 PROJECT_name: include/mp4v2/file.h Source File</title>
     <link href="project.css" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -27,6 +27,7 @@
       <li><a href="index.html"><span>Main&nbsp;Page</span></a></li>
       <li><a href="pages.html"><span>Related&nbsp;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
     </ul>
@@ -59,79 +60,79 @@
 <a name="l00033"></a>00033 <span class="preprocessor"></span>
 <a name="l00036"></a><a class="code" href="group__mp4__file.html#gdc86739f870c6a66b19498c1f2811f7d">00036</a> <span class="preprocessor">#define MP4_CREATE_EXTENSIBLE_FORMAT 0x04</span>
 <a name="l00037"></a>00037 <span class="preprocessor"></span>
-<a name="l00045"></a>00045 MP4V2_EXPORT
-<a name="l00046"></a>00046 uint32_t <a class="code" href="group__mp4__file.html#gf34fdbadcea9621d01468820144deb50" title="Get verbosity level for diagnostic information.">MP4GetVerbosity</a>( MP4FileHandle hFile );
-<a name="l00047"></a>00047 
-<a name="l00071"></a>00071 MP4V2_EXPORT
-<a name="l00072"></a>00072 <span class="keywordtype">void</span> <a class="code" href="group__mp4__file.html#g0f5a31d71dfda457588f6d7701153b40" title="Set verbosity level for diagnostic information.">MP4SetVerbosity</a>( MP4FileHandle hFile, uint32_t verbosity );
-<a name="l00073"></a>00073 
-<a name="l00081"></a>00081 MP4V2_EXPORT
-<a name="l00082"></a>00082 <span class="keywordtype">void</span> <a class="code" href="group__mp4__file.html#g5123d9288961860eeb9100ac10927ff2" title="Close an mp4 file.">MP4Close</a>(
-<a name="l00083"></a>00083     MP4FileHandle hFile );
-<a name="l00084"></a>00084 
-<a name="l00106"></a>00106 MP4V2_EXPORT
-<a name="l00107"></a>00107 MP4FileHandle <a class="code" href="group__mp4__file.html#g2f80c3d5b23046c24caace6f574aedec" title="Create a new mp4 file.">MP4Create</a>(
-<a name="l00108"></a>00108     <span class="keyword">const</span> <span class="keywordtype">char</span>* fileName,
-<a name="l00109"></a>00109     uint32_t    verbosity DEFAULT(0),
-<a name="l00110"></a>00110     uint32_t    flags DEFAULT(0) );
-<a name="l00111"></a>00111 
-<a name="l00137"></a>00137 MP4V2_EXPORT
-<a name="l00138"></a>00138 MP4FileHandle <a class="code" href="group__mp4__file.html#ge6054b77bd7bf722eb1b147c02a0f2ad" title="Create a new mp4 file with extended options.">MP4CreateEx</a>(
-<a name="l00139"></a>00139     <span class="keyword">const</span> <span class="keywordtype">char</span>* fileName,
-<a name="l00140"></a>00140     uint32_t    verbosity DEFAULT(0),
-<a name="l00141"></a>00141     uint32_t    flags DEFAULT(0),
-<a name="l00142"></a>00142     <span class="keywordtype">int</span>         add_ftyp DEFAULT(1),
-<a name="l00143"></a>00143     <span class="keywordtype">int</span>         add_iods DEFAULT(1),
-<a name="l00144"></a>00144     <span class="keywordtype">char</span>*       majorBrand DEFAULT(0),
-<a name="l00145"></a>00145     uint32_t    minorVersion DEFAULT(0),
-<a name="l00146"></a>00146     <span class="keywordtype">char</span>**      compatibleBrands DEFAULT(0),
-<a name="l00147"></a>00147     uint32_t    compatibleBrandsCount DEFAULT(0) );
-<a name="l00148"></a>00148 
-<a name="l00170"></a>00170 MP4V2_EXPORT
-<a name="l00171"></a>00171 <span class="keywordtype">bool</span> <a class="code" href="group__mp4__file.html#g79137293b4c80a8c39368098f4e2a732" title="Dump mp4 file contents as ASCII.">MP4Dump</a>(
-<a name="l00172"></a>00172     MP4FileHandle hFile,
-<a name="l00173"></a>00173     FILE*         pDumpFile DEFAULT(NULL),
-<a name="l00174"></a>00174     <span class="keywordtype">bool</span>          dumpImplicits DEFAULT(0) );
-<a name="l00175"></a>00175 
-<a name="l00206"></a>00206 MP4V2_EXPORT
-<a name="l00207"></a>00207 <span class="keywordtype">char</span>* <a class="code" href="group__mp4__file.html#g5a77cfc76a54fbd45d4cecec0f7ff373" title="Return a textual summary of an mp4 file.">MP4FileInfo</a>(
-<a name="l00208"></a>00208     <span class="keyword">const</span> <span class="keywordtype">char</span>* fileName,
-<a name="l00209"></a>00209     MP4TrackId  trackId DEFAULT(<a class="code" href="group__mp4__general.html#g20022a4a97dd9c2031ae2a1ef6db7241" title="Constant: invalid MP4TrackId.">MP4_INVALID_TRACK_ID</a>) );
-<a name="l00210"></a>00210 
-<a name="l00241"></a>00241 MP4V2_EXPORT
-<a name="l00242"></a>00242 <span class="keywordtype">char</span>* <a class="code" href="group__mp4__file.html#g3aba729fc3d51e7cfbd50c077f95add3" title="Return a textual summary of an mp4 file.">MP4Info</a>(
-<a name="l00243"></a>00243     MP4FileHandle hFile,
-<a name="l00244"></a>00244     MP4TrackId    trackId DEFAULT(<a class="code" href="group__mp4__general.html#g20022a4a97dd9c2031ae2a1ef6db7241" title="Constant: invalid MP4TrackId.">MP4_INVALID_TRACK_ID</a>) );
-<a name="l00245"></a>00245 
-<a name="l00266"></a>00266 MP4V2_EXPORT
-<a name="l00267"></a>00267 MP4FileHandle <a class="code" href="group__mp4__file.html#gfedbb759caed3c0ef88980e51111c250" title="Modify an existing mp4 file.">MP4Modify</a>(
-<a name="l00268"></a>00268     <span class="keyword">const</span> <span class="keywordtype">char</span>* fileName,
-<a name="l00269"></a>00269     uint32_t    verbosity DEFAULT(0),
-<a name="l00270"></a>00270     uint32_t    flags DEFAULT(0) );
-<a name="l00271"></a>00271 
-<a name="l00307"></a>00307 MP4V2_EXPORT
-<a name="l00308"></a>00308 <span class="keywordtype">bool</span> <a class="code" href="group__mp4__file.html#gb86083f9d6ddb8e0c9ae7d5f4401d73f" title="Optimize the layour of an mp4 file.">MP4Optimize</a>(
-<a name="l00309"></a>00309     <span class="keyword">const</span> <span class="keywordtype">char</span>* fileName,
-<a name="l00310"></a>00310     <span class="keyword">const</span> <span class="keywordtype">char</span>* newFileName DEFAULT(NULL),
-<a name="l00311"></a>00311     uint32_t    verbosity DEFAULT(0) );
-<a name="l00312"></a>00312 
-<a name="l00330"></a>00330 MP4V2_EXPORT
-<a name="l00331"></a>00331 MP4FileHandle <a class="code" href="group__mp4__file.html#g0dd0722e4dc234ea01bf55cc9cee15c5" title="Read an existing mp4 file.">MP4Read</a>(
-<a name="l00332"></a>00332     <span class="keyword">const</span> <span class="keywordtype">char</span>* fileName,
-<a name="l00333"></a>00333     uint32_t    verbosity DEFAULT(0) );
-<a name="l00334"></a>00334 
-<a name="l00351"></a>00351 MP4V2_EXPORT
-<a name="l00352"></a>00352 MP4FileHandle <a class="code" href="group__mp4__file.html#gca7e366b97d6f16f9027e41cc37d8ef1" title="Read an existing mp4 file with extended options.">MP4ReadEx</a>(
-<a name="l00353"></a>00353     <span class="keyword">const</span> <span class="keywordtype">char</span>*   fileName,
-<a name="l00354"></a>00354     <span class="keywordtype">void</span>*         user,
-<a name="l00355"></a>00355     Virtual_IO_t* virtual_IO,
-<a name="l00356"></a>00356     uint32_t      verbosity DEFAULT(0) );
-<a name="l00357"></a>00357 
-<a name="l00360"></a>00360 <span class="preprocessor">#endif </span><span class="comment">/* MP4V2_FILE_H */</span>
+<a name="l00046"></a>00046 MP4V2_EXPORT
+<a name="l00047"></a>00047 uint32_t <a class="code" href="group__mp4__file.html#gf34fdbadcea9621d01468820144deb50" title="Get verbosity level for diagnostic information.">MP4GetVerbosity</a>( MP4FileHandle hFile );
+<a name="l00048"></a>00048 
+<a name="l00072"></a>00072 MP4V2_EXPORT
+<a name="l00073"></a>00073 <span class="keywordtype">void</span> <a class="code" href="group__mp4__file.html#g0f5a31d71dfda457588f6d7701153b40" title="Set verbosity level for diagnostic information.">MP4SetVerbosity</a>( MP4FileHandle hFile, uint32_t verbosity );
+<a name="l00074"></a>00074 
+<a name="l00082"></a>00082 MP4V2_EXPORT
+<a name="l00083"></a>00083 <span class="keywordtype">void</span> <a class="code" href="group__mp4__file.html#g5123d9288961860eeb9100ac10927ff2" title="Close an mp4 file.">MP4Close</a>(
+<a name="l00084"></a>00084     MP4FileHandle hFile );
+<a name="l00085"></a>00085 
+<a name="l00108"></a>00108 MP4V2_EXPORT
+<a name="l00109"></a>00109 MP4FileHandle <a class="code" href="group__mp4__file.html#g2f80c3d5b23046c24caace6f574aedec" title="Create a new mp4 file.">MP4Create</a>(
+<a name="l00110"></a>00110     <span class="keyword">const</span> <span class="keywordtype">char</span>* fileName,
+<a name="l00111"></a>00111     uint32_t    verbosity DEFAULT(0),
+<a name="l00112"></a>00112     uint32_t    flags DEFAULT(0) );
+<a name="l00113"></a>00113 
+<a name="l00140"></a>00140 MP4V2_EXPORT
+<a name="l00141"></a>00141 MP4FileHandle <a class="code" href="group__mp4__file.html#ge6054b77bd7bf722eb1b147c02a0f2ad" title="Create a new mp4 file with extended options.">MP4CreateEx</a>(
+<a name="l00142"></a>00142     <span class="keyword">const</span> <span class="keywordtype">char</span>* fileName,
+<a name="l00143"></a>00143     uint32_t    verbosity DEFAULT(0),
+<a name="l00144"></a>00144     uint32_t    flags DEFAULT(0),
+<a name="l00145"></a>00145     <span class="keywordtype">int</span>         add_ftyp DEFAULT(1),
+<a name="l00146"></a>00146     <span class="keywordtype">int</span>         add_iods DEFAULT(1),
+<a name="l00147"></a>00147     <span class="keywordtype">char</span>*       majorBrand DEFAULT(0),
+<a name="l00148"></a>00148     uint32_t    minorVersion DEFAULT(0),
+<a name="l00149"></a>00149     <span class="keywordtype">char</span>**      compatibleBrands DEFAULT(0),
+<a name="l00150"></a>00150     uint32_t    compatibleBrandsCount DEFAULT(0) );
+<a name="l00151"></a>00151 
+<a name="l00175"></a>00175 MP4V2_EXPORT
+<a name="l00176"></a>00176 <span class="keywordtype">bool</span> <a class="code" href="group__mp4__file.html#g79137293b4c80a8c39368098f4e2a732" title="Dump mp4 file contents as ASCII.">MP4Dump</a>(
+<a name="l00177"></a>00177     MP4FileHandle hFile,
+<a name="l00178"></a>00178     FILE*         pDumpFile DEFAULT(NULL),
+<a name="l00179"></a>00179     <span class="keywordtype">bool</span>          dumpImplicits DEFAULT(0) );
+<a name="l00180"></a>00180 
+<a name="l00213"></a>00213 MP4V2_EXPORT
+<a name="l00214"></a>00214 <span class="keywordtype">char</span>* <a class="code" href="group__mp4__file.html#g5a77cfc76a54fbd45d4cecec0f7ff373" title="Return a textual summary of an mp4 file.">MP4FileInfo</a>(
+<a name="l00215"></a>00215     <span class="keyword">const</span> <span class="keywordtype">char</span>* fileName,
+<a name="l00216"></a>00216     MP4TrackId  trackId DEFAULT(<a class="code" href="group__mp4__general.html#g20022a4a97dd9c2031ae2a1ef6db7241" title="Constant: invalid MP4TrackId.">MP4_INVALID_TRACK_ID</a>) );
+<a name="l00217"></a>00217 
+<a name="l00250"></a>00250 MP4V2_EXPORT
+<a name="l00251"></a>00251 <span class="keywordtype">char</span>* <a class="code" href="group__mp4__file.html#g3aba729fc3d51e7cfbd50c077f95add3" title="Return a textual summary of an mp4 file.">MP4Info</a>(
+<a name="l00252"></a>00252     MP4FileHandle hFile,
+<a name="l00253"></a>00253     MP4TrackId    trackId DEFAULT(<a class="code" href="group__mp4__general.html#g20022a4a97dd9c2031ae2a1ef6db7241" title="Constant: invalid MP4TrackId.">MP4_INVALID_TRACK_ID</a>) );
+<a name="l00254"></a>00254 
+<a name="l00276"></a>00276 MP4V2_EXPORT
+<a name="l00277"></a>00277 MP4FileHandle <a class="code" href="group__mp4__file.html#gfedbb759caed3c0ef88980e51111c250" title="Modify an existing mp4 file.">MP4Modify</a>(
+<a name="l00278"></a>00278     <span class="keyword">const</span> <span class="keywordtype">char</span>* fileName,
+<a name="l00279"></a>00279     uint32_t    verbosity DEFAULT(0),
+<a name="l00280"></a>00280     uint32_t    flags DEFAULT(0) );
+<a name="l00281"></a>00281 
+<a name="l00318"></a>00318 MP4V2_EXPORT
+<a name="l00319"></a>00319 <span class="keywordtype">bool</span> <a class="code" href="group__mp4__file.html#gb86083f9d6ddb8e0c9ae7d5f4401d73f" title="Optimize the layout of an mp4 file.">MP4Optimize</a>(
+<a name="l00320"></a>00320     <span class="keyword">const</span> <span class="keywordtype">char</span>* fileName,
+<a name="l00321"></a>00321     <span class="keyword">const</span> <span class="keywordtype">char</span>* newFileName DEFAULT(NULL),
+<a name="l00322"></a>00322     uint32_t    verbosity DEFAULT(0) );
+<a name="l00323"></a>00323 
+<a name="l00342"></a>00342 MP4V2_EXPORT
+<a name="l00343"></a>00343 MP4FileHandle <a class="code" href="group__mp4__file.html#g0dd0722e4dc234ea01bf55cc9cee15c5" title="Read an existing mp4 file.">MP4Read</a>(
+<a name="l00344"></a>00344     <span class="keyword">const</span> <span class="keywordtype">char</span>* fileName,
+<a name="l00345"></a>00345     uint32_t    verbosity DEFAULT(0) );
+<a name="l00346"></a>00346 
+<a name="l00364"></a>00364 MP4V2_EXPORT
+<a name="l00365"></a>00365 MP4FileHandle <a class="code" href="group__mp4__file.html#gca7e366b97d6f16f9027e41cc37d8ef1" title="Read an existing mp4 file with extended options.">MP4ReadEx</a>(
+<a name="l00366"></a>00366     <span class="keyword">const</span> <span class="keywordtype">char</span>*   fileName,
+<a name="l00367"></a>00367     <span class="keywordtype">void</span>*         user,
+<a name="l00368"></a>00368     Virtual_IO_t* virtual_IO,
+<a name="l00369"></a>00369     uint32_t      verbosity DEFAULT(0) );
+<a name="l00370"></a>00370 
+<a name="l00373"></a>00373 <span class="preprocessor">#endif </span><span class="comment">/* MP4V2_FILE_H */</span>
 </pre></div></div>
 <div class="footer">
     <div>
-        generated on Sat Nov 29 03:21:11 2008 for <b>MP4v2 (2.0-r104)</b>
+        generated on Sat Dec 6 14:22:29 2008 for <b>MP4v2 (2.0-r128)</b>
         by&nbsp;<a href="http://www.doxygen.org">Doxygen</a> 1.5.7.1-20081103
     </div>
 </div>

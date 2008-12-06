@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <title>MP4v2 2.0-r104 Building the Source</title>
+    <title>MP4v2 2.0-r128 Building the Source</title>
     <link href="project.css" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -23,7 +23,7 @@
     </div>
 </div>
 <div id="content">
-<h2 class="majorheading"><a name="TOC0"></a>MP4v2 2.0-r104 Building the Source</h2>
+<h2 class="majorheading"><a name="TOC0"></a>MP4v2 2.0-r128 Building the Source</h2>
 
 <div class="contents">
 <h2>Table of Contents</h2>
@@ -94,8 +94,8 @@
 
 <p>This chapter is for the impatient or those just looking for a quick summary of all the commands used in a typical build. You may skip this summary and jump to <a href="#Build-Process">Build Process</a>.
 
-<pre class="example">tar xf mp4v2-2.0-r104.tar.bz2
-cd mp4v2-2.0-r104/
+<pre class="example">tar xf mp4v2-2.0-r128.tar.bz2
+cd mp4v2-2.0-r128/
 rm -fr build/
 mkdir build/
 cd build/
@@ -112,20 +112,20 @@ make install-man
 
 <p>Extract sources from a source-distribution bundle. Releases are available from <a href="http://code.google.com/p/mp4v2">http://code.google.com/p/mp4v2</a> in the <a href="http://code.google.com/p/mp4v2/downloads/list">downloads</a> section.
 
-<pre class="example">tar xf mp4v2-2.0-r104.tar.bz2
-cd mp4v2-2.0-r104/
+<pre class="example">tar xf mp4v2-2.0-r128.tar.bz2
+cd mp4v2-2.0-r128/
 </pre>
 <p>Older versions of <code>tar</code> may not automatically uncompress the bundle, so you might have to either enter additional flags manually, or first decompress the bundle before extracting. Some possible command variations for uncompressing a <samp><span class="file">bz2</span></samp> file:
 
-<pre class="example">tar xjf mp4v2-2.0-r104.tar.bz2
-bunzip2 -c mp4v2-2.0-r104.tar.bz2 | tar xf -
-bzcat mp4v2-2.0-r104.tar.bz2 | tar xf -
+<pre class="example">tar xjf mp4v2-2.0-r128.tar.bz2
+bunzip2 -c mp4v2-2.0-r128.tar.bz2 | tar xf -
+bzcat mp4v2-2.0-r128.tar.bz2 | tar xf -
 </pre>
 <p>And for a <samp><span class="file">gz</span></samp> file:
 
-<pre class="example">tar xzf mp4v2-2.0-r104.tar.gz
-gunzip -c mp4v2-2.0-r104.tar.gz | tar xf -
-gzcat mp4v2-2.0-r104.tar.gz | tar xf -
+<pre class="example">tar xzf mp4v2-2.0-r128.tar.gz
+gunzip -c mp4v2-2.0-r128.tar.gz | tar xf -
+gzcat mp4v2-2.0-r128.tar.gz | tar xf -
 </pre>
 <p><a name="Configure"></a>
 
@@ -138,12 +138,12 @@ mkdir build/
 cd build/
 ../configure
 </pre>
-<p>Please see <samp><span class="file">INSTALL</span></samp> for details on configure usage, and standard options. Additionally, the following options are have been added to <samp><span class="file">configure</span></samp> for use when building MP4v2:
+<p>Please see <samp><span class="file">INSTALL</span></samp> for details on configure usage, and standard options. Additionally, the following custom options have been added to <samp><span class="file">configure</span></samp>:
 
      <dl>
-<dt>`<samp><span class="samp">--disable-optimize</span></samp>'<dd>Do not optimize. Do not direct compiler to optimize code. By default compiler optimization is enabled if the platform supports it.
+<dt>`<samp><span class="samp">--disable-debug</span></samp>'<dd>Do not generate debug information.  Do not direct compiler to generate debugging information. By default the compiler will generate debug information if the platform supports it.
 
-     <br><dt>`<samp><span class="samp">--disable-debug</span></samp>'<dd>Do not generate debug information.  Do not direct compiler to generate debugging information. By default the compiler will generate debug information if the platform supports it.
+     <br><dt>`<samp><span class="samp">--disable-optimize</span></samp>'<dd>Do not optimize. Do not direct compiler to optimize code. By default compiler optimization is enabled if the platform supports it.
 
      <br><dt>`<samp><span class="samp">--disable-fvisibility</span></samp>'<dd>Do not set default ELF symbol visibility. By default configure attempts to detect if the compiler supports this feature. However on some platforms detecting incompatibilty of this feature might not be accurate in which case this option should be given.
 
@@ -154,6 +154,8 @@ cd build/
      <br><dt>`<samp><span class="samp">--enable-bi=ARCH</span></samp>'<dd>On bi-arch capable platforms it is possible to generate 32 or 64 bit code. This is supported by adding arguments `<samp><span class="samp">-m32</span></samp>' or `<samp><span class="samp">-m64</span></samp>', respectively, when compiling or linking. Use this option to override the platform-specific default.
 
      <br><dt>`<samp><span class="samp">--enable-ub[=ARCHS]</span></samp>'<dd>On OSX systems it is possible to generate universal binaries. This is supported by adding one or more argument patterns `<samp><span class="samp">-arch ARCH</span></samp>' when compiling or linking. Use this option to either target an architecture different from the platform default, or to produce universal binaries.
+
+     <br><dt>`<samp><span class="samp">--enable-dependency-tracking</span></samp>'<dd>Enable automatic dependency tracking for include-files. By default this feature is disabled.
 
 </dl>
 
@@ -415,7 +417,7 @@ setenv CXX gcc-4
 </div>
 <div id="footer">
     <div>
-        generated on Sat Nov 29 03:20:39 EST 2008 for <b>MP4v2 (2.0-r104)</b>
+        generated on Sat Dec  6 14:22:25 EST 2008 for <b>MP4v2 (2.0-r128)</b>
     </div>
 </div>
 </body>

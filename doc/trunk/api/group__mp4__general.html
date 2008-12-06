@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <title>MP4v2 2.0-r104 PROJECT_name: MP4v2 General</title>
+    <title>MP4v2 2.0-r128 PROJECT_name: MP4v2 General</title>
     <link href="project.css" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -27,6 +27,7 @@
       <li><a href="index.html"><span>Main&nbsp;Page</span></a></li>
       <li><a href="pages.html"><span>Related&nbsp;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
     </ul>
@@ -554,9 +555,9 @@ typedef void(*&nbsp;</td><td class="memItemRight" valign="bottom"><b>error_msg_f
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g867d543976849ba04ca366386c7a8cba"></a><!-- doxytag: member="mp4_general::lib_message_func_t" ref="g867d543976849ba04ca366386c7a8cba" args=")(int loglevel, const char *lib, const char *fmt,...)" -->
 typedef void(*&nbsp;</td><td class="memItemRight" valign="bottom"><b>lib_message_func_t</b> )(int loglevel, const char *lib, const char *fmt,...)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="geed625a43f5c3bd48a4ab48ada133fea"></a><!-- doxytag: member="mp4_general::encryptFunc_t" ref="geed625a43f5c3bd48a4ab48ada133fea" args=")(uint32_t, uint32_t, uint8_t *, uint32_t *, uint8_t **)" -->
-typedef uint32_t(*&nbsp;</td><td class="memItemRight" valign="bottom"><b>encryptFunc_t</b> )(uint32_t, uint32_t, uint8_t *, uint32_t *, uint8_t **)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">typedef uint32_t(*&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__general.html#geed625a43f5c3bd48a4ab48ada133fea">encryptFunc_t</a> )(uint32_t, uint32_t, uint8_t *, uint32_t *, uint8_t **)</td></tr>
 
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Encryption function pointer.  <a href="#geed625a43f5c3bd48a4ab48ada133fea"></a><br></td></tr>
 <tr><td colspan="2"><br><h2>Functions</h2></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g7442754e8d4a405a09cc0504f1e21544"></a><!-- doxytag: member="mp4_general::MP4Make3GPCompliant" ref="g7442754e8d4a405a09cc0504f1e21544" args="(const char *fileName, uint32_t verbosity=0, char *majorBrand=0, uint32_t minorVersion=0, char **supportedBrands=NULL, uint32_t supportedBrandsCount=0, bool deleteIodsAtom=true)" -->
 bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4Make3GPCompliant</b> (const char *fileName, uint32_t verbosity=0, char *majorBrand=0, uint32_t minorVersion=0, char **supportedBrands=NULL, uint32_t supportedBrandsCount=0, bool deleteIodsAtom=true)</td></tr>
@@ -607,12 +608,12 @@ uint64_t&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4ConvertFromTra
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g129df3e1cdedbd90df9d18a370769e31"></a><!-- doxytag: member="mp4_general::MP4ConvertToTrackTimestamp" ref="g129df3e1cdedbd90df9d18a370769e31" args="(MP4FileHandle hFile, MP4TrackId trackId, uint64_t timeStamp, uint32_t timeScale)" -->
 MP4Timestamp&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4ConvertToTrackTimestamp</b> (MP4FileHandle hFile, MP4TrackId trackId, uint64_t timeStamp, uint32_t timeScale)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g59a4feaf9ca9657a984dd8e4a52a157b"></a><!-- doxytag: member="mp4_general::MP4ConvertFromTrackDuration" ref="g59a4feaf9ca9657a984dd8e4a52a157b" args="(MP4FileHandle hFile, MP4TrackId trackId, MP4Duration duration, uint32_t timeScale)" -->
-uint64_t&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4ConvertFromTrackDuration</b> (MP4FileHandle hFile, MP4TrackId trackId, MP4Duration duration, uint32_t timeScale)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">uint64_t&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__general.html#g59a4feaf9ca9657a984dd8e4a52a157b">MP4ConvertFromTrackDuration</a> (MP4FileHandle hFile, MP4TrackId trackId, MP4Duration duration, uint32_t timeScale)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="ge96d0d031047bef95639863aeb295d7b"></a><!-- doxytag: member="mp4_general::MP4ConvertToTrackDuration" ref="ge96d0d031047bef95639863aeb295d7b" args="(MP4FileHandle hFile, MP4TrackId trackId, uint64_t duration, uint32_t timeScale)" -->
-MP4Duration&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4ConvertToTrackDuration</b> (MP4FileHandle hFile, MP4TrackId trackId, uint64_t duration, uint32_t timeScale)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Convert duration from track time scale to an arbitrary time scale.  <a href="#g59a4feaf9ca9657a984dd8e4a52a157b"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">MP4Duration&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__general.html#ge96d0d031047bef95639863aeb295d7b">MP4ConvertToTrackDuration</a> (MP4FileHandle hFile, MP4TrackId trackId, uint64_t duration, uint32_t timeScale)</td></tr>
 
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Convert duration from arbitrary time scale to track time scale.  <a href="#ge96d0d031047bef95639863aeb295d7b"></a><br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="ge00d0ef57e60852881c2aa4b6bcdebe7"></a><!-- doxytag: member="mp4_general::MP4BinaryToBase16" ref="ge00d0ef57e60852881c2aa4b6bcdebe7" args="(const uint8_t *pData, uint32_t dataSize)" -->
 char *&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4BinaryToBase16</b> (const uint8_t *pData, uint32_t dataSize)</td></tr>
 
@@ -848,6 +849,26 @@ Constant: invalid MP4TrackId.
 </pre></div>
 </div>
 </div><p>
+<hr><h2>Typedef Documentation</h2>
+<a class="anchor" name="geed625a43f5c3bd48a4ab48ada133fea"></a><!-- doxytag: member="general.h::encryptFunc_t" ref="geed625a43f5c3bd48a4ab48ada133fea" args=")(uint32_t, uint32_t, uint8_t *, uint32_t *, uint8_t **)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef uint32_t(* <a class="el" href="group__mp4__general.html#geed625a43f5c3bd48a4ab48ada133fea">encryptFunc_t</a>)(uint32_t, uint32_t, uint8_t *, uint32_t *, uint8_t **)          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Encryption function pointer. 
+<p>
+<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="group__mp4__sample.html#gecf2598c6229e8c87cfced3ea1ef8b04" title="Make a copy of a sample.">MP4EncAndCopySample()</a>. <p>
+MP4EncAndCopyTrack(). </dd></dl>
+
+</div>
+</div><p>
 <hr><h2>Function Documentation</h2>
 <a class="anchor" name="g674e8110b8c4b7606969d252e8465a76"></a><!-- doxytag: member="general.h::MP4AddTrackEdit" ref="g674e8110b8c4b7606969d252e8465a76" args="(MP4FileHandle hFile, MP4TrackId trackId, MP4EditId editId=((MP4EditId) 0), MP4Timestamp startTime=0, MP4Duration duration=0, bool dwell=false)" -->
 <div class="memitem">
@@ -907,6 +928,115 @@ Constant: invalid MP4EditId. </td></tr>
 </dl>
 </div>
 </div><p>
+<a class="anchor" name="g59a4feaf9ca9657a984dd8e4a52a157b"></a><!-- doxytag: member="general.h::MP4ConvertFromTrackDuration" ref="g59a4feaf9ca9657a984dd8e4a52a157b" args="(MP4FileHandle hFile, MP4TrackId trackId, MP4Duration duration, uint32_t timeScale)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint64_t MP4ConvertFromTrackDuration           </td>
+          <td>(</td>
+          <td class="paramtype">MP4FileHandle&nbsp;</td>
+          <td class="paramname"> <em>hFile</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MP4TrackId&nbsp;</td>
+          <td class="paramname"> <em>trackId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MP4Duration&nbsp;</td>
+          <td class="paramname"> <em>duration</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&nbsp;</td>
+          <td class="paramname"> <em>timeScale</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Convert duration from track time scale to an arbitrary time scale. 
+<p>
+MP4ConvertFromTrackDuration converts a duration such as a sample duration from the track time scale to another time scale. This can be used by a player application to map all track samples to a common time scale.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>hFile</em>&nbsp;</td><td>handle of file for operation. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>trackId</em>&nbsp;</td><td>id of track for operation. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>duration</em>&nbsp;</td><td>value to be converted. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>timeScale</em>&nbsp;</td><td>time scale in ticks per second.</td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>Returns:</b></dt><dd>On success, the duration in arbitrary time scale units. On error, <b>0</b>.</dd></dl>
+<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="group__mp4__sample.html#g24ccf30492a095bace79d36bd39827ef" title="Get the duration of a track sample.">MP4GetSampleDuration()</a>. <p>
+<a class="el" href="group__mp4__general.html#ge96d0d031047bef95639863aeb295d7b" title="Convert duration from arbitrary time scale to track time scale.">MP4ConvertToTrackDuration()</a>. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="ge96d0d031047bef95639863aeb295d7b"></a><!-- doxytag: member="general.h::MP4ConvertToTrackDuration" ref="ge96d0d031047bef95639863aeb295d7b" args="(MP4FileHandle hFile, MP4TrackId trackId, uint64_t duration, uint32_t timeScale)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">MP4Duration MP4ConvertToTrackDuration           </td>
+          <td>(</td>
+          <td class="paramtype">MP4FileHandle&nbsp;</td>
+          <td class="paramname"> <em>hFile</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MP4TrackId&nbsp;</td>
+          <td class="paramname"> <em>trackId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t&nbsp;</td>
+          <td class="paramname"> <em>duration</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&nbsp;</td>
+          <td class="paramname"> <em>timeScale</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Convert duration from arbitrary time scale to track time scale. 
+<p>
+MP4ConvertToTrackDuration converts a duration such as a sample duration from the specified time scale to the track time scale.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>hFile</em>&nbsp;</td><td>handle of file for operation. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>trackId</em>&nbsp;</td><td>id of track for operation. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>duration</em>&nbsp;</td><td>value to be converted. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>timeScale</em>&nbsp;</td><td>time scale in ticks per second.</td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>Returns:</b></dt><dd>On success, the duration in track time scale units. On error, <a class="el" href="group__mp4__general.html#g2a4f35efc02ce66d8a393696371546fc" title="Constant: invalid MP4Duration.">MP4_INVALID_DURATION</a>.</dd></dl>
+<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="group__mp4__general.html#g59a4feaf9ca9657a984dd8e4a52a157b" title="Convert duration from track time scale to an arbitrary time scale.">MP4ConvertFromTrackDuration()</a>. </dd></dl>
+
+</div>
+</div><p>
 <a class="anchor" name="gcddf077bbd340988f0bebee7fc99e948"></a><!-- doxytag: member="general.h::MP4GetTrackEditTotalDuration" ref="gcddf077bbd340988f0bebee7fc99e948" args="(MP4FileHandle hFile, MP4TrackId trackId, MP4EditId editId=((MP4EditId) 0))" -->
 <div class="memitem">
 <div class="memproto">
@@ -950,7 +1080,7 @@ Constant: invalid MP4EditId. </td></tr>
 </div>
 <div class="footer">
     <div>
-        generated on Sat Nov 29 03:21:12 2008 for <b>MP4v2 (2.0-r104)</b>
+        generated on Sat Dec 6 14:22:29 2008 for <b>MP4v2 (2.0-r128)</b>
         by&nbsp;<a href="http://www.doxygen.org">Doxygen</a> 1.5.7.1-20081103
     </div>
 </div>

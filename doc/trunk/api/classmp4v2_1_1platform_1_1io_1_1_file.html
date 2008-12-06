@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <title>MP4v2 2.0-r104 PROJECT_name: mp4v2::platform::io::File Class Reference</title>
+    <title>MP4v2 2.0-r128 PROJECT_name: mp4v2::platform::io::File Class Reference</title>
     <link href="project.css" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -27,6 +27,7 @@
       <li><a href="index.html"><span>Main&nbsp;Page</span></a></li>
       <li><a href="pages.html"><span>Related&nbsp;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
     </ul>
@@ -38,14 +39,11 @@
       <li><a href="functions.html"><span>Class&nbsp;Members</span></a></li>
     </ul>
   </div>
-  <div class="navpath"><b>mp4v2</b>::<b>platform</b>::<b>io</b>::<a class="el" href="classmp4v2_1_1platform_1_1io_1_1_file.html">File</a>
+  <div class="navpath"><b>mp4v2</b>::<a class="el" href="namespacemp4v2_1_1platform.html">platform</a>::<a class="el" href="namespacemp4v2_1_1platform_1_1io.html">io</a>::<a class="el" href="classmp4v2_1_1platform_1_1io_1_1_file.html">File</a>
   </div>
 </div>
 <div class="contents">
-<h1>mp4v2::platform::io::File Class Reference<br>
-<small>
-[<a class="el" href="group__platform__io.html">libplatform I/O</a>]</small>
-</h1><!-- doxytag: class="mp4v2::platform::io::File" -->Base file interface.  
+<h1>mp4v2::platform::io::File Class Reference</h1><!-- doxytag: class="mp4v2::platform::io::File" -->Base file interface.  
 <a href="#_details">More...</a>
 <p>
 <div class="dynheader">
@@ -107,7 +105,7 @@ const bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href
 <hr><a name="_details"></a><h2>Detailed Description</h2>
 Base file interface. 
 <p>
-<a class="el" href="classmp4v2_1_1platform_1_1io_1_1_file.html" title="Base file interface.">File</a> abstracts basic file functionality that may apply to many types of files. All files are assumed to be 64-bit files unless built on a 32-bit platform which does not support 64-bit file offsets. The interface uses a signed 64-bit value which can help with filesize math, thus limiting actual file size to 63-bits, roughly 9.22 million TB. <hr><h2>Constructor &amp; Destructor Documentation</h2>
+<a class="el" href="classmp4v2_1_1platform_1_1io_1_1_file.html" title="Base file interface.">File</a> abstracts basic file functionality that may apply to many types of files. All files are assumed to be 64-bit files unless built on a 32-bit <a class="el" href="namespacemp4v2_1_1platform.html" title="(private) Platform abstraction.">platform</a> which does not support 64-bit file offsets. The interface uses a signed 64-bit value which can help with filesize math, thus limiting actual file size to 63-bits, roughly 9.22 million TB. <hr><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" name="d3c2d399560be9e75e45fd92e36848c2"></a><!-- doxytag: member="mp4v2::platform::io::File::File" ref="d3c2d399560be9e75e45fd92e36848c2" args="(std::string name, bool owner)" -->
 <div class="memitem">
 <div class="memproto">
@@ -271,12 +269,12 @@ Get current file size in bytes.
 <p>
 Binary stream read. 
 <p>
-The function reads up to a maximum <b>size</b> bytes from file, storing them in <b>buffer</b>. The number of bytes actually read are returned in <b>nin</b>.<p>
+The function reads up to a maximum <b>size</b> bytes from file, storing them in <b>buffer</b>. The <a class="el" href="namespacemp4v2_1_1platform_1_1number.html" title="(private) Number.">number</a> of bytes actually read are returned in <b>nin</b>.<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>buffer</em>&nbsp;</td><td>storage for data read from file. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>size</em>&nbsp;</td><td>maximum number of bytes to read from file. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>nin</em>&nbsp;</td><td>output indicating number of bytes read from file. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>size</em>&nbsp;</td><td>maximum <a class="el" href="namespacemp4v2_1_1platform_1_1number.html" title="(private) Number.">number</a> of bytes to read from file. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>nin</em>&nbsp;</td><td>output indicating <a class="el" href="namespacemp4v2_1_1platform_1_1number.html" title="(private) Number.">number</a> of bytes read from file. </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>maxChunkSize</em>&nbsp;</td><td>maximum chunk size for reads issued to operating system or 0 for default.</td></tr>
   </table>
 </dl>
@@ -356,12 +354,12 @@ Set current file position in bytes.
 <p>
 Binary stream write. 
 <p>
-The function writes up to a maximum <b>size</b> bytes from <b>buffer</b> to file. The number of bytes actually written are returned in <b>nout</b>.<p>
+The function writes up to a maximum <b>size</b> bytes from <b>buffer</b> to file. The <a class="el" href="namespacemp4v2_1_1platform_1_1number.html" title="(private) Number.">number</a> of bytes actually written are returned in <b>nout</b>.<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>buffer</em>&nbsp;</td><td>data to be written out to file. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>size</em>&nbsp;</td><td>maximum number of bytes to read from file. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>nout</em>&nbsp;</td><td>output indicating number of bytes written to file. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>size</em>&nbsp;</td><td>maximum <a class="el" href="namespacemp4v2_1_1platform_1_1number.html" title="(private) Number.">number</a> of bytes to read from file. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>nout</em>&nbsp;</td><td>output indicating <a class="el" href="namespacemp4v2_1_1platform_1_1number.html" title="(private) Number.">number</a> of bytes written to file. </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>maxChunkSize</em>&nbsp;</td><td>maximum chunk size for writes issued to operating system or 0 for default.</td></tr>
   </table>
 </dl>
@@ -374,7 +372,7 @@ The function writes up to a maximum <b>size</b> bytes from <b>buffer</b> to file
 </div>
 <div class="footer">
     <div>
-        generated on Sat Nov 29 03:21:12 2008 for <b>MP4v2 (2.0-r104)</b>
+        generated on Sat Dec 6 14:22:29 2008 for <b>MP4v2 (2.0-r128)</b>
         by&nbsp;<a href="http://www.doxygen.org">Doxygen</a> 1.5.7.1-20081103
     </div>
 </div>

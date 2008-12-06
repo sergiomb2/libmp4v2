@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <title>MP4v2 2.0-r104 PROJECT_name: MP4v2 File I/O</title>
+    <title>MP4v2 2.0-r128 PROJECT_name: MP4v2 File I/O</title>
     <link href="project.css" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -27,6 +27,7 @@
       <li><a href="index.html"><span>Main&nbsp;Page</span></a></li>
       <li><a href="pages.html"><span>Related&nbsp;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
     </ul>
@@ -111,7 +112,7 @@
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Modify an existing mp4 file.  <a href="#gfedbb759caed3c0ef88980e51111c250"></a><br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__file.html#gb86083f9d6ddb8e0c9ae7d5f4401d73f">MP4Optimize</a> (const char *fileName, const char *newFileName=NULL, uint32_t verbosity=0)</td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Optimize the layour of an mp4 file.  <a href="#gb86083f9d6ddb8e0c9ae7d5f4401d73f"></a><br></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Optimize the layout of an mp4 file.  <a href="#gb86083f9d6ddb8e0c9ae7d5f4401d73f"></a><br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">MP4FileHandle&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__file.html#g0dd0722e4dc234ea01bf55cc9cee15c5">MP4Read</a> (const char *fileName, uint32_t verbosity=0)</td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Read an existing mp4 file.  <a href="#g0dd0722e4dc234ea01bf55cc9cee15c5"></a><br></td></tr>
@@ -445,7 +446,7 @@ MP4Create is the first call that should be used when you want to create a new, e
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>fileName</em>&nbsp;</td><td>pathname of the file to be created. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>verbosity</em>&nbsp;</td><td>bitmask of diagnostic details the library should print to stdout during its functioning. See <a class="el" href="group__mp4__file.html#g0f5a31d71dfda457588f6d7701153b40" title="Set verbosity level for diagnostic information.">MP4SetVerbosity()</a> for values. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>verbosity</em>&nbsp;</td><td>bitmask of diagnostic details the library should print to stdout during its functioning. </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>flags</em>&nbsp;</td><td>bitmask that allows the user to set 64-bit values for data or time atoms. Valid bits may be any combination of: <ul>
 <li><a class="el" href="group__mp4__file.html#g548b75af24607211fc865f13989feb5a" title="Bit: enable 64-bit data-atoms.">MP4_CREATE_64BIT_DATA</a> </li>
 <li><a class="el" href="group__mp4__file.html#gc5d3ff6b04ffa9a2f7ffe36196fb96f7" title="Bit: enable 64-bit time-atoms.">MP4_CREATE_64BIT_TIME</a></li>
@@ -453,7 +454,8 @@ MP4Create is the first call that should be used when you want to create a new, e
 </td></tr>
   </table>
 </dl>
-<dl class="return" compact><dt><b>Returns:</b></dt><dd>On success a handle of the newly created file for use in subsequent calls to the library. On error, <a class="el" href="group__mp4__general.html#gfa387d447016a2c4fb1bb7e70b6e3b32" title="Constant: invalid MP4FileHandle.">MP4_INVALID_FILE_HANDLE</a> is returned. </dd></dl>
+<dl class="return" compact><dt><b>Returns:</b></dt><dd>On success a handle of the newly created file for use in subsequent calls to the library. On error, <a class="el" href="group__mp4__general.html#gfa387d447016a2c4fb1bb7e70b6e3b32" title="Constant: invalid MP4FileHandle.">MP4_INVALID_FILE_HANDLE</a>.</dd></dl>
+<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="group__mp4__file.html#g0f5a31d71dfda457588f6d7701153b40" title="Set verbosity level for diagnostic information.">MP4SetVerbosity()</a> for <b>verbosity</b> values. </dd></dl>
 
 </div>
 </div><p>
@@ -531,7 +533,7 @@ MP4CreateEx is an extended version of <a class="el" href="group__mp4__file.html#
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>fileName</em>&nbsp;</td><td>pathname of the file to be created. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>verbosity</em>&nbsp;</td><td>bitmask of diagnostic details the library should print to stdout during its functioning. See <a class="el" href="group__mp4__file.html#g0f5a31d71dfda457588f6d7701153b40" title="Set verbosity level for diagnostic information.">MP4SetVerbosity()</a> for values. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>verbosity</em>&nbsp;</td><td>bitmask of diagnostic details the library should print to stdout during its functioning. </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>flags</em>&nbsp;</td><td>bitmask that allows the user to set 64-bit values for data or time atoms. Valid bits may be any combination of: <ul>
 <li><a class="el" href="group__mp4__file.html#g548b75af24607211fc865f13989feb5a" title="Bit: enable 64-bit data-atoms.">MP4_CREATE_64BIT_DATA</a> </li>
 <li><a class="el" href="group__mp4__file.html#gc5d3ff6b04ffa9a2f7ffe36196fb96f7" title="Bit: enable 64-bit time-atoms.">MP4_CREATE_64BIT_TIME</a> </li>
@@ -545,7 +547,8 @@ MP4CreateEx is an extended version of <a class="el" href="group__mp4__file.html#
     <tr><td valign="top"></td><td valign="top"><em>compatibleBrandsCount</em>&nbsp;</td><td>is the count of items specified in compatibleBrands.</td></tr>
   </table>
 </dl>
-<dl class="return" compact><dt><b>Returns:</b></dt><dd>On success a handle of the newly created file for use in subsequent calls to the library. On error, <a class="el" href="group__mp4__general.html#gfa387d447016a2c4fb1bb7e70b6e3b32" title="Constant: invalid MP4FileHandle.">MP4_INVALID_FILE_HANDLE</a> is returned. </dd></dl>
+<dl class="return" compact><dt><b>Returns:</b></dt><dd>On success a handle of the newly created file for use in subsequent calls to the library. On error, <a class="el" href="group__mp4__general.html#gfa387d447016a2c4fb1bb7e70b6e3b32" title="Constant: invalid MP4FileHandle.">MP4_INVALID_FILE_HANDLE</a>.</dd></dl>
+<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="group__mp4__file.html#g0f5a31d71dfda457588f6d7701153b40" title="Set verbosity level for diagnostic information.">MP4SetVerbosity()</a> for <b>verbosity</b> values. </dd></dl>
 
 </div>
 </div><p>
@@ -592,7 +595,8 @@ Note that <a class="el" href="group__mp4__file.html#g79137293b4c80a8c39368098f4e
     <tr><td valign="top"></td><td valign="top"><em>dumpImplicits</em>&nbsp;</td><td>prints properties which would not actually be written to the mp4 file, but still exist in mp4 control structures. ie. they are implicit given the current values of other controlling properties.</td></tr>
   </table>
 </dl>
-<dl class="return" compact><dt><b>Returns:</b></dt><dd><b>true</b> on success, <b>false</b> on failure. </dd></dl>
+<dl class="return" compact><dt><b>Returns:</b></dt><dd><b>true</b> on success, <b>false</b> on failure.</dd></dl>
+<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="group__mp4__file.html#g0f5a31d71dfda457588f6d7701153b40" title="Set verbosity level for diagnostic information.">MP4SetVerbosity()</a>. </dd></dl>
 
 </div>
 </div><p>
@@ -641,7 +645,8 @@ Track  Type   Info
     <tr><td valign="top"></td><td valign="top"><em>trackId</em>&nbsp;</td><td>specifies track to summarize. If the value is <a class="el" href="group__mp4__general.html#g20022a4a97dd9c2031ae2a1ef6db7241" title="Constant: invalid MP4TrackId.">MP4_INVALID_TRACK_ID</a>, the summary info is created for all tracks in the file.</td></tr>
   </table>
 </dl>
-<dl class="return" compact><dt><b>Returns:</b></dt><dd>On success a malloc'd string containing summary information. On failre, NULL. </dd></dl>
+<dl class="return" compact><dt><b>Returns:</b></dt><dd>On success a malloc'd string containing summary information. On failure, <b>NULL</b>.</dd></dl>
+<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="group__mp4__file.html#g3aba729fc3d51e7cfbd50c077f95add3" title="Return a textual summary of an mp4 file.">MP4Info()</a>. </dd></dl>
 
 </div>
 </div><p>
@@ -669,7 +674,8 @@ Get verbosity level for diagnostic information.
     <tr><td valign="top"></td><td valign="top"><em>hFile</em>&nbsp;</td><td>handle of file for operation.</td></tr>
   </table>
 </dl>
-<dl class="return" compact><dt><b>Returns:</b></dt><dd>bitmask of flags of diagnostic information. See <a class="el" href="group__mp4__file.html#g0f5a31d71dfda457588f6d7701153b40" title="Set verbosity level for diagnostic information.">MP4SetVerbosity()</a> for further details. </dd></dl>
+<dl class="return" compact><dt><b>Returns:</b></dt><dd>bitmask of flags of diagnostic information.</dd></dl>
+<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="group__mp4__file.html#g0f5a31d71dfda457588f6d7701153b40" title="Set verbosity level for diagnostic information.">MP4SetVerbosity()</a> for further details. </dd></dl>
 
 </div>
 </div><p>
@@ -718,7 +724,8 @@ Track  Type   Info
     <tr><td valign="top"></td><td valign="top"><em>trackId</em>&nbsp;</td><td>specifies track to summarize. If the value is <a class="el" href="group__mp4__general.html#g20022a4a97dd9c2031ae2a1ef6db7241" title="Constant: invalid MP4TrackId.">MP4_INVALID_TRACK_ID</a>, the summary info is created for all tracks in the file.</td></tr>
   </table>
 </dl>
-<dl class="return" compact><dt><b>Returns:</b></dt><dd>On success a malloc'd string containing summary information. On failre, NULL. </dd></dl>
+<dl class="return" compact><dt><b>Returns:</b></dt><dd>On success a malloc'd string containing summary information. On failure, <b>NULL</b>.</dd></dl>
+<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="group__mp4__file.html#g5a77cfc76a54fbd45d4cecec0f7ff373" title="Return a textual summary of an mp4 file.">MP4FileInfo()</a>. </dd></dl>
 
 </div>
 </div><p>
@@ -757,15 +764,16 @@ Track  Type   Info
 Modify an existing mp4 file. 
 <p>
 MP4Modify is the first call that should be used when you want to modify an existing mp4 file. It is roughly equivalent to opening a file in read/write mode.<p>
-Since modifications to an existing mp4 file can result in a sub−optimal file layout, you may want to use <a class="el" href="group__mp4__file.html#gb86083f9d6ddb8e0c9ae7d5f4401d73f" title="Optimize the layour of an mp4 file.">MP4Optimize()</a> after you have modified and closed the mp4 file.<p>
+Since modifications to an existing mp4 file can result in a sub−optimal file layout, you may want to use <a class="el" href="group__mp4__file.html#gb86083f9d6ddb8e0c9ae7d5f4401d73f" title="Optimize the layout of an mp4 file.">MP4Optimize()</a> after you have modified and closed the mp4 file.<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>fileName</em>&nbsp;</td><td>pathname of the file to be modified. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>verbosity</em>&nbsp;</td><td>bitmask of diagnostic details the library should print to stdout during its functioning. See <a class="el" href="group__mp4__file.html#g0f5a31d71dfda457588f6d7701153b40" title="Set verbosity level for diagnostic information.">MP4SetVerbosity()</a> for values. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>verbosity</em>&nbsp;</td><td>bitmask of diagnostic details the library should print to stdout during its functioning. </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>flags</em>&nbsp;</td><td>currently ignored.</td></tr>
   </table>
 </dl>
-<dl class="return" compact><dt><b>Returns:</b></dt><dd>On success a handle of the target file for use in subsequent calls to the library. On error, <a class="el" href="group__mp4__general.html#gfa387d447016a2c4fb1bb7e70b6e3b32" title="Constant: invalid MP4FileHandle.">MP4_INVALID_FILE_HANDLE</a> is returned. </dd></dl>
+<dl class="return" compact><dt><b>Returns:</b></dt><dd>On success a handle of the target file for use in subsequent calls to the library. On error, <a class="el" href="group__mp4__general.html#gfa387d447016a2c4fb1bb7e70b6e3b32" title="Constant: invalid MP4FileHandle.">MP4_INVALID_FILE_HANDLE</a>.</dd></dl>
+<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="group__mp4__file.html#g0f5a31d71dfda457588f6d7701153b40" title="Set verbosity level for diagnostic information.">MP4SetVerbosity()</a> for <b>verbosity</b> values. </dd></dl>
 
 </div>
 </div><p>
@@ -801,22 +809,23 @@ Since modifications to an existing mp4 file can result in a sub−optimal file l
 <div class="memdoc">
 
 <p>
-Optimize the layour of an mp4 file. 
+Optimize the layout of an mp4 file. 
 <p>
 MP4Optimize reads an existing mp4 file and writes a new version of the file with the two important changes:<p>
 First, the mp4 control information is moved to the beginning of the file. (Frequenty it is at the end of the file due to it being constantly modified as track samples are added to an mp4 file). This optimization is useful in that in allows the mp4 file to be HTTP streamed.<p>
 Second, the track samples are interleaved so that the samples for a particular instant in time are colocated within the file. This eliminates disk seeks during playback of the file which results in better performance.<p>
-There are also two important side effects of <a class="el" href="group__mp4__file.html#gb86083f9d6ddb8e0c9ae7d5f4401d73f" title="Optimize the layour of an mp4 file.">MP4Optimize()</a>:<p>
+There are also two important side effects of <a class="el" href="group__mp4__file.html#gb86083f9d6ddb8e0c9ae7d5f4401d73f" title="Optimize the layout of an mp4 file.">MP4Optimize()</a>:<p>
 First, any free blocks within the mp4 file are eliminated.<p>
 Second, as a side effect of the sample interleaving process any media data chunks that are not actually referenced by the mp4 control structures are deleted. This is useful if you have called MP4DeleteTrack() which only deletes the control information for a track, and not the actual media data.<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>fileName</em>&nbsp;</td><td>pathname of (existing) file to be optimized. </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>newFileName</em>&nbsp;</td><td>pathname of the new optimized file. If NULL a temporary file will be used and <b>fileName</b> will be over-written upon successful completion. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>verbosity</em>&nbsp;</td><td>bitmask of diagnostic details the library should print to stdout during its functioning. See <a class="el" href="group__mp4__file.html#g0f5a31d71dfda457588f6d7701153b40" title="Set verbosity level for diagnostic information.">MP4SetVerbosity()</a> for values.</td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>verbosity</em>&nbsp;</td><td>bitmask of diagnostic details the library should print to stdout during its functioning.</td></tr>
   </table>
 </dl>
-<dl class="return" compact><dt><b>Returns:</b></dt><dd><b>true</b> on success, <b>false</b> on failure. </dd></dl>
+<dl class="return" compact><dt><b>Returns:</b></dt><dd><b>true</b> on success, <b>false</b> on failure.</dd></dl>
+<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="group__mp4__file.html#g0f5a31d71dfda457588f6d7701153b40" title="Set verbosity level for diagnostic information.">MP4SetVerbosity()</a> for <b>verbosity</b> values. </dd></dl>
 
 </div>
 </div><p>
@@ -848,14 +857,15 @@ Second, as a side effect of the sample interleaving process any media data chunk
 <p>
 Read an existing mp4 file. 
 <p>
-MP4Read is the first call that should be used when you want to just read an existing mp4 file. It is equivalent to opening a file for reading, but in addition the mp4 file is parsed and the control information is loaded into memory. Note that actual track samples are not read into memory until MP4ReadSample() is called.<p>
+MP4Read is the first call that should be used when you want to just read an existing mp4 file. It is equivalent to opening a file for reading, but in addition the mp4 file is parsed and the control information is loaded into memory. Note that actual track samples are not read into memory until <a class="el" href="group__mp4__sample.html#g8d62988a2bc1563546b4b420d782377b" title="Read a track sample.">MP4ReadSample()</a> is called.<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>fileName</em>&nbsp;</td><td>pathname of the file to be read. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>verbosity</em>&nbsp;</td><td>bitmask of diagnostic details the library should print to stdout during its functioning. See <a class="el" href="group__mp4__file.html#g0f5a31d71dfda457588f6d7701153b40" title="Set verbosity level for diagnostic information.">MP4SetVerbosity()</a> for values.</td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>verbosity</em>&nbsp;</td><td>bitmask of diagnostic details the library should print to stdout during its functioning.</td></tr>
   </table>
 </dl>
-<dl class="return" compact><dt><b>Returns:</b></dt><dd>On success a handle of the file for use in subsequent calls to the library. On error, <a class="el" href="group__mp4__general.html#gfa387d447016a2c4fb1bb7e70b6e3b32" title="Constant: invalid MP4FileHandle.">MP4_INVALID_FILE_HANDLE</a> is returned. </dd></dl>
+<dl class="return" compact><dt><b>Returns:</b></dt><dd>On success a handle of the file for use in subsequent calls to the library. On error, <a class="el" href="group__mp4__general.html#gfa387d447016a2c4fb1bb7e70b6e3b32" title="Constant: invalid MP4FileHandle.">MP4_INVALID_FILE_HANDLE</a>.</dd></dl>
+<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="group__mp4__file.html#g0f5a31d71dfda457588f6d7701153b40" title="Set verbosity level for diagnostic information.">MP4SetVerbosity()</a> for <b>verbosity</b> values. </dd></dl>
 
 </div>
 </div><p>
@@ -905,10 +915,11 @@ MP4ReadEx is an extended version of <a class="el" href="group__mp4__file.html#g0
     <tr><td valign="top"></td><td valign="top"><em>fileName</em>&nbsp;</td><td>pathname of the file to be read. </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>user</em>&nbsp;</td><td>undocumented. </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>virtual_IO</em>&nbsp;</td><td>undocumented. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>verbosity</em>&nbsp;</td><td>bitmask of diagnostic details the library should print to stdout during its functioning. See <a class="el" href="group__mp4__file.html#g0f5a31d71dfda457588f6d7701153b40" title="Set verbosity level for diagnostic information.">MP4SetVerbosity()</a> for values.</td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>verbosity</em>&nbsp;</td><td>bitmask of diagnostic details the library should print to stdout during its functioning.</td></tr>
   </table>
 </dl>
-<dl class="return" compact><dt><b>Returns:</b></dt><dd>On success a handle of the file for use in subsequent calls to the library. On error, <a class="el" href="group__mp4__general.html#gfa387d447016a2c4fb1bb7e70b6e3b32" title="Constant: invalid MP4FileHandle.">MP4_INVALID_FILE_HANDLE</a> is returned. </dd></dl>
+<dl class="return" compact><dt><b>Returns:</b></dt><dd>On success a handle of the file for use in subsequent calls to the library. On error, <a class="el" href="group__mp4__general.html#gfa387d447016a2c4fb1bb7e70b6e3b32" title="Constant: invalid MP4FileHandle.">MP4_INVALID_FILE_HANDLE</a>.</dd></dl>
+<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="group__mp4__file.html#g0f5a31d71dfda457588f6d7701153b40" title="Set verbosity level for diagnostic information.">MP4SetVerbosity()</a> for <b>verbosity</b> values. </dd></dl>
 
 </div>
 </div><p>
@@ -960,14 +971,14 @@ MP4SetVerbosity allows control over the level of diagnostic information printed 
 </td></tr>
   </table>
 </dl>
-<dl class="return" compact><dt><b>Returns:</b></dt><dd></dd></dl>
+<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="group__mp4__file.html#gf34fdbadcea9621d01468820144deb50" title="Get verbosity level for diagnostic information.">MP4GetVerbosity()</a>. </dd></dl>
 
 </div>
 </div><p>
 </div>
 <div class="footer">
     <div>
-        generated on Sat Nov 29 03:21:12 2008 for <b>MP4v2 (2.0-r104)</b>
+        generated on Sat Dec 6 14:22:29 2008 for <b>MP4v2 (2.0-r128)</b>
         by&nbsp;<a href="http://www.doxygen.org">Doxygen</a> 1.5.7.1-20081103
     </div>
 </div>

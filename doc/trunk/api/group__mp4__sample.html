@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <title>MP4v2 2.0-r104 PROJECT_name: MP4v2 Sample</title>
+    <title>MP4v2 2.0-r128 PROJECT_name: MP4v2 Sample</title>
     <link href="project.css" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -27,6 +27,7 @@
       <li><a href="index.html"><span>Main&nbsp;Page</span></a></li>
       <li><a href="pages.html"><span>Related&nbsp;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
     </ul>
@@ -36,53 +37,868 @@
 <h1>MP4v2 Sample</h1><table border="0" cellpadding="0" cellspacing="0">
 <tr><td></td></tr>
 <tr><td colspan="2"><br><h2>Functions</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g8d62988a2bc1563546b4b420d782377b"></a><!-- doxytag: member="mp4_sample::MP4ReadSample" ref="g8d62988a2bc1563546b4b420d782377b" args="(MP4FileHandle hFile, MP4TrackId trackId, MP4SampleId sampleId, uint8_t **ppBytes, uint32_t *pNumBytes, MP4Timestamp *pStartTime=NULL, MP4Duration *pDuration=NULL, MP4Duration *pRenderingOffset=NULL, bool *pIsSyncSample=NULL)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4ReadSample</b> (MP4FileHandle hFile, MP4TrackId trackId, MP4SampleId sampleId, uint8_t **ppBytes, uint32_t *pNumBytes, MP4Timestamp *pStartTime=NULL, MP4Duration *pDuration=NULL, MP4Duration *pRenderingOffset=NULL, bool *pIsSyncSample=NULL)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__sample.html#g8d62988a2bc1563546b4b420d782377b">MP4ReadSample</a> (MP4FileHandle hFile, MP4TrackId trackId, MP4SampleId sampleId, uint8_t **ppBytes, uint32_t *pNumBytes, MP4Timestamp *pStartTime=NULL, MP4Duration *pDuration=NULL, MP4Duration *pRenderingOffset=NULL, bool *pIsSyncSample=NULL)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g2041fd4f4ce1c1451b6a4ce58e3848b6"></a><!-- doxytag: member="mp4_sample::MP4ReadSampleFromTime" ref="g2041fd4f4ce1c1451b6a4ce58e3848b6" args="(MP4FileHandle hFile, MP4TrackId trackId, MP4Timestamp when, uint8_t **ppBytes, uint32_t *pNumBytes, MP4Timestamp *pStartTime=NULL, MP4Duration *pDuration=NULL, MP4Duration *pRenderingOffset=NULL, bool *pIsSyncSample=NULL)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4ReadSampleFromTime</b> (MP4FileHandle hFile, MP4TrackId trackId, MP4Timestamp when, uint8_t **ppBytes, uint32_t *pNumBytes, MP4Timestamp *pStartTime=NULL, MP4Duration *pDuration=NULL, MP4Duration *pRenderingOffset=NULL, bool *pIsSyncSample=NULL)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Read a track sample.  <a href="#g8d62988a2bc1563546b4b420d782377b"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__sample.html#g2041fd4f4ce1c1451b6a4ce58e3848b6">MP4ReadSampleFromTime</a> (MP4FileHandle hFile, MP4TrackId trackId, MP4Timestamp when, uint8_t **ppBytes, uint32_t *pNumBytes, MP4Timestamp *pStartTime=NULL, MP4Duration *pDuration=NULL, MP4Duration *pRenderingOffset=NULL, bool *pIsSyncSample=NULL)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="ga952428b21b52d023124a4c868f9b5fa"></a><!-- doxytag: member="mp4_sample::MP4WriteSample" ref="ga952428b21b52d023124a4c868f9b5fa" args="(MP4FileHandle hFile, MP4TrackId trackId, const uint8_t *pBytes, uint32_t numBytes, MP4Duration duration=MP4_INVALID_DURATION, MP4Duration renderingOffset=0, bool isSyncSample=true)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4WriteSample</b> (MP4FileHandle hFile, MP4TrackId trackId, const uint8_t *pBytes, uint32_t numBytes, MP4Duration duration=MP4_INVALID_DURATION, MP4Duration renderingOffset=0, bool isSyncSample=true)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Read a track sample based on a specified time.  <a href="#g2041fd4f4ce1c1451b6a4ce58e3848b6"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__sample.html#ga952428b21b52d023124a4c868f9b5fa">MP4WriteSample</a> (MP4FileHandle hFile, MP4TrackId trackId, const uint8_t *pBytes, uint32_t numBytes, MP4Duration duration=MP4_INVALID_DURATION, MP4Duration renderingOffset=0, bool isSyncSample=true)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g5dccb14facae1f3c0ae251ede6771e65"></a><!-- doxytag: member="mp4_sample::MP4CopySample" ref="g5dccb14facae1f3c0ae251ede6771e65" args="(MP4FileHandle srcFile, MP4TrackId srcTrackId, MP4SampleId srcSampleId, MP4FileHandle dstFile=MP4_INVALID_FILE_HANDLE, MP4TrackId dstTrackId=MP4_INVALID_TRACK_ID, MP4Duration dstSampleDuration=MP4_INVALID_DURATION)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4CopySample</b> (MP4FileHandle srcFile, MP4TrackId srcTrackId, MP4SampleId srcSampleId, MP4FileHandle dstFile=MP4_INVALID_FILE_HANDLE, MP4TrackId dstTrackId=MP4_INVALID_TRACK_ID, MP4Duration dstSampleDuration=MP4_INVALID_DURATION)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Write a track sample.  <a href="#ga952428b21b52d023124a4c868f9b5fa"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__sample.html#g5dccb14facae1f3c0ae251ede6771e65">MP4CopySample</a> (MP4FileHandle srcFile, MP4TrackId srcTrackId, MP4SampleId srcSampleId, MP4FileHandle dstFile=MP4_INVALID_FILE_HANDLE, MP4TrackId dstTrackId=MP4_INVALID_TRACK_ID, MP4Duration dstSampleDuration=MP4_INVALID_DURATION)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="gecf2598c6229e8c87cfced3ea1ef8b04"></a><!-- doxytag: member="mp4_sample::MP4EncAndCopySample" ref="gecf2598c6229e8c87cfced3ea1ef8b04" args="(MP4FileHandle srcFile, MP4TrackId srcTrackId, MP4SampleId srcSampleId, encryptFunc_t encfcnp, uint32_t encfcnparam1, MP4FileHandle dstFile=MP4_INVALID_FILE_HANDLE, MP4TrackId dstTrackId=MP4_INVALID_TRACK_ID, MP4Duration dstSampleDuration=MP4_INVALID_DURATION)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4EncAndCopySample</b> (MP4FileHandle srcFile, MP4TrackId srcTrackId, MP4SampleId srcSampleId, encryptFunc_t encfcnp, uint32_t encfcnparam1, MP4FileHandle dstFile=MP4_INVALID_FILE_HANDLE, MP4TrackId dstTrackId=MP4_INVALID_TRACK_ID, MP4Duration dstSampleDuration=MP4_INVALID_DURATION)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Make a copy of a sample.  <a href="#g5dccb14facae1f3c0ae251ede6771e65"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__sample.html#gecf2598c6229e8c87cfced3ea1ef8b04">MP4EncAndCopySample</a> (MP4FileHandle srcFile, MP4TrackId srcTrackId, MP4SampleId srcSampleId, <a class="el" href="group__mp4__general.html#geed625a43f5c3bd48a4ab48ada133fea">encryptFunc_t</a> encfcnp, uint32_t encfcnparam1, MP4FileHandle dstFile=MP4_INVALID_FILE_HANDLE, MP4TrackId dstTrackId=MP4_INVALID_TRACK_ID, MP4Duration dstSampleDuration=MP4_INVALID_DURATION)</td></tr>
 
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Make a copy of a sample.  <a href="#gecf2598c6229e8c87cfced3ea1ef8b04"></a><br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g97e2daf9e0b898d8f928810e145a6d40"></a><!-- doxytag: member="mp4_sample::MP4ReferenceSample" ref="g97e2daf9e0b898d8f928810e145a6d40" args="(MP4FileHandle srcFile, MP4TrackId srcTrackId, MP4SampleId srcSampleId, MP4FileHandle dstFile, MP4TrackId dstTrackId, MP4Duration dstSampleDuration=MP4_INVALID_DURATION)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4ReferenceSample</b> (MP4FileHandle srcFile, MP4TrackId srcTrackId, MP4SampleId srcSampleId, MP4FileHandle dstFile, MP4TrackId dstTrackId, MP4Duration dstSampleDuration=MP4_INVALID_DURATION)</td></tr>
+bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__sample.html#g97e2daf9e0b898d8f928810e145a6d40">MP4ReferenceSample</a> (MP4FileHandle srcFile, MP4TrackId srcTrackId, MP4SampleId srcSampleId, MP4FileHandle dstFile, MP4TrackId dstTrackId, MP4Duration dstSampleDuration=MP4_INVALID_DURATION)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g09a60dc0c9532581e888fe31251096fa"></a><!-- doxytag: member="mp4_sample::MP4GetSampleSize" ref="g09a60dc0c9532581e888fe31251096fa" args="(MP4FileHandle hFile, MP4TrackId trackId, MP4SampleId sampleId)" -->
-uint32_t&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4GetSampleSize</b> (MP4FileHandle hFile, MP4TrackId trackId, MP4SampleId sampleId)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Not implemented. <br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">uint32_t&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__sample.html#g09a60dc0c9532581e888fe31251096fa">MP4GetSampleSize</a> (MP4FileHandle hFile, MP4TrackId trackId, MP4SampleId sampleId)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g10dbc113e94a614b4b99a5f107c99fad"></a><!-- doxytag: member="mp4_sample::MP4GetTrackMaxSampleSize" ref="g10dbc113e94a614b4b99a5f107c99fad" args="(MP4FileHandle hFile, MP4TrackId trackId)" -->
-uint32_t&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4GetTrackMaxSampleSize</b> (MP4FileHandle hFile, MP4TrackId trackId)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get size of a track sample.  <a href="#g09a60dc0c9532581e888fe31251096fa"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">uint32_t&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__sample.html#g10dbc113e94a614b4b99a5f107c99fad">MP4GetTrackMaxSampleSize</a> (MP4FileHandle hFile, MP4TrackId trackId)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="gee1d20b3ab490f2ff6cabaede899ddd1"></a><!-- doxytag: member="mp4_sample::MP4GetSampleIdFromTime" ref="gee1d20b3ab490f2ff6cabaede899ddd1" args="(MP4FileHandle hFile, MP4TrackId trackId, MP4Timestamp when, bool wantSyncSample=false)" -->
-MP4SampleId&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4GetSampleIdFromTime</b> (MP4FileHandle hFile, MP4TrackId trackId, MP4Timestamp when, bool wantSyncSample=false)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the maximum sample size of a track.  <a href="#g10dbc113e94a614b4b99a5f107c99fad"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">MP4SampleId&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__sample.html#gee1d20b3ab490f2ff6cabaede899ddd1">MP4GetSampleIdFromTime</a> (MP4FileHandle hFile, MP4TrackId trackId, MP4Timestamp when, bool wantSyncSample=false)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="gfbc4fbbf11f43cc56fd24221be203ddf"></a><!-- doxytag: member="mp4_sample::MP4GetSampleTime" ref="gfbc4fbbf11f43cc56fd24221be203ddf" args="(MP4FileHandle hFile, MP4TrackId trackId, MP4SampleId sampleId)" -->
-MP4Timestamp&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4GetSampleTime</b> (MP4FileHandle hFile, MP4TrackId trackId, MP4SampleId sampleId)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get sample id of a specified time.  <a href="#gee1d20b3ab490f2ff6cabaede899ddd1"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">MP4Timestamp&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__sample.html#gfbc4fbbf11f43cc56fd24221be203ddf">MP4GetSampleTime</a> (MP4FileHandle hFile, MP4TrackId trackId, MP4SampleId sampleId)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g24ccf30492a095bace79d36bd39827ef"></a><!-- doxytag: member="mp4_sample::MP4GetSampleDuration" ref="g24ccf30492a095bace79d36bd39827ef" args="(MP4FileHandle hFile, MP4TrackId trackId, MP4SampleId sampleId)" -->
-MP4Duration&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4GetSampleDuration</b> (MP4FileHandle hFile, MP4TrackId trackId, MP4SampleId sampleId)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get start time of track sample.  <a href="#gfbc4fbbf11f43cc56fd24221be203ddf"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">MP4Duration&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__sample.html#g24ccf30492a095bace79d36bd39827ef">MP4GetSampleDuration</a> (MP4FileHandle hFile, MP4TrackId trackId, MP4SampleId sampleId)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="gb68eec0276742f24ddb80c831c52b60d"></a><!-- doxytag: member="mp4_sample::MP4GetSampleRenderingOffset" ref="gb68eec0276742f24ddb80c831c52b60d" args="(MP4FileHandle hFile, MP4TrackId trackId, MP4SampleId sampleId)" -->
-MP4Duration&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4GetSampleRenderingOffset</b> (MP4FileHandle hFile, MP4TrackId trackId, MP4SampleId sampleId)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the duration of a track sample.  <a href="#g24ccf30492a095bace79d36bd39827ef"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">MP4Duration&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__sample.html#gb68eec0276742f24ddb80c831c52b60d">MP4GetSampleRenderingOffset</a> (MP4FileHandle hFile, MP4TrackId trackId, MP4SampleId sampleId)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="gf705406eab58dff93e4f37f62607a785"></a><!-- doxytag: member="mp4_sample::MP4SetSampleRenderingOffset" ref="gf705406eab58dff93e4f37f62607a785" args="(MP4FileHandle hFile, MP4TrackId trackId, MP4SampleId sampleId, MP4Duration renderingOffset)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4SetSampleRenderingOffset</b> (MP4FileHandle hFile, MP4TrackId trackId, MP4SampleId sampleId, MP4Duration renderingOffset)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the rendering offset of a track sample.  <a href="#gb68eec0276742f24ddb80c831c52b60d"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__sample.html#gf705406eab58dff93e4f37f62607a785">MP4SetSampleRenderingOffset</a> (MP4FileHandle hFile, MP4TrackId trackId, MP4SampleId sampleId, MP4Duration renderingOffset)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g6b3e3011e6f698a8e75b21c09d9779b4"></a><!-- doxytag: member="mp4_sample::MP4GetSampleSync" ref="g6b3e3011e6f698a8e75b21c09d9779b4" args="(MP4FileHandle hFile, MP4TrackId trackId, MP4SampleId sampleId)" -->
-int8_t&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4GetSampleSync</b> (MP4FileHandle hFile, MP4TrackId trackId, MP4SampleId sampleId)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Set the rendering offset of a track sample.  <a href="#gf705406eab58dff93e4f37f62607a785"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">int8_t&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__sample.html#g6b3e3011e6f698a8e75b21c09d9779b4">MP4GetSampleSync</a> (MP4FileHandle hFile, MP4TrackId trackId, MP4SampleId sampleId)</td></tr>
 
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get sync/random access state of sample.  <a href="#g6b3e3011e6f698a8e75b21c09d9779b4"></a><br></td></tr>
 </table>
+<hr><h2>Function Documentation</h2>
+<a class="anchor" name="g5dccb14facae1f3c0ae251ede6771e65"></a><!-- doxytag: member="sample.h::MP4CopySample" ref="g5dccb14facae1f3c0ae251ede6771e65" args="(MP4FileHandle srcFile, MP4TrackId srcTrackId, MP4SampleId srcSampleId, MP4FileHandle dstFile=MP4_INVALID_FILE_HANDLE, MP4TrackId dstTrackId=MP4_INVALID_TRACK_ID, MP4Duration dstSampleDuration=MP4_INVALID_DURATION)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool MP4CopySample           </td>
+          <td>(</td>
+          <td class="paramtype">MP4FileHandle&nbsp;</td>
+          <td class="paramname"> <em>srcFile</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MP4TrackId&nbsp;</td>
+          <td class="paramname"> <em>srcTrackId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MP4SampleId&nbsp;</td>
+          <td class="paramname"> <em>srcSampleId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MP4FileHandle&nbsp;</td>
+          <td class="paramname"> <em>dstFile</em> = <code>MP4_INVALID_FILE_HANDLE</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MP4TrackId&nbsp;</td>
+          <td class="paramname"> <em>dstTrackId</em> = <code>MP4_INVALID_TRACK_ID</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MP4Duration&nbsp;</td>
+          <td class="paramname"> <em>dstSampleDuration</em> = <code>MP4_INVALID_DURATION</code></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Make a copy of a sample. 
+<p>
+MP4CopySample creates a new sample based on an existing sample. Note that another copy of the media sample data is created in the file using this function. ie. this call is equivalent to <a class="el" href="group__mp4__sample.html#g8d62988a2bc1563546b4b420d782377b" title="Read a track sample.">MP4ReadSample()</a> followed by <a class="el" href="group__mp4__sample.html#ga952428b21b52d023124a4c868f9b5fa" title="Write a track sample.">MP4WriteSample()</a>.<p>
+Note that is the responsibility of the caller to ensure that the copied media sample makes sense in the destination track. eg. copying a video sample to an audio track is unlikely to result in anything good happening, even copying a sample from video track to another requires that the tracks use the same encoding and that issues such as image size are addressed.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>srcFile</em>&nbsp;</td><td>source sample file handle. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>srcTrackId</em>&nbsp;</td><td>source sample track id. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>srcSampleId</em>&nbsp;</td><td>source sample id. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>dstFile</em>&nbsp;</td><td>destination file handle for new (copied) sample. If the value is <a class="el" href="group__mp4__general.html#gfa387d447016a2c4fb1bb7e70b6e3b32" title="Constant: invalid MP4FileHandle.">MP4_INVALID_FILE_HANDLE</a>, the copy is created in the same file as <b>srcFile</b>. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>dstTrackId</em>&nbsp;</td><td>destination track id for new sample. If the value is <a class="el" href="group__mp4__general.html#g20022a4a97dd9c2031ae2a1ef6db7241" title="Constant: invalid MP4TrackId.">MP4_INVALID_TRACK_ID</a>, the the copy is created in the same track as the <b>srcTrackId</b>. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>dstSampleDuration</em>&nbsp;</td><td>duration in track timescale for new sample. If the value is <a class="el" href="group__mp4__general.html#g2a4f35efc02ce66d8a393696371546fc" title="Constant: invalid MP4Duration.">MP4_INVALID_DURATION</a>, then the duration of the source sample is used.</td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>Returns:</b></dt><dd>On success, thew id of the new sample. On error, <a class="el" href="group__mp4__general.html#geedbc889458956c25e7d1204454494fc" title="Constant: invalid MP4SampleId.">MP4_INVALID_SAMPLE_ID</a>.</dd></dl>
+<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="group__mp4__sample.html#g8d62988a2bc1563546b4b420d782377b" title="Read a track sample.">MP4ReadSample()</a>. <p>
+<a class="el" href="group__mp4__sample.html#ga952428b21b52d023124a4c868f9b5fa" title="Write a track sample.">MP4WriteSample()</a>. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="gecf2598c6229e8c87cfced3ea1ef8b04"></a><!-- doxytag: member="sample.h::MP4EncAndCopySample" ref="gecf2598c6229e8c87cfced3ea1ef8b04" args="(MP4FileHandle srcFile, MP4TrackId srcTrackId, MP4SampleId srcSampleId, encryptFunc_t encfcnp, uint32_t encfcnparam1, MP4FileHandle dstFile=MP4_INVALID_FILE_HANDLE, MP4TrackId dstTrackId=MP4_INVALID_TRACK_ID, MP4Duration dstSampleDuration=MP4_INVALID_DURATION)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool MP4EncAndCopySample           </td>
+          <td>(</td>
+          <td class="paramtype">MP4FileHandle&nbsp;</td>
+          <td class="paramname"> <em>srcFile</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MP4TrackId&nbsp;</td>
+          <td class="paramname"> <em>srcTrackId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MP4SampleId&nbsp;</td>
+          <td class="paramname"> <em>srcSampleId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__mp4__general.html#geed625a43f5c3bd48a4ab48ada133fea">encryptFunc_t</a>&nbsp;</td>
+          <td class="paramname"> <em>encfcnp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&nbsp;</td>
+          <td class="paramname"> <em>encfcnparam1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MP4FileHandle&nbsp;</td>
+          <td class="paramname"> <em>dstFile</em> = <code>MP4_INVALID_FILE_HANDLE</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MP4TrackId&nbsp;</td>
+          <td class="paramname"> <em>dstTrackId</em> = <code>MP4_INVALID_TRACK_ID</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MP4Duration&nbsp;</td>
+          <td class="paramname"> <em>dstSampleDuration</em> = <code>MP4_INVALID_DURATION</code></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Make a copy of a sample. 
+<p>
+MP4EncAndCopySample is similar to <a class="el" href="group__mp4__sample.html#g5dccb14facae1f3c0ae251ede6771e65" title="Make a copy of a sample.">MP4CopySample()</a> except that it offers an encryption hook to the caller.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>srcFile</em>&nbsp;</td><td>source sample file handle. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>srcTrackId</em>&nbsp;</td><td>source sample track id. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>srcSampleId</em>&nbsp;</td><td>source sample id. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>encfcnp</em>&nbsp;</td><td>undocumented. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>encfcnparam1</em>&nbsp;</td><td>undocumented. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>dstFile</em>&nbsp;</td><td>destination file handle for new (copied) sample. If the value is <a class="el" href="group__mp4__general.html#gfa387d447016a2c4fb1bb7e70b6e3b32" title="Constant: invalid MP4FileHandle.">MP4_INVALID_FILE_HANDLE</a>, the copy is created in the same file as <b>srcFile</b>. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>dstTrackId</em>&nbsp;</td><td>destination track id for new sample. If the value is <a class="el" href="group__mp4__general.html#g20022a4a97dd9c2031ae2a1ef6db7241" title="Constant: invalid MP4TrackId.">MP4_INVALID_TRACK_ID</a>, the the copy is created in the same track as the <b>srcTrackId</b>. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>dstSampleDuration</em>&nbsp;</td><td>duration in track timescale for new sample. If the value is <a class="el" href="group__mp4__general.html#g2a4f35efc02ce66d8a393696371546fc" title="Constant: invalid MP4Duration.">MP4_INVALID_DURATION</a>, then the duration of the source sample is used.</td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>Returns:</b></dt><dd>On success, thew id of the new sample. On error, <a class="el" href="group__mp4__general.html#geedbc889458956c25e7d1204454494fc" title="Constant: invalid MP4SampleId.">MP4_INVALID_SAMPLE_ID</a>.</dd></dl>
+<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="group__mp4__sample.html#g5dccb14facae1f3c0ae251ede6771e65" title="Make a copy of a sample.">MP4CopySample()</a>. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="g24ccf30492a095bace79d36bd39827ef"></a><!-- doxytag: member="sample.h::MP4GetSampleDuration" ref="g24ccf30492a095bace79d36bd39827ef" args="(MP4FileHandle hFile, MP4TrackId trackId, MP4SampleId sampleId)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">MP4Duration MP4GetSampleDuration           </td>
+          <td>(</td>
+          <td class="paramtype">MP4FileHandle&nbsp;</td>
+          <td class="paramname"> <em>hFile</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MP4TrackId&nbsp;</td>
+          <td class="paramname"> <em>trackId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MP4SampleId&nbsp;</td>
+          <td class="paramname"> <em>sampleId</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Get the duration of a track sample. 
+<p>
+MP4GetSampleDuration returns the duration of the specified sample from the specified track in the track timescale units.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>hFile</em>&nbsp;</td><td>handle of file for operation. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>trackId</em>&nbsp;</td><td>id of track for operation. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>sampleId</em>&nbsp;</td><td>id of sample for operation. Caveat: the first sample has id <b>1</b>, not <b>0</b>.</td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>Returns:</b></dt><dd>On success, the sample duration in track timescale units. On error, <a class="el" href="group__mp4__general.html#g2a4f35efc02ce66d8a393696371546fc" title="Constant: invalid MP4Duration.">MP4_INVALID_DURATION</a>.</dd></dl>
+<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="group__mp4__general.html#g59a4feaf9ca9657a984dd8e4a52a157b" title="Convert duration from track time scale to an arbitrary time scale.">MP4ConvertFromTrackDuration()</a> for how to map this value to another timescale. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="gee1d20b3ab490f2ff6cabaede899ddd1"></a><!-- doxytag: member="sample.h::MP4GetSampleIdFromTime" ref="gee1d20b3ab490f2ff6cabaede899ddd1" args="(MP4FileHandle hFile, MP4TrackId trackId, MP4Timestamp when, bool wantSyncSample=false)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">MP4SampleId MP4GetSampleIdFromTime           </td>
+          <td>(</td>
+          <td class="paramtype">MP4FileHandle&nbsp;</td>
+          <td class="paramname"> <em>hFile</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MP4TrackId&nbsp;</td>
+          <td class="paramname"> <em>trackId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MP4Timestamp&nbsp;</td>
+          <td class="paramname"> <em>when</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&nbsp;</td>
+          <td class="paramname"> <em>wantSyncSample</em> = <code>false</code></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Get sample id of a specified time. 
+<p>
+MP4GetSampleIdFromTime returns the sample id of the track sample in which the specified time occurs.<p>
+The specified time should be in the track timescale.<p>
+It is wise to use <a class="el" href="group__mp4__sample.html#gfbc4fbbf11f43cc56fd24221be203ddf" title="Get start time of track sample.">MP4GetSampleTime()</a> with the returned sample id so one can adjust for any difference between the specified time and the actual start time of the sample.<p>
+If the calling application needs a sample that can be accessed randomly then the <b>wantSyncSample</b> argument should be set to true. This could be the case for a player that is implementing a positioning function and needs to be able to start decoding a track from the returned sample id.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>hFile</em>&nbsp;</td><td>handle of file for operation. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>trackId</em>&nbsp;</td><td>id of track for operation. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>when</em>&nbsp;</td><td>time in track timescale. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>wantSyncSample</em>&nbsp;</td><td>specifies if the result sample id must correspond to a sample whose sync/random access flag is true.</td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>Returns:</b></dt><dd>On success, the sample id that occurs at the specified time. On error, <a class="el" href="group__mp4__general.html#geedbc889458956c25e7d1204454494fc" title="Constant: invalid MP4SampleId.">MP4_INVALID_SAMPLE_ID</a>.</dd></dl>
+<dl class="see" compact><dt><b>See also:</b></dt><dd>MP4ConvertToTrackTimestamp() for how to map a time value to this timescale. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="gb68eec0276742f24ddb80c831c52b60d"></a><!-- doxytag: member="sample.h::MP4GetSampleRenderingOffset" ref="gb68eec0276742f24ddb80c831c52b60d" args="(MP4FileHandle hFile, MP4TrackId trackId, MP4SampleId sampleId)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">MP4Duration MP4GetSampleRenderingOffset           </td>
+          <td>(</td>
+          <td class="paramtype">MP4FileHandle&nbsp;</td>
+          <td class="paramname"> <em>hFile</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MP4TrackId&nbsp;</td>
+          <td class="paramname"> <em>trackId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MP4SampleId&nbsp;</td>
+          <td class="paramname"> <em>sampleId</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Get the rendering offset of a track sample. 
+<p>
+MP4GetSampleRenderingOffset returns the rendering offset of the specified sample from the specified track in the track timescale units.<p>
+The sample rendering offset is typically zero for all media types other than video. For video, encodings such as those defined by MPEG have three types of frames: I, P, and B. To increase coding efficiency B frames can depend on I or P frames that should be rendered after the B frame. However to decode the B frame the I or P frame must already have been decoded. This situation is addressed by placing the frames in decoding order in the video track, and then setting the rendering offset property to indicate when the video frame should actually be rendered to the screen. Hence the start time of a sample indicates when it should be decoded, the start time plus the rendering offset indicates when it should be rendered.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>hFile</em>&nbsp;</td><td>handle of file for operation. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>trackId</em>&nbsp;</td><td>id of track for operation. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>sampleId</em>&nbsp;</td><td>id of sample for operation. Caveat: the first sample has id <b>1</b>, not <b>0</b>.</td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>Returns:</b></dt><dd>On success, the rendering offset in track timescale units. On error, <a class="el" href="group__mp4__general.html#g2a4f35efc02ce66d8a393696371546fc" title="Constant: invalid MP4Duration.">MP4_INVALID_DURATION</a>.</dd></dl>
+<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="group__mp4__general.html#g59a4feaf9ca9657a984dd8e4a52a157b" title="Convert duration from track time scale to an arbitrary time scale.">MP4ConvertFromTrackDuration()</a> for how to map this value to another timescale. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="g09a60dc0c9532581e888fe31251096fa"></a><!-- doxytag: member="sample.h::MP4GetSampleSize" ref="g09a60dc0c9532581e888fe31251096fa" args="(MP4FileHandle hFile, MP4TrackId trackId, MP4SampleId sampleId)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t MP4GetSampleSize           </td>
+          <td>(</td>
+          <td class="paramtype">MP4FileHandle&nbsp;</td>
+          <td class="paramname"> <em>hFile</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MP4TrackId&nbsp;</td>
+          <td class="paramname"> <em>trackId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MP4SampleId&nbsp;</td>
+          <td class="paramname"> <em>sampleId</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Get size of a track sample. 
+<p>
+MP4GetSampleSize returns the size in bytes of the specified sample from the the specified track.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>hFile</em>&nbsp;</td><td>handle of file for operation. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>trackId</em>&nbsp;</td><td>id of track for operation. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>sampleId</em>&nbsp;</td><td>id of sample for operation. Caveat: the first sample has id <b>1</b>, not <b>0</b>.</td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>Returns:</b></dt><dd>On success the sample size in bytes. On error, <b>0</b>. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="g6b3e3011e6f698a8e75b21c09d9779b4"></a><!-- doxytag: member="sample.h::MP4GetSampleSync" ref="g6b3e3011e6f698a8e75b21c09d9779b4" args="(MP4FileHandle hFile, MP4TrackId trackId, MP4SampleId sampleId)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int8_t MP4GetSampleSync           </td>
+          <td>(</td>
+          <td class="paramtype">MP4FileHandle&nbsp;</td>
+          <td class="paramname"> <em>hFile</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MP4TrackId&nbsp;</td>
+          <td class="paramname"> <em>trackId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MP4SampleId&nbsp;</td>
+          <td class="paramname"> <em>sampleId</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Get sync/random access state of sample. 
+<p>
+MP4GetSampleSync returns the state of the sync/random access flag of the specified sample from the specified track.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>hFile</em>&nbsp;</td><td>handle of file for operation. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>trackId</em>&nbsp;</td><td>id of track for operation. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>sampleId</em>&nbsp;</td><td>id of sample for operation. Caveat: the first sample has id <b>1</b>, not <b>0</b>.</td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>Returns:</b></dt><dd><b>1</b> when true, <b>0</b> when false. On error, <b>-1</b>. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="gfbc4fbbf11f43cc56fd24221be203ddf"></a><!-- doxytag: member="sample.h::MP4GetSampleTime" ref="gfbc4fbbf11f43cc56fd24221be203ddf" args="(MP4FileHandle hFile, MP4TrackId trackId, MP4SampleId sampleId)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">MP4Timestamp MP4GetSampleTime           </td>
+          <td>(</td>
+          <td class="paramtype">MP4FileHandle&nbsp;</td>
+          <td class="paramname"> <em>hFile</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MP4TrackId&nbsp;</td>
+          <td class="paramname"> <em>trackId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MP4SampleId&nbsp;</td>
+          <td class="paramname"> <em>sampleId</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Get start time of track sample. 
+<p>
+MP4GetSampleTime returns the start time of the specified sample from the specified track in the track timescale units.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>hFile</em>&nbsp;</td><td>handle of file for operation. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>trackId</em>&nbsp;</td><td>id of track for operation. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>sampleId</em>&nbsp;</td><td>id of sample for operation. Caveat: the first sample has id <b>1</b>, not <b>0</b>.</td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>Returns:</b></dt><dd>On success, sample start time in track timescale units. On error, <a class="el" href="group__mp4__general.html#g720b02dfba7d5136c9ffd5aea4449d14" title="Constant: invalid MP4Timestamp.">MP4_INVALID_TIMESTAMP</a>.</dd></dl>
+<dl class="see" compact><dt><b>See also:</b></dt><dd>MP4ConvertFromTrackTimestamp() for how to map this value to another timescale. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="g10dbc113e94a614b4b99a5f107c99fad"></a><!-- doxytag: member="sample.h::MP4GetTrackMaxSampleSize" ref="g10dbc113e94a614b4b99a5f107c99fad" args="(MP4FileHandle hFile, MP4TrackId trackId)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t MP4GetTrackMaxSampleSize           </td>
+          <td>(</td>
+          <td class="paramtype">MP4FileHandle&nbsp;</td>
+          <td class="paramname"> <em>hFile</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MP4TrackId&nbsp;</td>
+          <td class="paramname"> <em>trackId</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Get the maximum sample size of a track. 
+<p>
+MP4GetTrackMaxSampleSize returns the maximum size in bytes of all the samples in the specified track.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>hFile</em>&nbsp;</td><td>handle of file for operation. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>trackId</em>&nbsp;</td><td>id of track for operation.</td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>Returns:</b></dt><dd>On success, the maximum sample size in bytes. On error, <b>0</b>.</dd></dl>
+<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="group__mp4__sample.html#g09a60dc0c9532581e888fe31251096fa" title="Get size of a track sample.">MP4GetSampleSize()</a>. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="g8d62988a2bc1563546b4b420d782377b"></a><!-- doxytag: member="sample.h::MP4ReadSample" ref="g8d62988a2bc1563546b4b420d782377b" args="(MP4FileHandle hFile, MP4TrackId trackId, MP4SampleId sampleId, uint8_t **ppBytes, uint32_t *pNumBytes, MP4Timestamp *pStartTime=NULL, MP4Duration *pDuration=NULL, MP4Duration *pRenderingOffset=NULL, bool *pIsSyncSample=NULL)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool MP4ReadSample           </td>
+          <td>(</td>
+          <td class="paramtype">MP4FileHandle&nbsp;</td>
+          <td class="paramname"> <em>hFile</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MP4TrackId&nbsp;</td>
+          <td class="paramname"> <em>trackId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MP4SampleId&nbsp;</td>
+          <td class="paramname"> <em>sampleId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t **&nbsp;</td>
+          <td class="paramname"> <em>ppBytes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t *&nbsp;</td>
+          <td class="paramname"> <em>pNumBytes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MP4Timestamp *&nbsp;</td>
+          <td class="paramname"> <em>pStartTime</em> = <code>NULL</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MP4Duration *&nbsp;</td>
+          <td class="paramname"> <em>pDuration</em> = <code>NULL</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MP4Duration *&nbsp;</td>
+          <td class="paramname"> <em>pRenderingOffset</em> = <code>NULL</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool *&nbsp;</td>
+          <td class="paramname"> <em>pIsSyncSample</em> = <code>NULL</code></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Read a track sample. 
+<p>
+MP4ReadSample reads the specified sample from the specified track. Typically this sample is then decoded in a codec dependent fashion and rendered in an appropriate fashion.<p>
+The argument <b>ppBytes</b> allows for two possible approaches for buffering:<p>
+If the calling application wishes to handle its own buffering it can set *ppBytes to the buffer it wishes to use. The calling application is responsible for ensuring that the buffer is large enough to hold the sample. This can be done by using either <a class="el" href="group__mp4__sample.html#g09a60dc0c9532581e888fe31251096fa" title="Get size of a track sample.">MP4GetSampleSize()</a> or <a class="el" href="group__mp4__sample.html#g10dbc113e94a614b4b99a5f107c99fad" title="Get the maximum sample size of a track.">MP4GetTrackMaxSampleSize()</a> to determine before−hand how large the receiving buffer must be.<p>
+If the value of *ppBytes is NULL, then an appropriately sized buffer is automatically malloc’ed for the sample data and *ppBytes set to this pointer. The calling application is responsible for free’ing this memory.<p>
+The last four arguments are pointers to variables that can receive optional sample information.<p>
+Typically for audio none of these are needed. MPEG audio such as MP3 or AAC has a fixed sample duration and every sample can be accessed at random.<p>
+For video, all of these optional values could be needed. MPEG video can be encoded at a variable frame rate, with only occasional random access points, and with "B frames" which cause the rendering (display) order of the video frames to differ from the storage/decoding order.<p>
+Other media types fall between these two extremes.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>hFile</em>&nbsp;</td><td>handle of file for operation. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>trackId</em>&nbsp;</td><td>id of track for operation. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>sampleId</em>&nbsp;</td><td>specifies which sample is to be read. Caveat: the first sample has id <b>1</b> not <b>0</b>. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>ppBytes</em>&nbsp;</td><td>pointer to the pointer to the sample data. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>pNumBytes</em>&nbsp;</td><td>pointer to variable that will be hold the size in bytes of the sample. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>pStartTime</em>&nbsp;</td><td>if non−NULL, pointer to variable that will receive the starting timestamp for this sample. Caveat: The timestamp is in <b>trackId</b>'s timescale. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>pDuration</em>&nbsp;</td><td>if non−NULL, pointer to variable that will receive the duration for this sample. Caveat: The duration is in <b>trackId</b>'s timescale. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>pRenderingOffset</em>&nbsp;</td><td>if non−NULL, pointer to variable that will receive the rendering offset for this sample. Currently the only media type that needs this feature is MPEG video. Caveat: The offset is in <b>trackId</b>'s timescale. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>pIsSyncSample</em>&nbsp;</td><td>if non−NULL, pointer to variable that will receive the state of the sync/random access flag for this sample.</td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>Returns:</b></dt><dd><b>true</b> on success, <b>false</b> on failure.</dd></dl>
+<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="group__mp4__sample.html#g09a60dc0c9532581e888fe31251096fa" title="Get size of a track sample.">MP4GetSampleSize()</a>. <p>
+<a class="el" href="group__mp4__sample.html#g10dbc113e94a614b4b99a5f107c99fad" title="Get the maximum sample size of a track.">MP4GetTrackMaxSampleSize()</a>. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="g2041fd4f4ce1c1451b6a4ce58e3848b6"></a><!-- doxytag: member="sample.h::MP4ReadSampleFromTime" ref="g2041fd4f4ce1c1451b6a4ce58e3848b6" args="(MP4FileHandle hFile, MP4TrackId trackId, MP4Timestamp when, uint8_t **ppBytes, uint32_t *pNumBytes, MP4Timestamp *pStartTime=NULL, MP4Duration *pDuration=NULL, MP4Duration *pRenderingOffset=NULL, bool *pIsSyncSample=NULL)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool MP4ReadSampleFromTime           </td>
+          <td>(</td>
+          <td class="paramtype">MP4FileHandle&nbsp;</td>
+          <td class="paramname"> <em>hFile</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MP4TrackId&nbsp;</td>
+          <td class="paramname"> <em>trackId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MP4Timestamp&nbsp;</td>
+          <td class="paramname"> <em>when</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t **&nbsp;</td>
+          <td class="paramname"> <em>ppBytes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t *&nbsp;</td>
+          <td class="paramname"> <em>pNumBytes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MP4Timestamp *&nbsp;</td>
+          <td class="paramname"> <em>pStartTime</em> = <code>NULL</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MP4Duration *&nbsp;</td>
+          <td class="paramname"> <em>pDuration</em> = <code>NULL</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MP4Duration *&nbsp;</td>
+          <td class="paramname"> <em>pRenderingOffset</em> = <code>NULL</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool *&nbsp;</td>
+          <td class="paramname"> <em>pIsSyncSample</em> = <code>NULL</code></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Read a track sample based on a specified time. 
+<p>
+MP4ReadSampleFromTime is similar to <a class="el" href="group__mp4__sample.html#g8d62988a2bc1563546b4b420d782377b" title="Read a track sample.">MP4ReadSample()</a> except the sample is specified by using a timestamp instead of sampleId. Typically this sample is then decoded in a codec dependent fashion and rendered in an appropriate fashion.<p>
+The argument <b>ppBytes</b> allows for two possible approaches for buffering:<p>
+If the calling application wishes to handle its own buffering it can set *ppBytes to the buffer it wishes to use. The calling application is responsible for ensuring that the buffer is large enough to hold the sample. This can be done by using either <a class="el" href="group__mp4__sample.html#g09a60dc0c9532581e888fe31251096fa" title="Get size of a track sample.">MP4GetSampleSize()</a> or <a class="el" href="group__mp4__sample.html#g10dbc113e94a614b4b99a5f107c99fad" title="Get the maximum sample size of a track.">MP4GetTrackMaxSampleSize()</a> to determine before−hand how large the receiving buffer must be.<p>
+If the value of *ppBytes is NULL, then an appropriately sized buffer is automatically malloc’ed for the sample data and *ppBytes set to this pointer. The calling application is responsible for free’ing this memory.<p>
+The last four arguments are pointers to variables that can receive optional sample information.<p>
+Typically for audio none of these are needed. MPEG audio such as MP3 or AAC has a fixed sample duration and every sample can be accessed at random.<p>
+For video, all of these optional values could be needed. MPEG video can be encoded at a variable frame rate, with only occasional random access points, and with "B frames" which cause the rendering (display) order of the video frames to differ from the storage/decoding order.<p>
+Other media types fall between these two extremes.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>hFile</em>&nbsp;</td><td>handle of file for operation. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>trackId</em>&nbsp;</td><td>id of track for operation. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>when</em>&nbsp;</td><td>specifies which sample is to be read based on a time in the track timeline. See <a class="el" href="group__mp4__sample.html#gee1d20b3ab490f2ff6cabaede899ddd1" title="Get sample id of a specified time.">MP4GetSampleIdFromTime()</a> for details. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>ppBytes</em>&nbsp;</td><td>pointer to the pointer to the sample data. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>pNumBytes</em>&nbsp;</td><td>pointer to variable that will be hold the size in bytes of the sample. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>pStartTime</em>&nbsp;</td><td>if non−NULL, pointer to variable that will receive the starting timestamp for this sample. Caveat: The timestamp is in <b>trackId</b>'s timescale. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>pDuration</em>&nbsp;</td><td>if non−NULL, pointer to variable that will receive the duration for this sample. Caveat: The duration is in <b>trackId</b>'s timescale. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>pRenderingOffset</em>&nbsp;</td><td>if non−NULL, pointer to variable that will receive the rendering offset for this sample. Currently the only media type that needs this feature is MPEG video. Caveat: The offset is in <b>trackId</b>'s timescale. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>pIsSyncSample</em>&nbsp;</td><td>if non−NULL, pointer to variable that will receive the state of the sync/random access flag for this sample.</td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>Returns:</b></dt><dd><b>true</b> on success, <b>false</b> on failure.</dd></dl>
+<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="group__mp4__sample.html#g8d62988a2bc1563546b4b420d782377b" title="Read a track sample.">MP4ReadSample()</a>. <p>
+<a class="el" href="group__mp4__sample.html#gee1d20b3ab490f2ff6cabaede899ddd1" title="Get sample id of a specified time.">MP4GetSampleIdFromTime()</a>. <p>
+<a class="el" href="group__mp4__sample.html#g09a60dc0c9532581e888fe31251096fa" title="Get size of a track sample.">MP4GetSampleSize()</a>. <p>
+<a class="el" href="group__mp4__sample.html#g10dbc113e94a614b4b99a5f107c99fad" title="Get the maximum sample size of a track.">MP4GetTrackMaxSampleSize()</a>. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="gf705406eab58dff93e4f37f62607a785"></a><!-- doxytag: member="sample.h::MP4SetSampleRenderingOffset" ref="gf705406eab58dff93e4f37f62607a785" args="(MP4FileHandle hFile, MP4TrackId trackId, MP4SampleId sampleId, MP4Duration renderingOffset)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool MP4SetSampleRenderingOffset           </td>
+          <td>(</td>
+          <td class="paramtype">MP4FileHandle&nbsp;</td>
+          <td class="paramname"> <em>hFile</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MP4TrackId&nbsp;</td>
+          <td class="paramname"> <em>trackId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MP4SampleId&nbsp;</td>
+          <td class="paramname"> <em>sampleId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MP4Duration&nbsp;</td>
+          <td class="paramname"> <em>renderingOffset</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Set the rendering offset of a track sample. 
+<p>
+MP4SetSampleRenderingOffset sets the rendering offset of the specified sample from the specified track in the track timescale units.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>hFile</em>&nbsp;</td><td>handle of file for operation. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>trackId</em>&nbsp;</td><td>id of track for operation. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>sampleId</em>&nbsp;</td><td>id of sample for operation. Caveat: the first sample has id <b>1</b>, not <b>0</b>. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>renderingOffset</em>&nbsp;</td><td>new offset value in timescale units.</td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>Returns:</b></dt><dd><b>true</b> on success, <b>false</b> on failure.</dd></dl>
+<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="group__mp4__general.html#ge96d0d031047bef95639863aeb295d7b" title="Convert duration from arbitrary time scale to track time scale.">MP4ConvertToTrackDuration()</a> for how to map this value from another timescale. <p>
+<a class="el" href="group__mp4__sample.html#gb68eec0276742f24ddb80c831c52b60d" title="Get the rendering offset of a track sample.">MP4GetSampleRenderingOffset()</a> for a description of this sample property. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="ga952428b21b52d023124a4c868f9b5fa"></a><!-- doxytag: member="sample.h::MP4WriteSample" ref="ga952428b21b52d023124a4c868f9b5fa" args="(MP4FileHandle hFile, MP4TrackId trackId, const uint8_t *pBytes, uint32_t numBytes, MP4Duration duration=MP4_INVALID_DURATION, MP4Duration renderingOffset=0, bool isSyncSample=true)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool MP4WriteSample           </td>
+          <td>(</td>
+          <td class="paramtype">MP4FileHandle&nbsp;</td>
+          <td class="paramname"> <em>hFile</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MP4TrackId&nbsp;</td>
+          <td class="paramname"> <em>trackId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const uint8_t *&nbsp;</td>
+          <td class="paramname"> <em>pBytes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&nbsp;</td>
+          <td class="paramname"> <em>numBytes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MP4Duration&nbsp;</td>
+          <td class="paramname"> <em>duration</em> = <code>MP4_INVALID_DURATION</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MP4Duration&nbsp;</td>
+          <td class="paramname"> <em>renderingOffset</em> = <code>0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&nbsp;</td>
+          <td class="paramname"> <em>isSyncSample</em> = <code>true</code></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Write a track sample. 
+<p>
+MP4WriteSample writes the given sample at the end of the specified track. Currently the library does not support random insertion of samples into the track timeline. Note that with mp4 there cannot be any holes or overlapping samples in the track timeline. The last three arguments give optional sample information.<p>
+The value of duration can be given as <a class="el" href="group__mp4__general.html#g2a4f35efc02ce66d8a393696371546fc" title="Constant: invalid MP4Duration.">MP4_INVALID_DURATION</a> if all samples in the track have the same duration. This can be specified with MP4AddTrack() and related functions.<p>
+Typically for audio none of the optional arguments are needed. MPEG audio such as MP3 or AAC has a fixed sample duration and every sample can be accessed at random.<p>
+For video, all of the optional arguments could be needed. MPEG video can be encoded at a variable frame rate, with only occasional random access points, and with "B frames" which cause the rendering (display) order of the video frames to differ from the storage/decoding order.<p>
+Other media types fall between these two extremes.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>hFile</em>&nbsp;</td><td>handle of file for operation. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>trackId</em>&nbsp;</td><td>id of track for operation. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>pBytes</em>&nbsp;</td><td>pointer to sample data. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>numBytes</em>&nbsp;</td><td>length of sample data in bytes. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>duration</em>&nbsp;</td><td>sample duration. Caveat: should be in track timescale. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>renderingOffset</em>&nbsp;</td><td>the rendering offset for this sample. Currently the only media type that needs this feature is MPEG video. Caveat: The offset should be in the track timescale. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>isSyncSample</em>&nbsp;</td><td>the sync/random access flag for this sample.</td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>Returns:</b></dt><dd><b>true</b> on success, <b>false</b> on failure.</dd></dl>
+<dl class="see" compact><dt><b>See also:</b></dt><dd>MP4AddTrack(). </dd></dl>
+
+</div>
+</div><p>
 </div>
 <div class="footer">
     <div>
-        generated on Sat Nov 29 03:21:12 2008 for <b>MP4v2 (2.0-r104)</b>
+        generated on Sat Dec 6 14:22:29 2008 for <b>MP4v2 (2.0-r128)</b>
         by&nbsp;<a href="http://www.doxygen.org">Doxygen</a> 1.5.7.1-20081103
     </div>
 </div>
