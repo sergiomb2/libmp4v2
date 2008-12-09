@@ -14,7 +14,7 @@ Description of currently known iTunes tags.
 || Cover Art || covr || JPEG/PNG/BMP || May have multiple data atoms || CoverArt ||
 || Copyright || cprt || UTF-8 string || Only ISO standard tag || Copyright ||
 || Release Date || ©day || UTF-8 string || YYYY-MM-DD format, may be incomplete (e.g. just the year) || ReleaseDate ||
-|| Encoded By  || ©enc || UTF-8 string || Person/company who encoded the file || ||
+|| Encoded By  || ©enc || UTF-8 string || Person/company who encoded the file || EncodedBy ||
 || Genre, Pre-defined || gnre || enum || Standard Genres according to ID3, the iTunes tag is one greater the the corresponding ID3 tag || Genre ||
 || Genre, User defined || ©gen || UTF-8 string || || Genre ||
 || Name || ©nam || UTF-8 string || || Name ||
@@ -32,11 +32,11 @@ Description of currently known iTunes tags.
 || Gapless Playback || pgap || 8-bit integer || || PartOfGaplessAlbum  ||
 || Category || catg || UTF-8 string || Use? || ||
 || Keyword || keyw || UTF-8 string || Use? || ||
-|| Podcast || pcst || 8-bit integer  (boolean) || Podcast URL || ||
+|| Podcast || pcst || 8-bit integer  (boolean) || || ||
 || Podcast URL || || UTF-8 string  || || ||
-|| Description || desc || UTF-8 string || Short description|| Description (read only) ||
-|| Long description || ldes || || || ||
-|| Lyrics || ©lyr || UTF-8 string || Not limited to 255 bytes. || ||
+|| Description || desc || UTF-8 string || Short description|| ShortDescription ||
+|| Long description || ldes || || Not limited to 255 bytes. || LongDescription (read only) ||
+|| Lyrics || ©lyr || UTF-8 string || Not limited to 255 bytes. || Lyrics (read only) ||
 || TV Network Name || tvnn || UTF-8 string  || || TVNetworkName (read only) | ||
 || TV Show Name || tvsh || UTF-8 string  || || TVShow (read only) ||
 || TV Episode Number || tven || UTF-8 string  || || TVEpisodeNumber (read only) ||
