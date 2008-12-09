@@ -32,7 +32,8 @@ Description of currently known iTunes tags.
 || Keyword || keyw || UTF-8 string || Use? || ||
 || Podcast || pcst || 8-bit integer  (boolean) || Podcast URL || ||
 || Podcast URL || || UTF-8 string  || || ||
-|| Description || desc || UTF-8 string || Use? || ||
+|| Description || desc || UTF-8 string || Short description|| Description (read only) ||
+|| Long description || ldes || || || ||
 || Lyrics || ©lyr || UTF-8 string || Not limited to 255 bytes. || ||
 || TV Network Name || tvnn || UTF-8 string  || || ||
 || TV Show Name || tvsh || UTF-8 string  || || ||
@@ -41,6 +42,31 @@ Description of currently known iTunes tags.
 || TV Episode || tves || 8-bit integer  || || ||
 || Purchase Date || purd || UTF-8 string  || || PurchaseDate (currently read only) ||
 || Purchase Account || apID || UTF-8 string  || || PurchaserAccount (currently read only) ||
+|| HD Video || hdvd || 8-bit integer  (boolean)  || || HDVideo (currently read only) ||
+|| Content Rating || rtng || 8-bit integer (boolean) || Explicit label || Explicit (currently read only) ||
+|| BPM || tmpo ||32-bit integer || || BPM ||
+|| Track Number || trkn || binary || || Track ||
+|| Gapless Playback || pgap || 8-bit integer || || PartOfGaplessAlbum  ||
+|| Category || catg || UTF-8 string || Use? || ||
+|| Keyword || keyw || UTF-8 string || Use? || ||
+|| Podcast || pcst || 8-bit integer  (boolean) || Podcast URL || ||
+|| Podcast URL || || UTF-8 string  || || ||
+|| Description || desc || UTF-8 string || Short description|| Description (read only) ||
+|| Long description || ldes || || || ||
+|| Lyrics || ©lyr || UTF-8 string || Not limited to 255 bytes. || ||
+|| TV Network Name || tvnn || UTF-8 string  || || TVNetworkName (read only) | ||
+|| TV Show Name || tvsh || UTF-8 string  || || TVShow (read only) ||
+|| TV Episode Number || tven || UTF-8 string  || || TVEpisodeNumber (read only) ||
+|| TV Season || tvsn || 8-bit integer  || || ||
+|| TV Episode || tves || 8-bit integer  || || ||
+|| Purchase Date || purd || UTF-8 string  || || PurchaseDate (currently read only) ||
+|| Purchase Account || apID || UTF-8 string  || || PurchaserAccount (currently read only) ||
+|| Sort Album || soal || UTF-8 string  || || SortAlbum (read only)  ||
+|| Sort Name || sonm || UTF-8 string  || || SortName (read only) ||
+|| Sort Artist || soar || UTF-8 string  || || SortArtist (read only) ||
+|| Sort AlbumArtist || soaa || UTF-8 string  || || SortAlbumArtist (read only) ||
+|| Sort Composer || soco || UTF-8 string  || || SortComposer (read only) ||
+|| Sort Show || sosn || UTF-8 string  || || SortTVShow (read only) ||
 
 *A blank field means that this tag is currently not supported by libmp4v2
 
