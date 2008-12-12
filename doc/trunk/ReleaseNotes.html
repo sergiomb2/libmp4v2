@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <title>MP4v2 2.0-r128 Release Notes</title>
+    <title>MP4v2 2.0-r150 Release Notes</title>
     <link href="project.css" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -23,7 +23,7 @@
     </div>
 </div>
 <div id="content">
-<h2 class="majorheading"><a name="TOC0"></a>MP4v2 2.0-r128 Release Notes</h2>
+<h2 class="majorheading"><a name="TOC0"></a>MP4v2 2.0-r150 Release Notes</h2>
 
 <blockquote>
 <b>Warning:</b> This is a <b>developer</b> release which includes all the normal pieces of a stable release but is considered <b>unstable</b>. 
@@ -58,7 +58,7 @@ The purpose of a developer release is to make available to MP4v2 developers feat
 
 <h3 class="section"><a name="TOC3"></a>2.1 Top-level header file</h3>
 
-<p>This release is <b>nearly</b> 100% API compatible with MPEG4IP, however there are some differences. There single change code using this library <b>must</b> make is to include the top-level public header file as follows. <b>This is the only supported mechanism to include the library</b>. We do not support attempts to any sub-level header files; such files are private implementation details and their naming must not be relied upon.
+<p>This release is <b>nearly</b> 100% API compatible with MPEG4IP, however there are some differences. There single change code using this library <b>must</b> make is to include the top-level public header file as follows. <b>This is the only supported mechanism to include the library</b>. We do not support attempts to include any sub-level header files; such files are private implementation details and their naming must not be relied upon.
 
 <pre class="example">#include &lt;mp4v2/mp4v2.h&gt;
 </pre>
@@ -73,8 +73,8 @@ The purpose of a developer release is to make available to MP4v2 developers feat
 <pre class="example">url:  https://mp4v2.googlecode.com/svn/trunk
 root: https://mp4v2.googlecode.com/svn
 uuid: 6e6572fa-98a6-11dd-ad9f-f77439c74b79
-rev:  128
-date: 2008-12-06 14:22:07 -0500 (Sat, 06 Dec 2008)
+rev:  150
+date: 2008-12-10 22:31:11 -0500 (Wed, 10 Dec 2008)
 type: developer
 </pre>
 <h2 class="appendix"><a name="TOC6"></a>Appendix B Changelog</h2>
@@ -86,10 +86,15 @@ type: developer
 
      <li>Added initial AC3 support.
 
-     <li>Added QuickTime and Nero chapter support. 
+     <li>Added native Windows port. The port targets <code>WINVER 0x0500</code> which is Windows 2000 or higher.
+
+     <li>Added QuickTime and Nero chapter support. See <samp><span class="command">mp4chaps</span></samp> command-line utility. 
 <br> Contributed by Ullrich Pollähne &lt;u.pollaehne@gmail.com&gt;.
 
-     <li>Added native Windows port. The port targets <code>WINVER 0x0500</code> which is Windows 2000 or higher.
+     <li>Enhanced <samp><span class="command">mp4art</span></samp> to support multiple cover-art atoms.
+
+     <li>Dropped <samp><span class="command">mp4dump</span></samp> and replaced with <samp><span class="command">mp4file</span></samp> which supports general file operations.
+
      </ol>
 
 <h3 class="appendixsec"><a name="TOC8"></a>B.2 Version 1.6</h3>
@@ -102,7 +107,7 @@ type: developer
 </div>
 <div id="footer">
     <div>
-        generated on Sat Dec  6 14:22:25 EST 2008 for <b>MP4v2 (2.0-r128)</b>
+        generated on Thu Dec 11 15:13:55 EST 2008 for <b>MP4v2 (2.0-r150)</b>
     </div>
 </div>
 </body>

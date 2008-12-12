@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <title>MP4v2 2.0-r128 PROJECT_name: mp4v2::util::Utility Class Reference</title>
+    <title>MP4v2 2.0-r150 PROJECT_name: mp4v2::util::Utility Class Reference</title>
     <link href="project.css" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -62,6 +62,11 @@
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="aa165a0f1ec4025ccac17d19dcdf3ce7"></a><!-- doxytag: member="mp4v2::util::Utility::process" ref="aa165a0f1ec4025ccac17d19dcdf3ce7" args="()" -->
 bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>process</b> ()</td></tr>
 
+<tr><td colspan="2"><br><h2>Static Public Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="6fd5c67d2f8509546287f744584b8f67"></a><!-- doxytag: member="mp4v2::util::Utility::init" ref="6fd5c67d2f8509546287f744584b8f67" args="()" -->
+static void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmp4v2_1_1util_1_1_utility.html#6fd5c67d2f8509546287f744584b8f67">init</a> ()</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">static init. <br></td></tr>
 <tr><td colspan="2"><br><h2>Static Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="164ffb84a387a51539f250e85925a61b"></a><!-- doxytag: member="mp4v2::util::Utility::SUCCESS" ref="164ffb84a387a51539f250e85925a61b" args="" -->
 static const bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>SUCCESS</b></td></tr>
@@ -133,7 +138,7 @@ bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">process next argument <br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="4fb1396dd2ce212af5dcae810c523297"></a><!-- doxytag: member="mp4v2::util::Utility::openFileForWriting" ref="4fb1396dd2ce212af5dcae810c523297" args="(io::StdioFile &amp;)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmp4v2_1_1util_1_1_utility.html#4fb1396dd2ce212af5dcae810c523297">openFileForWriting</a> (io::StdioFile &amp;)</td></tr>
+bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmp4v2_1_1util_1_1_utility.html#4fb1396dd2ce212af5dcae810c523297">openFileForWriting</a> (<a class="el" href="classmp4v2_1_1platform_1_1io_1_1_stdio_file.html">io::StdioFile</a> &amp;)</td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">open file in consideration of overwrite/force options <br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="1051c6effa755c68c675373716aca0ce"></a><!-- doxytag: member="mp4v2::util::Utility::dryrunAbort" ref="1051c6effa755c68c675373716aca0ce" args="()" -->
@@ -160,10 +165,6 @@ const int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href=
 char *const *const&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmp4v2_1_1util_1_1_utility.html#b6eea3cc1f4b8ea69215478224e1db4b">_argv</a></td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">arg vector <br></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="b17cf80a279796ae9c6c26e0da8a915f"></a><!-- doxytag: member="mp4v2::util::Utility::_optimize" ref="b17cf80a279796ae9c6c26e0da8a915f" args="" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmp4v2_1_1util_1_1_utility.html#b17cf80a279796ae9c6c26e0da8a915f">_optimize</a></td></tr>
-
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">optimize mp4 file after modification <br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="00ff50756755d209bcce75c5245e8caa"></a><!-- doxytag: member="mp4v2::util::Utility::_strict" ref="00ff50756755d209bcce75c5245e8caa" args="" -->
 bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmp4v2_1_1util_1_1_utility.html#00ff50756755d209bcce75c5245e8caa">_strict</a></td></tr>
 
@@ -213,39 +214,35 @@ string&nbsp;</td><td class="memItemRight" valign="bottom"><b>_description</b></t
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="39ae62243a46606790b8ab84b59bdc58"></a><!-- doxytag: member="mp4v2::util::Utility::_groups" ref="39ae62243a46606790b8ab84b59bdc58" args="" -->
 list&lt; Group * &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><b>_groups</b></td></tr>
 
-<tr><td colspan="2"><br><h2>Static Protected Attributes</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="ff05dd54060760801dd49135a1ea76ae"></a><!-- doxytag: member="mp4v2::util::Utility::STD_OPTIMIZE" ref="ff05dd54060760801dd49135a1ea76ae" args="" -->
-static const Option&nbsp;</td><td class="memItemRight" valign="bottom"><b>STD_OPTIMIZE</b></td></tr>
-
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="85152e8a954df0d59ba148d30a5f35be"></a><!-- doxytag: member="mp4v2::util::Utility::STD_DRYRUN" ref="85152e8a954df0d59ba148d30a5f35be" args="" -->
-static const Option&nbsp;</td><td class="memItemRight" valign="bottom"><b>STD_DRYRUN</b></td></tr>
+const Option&nbsp;</td><td class="memItemRight" valign="bottom"><b>STD_DRYRUN</b></td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="15d283e8ae79f1fb2445775fec235f36"></a><!-- doxytag: member="mp4v2::util::Utility::STD_KEEPGOING" ref="15d283e8ae79f1fb2445775fec235f36" args="" -->
-static const Option&nbsp;</td><td class="memItemRight" valign="bottom"><b>STD_KEEPGOING</b></td></tr>
+const Option&nbsp;</td><td class="memItemRight" valign="bottom"><b>STD_KEEPGOING</b></td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="3595ac47aa74a5be23d0d797e8baab00"></a><!-- doxytag: member="mp4v2::util::Utility::STD_OVERWRITE" ref="3595ac47aa74a5be23d0d797e8baab00" args="" -->
-static const Option&nbsp;</td><td class="memItemRight" valign="bottom"><b>STD_OVERWRITE</b></td></tr>
+const Option&nbsp;</td><td class="memItemRight" valign="bottom"><b>STD_OVERWRITE</b></td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="cf53eb93bc8672b64ec4b9014555b127"></a><!-- doxytag: member="mp4v2::util::Utility::STD_FORCE" ref="cf53eb93bc8672b64ec4b9014555b127" args="" -->
-static const Option&nbsp;</td><td class="memItemRight" valign="bottom"><b>STD_FORCE</b></td></tr>
+const Option&nbsp;</td><td class="memItemRight" valign="bottom"><b>STD_FORCE</b></td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="5a74f465e128294a216a460a9e203256"></a><!-- doxytag: member="mp4v2::util::Utility::STD_QUIET" ref="5a74f465e128294a216a460a9e203256" args="" -->
-static const Option&nbsp;</td><td class="memItemRight" valign="bottom"><b>STD_QUIET</b></td></tr>
+const Option&nbsp;</td><td class="memItemRight" valign="bottom"><b>STD_QUIET</b></td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="304d6d98f148b23e9c815314834ef512"></a><!-- doxytag: member="mp4v2::util::Utility::STD_DEBUG" ref="304d6d98f148b23e9c815314834ef512" args="" -->
-static const Option&nbsp;</td><td class="memItemRight" valign="bottom"><b>STD_DEBUG</b></td></tr>
+const Option&nbsp;</td><td class="memItemRight" valign="bottom"><b>STD_DEBUG</b></td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="53cba547710feaa2784f9d643cbfc66a"></a><!-- doxytag: member="mp4v2::util::Utility::STD_VERBOSE" ref="53cba547710feaa2784f9d643cbfc66a" args="" -->
-static const Option&nbsp;</td><td class="memItemRight" valign="bottom"><b>STD_VERBOSE</b></td></tr>
+const Option&nbsp;</td><td class="memItemRight" valign="bottom"><b>STD_VERBOSE</b></td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="a8526b7ff642506bb9a04ccf7ac21d2a"></a><!-- doxytag: member="mp4v2::util::Utility::STD_HELP" ref="a8526b7ff642506bb9a04ccf7ac21d2a" args="" -->
-static const Option&nbsp;</td><td class="memItemRight" valign="bottom"><b>STD_HELP</b></td></tr>
+const Option&nbsp;</td><td class="memItemRight" valign="bottom"><b>STD_HELP</b></td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="4347bb6c4b032db45d5a78dc678eb428"></a><!-- doxytag: member="mp4v2::util::Utility::STD_VERSION" ref="4347bb6c4b032db45d5a78dc678eb428" args="" -->
-static const Option&nbsp;</td><td class="memItemRight" valign="bottom"><b>STD_VERSION</b></td></tr>
+const Option&nbsp;</td><td class="memItemRight" valign="bottom"><b>STD_VERSION</b></td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="553794ca7a571aec0d00618591382c10"></a><!-- doxytag: member="mp4v2::util::Utility::STD_VERSIONX" ref="553794ca7a571aec0d00618591382c10" args="" -->
-static const Option&nbsp;</td><td class="memItemRight" valign="bottom"><b>STD_VERSIONX</b></td></tr>
+const Option&nbsp;</td><td class="memItemRight" valign="bottom"><b>STD_VERSIONX</b></td></tr>
 
 </table>
 <hr><a name="_details"></a><h2>Detailed Description</h2>
@@ -265,7 +262,7 @@ Criteria and guidelines for utility behavior in MP4v2 are as follows: <ul>
 </div>
 <div class="footer">
     <div>
-        generated on Sat Dec 6 14:22:29 2008 for <b>MP4v2 (2.0-r128)</b>
+        generated on Fri Dec 12 08:24:44 2008 for <b>MP4v2 (2.0-r150)</b>
         by&nbsp;<a href="http://www.doxygen.org">Doxygen</a> 1.5.7.1-20081103
     </div>
 </div>

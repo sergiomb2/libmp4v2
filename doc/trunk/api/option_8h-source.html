@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <title>MP4v2 2.0-r128 PROJECT_name: libplatform/prog/option.h Source File</title>
+    <title>MP4v2 2.0-r150 PROJECT_name: libplatform/prog/option.h Source File</title>
     <link href="project.css" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -42,45 +42,47 @@
 <a name="l00003"></a>00003 <span class="preprocessor"></span>
 <a name="l00022"></a>00022 <span class="keyword">namespace </span>mp4v2 { <span class="keyword">namespace </span>platform { <span class="keyword">namespace </span>prog {
 <a name="l00023"></a>00023 
-<a name="l00026"></a>00026 <span class="keyword">extern</span> <span class="keywordtype">char</span>* <a class="code" href="namespacemp4v2_1_1platform_1_1prog.html#ac6d7a0c1559abad20298f480129ba83" title="On return from getOption() or getOptionSingle(), points to an option argument, if...">optarg</a>;
+<a name="l00026"></a>00026 MP4V2_EXPORT <span class="keyword">extern</span> <span class="keywordtype">char</span>* <a class="code" href="namespacemp4v2_1_1platform_1_1prog.html#ac6d7a0c1559abad20298f480129ba83" title="On return from getOption() or getOptionSingle(), points to an option argument, if...">optarg</a>;
 <a name="l00027"></a>00027 
-<a name="l00033"></a>00033 <span class="keyword">extern</span> <span class="keywordtype">int</span> <a class="code" href="namespacemp4v2_1_1platform_1_1prog.html#c35b2662d5cee0b2cf1ecec2486d0330" title="On return from getOption() or getOptionSingle(), contains the index to the next argv...">optind</a>;
+<a name="l00033"></a>00033 MP4V2_EXPORT <span class="keyword">extern</span> <span class="keywordtype">int</span> <a class="code" href="namespacemp4v2_1_1platform_1_1prog.html#c35b2662d5cee0b2cf1ecec2486d0330" title="On return from getOption() or getOptionSingle(), contains the index to the next argv...">optind</a>;
 <a name="l00034"></a>00034 
-<a name="l00039"></a>00039 <span class="keyword">extern</span> <span class="keywordtype">int</span> <a class="code" href="namespacemp4v2_1_1platform_1_1prog.html#7ed1998caf71a8733e363f50d375b9e1" title="On return from getOption() or getOptionSingle(), saves the last known option character...">optopt</a>;
+<a name="l00039"></a>00039 MP4V2_EXPORT <span class="keyword">extern</span> <span class="keywordtype">int</span> <a class="code" href="namespacemp4v2_1_1platform_1_1prog.html#7ed1998caf71a8733e363f50d375b9e1" title="On return from getOption() or getOptionSingle(), saves the last known option character...">optopt</a>;
 <a name="l00040"></a>00040 
-<a name="l00042"></a>00042 <span class="keyword">extern</span> <span class="keywordtype">int</span> <a class="code" href="namespacemp4v2_1_1platform_1_1prog.html#969c141bb16eab9e8c0cb69adb01f9d1" title="Initialized to 1 and may be set to 0 to disable error messages.">opterr</a>;
+<a name="l00042"></a>00042 MP4V2_EXPORT <span class="keyword">extern</span> <span class="keywordtype">int</span> <a class="code" href="namespacemp4v2_1_1platform_1_1prog.html#969c141bb16eab9e8c0cb69adb01f9d1" title="Initialized to 1 and may be set to 0 to disable error messages.">opterr</a>;
 <a name="l00043"></a>00043 
-<a name="l00046"></a>00046 <span class="keyword">extern</span> <span class="keywordtype">int</span> <a class="code" href="namespacemp4v2_1_1platform_1_1prog.html#766d4ac34b8c5637d4990fdafd1a0e5f" title="Must be set to 1 before evaluating the 2nd or each additional set of arguments.">optreset</a>;
+<a name="l00046"></a>00046 MP4V2_EXPORT <span class="keyword">extern</span> <span class="keywordtype">int</span> <a class="code" href="namespacemp4v2_1_1platform_1_1prog.html#766d4ac34b8c5637d4990fdafd1a0e5f" title="Must be set to 1 before evaluating the 2nd or each additional set of arguments.">optreset</a>;
 <a name="l00047"></a>00047 
-<a name="l00051"></a><a class="code" href="structmp4v2_1_1platform_1_1prog_1_1_option.html">00051</a> <span class="keyword">struct </span><a class="code" href="structmp4v2_1_1platform_1_1prog_1_1_option.html" title="Structure describing a single option.">Option</a>
+<a name="l00051"></a><a class="code" href="structmp4v2_1_1platform_1_1prog_1_1_option.html">00051</a> <span class="keyword">struct </span>MP4V2_EXPORT <a class="code" href="structmp4v2_1_1platform_1_1prog_1_1_option.html" title="Structure describing a single option.">Option</a>
 <a name="l00052"></a>00052 {
 <a name="l00055"></a><a class="code" href="structmp4v2_1_1platform_1_1prog_1_1_option.html#75d77ea9fb79c573cad19cb6dbabd674">00055</a>     <span class="keyword">enum</span> <a class="code" href="structmp4v2_1_1platform_1_1prog_1_1_option.html#75d77ea9fb79c573cad19cb6dbabd674" title="expectation-type indicating number of arguments expected on the command-line following...">Type</a> {
-<a name="l00057"></a><a class="code" href="structmp4v2_1_1platform_1_1prog_1_1_option.html#75d77ea9fb79c573cad19cb6dbabd674498bca3550855e78499bd85ac6126f97">00057</a>         <a class="code" href="structmp4v2_1_1platform_1_1prog_1_1_option.html#75d77ea9fb79c573cad19cb6dbabd674498bca3550855e78499bd85ac6126f97" title="indicates exactly 0 arguments follow option">NO_ARG</a>,
-<a name="l00059"></a><a class="code" href="structmp4v2_1_1platform_1_1prog_1_1_option.html#75d77ea9fb79c573cad19cb6dbabd6748a2807c3d2ed7eacd9b95051db64a2f9">00059</a>         <a class="code" href="structmp4v2_1_1platform_1_1prog_1_1_option.html#75d77ea9fb79c573cad19cb6dbabd6748a2807c3d2ed7eacd9b95051db64a2f9" title="indicates exactly 1 argument follow option">REQUIRED_ARG</a>,
-<a name="l00061"></a><a class="code" href="structmp4v2_1_1platform_1_1prog_1_1_option.html#75d77ea9fb79c573cad19cb6dbabd674969148df01bee971a0a7a85440becc53">00061</a>         <a class="code" href="structmp4v2_1_1platform_1_1prog_1_1_option.html#75d77ea9fb79c573cad19cb6dbabd674969148df01bee971a0a7a85440becc53" title="indicates 0 or 1 arguments follow option">OPTIONAL_ARG</a>,
+<a name="l00057"></a><a class="code" href="structmp4v2_1_1platform_1_1prog_1_1_option.html#75d77ea9fb79c573cad19cb6dbabd674498bca3550855e78499bd85ac6126f97">00057</a>         NO_ARG,
+<a name="l00059"></a><a class="code" href="structmp4v2_1_1platform_1_1prog_1_1_option.html#75d77ea9fb79c573cad19cb6dbabd6748a2807c3d2ed7eacd9b95051db64a2f9">00059</a>         REQUIRED_ARG,
+<a name="l00061"></a><a class="code" href="structmp4v2_1_1platform_1_1prog_1_1_option.html#75d77ea9fb79c573cad19cb6dbabd674969148df01bee971a0a7a85440becc53">00061</a>         OPTIONAL_ARG,
 <a name="l00062"></a>00062     };
 <a name="l00063"></a>00063 
-<a name="l00065"></a><a class="code" href="structmp4v2_1_1platform_1_1prog_1_1_option.html#6bcea17acca8d9e69cdc6d86509f6259">00065</a>     <span class="keywordtype">char</span>* <a class="code" href="structmp4v2_1_1platform_1_1prog_1_1_option.html#6bcea17acca8d9e69cdc6d86509f6259" title="contains the option name without leading double-dash">name</a>;
+<a name="l00065"></a><a class="code" href="structmp4v2_1_1platform_1_1prog_1_1_option.html#6bcea17acca8d9e69cdc6d86509f6259">00065</a>     <span class="keywordtype">char</span>* name;
 <a name="l00066"></a>00066 
-<a name="l00068"></a><a class="code" href="structmp4v2_1_1platform_1_1prog_1_1_option.html#1bd605f7a3d7ec4e731845f2d4ea0608">00068</a>     <a class="code" href="structmp4v2_1_1platform_1_1prog_1_1_option.html#75d77ea9fb79c573cad19cb6dbabd674" title="expectation-type indicating number of arguments expected on the command-line following...">Type</a> <a class="code" href="structmp4v2_1_1platform_1_1prog_1_1_option.html#1bd605f7a3d7ec4e731845f2d4ea0608" title="option expectation-type">type</a>;
+<a name="l00068"></a><a class="code" href="structmp4v2_1_1platform_1_1prog_1_1_option.html#1bd605f7a3d7ec4e731845f2d4ea0608">00068</a>     <a class="code" href="structmp4v2_1_1platform_1_1prog_1_1_option.html#75d77ea9fb79c573cad19cb6dbabd674" title="expectation-type indicating number of arguments expected on the command-line following...">Type</a> type;
 <a name="l00069"></a>00069 
-<a name="l00073"></a><a class="code" href="structmp4v2_1_1platform_1_1prog_1_1_option.html#f869738cf7c2b5796dcc85d6ae947b99">00073</a>     <span class="keywordtype">int</span>* <a class="code" href="structmp4v2_1_1platform_1_1prog_1_1_option.html#f869738cf7c2b5796dcc85d6ae947b99" title="If not NULL, then the integer pointed to by it will be set to the value in the val...">flag</a>;
+<a name="l00073"></a><a class="code" href="structmp4v2_1_1platform_1_1prog_1_1_option.html#f869738cf7c2b5796dcc85d6ae947b99">00073</a>     <span class="keywordtype">int</span>* flag;
 <a name="l00074"></a>00074 
-<a name="l00079"></a><a class="code" href="structmp4v2_1_1platform_1_1prog_1_1_option.html#f30eebc517a99e2669a8ab58e7167abb">00079</a>     <span class="keywordtype">int</span> <a class="code" href="structmp4v2_1_1platform_1_1prog_1_1_option.html#f30eebc517a99e2669a8ab58e7167abb" title="Constant value representing option.">val</a>;
+<a name="l00079"></a><a class="code" href="structmp4v2_1_1platform_1_1prog_1_1_option.html#f30eebc517a99e2669a8ab58e7167abb">00079</a>     <span class="keywordtype">int</span> val;
 <a name="l00080"></a>00080 };
 <a name="l00081"></a>00081 
-<a name="l00133"></a>00133 <span class="keywordtype">int</span> <a class="code" href="namespacemp4v2_1_1platform_1_1prog.html#fb3a59ab05f32b39712afe311b78d6ff" title="Get option character from command line argument list.">getOption</a>( <span class="keywordtype">int</span> argc, <span class="keywordtype">char</span>* <span class="keyword">const</span>* argv, <span class="keyword">const</span> <span class="keywordtype">char</span>* optstr, <span class="keyword">const</span> <a class="code" href="structmp4v2_1_1platform_1_1prog_1_1_option.html" title="Structure describing a single option.">Option</a>* longopts, <span class="keywordtype">int</span>* idx );
-<a name="l00134"></a>00134 
-<a name="l00166"></a>00166 <span class="keywordtype">int</span> <a class="code" href="namespacemp4v2_1_1platform_1_1prog.html#7a958eec41050a3b6cbd0ffc75ad4ccc" title="Get option character from command line argument list and allow long-options with...">getOptionSingle</a>( <span class="keywordtype">int</span> argc, <span class="keywordtype">char</span>* <span class="keyword">const</span>* argv, <span class="keyword">const</span> <span class="keywordtype">char</span>* optstr, <span class="keyword">const</span> <a class="code" href="structmp4v2_1_1platform_1_1prog_1_1_option.html" title="Structure describing a single option.">Option</a>* longopts, <span class="keywordtype">int</span>* idx );
-<a name="l00167"></a>00167 
+<a name="l00133"></a>00133 MP4V2_EXPORT
+<a name="l00134"></a>00134 <span class="keywordtype">int</span> <a class="code" href="namespacemp4v2_1_1platform_1_1prog.html#fb3a59ab05f32b39712afe311b78d6ff" title="Get option character from command line argument list.">getOption</a>( <span class="keywordtype">int</span> argc, <span class="keywordtype">char</span>* <span class="keyword">const</span>* argv, <span class="keyword">const</span> <span class="keywordtype">char</span>* optstr, <span class="keyword">const</span> <a class="code" href="structmp4v2_1_1platform_1_1prog_1_1_option.html" title="Structure describing a single option.">Option</a>* longopts, <span class="keywordtype">int</span>* idx );
+<a name="l00135"></a>00135 
+<a name="l00167"></a>00167 MP4V2_EXPORT
+<a name="l00168"></a>00168 <span class="keywordtype">int</span> <a class="code" href="namespacemp4v2_1_1platform_1_1prog.html#7a958eec41050a3b6cbd0ffc75ad4ccc" title="Get option character from command line argument list and allow long-options with...">getOptionSingle</a>( <span class="keywordtype">int</span> argc, <span class="keywordtype">char</span>* <span class="keyword">const</span>* argv, <span class="keyword">const</span> <span class="keywordtype">char</span>* optstr, <span class="keyword">const</span> <a class="code" href="structmp4v2_1_1platform_1_1prog_1_1_option.html" title="Structure describing a single option.">Option</a>* longopts, <span class="keywordtype">int</span>* idx );
 <a name="l00169"></a>00169 
-<a name="l00170"></a>00170 }}} <span class="comment">// namespace mp4v2::platform::prog</span>
 <a name="l00171"></a>00171 
-<a name="l00172"></a>00172 <span class="preprocessor">#endif // MP4V2_PLATFORM_PROG_OPTION_H</span>
+<a name="l00172"></a>00172 }}} <span class="comment">// namespace mp4v2::platform::prog</span>
+<a name="l00173"></a>00173 
+<a name="l00174"></a>00174 <span class="preprocessor">#endif // MP4V2_PLATFORM_PROG_OPTION_H</span>
 </pre></div></div>
 <div class="footer">
     <div>
-        generated on Sat Dec 6 14:22:29 2008 for <b>MP4v2 (2.0-r128)</b>
+        generated on Fri Dec 12 08:24:44 2008 for <b>MP4v2 (2.0-r150)</b>
         by&nbsp;<a href="http://www.doxygen.org">Doxygen</a> 1.5.7.1-20081103
     </div>
 </div>

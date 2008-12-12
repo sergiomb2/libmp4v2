@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <title>MP4v2 2.0-r128 PROJECT_name: mp4v2::util Namespace Reference</title>
+    <title>MP4v2 2.0-r150 PROJECT_name: mp4v2::util Namespace Reference</title>
     <link href="project.css" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -59,15 +59,32 @@
 
 <p>
 <tr><td colspan="2"><br><h2>Classes</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">class &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmp4v2_1_1util_1_1_database.html">Database</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classmp4v2_1_1util_1_1_database.html" title="Database class is the base implementation for persistent databases.">Database</a> class is the base implementation for persistent databases.  <a href="classmp4v2_1_1util_1_1_database.html#_details">More...</a><br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">struct &nbsp;</td><td class="memItemRight" valign="bottom"><b>FileSummaryInfo</b></td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">class &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmp4v2_1_1util_1_1_timecode.html">Timecode</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Class representing SMPTE timecode.  <a href="classmp4v2_1_1util_1_1_timecode.html#_details">More...</a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">class &nbsp;</td><td class="memItemRight" valign="bottom"><b>UtilException</b></td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">class &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmp4v2_1_1util_1_1_utility.html">Utility</a></td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classmp4v2_1_1util_1_1_utility.html" title="Utility general program class.">Utility</a> general program class.  <a href="classmp4v2_1_1util_1_1_utility.html#_details">More...</a><br></td></tr>
 <tr><td colspan="2"><br><h2>Functions</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="57ed6ff0e19fb233bcab333f483bbf5c"></a><!-- doxytag: member="mp4v2::util::crc32" ref="57ed6ff0e19fb233bcab333f483bbf5c" args="(const unsigned char *, uint32_t)" -->
+uint32_t&nbsp;</td><td class="memItemRight" valign="bottom"><b>crc32</b> (const unsigned char *, uint32_t)</td></tr>
+
 <tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemp4v2_1_1util.html#94ba18fc192800d94dc9ca9ebb5745e1">fileFetchSummaryInfo</a> (MP4FileHandle file, FileSummaryInfo &amp;info)</td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Fetch mp4 file summary information.  <a href="#94ba18fc192800d94dc9ca9ebb5745e1"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemp4v2_1_1util.html#ccaacd774412fd27f9ab4dede3022f46">MP4CopyClose</a> (MP4FileHandle hFile, const string &amp;copyFileName)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Copy-out and close an mp4 file.  <a href="#ccaacd774412fd27f9ab4dede3022f46"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="966eeb51325c19ae32e731800b40397c"></a><!-- doxytag: member="mp4v2::util::init" ref="966eeb51325c19ae32e731800b40397c" args="()" -->
+void&nbsp;</td><td class="memItemRight" valign="bottom"><b>init</b> ()</td></tr>
+
 </table>
 <hr><a name="_details"></a><h2>Detailed Description</h2>
 (private) Command-line utility support. 
@@ -109,10 +126,49 @@ This function fetches summary information for <b>file</b> and information is sto
 
 </div>
 </div><p>
+<a class="anchor" name="ccaacd774412fd27f9ab4dede3022f46"></a><!-- doxytag: member="mp4v2::util::MP4CopyClose" ref="ccaacd774412fd27f9ab4dede3022f46" args="(MP4FileHandle hFile, const string &amp;copyFileName)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool mp4v2::util::MP4CopyClose           </td>
+          <td>(</td>
+          <td class="paramtype">MP4FileHandle&nbsp;</td>
+          <td class="paramname"> <em>hFile</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const string &amp;&nbsp;</td>
+          <td class="paramname"> <em>copyFileName</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Copy-out and close an mp4 file. 
+<p>
+This function writes out a copy of all the atoms from an open mp4 file. The new file is written out in optimized-form, so a subsequent optimize operation is not necessary. Both files are then closed.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>hFile</em>&nbsp;</td><td>handle of file to close. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>copyFileName</em>&nbsp;</td><td>name of new file to copy to.</td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>Returns:</b></dt><dd><b>true</b> on success, <b>false</b> on failure. </dd></dl>
+
+</div>
+</div><p>
 </div>
 <div class="footer">
     <div>
-        generated on Sat Dec 6 14:22:29 2008 for <b>MP4v2 (2.0-r128)</b>
+        generated on Fri Dec 12 08:24:44 2008 for <b>MP4v2 (2.0-r150)</b>
         by&nbsp;<a href="http://www.doxygen.org">Doxygen</a> 1.5.7.1-20081103
     </div>
 </div>

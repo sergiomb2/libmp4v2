@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <title>MP4v2 2.0-r128 Building the Source</title>
+    <title>MP4v2 2.0-r150 Building the Source</title>
     <link href="project.css" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -23,7 +23,7 @@
     </div>
 </div>
 <div id="content">
-<h2 class="majorheading"><a name="TOC0"></a>MP4v2 2.0-r128 Building the Source</h2>
+<h2 class="majorheading"><a name="TOC0"></a>MP4v2 2.0-r150 Building the Source</h2>
 
 <div class="contents">
 <h2>Table of Contents</h2>
@@ -94,8 +94,8 @@
 
 <p>This chapter is for the impatient or those just looking for a quick summary of all the commands used in a typical build. You may skip this summary and jump to <a href="#Build-Process">Build Process</a>.
 
-<pre class="example">tar xf mp4v2-2.0-r128.tar.bz2
-cd mp4v2-2.0-r128/
+<pre class="example">tar xf mp4v2-2.0-r150.tar.bz2
+cd mp4v2-2.0-r150/
 rm -fr build/
 mkdir build/
 cd build/
@@ -112,20 +112,20 @@ make install-man
 
 <p>Extract sources from a source-distribution bundle. Releases are available from <a href="http://code.google.com/p/mp4v2">http://code.google.com/p/mp4v2</a> in the <a href="http://code.google.com/p/mp4v2/downloads/list">downloads</a> section.
 
-<pre class="example">tar xf mp4v2-2.0-r128.tar.bz2
-cd mp4v2-2.0-r128/
+<pre class="example">tar xf mp4v2-2.0-r150.tar.bz2
+cd mp4v2-2.0-r150/
 </pre>
 <p>Older versions of <code>tar</code> may not automatically uncompress the bundle, so you might have to either enter additional flags manually, or first decompress the bundle before extracting. Some possible command variations for uncompressing a <samp><span class="file">bz2</span></samp> file:
 
-<pre class="example">tar xjf mp4v2-2.0-r128.tar.bz2
-bunzip2 -c mp4v2-2.0-r128.tar.bz2 | tar xf -
-bzcat mp4v2-2.0-r128.tar.bz2 | tar xf -
+<pre class="example">tar xjf mp4v2-2.0-r150.tar.bz2
+bunzip2 -c mp4v2-2.0-r150.tar.bz2 | tar xf -
+bzcat mp4v2-2.0-r150.tar.bz2 | tar xf -
 </pre>
 <p>And for a <samp><span class="file">gz</span></samp> file:
 
-<pre class="example">tar xzf mp4v2-2.0-r128.tar.gz
-gunzip -c mp4v2-2.0-r128.tar.gz | tar xf -
-gzcat mp4v2-2.0-r128.tar.gz | tar xf -
+<pre class="example">tar xzf mp4v2-2.0-r150.tar.gz
+gunzip -c mp4v2-2.0-r150.tar.gz | tar xf -
+gzcat mp4v2-2.0-r150.tar.gz | tar xf -
 </pre>
 <p><a name="Configure"></a>
 
@@ -326,7 +326,7 @@ make install-man
 <b>Note:</b> It is recommended to use the platform distribution's bundled compiler for maximum C++ compatibility. If you build with a custom compiler it will likely introduce non-standard runtime requirements for your users. There are of course many valid reasons to build with unbundled compilers, but be aware that is generally unsupported and left as an exercise to the reader. 
 </blockquote>
 <blockquote>
-<b>Note:</b> Solaris' does not (yet) really bundle a compiler. The recommendation is to use the companion-disk compiler for maximum C++ runtime compatibility. It is usually found in <samp><span class="file">/usr/sfw/bin</span></samp>. 
+<b>Note:</b> Solaris does not (yet) really bundle a compiler. The recommendation is to use the companion-disk compiler for maximum C++ runtime compatibility. It is usually found in <samp><span class="file">/usr/sfw/bin</span></samp>. 
 </blockquote>
 
 <h4 class="subsection"><a name="TOC27"></a>5.4.1 Default Binaries</h4>
@@ -410,14 +410,14 @@ setenv CXX gcc-4
 <blockquote>
 <b>Warning:</b> Project meta-data is stored in header <samp><span class="file">project.h</span></samp>. A proper source distribution is built using autotools and generates <samp><span class="file">TOP/include/mp4v2/project.h</span></samp> correctly, which is then bundled with our source distribution. This is adequate for building on the Windows platform.
 
-     <p>However, if you are building from the repository, be warned that there is no method to automatically generate <samp><span class="file">project.h</span></samp>. Instead, we periodically checkin a copy of this file as <samp><span class="file">vstudio9.0/include/mp4v2/project.h</span></samp> which may from time to time get out of date. If it is significantly out of date, you should find the latest source distribution and copy the <samp><span class="file">project.h</span></samp> from there. 
+     <p>However, if you are building from the repository, be warned that there is no method to automatically generate <samp><span class="file">project.h</span></samp> on Windows. Instead, we periodically checkin a copy of this file (generated using autotools) as <samp><span class="file">vstudio9.0/include/mp4v2/project.h</span></samp> which may from time to time get out of date. If it is significantly out of date, you should find the latest source distribution and copy the <samp><span class="file">project.h</span></samp> from there. 
 </blockquote>
 
 
 </div>
 <div id="footer">
     <div>
-        generated on Sat Dec  6 14:22:25 EST 2008 for <b>MP4v2 (2.0-r128)</b>
+        generated on Thu Dec 11 15:13:55 EST 2008 for <b>MP4v2 (2.0-r150)</b>
     </div>
 </div>
 </body>

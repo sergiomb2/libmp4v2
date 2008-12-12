@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <title>MP4v2 2.0-r128 PROJECT_name: mp4v2::util::itmf Namespace Reference</title>
+    <title>MP4v2 2.0-r150 PROJECT_name: mp4v2::util::itmf Namespace Reference</title>
     <link href="project.css" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -48,12 +48,9 @@
 <table border="0" cellpadding="0" cellspacing="0">
 <tr><td></td></tr>
 <tr><td colspan="2"><br><h2>Classes</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">class &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmp4v2_1_1util_1_1itmf_1_1_art_item.html">ArtItem</a></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">class &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmp4v2_1_1util_1_1itmf_1_1_cover_art_box.html">CoverArtBox</a></td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Object representing one cover-art item.  <a href="classmp4v2_1_1util_1_1itmf_1_1_art_item.html#_details">More...</a><br></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">class &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmp4v2_1_1util_1_1itmf_1_1_art_list.html">ArtList</a></td></tr>
-
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Object representing a list of cover-art items.  <a href="classmp4v2_1_1util_1_1itmf_1_1_art_list.html#_details">More...</a><br></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Functional class for covr-box (Cover-art Box) support.  <a href="classmp4v2_1_1util_1_1itmf_1_1_cover_art_box.html#_details">More...</a><br></td></tr>
 <tr><td colspan="2"><br><h2>Enumerations</h2></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">enum &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemp4v2_1_1util_1_1itmf.html#43b08014a2eb60fe8781d989851a13b2">BasicType</a> { <br>
 &nbsp;&nbsp;<b>BT_UNDEFINED</b> =  -1, 
@@ -266,48 +263,39 @@
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="d9c90b818fc26342189d6c74c8e987c5"></a><!-- doxytag: member="mp4v2::util::itmf::convertBasicType" ref="d9c90b818fc26342189d6c74c8e987c5" args="(BasicType value)" -->
 string&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemp4v2_1_1util_1_1itmf.html#d9c90b818fc26342189d6c74c8e987c5">convertBasicType</a> (<a class="el" href="namespacemp4v2_1_1util_1_1itmf.html#43b08014a2eb60fe8781d989851a13b2">BasicType</a> value)</td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Convert <a class="el" href="namespacemp4v2_1_1util_1_1itmf.html#43b08014a2eb60fe8781d989851a13b2" title="Basic set of types as detailed in spec.">BasicType</a> to string. <br></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">convert <a class="el" href="namespacemp4v2_1_1util_1_1itmf.html#43b08014a2eb60fe8781d989851a13b2" title="Basic set of types as detailed in spec.">BasicType</a> to string. <br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="35984a213b66f5b4124f11282c86a1c8"></a><!-- doxytag: member="mp4v2::util::itmf::convertBasicType" ref="35984a213b66f5b4124f11282c86a1c8" args="(BasicType value, string &amp;buffer)" -->
 string &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemp4v2_1_1util_1_1itmf.html#35984a213b66f5b4124f11282c86a1c8">convertBasicType</a> (<a class="el" href="namespacemp4v2_1_1util_1_1itmf.html#43b08014a2eb60fe8781d989851a13b2">BasicType</a> value, string &amp;buffer)</td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Convert <a class="el" href="namespacemp4v2_1_1util_1_1itmf.html#43b08014a2eb60fe8781d989851a13b2" title="Basic set of types as detailed in spec.">BasicType</a> to string with buffer. <br></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">convert <a class="el" href="namespacemp4v2_1_1util_1_1itmf.html#43b08014a2eb60fe8781d989851a13b2" title="Basic set of types as detailed in spec.">BasicType</a> to string with buffer. <br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="0447b2a1d1eda50c246ddb1572be4357"></a><!-- doxytag: member="mp4v2::util::itmf::convertBasicType" ref="0447b2a1d1eda50c246ddb1572be4357" args="(const string &amp;value)" -->
 <a class="el" href="namespacemp4v2_1_1util_1_1itmf.html#43b08014a2eb60fe8781d989851a13b2">BasicType</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemp4v2_1_1util_1_1itmf.html#0447b2a1d1eda50c246ddb1572be4357">convertBasicType</a> (const string &amp;value)</td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Convert string to <a class="el" href="namespacemp4v2_1_1util_1_1itmf.html#43b08014a2eb60fe8781d989851a13b2" title="Basic set of types as detailed in spec.">BasicType</a>. <br></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">convert string to <a class="el" href="namespacemp4v2_1_1util_1_1itmf.html#43b08014a2eb60fe8781d989851a13b2" title="Basic set of types as detailed in spec.">BasicType</a>. <br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="0e9754b6e30e3784817c0796d90dbb87"></a><!-- doxytag: member="mp4v2::util::itmf::convertGenre" ref="0e9754b6e30e3784817c0796d90dbb87" args="(Genre value)" -->
 string&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemp4v2_1_1util_1_1itmf.html#0e9754b6e30e3784817c0796d90dbb87">convertGenre</a> (<a class="el" href="namespacemp4v2_1_1util_1_1itmf.html#7a10bc33f892d28201bb029b10edd063">Genre</a> value)</td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Convert <a class="el" href="namespacemp4v2_1_1util_1_1itmf.html#7a10bc33f892d28201bb029b10edd063" title="enumerated genre as defined in ID3v1 specification but +1 as per iTMF spec.">Genre</a> to string. <br></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">convert <a class="el" href="namespacemp4v2_1_1util_1_1itmf.html#7a10bc33f892d28201bb029b10edd063" title="enumerated genre as defined in ID3v1 specification but +1 as per iTMF spec.">Genre</a> to string. <br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="a96ccab0f77a0c1817d018b6da8e54ae"></a><!-- doxytag: member="mp4v2::util::itmf::convertGenre" ref="a96ccab0f77a0c1817d018b6da8e54ae" args="(Genre value, string &amp;buffer)" -->
 string &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemp4v2_1_1util_1_1itmf.html#a96ccab0f77a0c1817d018b6da8e54ae">convertGenre</a> (<a class="el" href="namespacemp4v2_1_1util_1_1itmf.html#7a10bc33f892d28201bb029b10edd063">Genre</a> value, string &amp;buffer)</td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Convert <a class="el" href="namespacemp4v2_1_1util_1_1itmf.html#7a10bc33f892d28201bb029b10edd063" title="enumerated genre as defined in ID3v1 specification but +1 as per iTMF spec.">Genre</a> to string with buffer. <br></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">convert <a class="el" href="namespacemp4v2_1_1util_1_1itmf.html#7a10bc33f892d28201bb029b10edd063" title="enumerated genre as defined in ID3v1 specification but +1 as per iTMF spec.">Genre</a> to string with buffer. <br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="59034cfaa6f1eb2e6f7febad7d5abca4"></a><!-- doxytag: member="mp4v2::util::itmf::convertGenre" ref="59034cfaa6f1eb2e6f7febad7d5abca4" args="(const string &amp;value)" -->
 <a class="el" href="namespacemp4v2_1_1util_1_1itmf.html#7a10bc33f892d28201bb029b10edd063">Genre</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemp4v2_1_1util_1_1itmf.html#59034cfaa6f1eb2e6f7febad7d5abca4">convertGenre</a> (const string &amp;value)</td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Convert string to <a class="el" href="namespacemp4v2_1_1util_1_1itmf.html#7a10bc33f892d28201bb029b10edd063" title="enumerated genre as defined in ID3v1 specification but +1 as per iTMF spec.">Genre</a>. <br></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemp4v2_1_1util_1_1itmf.html#2f052782c2b7ed17eb89f81efe64c1e2">artList</a> (MP4FileHandle file, <a class="el" href="classmp4v2_1_1util_1_1itmf_1_1_art_list.html">ArtList</a> &amp;out)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">convert string to <a class="el" href="namespacemp4v2_1_1util_1_1itmf.html#7a10bc33f892d28201bb029b10edd063" title="enumerated genre as defined in ID3v1 specification but +1 as per iTMF spec.">Genre</a>. <br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="7422dfe53fc5d28e57ddbf6de19cdac6"></a><!-- doxytag: member="mp4v2::util::itmf::computeBasicType" ref="7422dfe53fc5d28e57ddbf6de19cdac6" args="(const void *buffer, uint32_t size)" -->
+<a class="el" href="namespacemp4v2_1_1util_1_1itmf.html#43b08014a2eb60fe8781d989851a13b2">BasicType</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemp4v2_1_1util_1_1itmf.html#7422dfe53fc5d28e57ddbf6de19cdac6">computeBasicType</a> (const void *buffer, uint32_t size)</td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Fetch list of cover-art items from file.  <a href="#2f052782c2b7ed17eb89f81efe64c1e2"></a><br></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemp4v2_1_1util_1_1itmf.html#139a124f7c98bb6f1911134ebc12e64f">artAdd</a> (MP4FileHandle file, const <a class="el" href="classmp4v2_1_1util_1_1itmf_1_1_art_item.html">ArtItem</a> &amp;item)</td></tr>
-
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Add cover-art item to file.  <a href="#139a124f7c98bb6f1911134ebc12e64f"></a><br></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemp4v2_1_1util_1_1itmf.html#206e299384feaafce821541b995cfe27">artRemove</a> (MP4FileHandle file, uint32_t index=numeric_limits&lt; uint32_t &gt;::max())</td></tr>
-
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Remove cover-art item from file.  <a href="#206e299384feaafce821541b995cfe27"></a><br></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemp4v2_1_1util_1_1itmf.html#200363739accd93d6be634d4c19052fd">artGet</a> (MP4FileHandle file, <a class="el" href="classmp4v2_1_1util_1_1itmf_1_1_art_item.html">ArtItem</a> &amp;item, uint32_t index)</td></tr>
-
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Fetch cover-art item from file.  <a href="#200363739accd93d6be634d4c19052fd"></a><br></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemp4v2_1_1util_1_1itmf.html#b9a29b65e0ccd86a47b3afe08e8d1e85">artSet</a> (MP4FileHandle file, const <a class="el" href="classmp4v2_1_1util_1_1itmf_1_1_art_item.html">ArtItem</a> &amp;item, uint32_t index)</td></tr>
-
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Replace cover-art item in file.  <a href="#b9a29b65e0ccd86a47b3afe08e8d1e85"></a><br></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">compute BasicType by examining raw bytes header. <br></td></tr>
 </table>
 <hr><a name="_details"></a><h2>Detailed Description</h2>
 (private) iTunes Metadata Format. 
 <p>
 <b>WARNING: THIS IS A PRIVATE NAMESPACE. NOT FOR PUBLIC CONSUMPTION.</b><p>
-This namespace implements some features that are specified by the iTunes Metadata Format Specification, revision 2008-04-16. 
+This namespace implements some features that are specified by the iTunes Metadata Format Specification, revision 2008-04-16.<p>
+This namespace provides a rich C++ interface, and is not intended to be exposed as public API in its current state, especially given its curren parent namespace.<p>
+The dependents of this module are libutil/utilities. 
 <p>
 <hr><h2>Enumeration Type Documentation</h2>
 <a class="anchor" name="43b08014a2eb60fe8781d989851a13b2"></a><!-- doxytag: member="mp4v2::util::itmf::BasicType" ref="43b08014a2eb60fe8781d989851a13b2" args="" -->
@@ -388,216 +376,10 @@ enumerated genre as defined in ID3v1 specification but +1 as per iTMF spec.
 Note values beyond 80 are Winamp extensions. 
 </div>
 </div><p>
-<hr><h2>Function Documentation</h2>
-<a class="anchor" name="139a124f7c98bb6f1911134ebc12e64f"></a><!-- doxytag: member="mp4v2::util::itmf::artAdd" ref="139a124f7c98bb6f1911134ebc12e64f" args="(MP4FileHandle file, const ArtItem &amp;item)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool mp4v2::util::itmf::artAdd           </td>
-          <td>(</td>
-          <td class="paramtype">MP4FileHandle&nbsp;</td>
-          <td class="paramname"> <em>file</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const ArtItem &amp;&nbsp;</td>
-          <td class="paramname"> <em>item</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-Add cover-art item to file. 
-<p>
-Any necessary metadata atoms are first created. Additionally, if an empty data-atom exists it will be used, otherwise a new data-atom is added to <b>covr-atom</b>.<p>
-<dl compact><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>file</em>&nbsp;</td><td>on which to operate. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>item</em>&nbsp;</td><td>cover-art object to place in file.</td></tr>
-  </table>
-</dl>
-<dl class="return" compact><dt><b>Returns:</b></dt><dd><b>true</b> on failure, <b>false</b> on success. </dd></dl>
-
-</div>
-</div><p>
-<a class="anchor" name="200363739accd93d6be634d4c19052fd"></a><!-- doxytag: member="mp4v2::util::itmf::artGet" ref="200363739accd93d6be634d4c19052fd" args="(MP4FileHandle file, ArtItem &amp;item, uint32_t index)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool mp4v2::util::itmf::artGet           </td>
-          <td>(</td>
-          <td class="paramtype">MP4FileHandle&nbsp;</td>
-          <td class="paramname"> <em>file</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">ArtItem &amp;&nbsp;</td>
-          <td class="paramname"> <em>item</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint32_t&nbsp;</td>
-          <td class="paramname"> <em>index</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-Fetch cover-art item from file. 
-<p>
-<dl compact><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>file</em>&nbsp;</td><td>on which to operate. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>item</em>&nbsp;</td><td>cover-art object populated with data. The resulting object owns the malloc'd buffer and <b>item.autofree</b> is set to true for convenient memory management. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>index</em>&nbsp;</td><td>0-based index of cover-art to fetch.</td></tr>
-  </table>
-</dl>
-<dl class="return" compact><dt><b>Returns:</b></dt><dd><b>true</b> on failure, <b>false</b> on success. </dd></dl>
-
-</div>
-</div><p>
-<a class="anchor" name="2f052782c2b7ed17eb89f81efe64c1e2"></a><!-- doxytag: member="mp4v2::util::itmf::artList" ref="2f052782c2b7ed17eb89f81efe64c1e2" args="(MP4FileHandle file, ArtList &amp;out)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool mp4v2::util::itmf::artList           </td>
-          <td>(</td>
-          <td class="paramtype">MP4FileHandle&nbsp;</td>
-          <td class="paramname"> <em>file</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">ArtList &amp;&nbsp;</td>
-          <td class="paramname"> <em>out</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-Fetch list of cover-art items from file. 
-<p>
-<dl compact><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>file</em>&nbsp;</td><td>on which to operate. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>out</em>&nbsp;</td><td>vector of ArtItem objects.</td></tr>
-  </table>
-</dl>
-<dl class="return" compact><dt><b>Returns:</b></dt><dd><b>true</b> on failure, <b>false</b> on success. </dd></dl>
-
-</div>
-</div><p>
-<a class="anchor" name="206e299384feaafce821541b995cfe27"></a><!-- doxytag: member="mp4v2::util::itmf::artRemove" ref="206e299384feaafce821541b995cfe27" args="(MP4FileHandle file, uint32_t index=numeric_limits&lt; uint32_t &gt;::max())" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool mp4v2::util::itmf::artRemove           </td>
-          <td>(</td>
-          <td class="paramtype">MP4FileHandle&nbsp;</td>
-          <td class="paramname"> <em>file</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint32_t&nbsp;</td>
-          <td class="paramname"> <em>index</em> = <code>numeric_limits&lt;&nbsp;uint32_t&nbsp;&gt;::max()</code></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-Remove cover-art item from file. 
-<p>
-<dl compact><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>file</em>&nbsp;</td><td>on which to operate. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>index</em>&nbsp;</td><td>0-based index of cover-art to remove. Default value indicates wildcard behavior to remove all items.</td></tr>
-  </table>
-</dl>
-<dl class="return" compact><dt><b>Returns:</b></dt><dd><b>true</b> on failure, <b>false</b> on success. </dd></dl>
-
-</div>
-</div><p>
-<a class="anchor" name="b9a29b65e0ccd86a47b3afe08e8d1e85"></a><!-- doxytag: member="mp4v2::util::itmf::artSet" ref="b9a29b65e0ccd86a47b3afe08e8d1e85" args="(MP4FileHandle file, const ArtItem &amp;item, uint32_t index)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool mp4v2::util::itmf::artSet           </td>
-          <td>(</td>
-          <td class="paramtype">MP4FileHandle&nbsp;</td>
-          <td class="paramname"> <em>file</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const ArtItem &amp;&nbsp;</td>
-          <td class="paramname"> <em>item</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint32_t&nbsp;</td>
-          <td class="paramname"> <em>index</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-Replace cover-art item in file. 
-<p>
-<dl compact><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>file</em>&nbsp;</td><td>on which to operate. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>item</em>&nbsp;</td><td>cover-art object to place in file. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>index</em>&nbsp;</td><td>0-based index of cover-art to replace.</td></tr>
-  </table>
-</dl>
-<dl class="return" compact><dt><b>Returns:</b></dt><dd><b>true</b> on failure, <b>false</b> on success. </dd></dl>
-
-</div>
-</div><p>
 </div>
 <div class="footer">
     <div>
-        generated on Sat Dec 6 14:22:29 2008 for <b>MP4v2 (2.0-r128)</b>
+        generated on Fri Dec 12 08:24:44 2008 for <b>MP4v2 (2.0-r150)</b>
         by&nbsp;<a href="http://www.doxygen.org">Doxygen</a> 1.5.7.1-20081103
     </div>
 </div>

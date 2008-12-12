@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <title>MP4v2 2.0-r128 PROJECT_name: libutil/Utility.h Source File</title>
+    <title>MP4v2 2.0-r150 PROJECT_name: libutil/Utility.h Source File</title>
     <link href="project.css" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -64,162 +64,164 @@
 <a name="l00026"></a>00026 <span class="preprocessor"></span>
 <a name="l00027"></a>00027 <span class="keyword">namespace </span>mp4v2 { <span class="keyword">namespace </span>util {
 <a name="l00028"></a>00028 
-<a name="l00051"></a><a class="code" href="classmp4v2_1_1util_1_1_utility.html">00051</a> <span class="keyword">class </span><a class="code" href="classmp4v2_1_1util_1_1_utility.html" title="Utility general program class.">Utility</a>
+<a name="l00051"></a><a class="code" href="classmp4v2_1_1util_1_1_utility.html">00051</a> <span class="keyword">class </span>MP4V2_EXPORT <a class="code" href="classmp4v2_1_1util_1_1_utility.html" title="Utility general program class.">Utility</a>
 <a name="l00052"></a>00052 {
-<a name="l00053"></a>00053 <span class="keyword">protected</span>:
-<a name="l00054"></a>00054     <span class="keyword">enum</span> LongCode {
-<a name="l00055"></a>00055         LC_NONE = 0xf0000000, <span class="comment">// safe (cannot conflict with char values)</span>
-<a name="l00056"></a>00056         LC_DEBUG,
-<a name="l00057"></a>00057         LC_VERBOSE,
-<a name="l00058"></a>00058         LC_HELP,
-<a name="l00059"></a>00059         LC_VERSION,
-<a name="l00060"></a>00060         LC_VERSIONX,
-<a name="l00061"></a>00061         _LC_MAX <span class="comment">// will be used to seeed derived-class long-codes enum</span>
-<a name="l00062"></a>00062     };
-<a name="l00063"></a>00063 
-<a name="l00064"></a>00064     <span class="keyword">class </span>Option {
-<a name="l00065"></a>00065     <span class="keyword">public</span>:
-<a name="l00066"></a>00066         Option( <span class="keywordtype">char</span>, <span class="keywordtype">bool</span>, <span class="keywordtype">string</span>, <span class="keywordtype">bool</span>, uint32_t, <span class="keywordtype">string</span>, <span class="keywordtype">string</span> = <span class="stringliteral">"ARG"</span>, <span class="keywordtype">string</span> = <span class="stringliteral">""</span>, <span class="keywordtype">bool</span> = <span class="keyword">false</span> );
-<a name="l00067"></a>00067 
-<a name="l00068"></a>00068         <span class="keyword">const</span> <span class="keywordtype">char</span>     scode;
-<a name="l00069"></a>00069         <span class="keyword">const</span> <span class="keywordtype">bool</span>     shasarg;
-<a name="l00070"></a>00070         <span class="keyword">const</span> <span class="keywordtype">string</span>   lname;
-<a name="l00071"></a>00071         <span class="keyword">const</span> <span class="keywordtype">bool</span>     lhasarg;
-<a name="l00072"></a>00072         <span class="keyword">const</span> uint32_t lcode;
-<a name="l00073"></a>00073         <span class="keyword">const</span> <span class="keywordtype">string</span>   descr;
-<a name="l00074"></a>00074         <span class="keyword">const</span> <span class="keywordtype">string</span>   argname;
-<a name="l00075"></a>00075         <span class="keyword">const</span> <span class="keywordtype">string</span>   help;
-<a name="l00076"></a>00076         <span class="keyword">const</span> <span class="keywordtype">bool</span>     hidden;
-<a name="l00077"></a>00077     };
-<a name="l00078"></a>00078 
-<a name="l00079"></a>00079     <span class="keyword">class </span>Group {
-<a name="l00080"></a>00080     <span class="keyword">public</span>:
-<a name="l00081"></a>00081         <span class="keyword">explicit</span> Group( <span class="keywordtype">string</span> );
-<a name="l00082"></a>00082         ~Group();
-<a name="l00083"></a>00083 
-<a name="l00084"></a>00084         <span class="keywordtype">void</span> <span class="keyword">add</span>( <span class="keyword">const</span> Option&amp; ); <span class="comment">// options added this way will not be deleted</span>
-<a name="l00085"></a>00085         <span class="keywordtype">void</span> <span class="keyword">add</span>( char, bool, string, bool, uint32_t, string, <span class="keywordtype">string</span> = <span class="stringliteral">"ARG"</span>, <span class="keywordtype">string</span> = <span class="stringliteral">""</span>, <span class="keywordtype">bool</span> = false );
-<a name="l00086"></a>00086         <span class="keywordtype">void</span> <span class="keyword">add</span>( string, bool, uint32_t, string, <span class="keywordtype">string</span> = <span class="stringliteral">"ARG"</span>, <span class="keywordtype">string</span> = <span class="stringliteral">""</span>, <span class="keywordtype">bool</span> = false );
-<a name="l00087"></a>00087 
-<a name="l00088"></a>00088         <span class="keyword">const</span> <span class="keywordtype">string</span> name;
-<a name="l00089"></a>00089 
-<a name="l00090"></a>00090     <span class="keyword">public</span>:
-<a name="l00091"></a>00091         <span class="keyword">typedef</span> list&lt;const Option*&gt; List;
+<a name="l00053"></a>00053 <span class="keyword">public</span>:
+<a name="l00054"></a>00054     <span class="keyword">static</span> <span class="keywordtype">void</span> init(); 
+<a name="l00055"></a>00055 
+<a name="l00056"></a>00056 <span class="keyword">protected</span>:
+<a name="l00057"></a>00057     <span class="keyword">enum</span> LongCode {
+<a name="l00058"></a>00058         LC_NONE = 0xf0000000, <span class="comment">// safe (cannot conflict with char values)</span>
+<a name="l00059"></a>00059         LC_DEBUG,
+<a name="l00060"></a>00060         LC_VERBOSE,
+<a name="l00061"></a>00061         LC_HELP,
+<a name="l00062"></a>00062         LC_VERSION,
+<a name="l00063"></a>00063         LC_VERSIONX,
+<a name="l00064"></a>00064         _LC_MAX <span class="comment">// will be used to seeed derived-class long-codes enum</span>
+<a name="l00065"></a>00065     };
+<a name="l00066"></a>00066 
+<a name="l00067"></a>00067     <span class="keyword">class </span>MP4V2_EXPORT Option {
+<a name="l00068"></a>00068     <span class="keyword">public</span>:
+<a name="l00069"></a>00069         Option( <span class="keywordtype">char</span>, <span class="keywordtype">bool</span>, <span class="keywordtype">string</span>, <span class="keywordtype">bool</span>, uint32_t, <span class="keywordtype">string</span>, <span class="keywordtype">string</span> = <span class="stringliteral">"ARG"</span>, <span class="keywordtype">string</span> = <span class="stringliteral">""</span>, <span class="keywordtype">bool</span> = <span class="keyword">false</span> );
+<a name="l00070"></a>00070 
+<a name="l00071"></a>00071         <span class="keyword">const</span> <span class="keywordtype">char</span>     scode;
+<a name="l00072"></a>00072         <span class="keyword">const</span> <span class="keywordtype">bool</span>     shasarg;
+<a name="l00073"></a>00073         <span class="keyword">const</span> <span class="keywordtype">string</span>   lname;
+<a name="l00074"></a>00074         <span class="keyword">const</span> <span class="keywordtype">bool</span>     lhasarg;
+<a name="l00075"></a>00075         <span class="keyword">const</span> uint32_t lcode;
+<a name="l00076"></a>00076         <span class="keyword">const</span> <span class="keywordtype">string</span>   descr;
+<a name="l00077"></a>00077         <span class="keyword">const</span> <span class="keywordtype">string</span>   argname;
+<a name="l00078"></a>00078         <span class="keyword">const</span> <span class="keywordtype">string</span>   help;
+<a name="l00079"></a>00079         <span class="keyword">const</span> <span class="keywordtype">bool</span>     hidden;
+<a name="l00080"></a>00080     };
+<a name="l00081"></a>00081 
+<a name="l00082"></a>00082     <span class="keyword">class </span>MP4V2_EXPORT Group {
+<a name="l00083"></a>00083     <span class="keyword">public</span>:
+<a name="l00084"></a>00084         <span class="keyword">explicit</span> Group( <span class="keywordtype">string</span> );
+<a name="l00085"></a>00085         ~Group();
+<a name="l00086"></a>00086 
+<a name="l00087"></a>00087         <span class="keywordtype">void</span> <span class="keyword">add</span>( <span class="keyword">const</span> Option&amp; ); <span class="comment">// options added this way will not be deleted</span>
+<a name="l00088"></a>00088         <span class="keywordtype">void</span> <span class="keyword">add</span>( char, bool, string, bool, uint32_t, string, <span class="keywordtype">string</span> = <span class="stringliteral">"ARG"</span>, <span class="keywordtype">string</span> = <span class="stringliteral">""</span>, <span class="keywordtype">bool</span> = false );
+<a name="l00089"></a>00089         <span class="keywordtype">void</span> <span class="keyword">add</span>( string, bool, uint32_t, string, <span class="keywordtype">string</span> = <span class="stringliteral">"ARG"</span>, <span class="keywordtype">string</span> = <span class="stringliteral">""</span>, <span class="keywordtype">bool</span> = false );
+<a name="l00090"></a>00090 
+<a name="l00091"></a>00091         <span class="keyword">const</span> <span class="keywordtype">string</span> name;
 <a name="l00092"></a>00092 
-<a name="l00093"></a>00093     <span class="keyword">private</span>:
-<a name="l00094"></a>00094         List _options;
-<a name="l00095"></a>00095         List _optionsDelete;
-<a name="l00096"></a>00096 
-<a name="l00097"></a>00097     <span class="keyword">public</span>:
-<a name="l00098"></a>00098         <span class="keyword">const</span> List&amp; options;
-<a name="l00099"></a>00099     };
-<a name="l00100"></a>00100 
-<a name="l00102"></a><a class="code" href="classmp4v2_1_1util_1_1_utility_1_1_job_context.html">00102</a>     <span class="keyword">class </span><a class="code" href="classmp4v2_1_1util_1_1_utility_1_1_job_context.html" title="structure passed as argument to each job during batch processing">JobContext</a>
-<a name="l00103"></a>00103     {
-<a name="l00104"></a>00104     <span class="keyword">public</span>:
-<a name="l00105"></a>00105         <a class="code" href="classmp4v2_1_1util_1_1_utility_1_1_job_context.html" title="structure passed as argument to each job during batch processing">JobContext</a>( <span class="keywordtype">string</span> file_ );
-<a name="l00106"></a>00106 
-<a name="l00107"></a><a class="code" href="classmp4v2_1_1util_1_1_utility_1_1_job_context.html#376313bcfabef5f1f5a80f12ba0804ee">00107</a>         <span class="keyword">const</span> <span class="keywordtype">string</span>  <a class="code" href="classmp4v2_1_1util_1_1_utility_1_1_job_context.html#376313bcfabef5f1f5a80f12ba0804ee" title="file job is working on">file</a>;               
-<a name="l00108"></a><a class="code" href="classmp4v2_1_1util_1_1_utility_1_1_job_context.html#6e5f60d51ee2d3938c95917ed9cbd6bf">00108</a>         MP4FileHandle <a class="code" href="classmp4v2_1_1util_1_1_utility_1_1_job_context.html#6e5f60d51ee2d3938c95917ed9cbd6bf" title="handle of file, if applicable to job">fileHandle</a>;         
-<a name="l00109"></a><a class="code" href="classmp4v2_1_1util_1_1_utility_1_1_job_context.html#c16921441722a555dfc9fc88d1124da0">00109</a>         <span class="keywordtype">bool</span>          <a class="code" href="classmp4v2_1_1util_1_1_utility_1_1_job_context.html#c16921441722a555dfc9fc88d1124da0" title="indicate file optimization is applicable">optimizeApplicable</a>; 
-<a name="l00110"></a><a class="code" href="classmp4v2_1_1util_1_1_utility_1_1_job_context.html#b92120be65ded7dc92653f08111afa2d">00110</a>         list&lt;void*&gt;   <a class="code" href="classmp4v2_1_1util_1_1_utility_1_1_job_context.html#b92120be65ded7dc92653f08111afa2d" title="memory to free at end of job">tofree</a>;             
-<a name="l00111"></a>00111     };
-<a name="l00112"></a>00112 
-<a name="l00113"></a>00113 <span class="keyword">public</span>:
-<a name="l00114"></a>00114     <span class="keyword">virtual</span> ~<a class="code" href="classmp4v2_1_1util_1_1_utility.html" title="Utility general program class.">Utility</a>();
+<a name="l00093"></a>00093     <span class="keyword">public</span>:
+<a name="l00094"></a>00094         <span class="keyword">typedef</span> list&lt;const Option*&gt; List;
+<a name="l00095"></a>00095 
+<a name="l00096"></a>00096     <span class="keyword">private</span>:
+<a name="l00097"></a>00097         List _options;
+<a name="l00098"></a>00098         List _optionsDelete;
+<a name="l00099"></a>00099 
+<a name="l00100"></a>00100     <span class="keyword">public</span>:
+<a name="l00101"></a>00101         <span class="keyword">const</span> List&amp; options;
+<a name="l00102"></a>00102     };
+<a name="l00103"></a>00103 
+<a name="l00105"></a><a class="code" href="classmp4v2_1_1util_1_1_utility_1_1_job_context.html">00105</a>     <span class="keyword">class </span>MP4V2_EXPORT <a class="code" href="classmp4v2_1_1util_1_1_utility_1_1_job_context.html" title="structure passed as argument to each job during batch processing">JobContext</a>
+<a name="l00106"></a>00106     {
+<a name="l00107"></a>00107     <span class="keyword">public</span>:
+<a name="l00108"></a>00108         <a class="code" href="classmp4v2_1_1util_1_1_utility_1_1_job_context.html" title="structure passed as argument to each job during batch processing">JobContext</a>( <span class="keywordtype">string</span> file_ );
+<a name="l00109"></a>00109 
+<a name="l00110"></a><a class="code" href="classmp4v2_1_1util_1_1_utility_1_1_job_context.html#376313bcfabef5f1f5a80f12ba0804ee">00110</a>         <span class="keyword">const</span> <span class="keywordtype">string</span>  file;               
+<a name="l00111"></a><a class="code" href="classmp4v2_1_1util_1_1_utility_1_1_job_context.html#6e5f60d51ee2d3938c95917ed9cbd6bf">00111</a>         MP4FileHandle fileHandle;         
+<a name="l00112"></a><a class="code" href="classmp4v2_1_1util_1_1_utility_1_1_job_context.html#9407e949f8d3e8f5c4ee66ff753e9b98">00112</a>         <span class="keywordtype">bool</span>          fileWasModified;    
+<a name="l00113"></a><a class="code" href="classmp4v2_1_1util_1_1_utility_1_1_job_context.html#b92120be65ded7dc92653f08111afa2d">00113</a>         list&lt;void*&gt;   tofree;             
+<a name="l00114"></a>00114     };
 <a name="l00115"></a>00115 
-<a name="l00116"></a>00116     <span class="keywordtype">bool</span> process();
-<a name="l00117"></a>00117 
-<a name="l00118"></a>00118 <span class="keyword">protected</span>:
-<a name="l00119"></a>00119     <a class="code" href="classmp4v2_1_1util_1_1_utility.html" title="Utility general program class.">Utility</a>( <span class="keywordtype">string</span>, <span class="keywordtype">int</span>, <span class="keywordtype">char</span>** );
+<a name="l00116"></a>00116 <span class="keyword">public</span>:
+<a name="l00117"></a>00117     <span class="keyword">virtual</span> ~<a class="code" href="classmp4v2_1_1util_1_1_utility.html" title="Utility general program class.">Utility</a>();
+<a name="l00118"></a>00118 
+<a name="l00119"></a>00119     <span class="keywordtype">bool</span> process();
 <a name="l00120"></a>00120 
-<a name="l00121"></a>00121     <span class="keywordtype">void</span> <a class="code" href="classmp4v2_1_1util_1_1_utility.html#fd02981129219ef447348cff25509c70" title="print usage">printUsage</a>   ( <span class="keywordtype">bool</span> );       
-<a name="l00122"></a>00122     <span class="keywordtype">void</span> <a class="code" href="classmp4v2_1_1util_1_1_utility.html#88b589ffc6b482687a6d9647a974f73f" title="print help">printHelp</a>    ( <span class="keywordtype">bool</span>, <span class="keywordtype">bool</span> ); 
-<a name="l00123"></a>00123     <span class="keywordtype">void</span> <a class="code" href="classmp4v2_1_1util_1_1_utility.html#2625e68a4c644e2e27b20bac1ae8f3a5" title="print utility version">printVersion</a> ( <span class="keywordtype">bool</span> );       
-<a name="l00124"></a>00124 
-<a name="l00125"></a>00125     <span class="keywordtype">void</span> <a class="code" href="classmp4v2_1_1util_1_1_utility.html#10cc8747a683204bad8fa2779c9eb1a7" title="print to stderr">errf</a> ( <span class="keyword">const</span> <span class="keywordtype">char</span>*, ... ) MP4V2_WFORMAT_PRINTF(2,3); 
-<a name="l00126"></a>00126     <span class="keywordtype">void</span> <a class="code" href="classmp4v2_1_1util_1_1_utility.html#236dce6f9ac506beb6eca2e343941f7b" title="print to stdout">outf</a> ( const <span class="keywordtype">char</span>*, ... ) MP4V2_WFORMAT_PRINTF(2,3); 
+<a name="l00121"></a>00121 <span class="keyword">protected</span>:
+<a name="l00122"></a>00122     <a class="code" href="classmp4v2_1_1util_1_1_utility.html" title="Utility general program class.">Utility</a>( <span class="keywordtype">string</span>, <span class="keywordtype">int</span>, <span class="keywordtype">char</span>** );
+<a name="l00123"></a>00123 
+<a name="l00124"></a>00124     <span class="keywordtype">void</span> printUsage   ( <span class="keywordtype">bool</span> );       
+<a name="l00125"></a>00125     <span class="keywordtype">void</span> printHelp    ( <span class="keywordtype">bool</span>, <span class="keywordtype">bool</span> ); 
+<a name="l00126"></a>00126     <span class="keywordtype">void</span> printVersion ( <span class="keywordtype">bool</span> );       
 <a name="l00127"></a>00127 
-<a name="l00128"></a>00128     <span class="keywordtype">bool</span> <a class="code" href="classmp4v2_1_1util_1_1_utility.html#2f0cfe73a7b803a8ae58b26d2100f2d8" title="print to stderr indicating error">herrf</a>  ( const <span class="keywordtype">char</span>*, ... ) MP4V2_WFORMAT_PRINTF(2,3); 
-<a name="l00129"></a>00129     <span class="keywordtype">bool</span> <a class="code" href="classmp4v2_1_1util_1_1_utility.html#cd4d0cf3502b8ca8202b43446d3949e1" title="print to stderr indicating warning">hwarnf</a> ( const <span class="keywordtype">char</span>*, ... ) MP4V2_WFORMAT_PRINTF(2,3); 
+<a name="l00128"></a>00128     <span class="keywordtype">void</span> errf ( <span class="keyword">const</span> <span class="keywordtype">char</span>*, ... ) MP4V2_WFORMAT_PRINTF(2,3); 
+<a name="l00129"></a>00129     <span class="keywordtype">void</span> outf ( const <span class="keywordtype">char</span>*, ... ) MP4V2_WFORMAT_PRINTF(2,3); 
 <a name="l00130"></a>00130 
-<a name="l00131"></a>00131     <span class="keywordtype">void</span> verbose1f ( const <span class="keywordtype">char</span>*, ... ) MP4V2_WFORMAT_PRINTF(2,3);
-<a name="l00132"></a>00132     <span class="keywordtype">void</span> verbose2f ( const <span class="keywordtype">char</span>*, ... ) MP4V2_WFORMAT_PRINTF(2,3);
-<a name="l00133"></a>00133     <span class="keywordtype">void</span> verbose3f ( const <span class="keywordtype">char</span>*, ... ) MP4V2_WFORMAT_PRINTF(2,3);
-<a name="l00134"></a>00134 
-<a name="l00135"></a>00135     <span class="keywordtype">bool</span> <a class="code" href="classmp4v2_1_1util_1_1_utility.html#e4b4635f4e4ca28a5811a12b637e1552" title="process all remaining arguments (jobs)">batch</a> ( <span class="keywordtype">int</span> );    
-<a name="l00136"></a>00136     <span class="keywordtype">bool</span> <a class="code" href="classmp4v2_1_1util_1_1_utility.html#cd719350cc6e5336fa4f29d7fc9a8d00" title="process next argument">job</a>   ( <span class="keywordtype">string</span> ); 
+<a name="l00131"></a>00131     <span class="keywordtype">bool</span> herrf  ( const <span class="keywordtype">char</span>*, ... ) MP4V2_WFORMAT_PRINTF(2,3); 
+<a name="l00132"></a>00132     <span class="keywordtype">bool</span> hwarnf ( const <span class="keywordtype">char</span>*, ... ) MP4V2_WFORMAT_PRINTF(2,3); 
+<a name="l00133"></a>00133 
+<a name="l00134"></a>00134     <span class="keywordtype">void</span> verbose1f ( const <span class="keywordtype">char</span>*, ... ) MP4V2_WFORMAT_PRINTF(2,3);
+<a name="l00135"></a>00135     <span class="keywordtype">void</span> verbose2f ( const <span class="keywordtype">char</span>*, ... ) MP4V2_WFORMAT_PRINTF(2,3);
+<a name="l00136"></a>00136     <span class="keywordtype">void</span> verbose3f ( const <span class="keywordtype">char</span>*, ... ) MP4V2_WFORMAT_PRINTF(2,3);
 <a name="l00137"></a>00137 
-<a name="l00139"></a>00139     <span class="keywordtype">bool</span> <a class="code" href="classmp4v2_1_1util_1_1_utility.html#4fb1396dd2ce212af5dcae810c523297" title="open file in consideration of overwrite/force options">openFileForWriting</a>( io::StdioFile&amp; );
+<a name="l00138"></a>00138     <span class="keywordtype">bool</span> batch ( <span class="keywordtype">int</span> );    
+<a name="l00139"></a>00139     <span class="keywordtype">bool</span> job   ( <span class="keywordtype">string</span> ); 
 <a name="l00140"></a>00140 
-<a name="l00141"></a>00141     <span class="keywordtype">bool</span> dryrunAbort();
-<a name="l00142"></a>00142 
-<a name="l00143"></a>00143     <span class="comment">// delegates</span>
-<a name="l00144"></a>00144     virtual <span class="keywordtype">bool</span> <a class="code" href="classmp4v2_1_1util_1_1_utility.html#801e60d84d2b277a9cdc6a8c4bc5b0db" title="process command-line option">utility_option</a>( <span class="keywordtype">int</span>, <span class="keywordtype">bool</span>&amp; ) = 0; 
-<a name="l00145"></a>00145     virtual <span class="keywordtype">bool</span> <a class="code" href="classmp4v2_1_1util_1_1_utility.html#a5b5c0b4fe306ee0f45ea9fa4383ded5" title="process positional argument">utility_job</a>( <a class="code" href="classmp4v2_1_1util_1_1_utility_1_1_job_context.html" title="structure passed as argument to each job during batch processing">JobContext</a>&amp; )   = 0; 
-<a name="l00146"></a>00146 
-<a name="l00147"></a>00147 private:
-<a name="l00148"></a>00148     <span class="keywordtype">void</span> formatGroups();
-<a name="l00149"></a>00149     <span class="keywordtype">void</span> debugUpdate( uint32_t );
-<a name="l00150"></a>00150     <span class="keywordtype">void</span> verbose( uint32_t, const <span class="keywordtype">char</span>*, va_list );
-<a name="l00151"></a>00151 
-<a name="l00152"></a>00152 private:
-<a name="l00153"></a>00153     <span class="keywordtype">string</span> _help;
-<a name="l00154"></a>00154 
-<a name="l00155"></a>00155     prog::Option* _longOptions;
-<a name="l00156"></a>00156     <span class="keywordtype">string</span>        _shortOptions;
-<a name="l00157"></a>00157 
-<a name="l00158"></a>00158 protected:
-<a name="l00159"></a><a class="code" href="classmp4v2_1_1util_1_1_utility.html#f68e8eb3f8eeb56955f7e34b6528bccb">00159</a>     const <span class="keywordtype">string</span>       <a class="code" href="classmp4v2_1_1util_1_1_utility.html#f68e8eb3f8eeb56955f7e34b6528bccb" title="executable basename">_name</a>; 
-<a name="l00160"></a><a class="code" href="classmp4v2_1_1util_1_1_utility.html#c0cefd1e669c726a75dcf9d47318decb">00160</a>     const <span class="keywordtype">int</span>          <a class="code" href="classmp4v2_1_1util_1_1_utility.html#c0cefd1e669c726a75dcf9d47318decb" title="arg count">_argc</a>; 
-<a name="l00161"></a><a class="code" href="classmp4v2_1_1util_1_1_utility.html#b6eea3cc1f4b8ea69215478224e1db4b">00161</a>     <span class="keywordtype">char</span>* const* const <a class="code" href="classmp4v2_1_1util_1_1_utility.html#b6eea3cc1f4b8ea69215478224e1db4b" title="arg vector">_argv</a>; 
-<a name="l00162"></a>00162 
-<a name="l00163"></a>00163     <span class="comment">// common options state</span>
-<a name="l00164"></a><a class="code" href="classmp4v2_1_1util_1_1_utility.html#b17cf80a279796ae9c6c26e0da8a915f">00164</a>     <span class="keywordtype">bool</span>     <a class="code" href="classmp4v2_1_1util_1_1_utility.html#b17cf80a279796ae9c6c26e0da8a915f" title="optimize mp4 file after modification">_optimize</a>;  
-<a name="l00165"></a><a class="code" href="classmp4v2_1_1util_1_1_utility.html#00ff50756755d209bcce75c5245e8caa">00165</a>     <span class="keywordtype">bool</span>     <a class="code" href="classmp4v2_1_1util_1_1_utility.html#00ff50756755d209bcce75c5245e8caa" title="strict compatibliity">_strict</a>;    
-<a name="l00166"></a><a class="code" href="classmp4v2_1_1util_1_1_utility.html#ea918c9bfc8b38860a9e89eb0aea9b2c">00166</a>     <span class="keywordtype">bool</span>     <a class="code" href="classmp4v2_1_1util_1_1_utility.html#ea918c9bfc8b38860a9e89eb0aea9b2c" title="dry-run, no writing is actually performed">_dryrun</a>;    
-<a name="l00167"></a><a class="code" href="classmp4v2_1_1util_1_1_utility.html#67ff0122ed49af14ce6e36d662622e3f">00167</a>     <span class="keywordtype">bool</span>     <a class="code" href="classmp4v2_1_1util_1_1_utility.html#67ff0122ed49af14ce6e36d662622e3f" title="contine batch processing even after error">_keepgoing</a>; 
-<a name="l00168"></a><a class="code" href="classmp4v2_1_1util_1_1_utility.html#da226bd8fe7291376c8263e7ea52a2ac">00168</a>     <span class="keywordtype">bool</span>     <a class="code" href="classmp4v2_1_1util_1_1_utility.html#da226bd8fe7291376c8263e7ea52a2ac" title="overwrite file if already exists">_overwrite</a>; 
-<a name="l00169"></a><a class="code" href="classmp4v2_1_1util_1_1_utility.html#6c5fb9ce5750e5c436d62338374cc015">00169</a>     <span class="keywordtype">bool</span>     <a class="code" href="classmp4v2_1_1util_1_1_utility.html#6c5fb9ce5750e5c436d62338374cc015" title="force overwriting a file even if read-only">_force</a>;     
-<a name="l00170"></a><a class="code" href="classmp4v2_1_1util_1_1_utility.html#2ce8ce04a55297a1a2f02cceee383913">00170</a>     uint32_t <a class="code" href="classmp4v2_1_1util_1_1_utility.html#2ce8ce04a55297a1a2f02cceee383913" title="mp4 file I/O verbosity">_debug</a>;     
-<a name="l00171"></a><a class="code" href="classmp4v2_1_1util_1_1_utility.html#094a5f0069fdbff98f9d02998d4daece">00171</a>     uint32_t <a class="code" href="classmp4v2_1_1util_1_1_utility.html#094a5f0069fdbff98f9d02998d4daece" title="verbosity level, default=1">_verbosity</a>; 
-<a name="l00172"></a>00172 
-<a name="l00173"></a>00173     uint32_t          _jobCount;
-<a name="l00174"></a>00174     uint32_t          _debugVerbosity;
-<a name="l00175"></a>00175     <span class="keywordtype">bool</span>              _debugImplicits;
-<a name="l00176"></a>00176 
-<a name="l00177"></a>00177     Group         _group; <span class="comment">// group to which standard options are added</span>
-<a name="l00178"></a>00178     <span class="keywordtype">string</span>        _usage;
-<a name="l00179"></a>00179     <span class="keywordtype">string</span>        _description;
-<a name="l00180"></a>00180     list&lt;Group*&gt;  _groups;
-<a name="l00181"></a>00181 
-<a name="l00182"></a>00182 public:
-<a name="l00183"></a>00183     static const <span class="keywordtype">bool</span> SUCCESS;
-<a name="l00184"></a>00184     static const <span class="keywordtype">bool</span> FAILURE;
-<a name="l00185"></a>00185 
-<a name="l00186"></a>00186 protected:
-<a name="l00187"></a>00187     <span class="comment">// standard options for concrete utilities to add to _group in constructor</span>
-<a name="l00188"></a>00188     static const Option STD_OPTIMIZE;
-<a name="l00189"></a>00189     static const Option STD_DRYRUN;
-<a name="l00190"></a>00190     static const Option STD_KEEPGOING;
-<a name="l00191"></a>00191     static const Option STD_OVERWRITE;
-<a name="l00192"></a>00192     static const Option STD_FORCE;
-<a name="l00193"></a>00193     static const Option STD_QUIET;
-<a name="l00194"></a>00194     static const Option STD_DEBUG;
-<a name="l00195"></a>00195     static const Option STD_VERBOSE;
-<a name="l00196"></a>00196     static const Option STD_HELP;
-<a name="l00197"></a>00197     static const Option STD_VERSION;
-<a name="l00198"></a>00198     static const Option STD_VERSIONX;
-<a name="l00199"></a>00199 };
-<a name="l00200"></a>00200 
+<a name="l00142"></a>00142     <span class="keywordtype">bool</span> openFileForWriting( io::StdioFile&amp; );
+<a name="l00143"></a>00143 
+<a name="l00144"></a>00144     <span class="keywordtype">bool</span> dryrunAbort();
+<a name="l00145"></a>00145 
+<a name="l00146"></a>00146     <span class="comment">// delegates</span>
+<a name="l00147"></a>00147     virtual <span class="keywordtype">bool</span> utility_option( <span class="keywordtype">int</span>, <span class="keywordtype">bool</span>&amp; ) = 0; 
+<a name="l00148"></a>00148     virtual <span class="keywordtype">bool</span> utility_job( <a class="code" href="classmp4v2_1_1util_1_1_utility_1_1_job_context.html" title="structure passed as argument to each job during batch processing">JobContext</a>&amp; )   = 0; 
+<a name="l00149"></a>00149 
+<a name="l00150"></a>00150 private:
+<a name="l00151"></a>00151     <span class="keywordtype">void</span> formatGroups();
+<a name="l00152"></a>00152     <span class="keywordtype">void</span> debugUpdate( uint32_t );
+<a name="l00153"></a>00153     <span class="keywordtype">void</span> verbose( uint32_t, const <span class="keywordtype">char</span>*, va_list );
+<a name="l00154"></a>00154     <span class="keywordtype">bool</span> process_impl();
+<a name="l00155"></a>00155 
+<a name="l00156"></a>00156 private:
+<a name="l00157"></a>00157     <span class="keywordtype">string</span> _help;
+<a name="l00158"></a>00158 
+<a name="l00159"></a>00159     prog::Option* _longOptions;
+<a name="l00160"></a>00160     <span class="keywordtype">string</span>        _shortOptions;
+<a name="l00161"></a>00161 
+<a name="l00162"></a>00162 protected:
+<a name="l00163"></a><a class="code" href="classmp4v2_1_1util_1_1_utility.html#f68e8eb3f8eeb56955f7e34b6528bccb">00163</a>     const <span class="keywordtype">string</span>       _name; 
+<a name="l00164"></a><a class="code" href="classmp4v2_1_1util_1_1_utility.html#c0cefd1e669c726a75dcf9d47318decb">00164</a>     const <span class="keywordtype">int</span>          _argc; 
+<a name="l00165"></a><a class="code" href="classmp4v2_1_1util_1_1_utility.html#b6eea3cc1f4b8ea69215478224e1db4b">00165</a>     <span class="keywordtype">char</span>* const* const _argv; 
+<a name="l00166"></a>00166 
+<a name="l00167"></a>00167     <span class="comment">// common options state</span>
+<a name="l00168"></a><a class="code" href="classmp4v2_1_1util_1_1_utility.html#00ff50756755d209bcce75c5245e8caa">00168</a>     <span class="keywordtype">bool</span>     _strict;    
+<a name="l00169"></a><a class="code" href="classmp4v2_1_1util_1_1_utility.html#ea918c9bfc8b38860a9e89eb0aea9b2c">00169</a>     <span class="keywordtype">bool</span>     _dryrun;    
+<a name="l00170"></a><a class="code" href="classmp4v2_1_1util_1_1_utility.html#67ff0122ed49af14ce6e36d662622e3f">00170</a>     <span class="keywordtype">bool</span>     _keepgoing; 
+<a name="l00171"></a><a class="code" href="classmp4v2_1_1util_1_1_utility.html#da226bd8fe7291376c8263e7ea52a2ac">00171</a>     <span class="keywordtype">bool</span>     _overwrite; 
+<a name="l00172"></a><a class="code" href="classmp4v2_1_1util_1_1_utility.html#6c5fb9ce5750e5c436d62338374cc015">00172</a>     <span class="keywordtype">bool</span>     _force;     
+<a name="l00173"></a><a class="code" href="classmp4v2_1_1util_1_1_utility.html#2ce8ce04a55297a1a2f02cceee383913">00173</a>     uint32_t _debug;     
+<a name="l00174"></a><a class="code" href="classmp4v2_1_1util_1_1_utility.html#094a5f0069fdbff98f9d02998d4daece">00174</a>     uint32_t _verbosity; 
+<a name="l00175"></a>00175 
+<a name="l00176"></a>00176     uint32_t          _jobCount;
+<a name="l00177"></a>00177     uint32_t          _debugVerbosity;
+<a name="l00178"></a>00178     <span class="keywordtype">bool</span>              _debugImplicits;
+<a name="l00179"></a>00179 
+<a name="l00180"></a>00180     Group         _group; <span class="comment">// group to which standard options are added</span>
+<a name="l00181"></a>00181     <span class="keywordtype">string</span>        _usage;
+<a name="l00182"></a>00182     <span class="keywordtype">string</span>        _description;
+<a name="l00183"></a>00183     list&lt;Group*&gt;  _groups;
+<a name="l00184"></a>00184 
+<a name="l00185"></a>00185 protected:
+<a name="l00186"></a>00186     <span class="comment">// standard options for concrete utilities to add to _group in constructor</span>
+<a name="l00187"></a>00187     const Option STD_DRYRUN;
+<a name="l00188"></a>00188     const Option STD_KEEPGOING;
+<a name="l00189"></a>00189     const Option STD_OVERWRITE;
+<a name="l00190"></a>00190     const Option STD_FORCE;
+<a name="l00191"></a>00191     const Option STD_QUIET;
+<a name="l00192"></a>00192     const Option STD_DEBUG;
+<a name="l00193"></a>00193     const Option STD_VERBOSE;
+<a name="l00194"></a>00194     const Option STD_HELP;
+<a name="l00195"></a>00195     const Option STD_VERSION;
+<a name="l00196"></a>00196     const Option STD_VERSIONX;
+<a name="l00197"></a>00197 
+<a name="l00198"></a>00198 public:
+<a name="l00199"></a>00199     static const <span class="keywordtype">bool</span> SUCCESS;
+<a name="l00200"></a>00200     static const <span class="keywordtype">bool</span> FAILURE;
+<a name="l00201"></a>00201 };
 <a name="l00202"></a>00202 
-<a name="l00203"></a>00203 }} <span class="comment">// namespace mp4v2::util</span>
 <a name="l00204"></a>00204 
-<a name="l00205"></a>00205 <span class="preprocessor">#endif // MP4V2_UTIL_UTILITY_H</span>
+<a name="l00205"></a>00205 }} <span class="comment">// namespace mp4v2::util</span>
+<a name="l00206"></a>00206 
+<a name="l00207"></a>00207 <span class="preprocessor">#endif // MP4V2_UTIL_UTILITY_H</span>
 </pre></div></div>
 <div class="footer">
     <div>
-        generated on Sat Dec 6 14:22:29 2008 for <b>MP4v2 (2.0-r128)</b>
+        generated on Fri Dec 12 08:24:44 2008 for <b>MP4v2 (2.0-r150)</b>
         by&nbsp;<a href="http://www.doxygen.org">Doxygen</a> 1.5.7.1-20081103
     </div>
 </div>
