@@ -26,7 +26,7 @@ Description of currently known iTunes tags.
 || Grouping || grup ||  UTF-8 string || like TIT1 in ID3 || Grouping ||
 || Content Rating || rtng || 8-bit integer (boolean) || Explicit label || Explicit (currently read only) ||
 || Track Number || trkn || binary || || Track ||
-|| Content Rating || rtng || 8-bit integer (boolean) || Explicit label || Explicit (currently read only) ||
+|| Content Rating || rtng || 8-bit integer || Explicit/Clean label || Explicit (currently read only) ||
 || BPM || tmpo ||32-bit integer || || BPM ||
 || Track Number || trkn || binary || || Track ||
 || Gapless Playback || pgap || 8-bit integer || || PartOfGaplessAlbum  ||
@@ -50,7 +50,7 @@ Description of currently known iTunes tags.
 || Sort Album Artist || soaa || UTF-8 string  || || SortAlbumArtist (read only) ||
 || Sort Composer || soco || UTF-8 string  || || SortComposer (read only) ||
 || Sort Show || sosn || UTF-8 string  || || SortTVShow (read only) ||
-|| HD Video || hdvd || 8-bit integer  (boolean)  || || HDVideo (currently read only) ||
+|| HD Video || hdvd || 8-bit integer  (boolean)  || || HDVideo ||
 
 *A blank field means that this tag is currently not supported by libmp4v2
 
