@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <title>MP4v2 2.0-r155 PROJECT_name: MP4v2 Sample</title>
+    <title>MP4v2 2.0-20081218 PROJECT_name: MP4v2 Sample</title>
     <link href="project.css" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -875,7 +875,7 @@ MP4SetSampleRenderingOffset sets the rendering offset of the specified sample fr
 Write a track sample. 
 <p>
 MP4WriteSample writes the given sample at the end of the specified track. Currently the library does not support random insertion of samples into the track timeline. Note that with mp4 there cannot be any holes or overlapping samples in the track timeline. The last three arguments give optional sample information.<p>
-The value of duration can be given as <a class="el" href="group__mp4__general.html#g2a4f35efc02ce66d8a393696371546fc" title="Constant: invalid MP4Duration.">MP4_INVALID_DURATION</a> if all samples in the track have the same duration. This can be specified with MP4AddTrack() and related functions.<p>
+The value of duration can be given as <a class="el" href="group__mp4__general.html#g2a4f35efc02ce66d8a393696371546fc" title="Constant: invalid MP4Duration.">MP4_INVALID_DURATION</a> if all samples in the track have the same duration. This can be specified with <a class="el" href="group__mp4__track.html#g369946dba2763f562bbbc98d98a2fa45" title="Add a user defined track.">MP4AddTrack()</a> and related functions.<p>
 Typically for audio none of the optional arguments are needed. MPEG audio such as MP3 or AAC has a fixed sample duration and every sample can be accessed at random.<p>
 For video, all of the optional arguments could be needed. MPEG video can be encoded at a variable frame rate, with only occasional random access points, and with "B frames" which cause the rendering (display) order of the video frames to differ from the storage/decoding order.<p>
 Other media types fall between these two extremes.<p>
@@ -891,14 +891,14 @@ Other media types fall between these two extremes.<p>
   </table>
 </dl>
 <dl class="return" compact><dt><b>Returns:</b></dt><dd><b>true</b> on success, <b>false</b> on failure.</dd></dl>
-<dl class="see" compact><dt><b>See also:</b></dt><dd>MP4AddTrack(). </dd></dl>
+<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="group__mp4__track.html#g369946dba2763f562bbbc98d98a2fa45" title="Add a user defined track.">MP4AddTrack()</a>. </dd></dl>
 
 </div>
 </div><p>
 </div>
 <div class="footer">
     <div>
-        generated on Fri Dec 12 15:25:20 2008 for <b>MP4v2 (2.0-r155)</b>
+        generated on Thu Dec 18 16:37:49 2008 for <b>MP4v2 (2.0-20081218)</b>
         by&nbsp;<a href="http://www.doxygen.org">Doxygen</a> 1.5.7.1-20081103
     </div>
 </div>

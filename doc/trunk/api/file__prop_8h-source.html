@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <title>MP4v2 2.0-r155 PROJECT_name: include/mp4v2/file_prop.h Source File</title>
+    <title>MP4v2 2.0-20081218 PROJECT_name: include/mp4v2/file_prop.h Source File</title>
     <link href="project.css" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -103,52 +103,52 @@
 <a name="l00070"></a>00070 MP4V2_EXPORT
 <a name="l00071"></a>00071 MP4Duration MP4GetDuration( MP4FileHandle hFile );
 <a name="l00072"></a>00072 
-<a name="l00073"></a>00073 MP4V2_EXPORT
-<a name="l00074"></a>00074 uint32_t MP4GetTimeScale( MP4FileHandle hFile );
-<a name="l00075"></a>00075 
-<a name="l00076"></a>00076 MP4V2_EXPORT
-<a name="l00077"></a>00077 <span class="keywordtype">bool</span> MP4SetTimeScale( MP4FileHandle hFile, uint32_t value );
-<a name="l00078"></a>00078 
-<a name="l00090"></a>00090 MP4V2_EXPORT
-<a name="l00091"></a>00091 <span class="keywordtype">void</span> <a class="code" href="group__mp4__file__prop.html#g26fc06eef2d04a9bc5f1fbc47b222038" title="Change the general timescale of file hFile.">MP4ChangeMovieTimeScale</a>( MP4FileHandle hFile, uint32_t value );
-<a name="l00092"></a>00092 
-<a name="l00093"></a>00093 MP4V2_EXPORT
-<a name="l00094"></a>00094 uint8_t MP4GetODProfileLevel( MP4FileHandle hFile );
-<a name="l00095"></a>00095 
-<a name="l00096"></a>00096 MP4V2_EXPORT
-<a name="l00097"></a>00097 <span class="keywordtype">bool</span> MP4SetODProfileLevel( MP4FileHandle hFile, uint8_t value );
-<a name="l00098"></a>00098 
-<a name="l00099"></a>00099 MP4V2_EXPORT
-<a name="l00100"></a>00100 uint8_t MP4GetSceneProfileLevel( MP4FileHandle hFile );
-<a name="l00101"></a>00101 
-<a name="l00102"></a>00102 MP4V2_EXPORT
-<a name="l00103"></a>00103 <span class="keywordtype">bool</span> MP4SetSceneProfileLevel( MP4FileHandle hFile, uint8_t value );
-<a name="l00104"></a>00104 
-<a name="l00105"></a>00105 MP4V2_EXPORT
-<a name="l00106"></a>00106 uint8_t MP4GetVideoProfileLevel(
-<a name="l00107"></a>00107     MP4FileHandle hFile,
-<a name="l00108"></a>00108     MP4TrackId    trackId DEFAULT(<a class="code" href="group__mp4__general.html#g20022a4a97dd9c2031ae2a1ef6db7241" title="Constant: invalid MP4TrackId.">MP4_INVALID_TRACK_ID</a>) );
-<a name="l00109"></a>00109 
-<a name="l00110"></a>00110 MP4V2_EXPORT
-<a name="l00111"></a>00111 <span class="keywordtype">void</span> MP4SetVideoProfileLevel( MP4FileHandle hFile, uint8_t value );
-<a name="l00112"></a>00112 
-<a name="l00113"></a>00113 MP4V2_EXPORT
-<a name="l00114"></a>00114 uint8_t MP4GetAudioProfileLevel( MP4FileHandle hFile );
-<a name="l00115"></a>00115 
-<a name="l00116"></a>00116 MP4V2_EXPORT
-<a name="l00117"></a>00117 <span class="keywordtype">void</span> MP4SetAudioProfileLevel( MP4FileHandle hFile, uint8_t value );
-<a name="l00118"></a>00118 
-<a name="l00119"></a>00119 MP4V2_EXPORT
-<a name="l00120"></a>00120 uint8_t MP4GetGraphicsProfileLevel( MP4FileHandle hFile );
-<a name="l00121"></a>00121 
-<a name="l00122"></a>00122 MP4V2_EXPORT
-<a name="l00123"></a>00123 <span class="keywordtype">bool</span> MP4SetGraphicsProfileLevel( MP4FileHandle hFile, uint8_t value );
-<a name="l00124"></a>00124 
-<a name="l00127"></a>00127 <span class="preprocessor">#endif </span><span class="comment">/* MP4V2_FILE_PROP_H */</span>
+<a name="l00083"></a>00083 MP4V2_EXPORT
+<a name="l00084"></a>00084 uint32_t <a class="code" href="group__mp4__file__prop.html#g283cd9775f9a755f763732631c88a961" title="Get the time scale of the movie (file).">MP4GetTimeScale</a>( MP4FileHandle hFile );
+<a name="l00085"></a>00085 
+<a name="l00097"></a>00097 MP4V2_EXPORT
+<a name="l00098"></a>00098 <span class="keywordtype">bool</span> <a class="code" href="group__mp4__file__prop.html#g467e2ec099be5d1829c4354e4724025d" title="Set the time scale of the movie (file).">MP4SetTimeScale</a>( MP4FileHandle hFile, uint32_t value );
+<a name="l00099"></a>00099 
+<a name="l00111"></a>00111 MP4V2_EXPORT
+<a name="l00112"></a>00112 <span class="keywordtype">void</span> <a class="code" href="group__mp4__file__prop.html#g26fc06eef2d04a9bc5f1fbc47b222038" title="Change the general timescale of file hFile.">MP4ChangeMovieTimeScale</a>( MP4FileHandle hFile, uint32_t value );
+<a name="l00113"></a>00113 
+<a name="l00114"></a>00114 MP4V2_EXPORT
+<a name="l00115"></a>00115 uint8_t MP4GetODProfileLevel( MP4FileHandle hFile );
+<a name="l00116"></a>00116 
+<a name="l00117"></a>00117 MP4V2_EXPORT
+<a name="l00118"></a>00118 <span class="keywordtype">bool</span> MP4SetODProfileLevel( MP4FileHandle hFile, uint8_t value );
+<a name="l00119"></a>00119 
+<a name="l00120"></a>00120 MP4V2_EXPORT
+<a name="l00121"></a>00121 uint8_t MP4GetSceneProfileLevel( MP4FileHandle hFile );
+<a name="l00122"></a>00122 
+<a name="l00123"></a>00123 MP4V2_EXPORT
+<a name="l00124"></a>00124 <span class="keywordtype">bool</span> MP4SetSceneProfileLevel( MP4FileHandle hFile, uint8_t value );
+<a name="l00125"></a>00125 
+<a name="l00126"></a>00126 MP4V2_EXPORT
+<a name="l00127"></a>00127 uint8_t MP4GetVideoProfileLevel(
+<a name="l00128"></a>00128     MP4FileHandle hFile,
+<a name="l00129"></a>00129     MP4TrackId    trackId DEFAULT(<a class="code" href="group__mp4__general.html#g20022a4a97dd9c2031ae2a1ef6db7241" title="Constant: invalid MP4TrackId.">MP4_INVALID_TRACK_ID</a>) );
+<a name="l00130"></a>00130 
+<a name="l00131"></a>00131 MP4V2_EXPORT
+<a name="l00132"></a>00132 <span class="keywordtype">void</span> MP4SetVideoProfileLevel( MP4FileHandle hFile, uint8_t value );
+<a name="l00133"></a>00133 
+<a name="l00134"></a>00134 MP4V2_EXPORT
+<a name="l00135"></a>00135 uint8_t MP4GetAudioProfileLevel( MP4FileHandle hFile );
+<a name="l00136"></a>00136 
+<a name="l00137"></a>00137 MP4V2_EXPORT
+<a name="l00138"></a>00138 <span class="keywordtype">void</span> MP4SetAudioProfileLevel( MP4FileHandle hFile, uint8_t value );
+<a name="l00139"></a>00139 
+<a name="l00140"></a>00140 MP4V2_EXPORT
+<a name="l00141"></a>00141 uint8_t MP4GetGraphicsProfileLevel( MP4FileHandle hFile );
+<a name="l00142"></a>00142 
+<a name="l00143"></a>00143 MP4V2_EXPORT
+<a name="l00144"></a>00144 <span class="keywordtype">bool</span> MP4SetGraphicsProfileLevel( MP4FileHandle hFile, uint8_t value );
+<a name="l00145"></a>00145 
+<a name="l00148"></a>00148 <span class="preprocessor">#endif </span><span class="comment">/* MP4V2_FILE_PROP_H */</span>
 </pre></div></div>
 <div class="footer">
     <div>
-        generated on Fri Dec 12 15:25:20 2008 for <b>MP4v2 (2.0-r155)</b>
+        generated on Thu Dec 18 16:37:49 2008 for <b>MP4v2 (2.0-20081218)</b>
         by&nbsp;<a href="http://www.doxygen.org">Doxygen</a> 1.5.7.1-20081103
     </div>
 </div>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <title>MP4v2 2.0-r155 PROJECT_name: include/mp4v2/track.h Source File</title>
+    <title>MP4v2 2.0-20081218 PROJECT_name: include/mp4v2/track.h Source File</title>
     <link href="project.css" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -41,225 +41,225 @@
 <a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define MP4V2_TRACK_H</span>
 <a name="l00003"></a>00003 <span class="preprocessor"></span>
 <a name="l00004"></a>00004 <span class="comment">/**************************************************************************/</span>
-<a name="l00011"></a>00011 MP4V2_EXPORT
-<a name="l00012"></a>00012 MP4TrackId MP4AddTrack(
-<a name="l00013"></a>00013     MP4FileHandle hFile,
-<a name="l00014"></a>00014     <span class="keyword">const</span> <span class="keywordtype">char</span>*   type );
-<a name="l00015"></a>00015 
-<a name="l00016"></a>00016 MP4V2_EXPORT
-<a name="l00017"></a>00017 MP4TrackId MP4AddSystemsTrack(
-<a name="l00018"></a>00018     MP4FileHandle hFile,
-<a name="l00019"></a>00019     <span class="keyword">const</span> <span class="keywordtype">char</span>*   type );
-<a name="l00020"></a>00020 
-<a name="l00021"></a>00021 MP4V2_EXPORT
-<a name="l00022"></a>00022 MP4TrackId MP4AddODTrack(
-<a name="l00023"></a>00023     MP4FileHandle hFile );
-<a name="l00024"></a>00024 
-<a name="l00025"></a>00025 MP4V2_EXPORT
-<a name="l00026"></a>00026 MP4TrackId MP4AddSceneTrack(
-<a name="l00027"></a>00027     MP4FileHandle hFile );
-<a name="l00028"></a>00028 
-<a name="l00029"></a>00029 MP4V2_EXPORT
-<a name="l00030"></a>00030 MP4TrackId MP4AddAudioTrack(
-<a name="l00031"></a>00031     MP4FileHandle hFile,
-<a name="l00032"></a>00032     uint32_t      timeScale,
-<a name="l00033"></a>00033     MP4Duration   sampleDuration,
-<a name="l00034"></a>00034     uint8_t       audioType DEFAULT(MP4_MPEG4_AUDIO_TYPE) );
-<a name="l00035"></a>00035 
-<a name="l00036"></a>00036 MP4V2_EXPORT
-<a name="l00037"></a>00037 MP4TrackId MP4AddAC3AudioTrack(
-<a name="l00038"></a>00038     MP4FileHandle hFile,
-<a name="l00039"></a>00039     uint32_t      samplingRate,
-<a name="l00040"></a>00040     uint8_t       fscod,
-<a name="l00041"></a>00041     uint8_t       bsid,
-<a name="l00042"></a>00042     uint8_t       bsmod,
-<a name="l00043"></a>00043     uint8_t       acmod,
-<a name="l00044"></a>00044     uint8_t       lfeon,
-<a name="l00045"></a>00045     uint8_t       bit_rate_code );
-<a name="l00046"></a>00046 
-<a name="l00047"></a>00047 MP4V2_EXPORT
-<a name="l00048"></a>00048 MP4TrackId MP4AddAmrAudioTrack(
-<a name="l00049"></a>00049     MP4FileHandle hFile,
-<a name="l00050"></a>00050     uint32_t      timeScale,
-<a name="l00051"></a>00051     uint16_t      modeSet,
-<a name="l00052"></a>00052     uint8_t       modeChangePeriod,
-<a name="l00053"></a>00053     uint8_t       framesPerSample,
-<a name="l00054"></a>00054     <span class="keywordtype">bool</span>          isAmrWB );
-<a name="l00055"></a>00055 
-<a name="l00056"></a>00056 MP4V2_EXPORT
-<a name="l00057"></a>00057 <span class="keywordtype">void</span> MP4SetAmrVendor(
-<a name="l00058"></a>00058     MP4FileHandle hFile,
-<a name="l00059"></a>00059     MP4TrackId    trackId,
-<a name="l00060"></a>00060     uint32_t      vendor );
-<a name="l00061"></a>00061 
-<a name="l00062"></a>00062 MP4V2_EXPORT
-<a name="l00063"></a>00063 <span class="keywordtype">void</span> MP4SetAmrDecoderVersion(
-<a name="l00064"></a>00064     MP4FileHandle hFile,
-<a name="l00065"></a>00065     MP4TrackId    trackId,
-<a name="l00066"></a>00066     uint8_t       decoderVersion );
-<a name="l00067"></a>00067 
-<a name="l00068"></a>00068 MP4V2_EXPORT
-<a name="l00069"></a>00069 <span class="keywordtype">void</span> MP4SetAmrModeSet(
-<a name="l00070"></a>00070     MP4FileHandle hFile,
-<a name="l00071"></a>00071     MP4TrackId    trakId,
-<a name="l00072"></a>00072     uint16_t      modeSet );
-<a name="l00073"></a>00073 
-<a name="l00074"></a>00074 MP4V2_EXPORT
-<a name="l00075"></a>00075 uint16_t MP4GetAmrModeSet(
-<a name="l00076"></a>00076     MP4FileHandle hFile,
-<a name="l00077"></a>00077     MP4TrackId    trackId );
-<a name="l00078"></a>00078 
-<a name="l00079"></a>00079 MP4V2_EXPORT
-<a name="l00080"></a>00080 MP4TrackId MP4AddHrefTrack(
-<a name="l00081"></a>00081     MP4FileHandle hFile,
-<a name="l00082"></a>00082     uint32_t      timeScale,
-<a name="l00083"></a>00083     MP4Duration   sampleDuration,
-<a name="l00084"></a>00084     <span class="keyword">const</span> <span class="keywordtype">char</span>*   base_url DEFAULT(NULL) );
-<a name="l00085"></a>00085 
-<a name="l00086"></a>00086 MP4V2_EXPORT
-<a name="l00087"></a>00087 <span class="keyword">const</span> <span class="keywordtype">char</span>* MP4GetHrefTrackBaseUrl(
-<a name="l00088"></a>00088     MP4FileHandle hFile,
-<a name="l00089"></a>00089     MP4TrackId    trackId );
-<a name="l00090"></a>00090 
+<a name="l00027"></a>00027 MP4V2_EXPORT
+<a name="l00028"></a>00028 MP4TrackId <a class="code" href="group__mp4__track.html#g369946dba2763f562bbbc98d98a2fa45" title="Add a user defined track.">MP4AddTrack</a>(
+<a name="l00029"></a>00029     MP4FileHandle hFile,
+<a name="l00030"></a>00030     <span class="keyword">const</span> <span class="keywordtype">char</span>*   type );
+<a name="l00031"></a>00031 
+<a name="l00050"></a>00050 MP4V2_EXPORT
+<a name="l00051"></a>00051 MP4TrackId <a class="code" href="group__mp4__track.html#g14fe02d724f2fde71aece45a55726a8b" title="Add an MPEG−4 systems track.">MP4AddSystemsTrack</a>(
+<a name="l00052"></a>00052     MP4FileHandle hFile,
+<a name="l00053"></a>00053     <span class="keyword">const</span> <span class="keywordtype">char</span>*   type );
+<a name="l00054"></a>00054 
+<a name="l00071"></a>00071 MP4V2_EXPORT
+<a name="l00072"></a>00072 MP4TrackId <a class="code" href="group__mp4__track.html#g7d2216720c9ae812ef3203cb57210a34" title="Add a object descriptor (OD) track.">MP4AddODTrack</a>(
+<a name="l00073"></a>00073     MP4FileHandle hFile );
+<a name="l00074"></a>00074 
 <a name="l00091"></a>00091 MP4V2_EXPORT
-<a name="l00092"></a>00092 MP4TrackId MP4AddVideoTrack(
-<a name="l00093"></a>00093     MP4FileHandle hFile,
-<a name="l00094"></a>00094     uint32_t      timeScale,
-<a name="l00095"></a>00095     MP4Duration   sampleDuration,
-<a name="l00096"></a>00096     uint16_t      width,
-<a name="l00097"></a>00097     uint16_t      height,
-<a name="l00098"></a>00098     uint8_t       videoType DEFAULT(MP4_MPEG4_VIDEO_TYPE) );
-<a name="l00099"></a>00099 
-<a name="l00100"></a>00100 MP4V2_EXPORT
-<a name="l00101"></a>00101 MP4TrackId MP4AddH264VideoTrack(
-<a name="l00102"></a>00102     MP4FileHandle hFile,
-<a name="l00103"></a>00103     uint32_t      timeScale,
-<a name="l00104"></a>00104     MP4Duration   sampleDuration,
-<a name="l00105"></a>00105     uint16_t      width,
-<a name="l00106"></a>00106     uint16_t      height,
-<a name="l00107"></a>00107     uint8_t       AVCProfileIndication,
-<a name="l00108"></a>00108     uint8_t       profile_compat,
-<a name="l00109"></a>00109     uint8_t       AVCLevelIndication,
-<a name="l00110"></a>00110     uint8_t       sampleLenFieldSizeMinusOne );
-<a name="l00111"></a>00111 
-<a name="l00112"></a>00112 MP4V2_EXPORT
-<a name="l00113"></a>00113 <span class="keywordtype">void</span> MP4AddH264SequenceParameterSet(
-<a name="l00114"></a>00114     MP4FileHandle  hFile,
-<a name="l00115"></a>00115     MP4TrackId     trackId,
-<a name="l00116"></a>00116     <span class="keyword">const</span> uint8_t* pSequence,
-<a name="l00117"></a>00117     uint16_t       sequenceLen );
-<a name="l00118"></a>00118 
-<a name="l00119"></a>00119 MP4V2_EXPORT
-<a name="l00120"></a>00120 <span class="keywordtype">void</span> MP4AddH264PictureParameterSet(
-<a name="l00121"></a>00121     MP4FileHandle  hFile,
-<a name="l00122"></a>00122     MP4TrackId     trackId,
-<a name="l00123"></a>00123     <span class="keyword">const</span> uint8_t* pPict,
-<a name="l00124"></a>00124     uint16_t       pictLen );
-<a name="l00125"></a>00125 
-<a name="l00126"></a>00126 MP4V2_EXPORT
-<a name="l00127"></a>00127 <span class="keywordtype">void</span> MP4SetH263Vendor(
-<a name="l00128"></a>00128     MP4FileHandle hFile,
-<a name="l00129"></a>00129     MP4TrackId    trackId,
-<a name="l00130"></a>00130     uint32_t      vendor );
-<a name="l00131"></a>00131 
-<a name="l00132"></a>00132 MP4V2_EXPORT
-<a name="l00133"></a>00133 <span class="keywordtype">void</span> MP4SetH263DecoderVersion(
-<a name="l00134"></a>00134     MP4FileHandle hFile,
-<a name="l00135"></a>00135     MP4TrackId    trackId,
-<a name="l00136"></a>00136     uint8_t       decoderVersion );
-<a name="l00137"></a>00137 
-<a name="l00138"></a>00138 MP4V2_EXPORT
-<a name="l00139"></a>00139 <span class="keywordtype">void</span> MP4SetH263Bitrates(
-<a name="l00140"></a>00140     MP4FileHandle hFile,
-<a name="l00141"></a>00141     MP4TrackId    trackId,
-<a name="l00142"></a>00142     uint32_t      avgBitrate,
-<a name="l00143"></a>00143     uint32_t      maxBitrate );
+<a name="l00092"></a>00092 MP4TrackId <a class="code" href="group__mp4__track.html#g853d10fb2fc23b5b4f272d826ef6d9d4" title="Add a scene (BIFS) track.">MP4AddSceneTrack</a>(
+<a name="l00093"></a>00093     MP4FileHandle hFile );
+<a name="l00094"></a>00094 
+<a name="l00118"></a>00118 MP4V2_EXPORT
+<a name="l00119"></a>00119 MP4TrackId <a class="code" href="group__mp4__track.html#gd51e7e6014082a9eea4a3e96ede66593" title="Add audio track to mp4 file.">MP4AddAudioTrack</a>(
+<a name="l00120"></a>00120     MP4FileHandle hFile,
+<a name="l00121"></a>00121     uint32_t      timeScale,
+<a name="l00122"></a>00122     MP4Duration   sampleDuration,
+<a name="l00123"></a>00123     uint8_t       audioType DEFAULT(MP4_MPEG4_AUDIO_TYPE) );
+<a name="l00124"></a>00124 
+<a name="l00125"></a>00125 MP4V2_EXPORT
+<a name="l00126"></a>00126 MP4TrackId MP4AddAC3AudioTrack(
+<a name="l00127"></a>00127     MP4FileHandle hFile,
+<a name="l00128"></a>00128     uint32_t      samplingRate,
+<a name="l00129"></a>00129     uint8_t       fscod,
+<a name="l00130"></a>00130     uint8_t       bsid,
+<a name="l00131"></a>00131     uint8_t       bsmod,
+<a name="l00132"></a>00132     uint8_t       acmod,
+<a name="l00133"></a>00133     uint8_t       lfeon,
+<a name="l00134"></a>00134     uint8_t       bit_rate_code );
+<a name="l00135"></a>00135 
+<a name="l00136"></a>00136 MP4V2_EXPORT
+<a name="l00137"></a>00137 MP4TrackId MP4AddAmrAudioTrack(
+<a name="l00138"></a>00138     MP4FileHandle hFile,
+<a name="l00139"></a>00139     uint32_t      timeScale,
+<a name="l00140"></a>00140     uint16_t      modeSet,
+<a name="l00141"></a>00141     uint8_t       modeChangePeriod,
+<a name="l00142"></a>00142     uint8_t       framesPerSample,
+<a name="l00143"></a>00143     <span class="keywordtype">bool</span>          isAmrWB );
 <a name="l00144"></a>00144 
 <a name="l00145"></a>00145 MP4V2_EXPORT
-<a name="l00146"></a>00146 MP4TrackId MP4AddH263VideoTrack(
+<a name="l00146"></a>00146 <span class="keywordtype">void</span> MP4SetAmrVendor(
 <a name="l00147"></a>00147     MP4FileHandle hFile,
-<a name="l00148"></a>00148     uint32_t      timeScale,
-<a name="l00149"></a>00149     MP4Duration   sampleDuration,
-<a name="l00150"></a>00150     uint16_t      width,
-<a name="l00151"></a>00151     uint16_t      height,
-<a name="l00152"></a>00152     uint8_t       h263Level,
-<a name="l00153"></a>00153     uint8_t       h263Profile,
-<a name="l00154"></a>00154     uint32_t      avgBitrate,
-<a name="l00155"></a>00155     uint32_t      maxBitrate );
+<a name="l00148"></a>00148     MP4TrackId    trackId,
+<a name="l00149"></a>00149     uint32_t      vendor );
+<a name="l00150"></a>00150 
+<a name="l00151"></a>00151 MP4V2_EXPORT
+<a name="l00152"></a>00152 <span class="keywordtype">void</span> MP4SetAmrDecoderVersion(
+<a name="l00153"></a>00153     MP4FileHandle hFile,
+<a name="l00154"></a>00154     MP4TrackId    trackId,
+<a name="l00155"></a>00155     uint8_t       decoderVersion );
 <a name="l00156"></a>00156 
 <a name="l00157"></a>00157 MP4V2_EXPORT
-<a name="l00158"></a>00158 MP4TrackId MP4AddHintTrack(
+<a name="l00158"></a>00158 <span class="keywordtype">void</span> MP4SetAmrModeSet(
 <a name="l00159"></a>00159     MP4FileHandle hFile,
-<a name="l00160"></a>00160     MP4TrackId    refTrackId );
-<a name="l00161"></a>00161 
-<a name="l00162"></a>00162 MP4V2_EXPORT
-<a name="l00163"></a>00163 MP4TrackId MP4AddTextTrack(
-<a name="l00164"></a>00164     MP4FileHandle hFile,
-<a name="l00165"></a>00165     MP4TrackId    refTrackId );
-<a name="l00166"></a>00166 
-<a name="l00167"></a>00167 MP4V2_EXPORT
-<a name="l00168"></a>00168 MP4TrackId MP4AddSubtitleTrack(
-<a name="l00169"></a>00169     MP4FileHandle hFile,
-<a name="l00170"></a>00170     MP4TrackId    refTrackId );
-<a name="l00171"></a>00171 
-<a name="l00172"></a>00172 MP4V2_EXPORT
-<a name="l00173"></a>00173 MP4TrackId MP4AddPixelAspectRatio(
-<a name="l00174"></a>00174     MP4FileHandle hFile,
-<a name="l00175"></a>00175     MP4TrackId    refTrackId,
-<a name="l00176"></a>00176     uint32_t      hSpacing,
-<a name="l00177"></a>00177     uint32_t      vSpacing );
-<a name="l00178"></a>00178 
-<a name="l00179"></a>00179 MP4V2_EXPORT
-<a name="l00180"></a>00180 MP4TrackId MP4AddColr(
-<a name="l00181"></a>00181     MP4FileHandle hFile,
-<a name="l00182"></a>00182     MP4TrackId    refTrackId,
-<a name="l00183"></a>00183     uint16_t      primary,
-<a name="l00184"></a>00184     uint16_t      transfer,
-<a name="l00185"></a>00185     uint16_t      matrix );
-<a name="l00186"></a>00186 
-<a name="l00187"></a>00187 MP4V2_EXPORT
-<a name="l00188"></a>00188 MP4TrackId MP4CloneTrack(
-<a name="l00189"></a>00189     MP4FileHandle srcFile,
-<a name="l00190"></a>00190     MP4TrackId    srcTrackId,
-<a name="l00191"></a>00191     MP4FileHandle dstFile DEFAULT(<a class="code" href="group__mp4__general.html#gfa387d447016a2c4fb1bb7e70b6e3b32" title="Constant: invalid MP4FileHandle.">MP4_INVALID_FILE_HANDLE</a>),
-<a name="l00192"></a>00192     MP4TrackId    dstHintTrackReferenceTrack DEFAULT(<a class="code" href="group__mp4__general.html#g20022a4a97dd9c2031ae2a1ef6db7241" title="Constant: invalid MP4TrackId.">MP4_INVALID_TRACK_ID</a>) );
-<a name="l00193"></a>00193 
-<a name="l00194"></a>00194 MP4V2_EXPORT
-<a name="l00195"></a>00195 MP4TrackId MP4CopyTrack(
-<a name="l00196"></a>00196     MP4FileHandle srcFile,
-<a name="l00197"></a>00197     MP4TrackId    srcTrackId,
-<a name="l00198"></a>00198     MP4FileHandle dstFile DEFAULT(<a class="code" href="group__mp4__general.html#gfa387d447016a2c4fb1bb7e70b6e3b32" title="Constant: invalid MP4FileHandle.">MP4_INVALID_FILE_HANDLE</a>),
-<a name="l00199"></a>00199     <span class="keywordtype">bool</span>          applyEdits DEFAULT(<span class="keyword">false</span>),
-<a name="l00200"></a>00200     MP4TrackId    dstHintTrackReferenceTrack DEFAULT(<a class="code" href="group__mp4__general.html#g20022a4a97dd9c2031ae2a1ef6db7241" title="Constant: invalid MP4TrackId.">MP4_INVALID_TRACK_ID</a>) );
-<a name="l00201"></a>00201 
-<a name="l00202"></a>00202 MP4V2_EXPORT
-<a name="l00203"></a>00203 <span class="keywordtype">void</span> MP4DeleteTrack(
-<a name="l00204"></a>00204     MP4FileHandle hFile,
-<a name="l00205"></a>00205     MP4TrackId    trackId );
-<a name="l00206"></a>00206 
-<a name="l00207"></a>00207 MP4V2_EXPORT
-<a name="l00208"></a>00208 uint32_t MP4GetNumberOfTracks(
-<a name="l00209"></a>00209     MP4FileHandle hFile,
-<a name="l00210"></a>00210     <span class="keyword">const</span> <span class="keywordtype">char</span>*   type DEFAULT(NULL),
-<a name="l00211"></a>00211     uint8_t       subType DEFAULT(0) );
-<a name="l00212"></a>00212 
-<a name="l00213"></a>00213 MP4V2_EXPORT
-<a name="l00214"></a>00214 MP4TrackId MP4FindTrackId(
-<a name="l00215"></a>00215     MP4FileHandle hFile,
-<a name="l00216"></a>00216     uint16_t      index,
-<a name="l00217"></a>00217     <span class="keyword">const</span> <span class="keywordtype">char</span>*   type DEFAULT(NULL),
-<a name="l00218"></a>00218     uint8_t       subType DEFAULT(0) );
-<a name="l00219"></a>00219 
-<a name="l00220"></a>00220 MP4V2_EXPORT
-<a name="l00221"></a>00221 uint16_t MP4FindTrackIndex(
-<a name="l00222"></a>00222     MP4FileHandle hFile,
-<a name="l00223"></a>00223     MP4TrackId    trackId );
-<a name="l00224"></a>00224 
-<a name="l00227"></a>00227 <span class="preprocessor">#endif </span><span class="comment">/* MP4V2_TRACK_H */</span>
+<a name="l00160"></a>00160     MP4TrackId    trakId,
+<a name="l00161"></a>00161     uint16_t      modeSet );
+<a name="l00162"></a>00162 
+<a name="l00163"></a>00163 MP4V2_EXPORT
+<a name="l00164"></a>00164 uint16_t MP4GetAmrModeSet(
+<a name="l00165"></a>00165     MP4FileHandle hFile,
+<a name="l00166"></a>00166     MP4TrackId    trackId );
+<a name="l00167"></a>00167 
+<a name="l00168"></a>00168 MP4V2_EXPORT
+<a name="l00169"></a>00169 MP4TrackId MP4AddHrefTrack(
+<a name="l00170"></a>00170     MP4FileHandle hFile,
+<a name="l00171"></a>00171     uint32_t      timeScale,
+<a name="l00172"></a>00172     MP4Duration   sampleDuration,
+<a name="l00173"></a>00173     <span class="keyword">const</span> <span class="keywordtype">char</span>*   base_url DEFAULT(NULL) );
+<a name="l00174"></a>00174 
+<a name="l00175"></a>00175 MP4V2_EXPORT
+<a name="l00176"></a>00176 <span class="keyword">const</span> <span class="keywordtype">char</span>* MP4GetHrefTrackBaseUrl(
+<a name="l00177"></a>00177     MP4FileHandle hFile,
+<a name="l00178"></a>00178     MP4TrackId    trackId );
+<a name="l00179"></a>00179 
+<a name="l00206"></a>00206 MP4V2_EXPORT
+<a name="l00207"></a>00207 MP4TrackId <a class="code" href="group__mp4__track.html#g2f0812630dbf77ab19e472cd4ac289fe" title="Add a video track.">MP4AddVideoTrack</a>(
+<a name="l00208"></a>00208     MP4FileHandle hFile,
+<a name="l00209"></a>00209     uint32_t      timeScale,
+<a name="l00210"></a>00210     MP4Duration   sampleDuration,
+<a name="l00211"></a>00211     uint16_t      width,
+<a name="l00212"></a>00212     uint16_t      height,
+<a name="l00213"></a>00213     uint8_t       videoType DEFAULT(MP4_MPEG4_VIDEO_TYPE) );
+<a name="l00214"></a>00214 
+<a name="l00215"></a>00215 MP4V2_EXPORT
+<a name="l00216"></a>00216 MP4TrackId MP4AddH264VideoTrack(
+<a name="l00217"></a>00217     MP4FileHandle hFile,
+<a name="l00218"></a>00218     uint32_t      timeScale,
+<a name="l00219"></a>00219     MP4Duration   sampleDuration,
+<a name="l00220"></a>00220     uint16_t      width,
+<a name="l00221"></a>00221     uint16_t      height,
+<a name="l00222"></a>00222     uint8_t       AVCProfileIndication,
+<a name="l00223"></a>00223     uint8_t       profile_compat,
+<a name="l00224"></a>00224     uint8_t       AVCLevelIndication,
+<a name="l00225"></a>00225     uint8_t       sampleLenFieldSizeMinusOne );
+<a name="l00226"></a>00226 
+<a name="l00227"></a>00227 MP4V2_EXPORT
+<a name="l00228"></a>00228 <span class="keywordtype">void</span> MP4AddH264SequenceParameterSet(
+<a name="l00229"></a>00229     MP4FileHandle  hFile,
+<a name="l00230"></a>00230     MP4TrackId     trackId,
+<a name="l00231"></a>00231     <span class="keyword">const</span> uint8_t* pSequence,
+<a name="l00232"></a>00232     uint16_t       sequenceLen );
+<a name="l00233"></a>00233 
+<a name="l00234"></a>00234 MP4V2_EXPORT
+<a name="l00235"></a>00235 <span class="keywordtype">void</span> MP4AddH264PictureParameterSet(
+<a name="l00236"></a>00236     MP4FileHandle  hFile,
+<a name="l00237"></a>00237     MP4TrackId     trackId,
+<a name="l00238"></a>00238     <span class="keyword">const</span> uint8_t* pPict,
+<a name="l00239"></a>00239     uint16_t       pictLen );
+<a name="l00240"></a>00240 
+<a name="l00241"></a>00241 MP4V2_EXPORT
+<a name="l00242"></a>00242 <span class="keywordtype">void</span> MP4SetH263Vendor(
+<a name="l00243"></a>00243     MP4FileHandle hFile,
+<a name="l00244"></a>00244     MP4TrackId    trackId,
+<a name="l00245"></a>00245     uint32_t      vendor );
+<a name="l00246"></a>00246 
+<a name="l00247"></a>00247 MP4V2_EXPORT
+<a name="l00248"></a>00248 <span class="keywordtype">void</span> MP4SetH263DecoderVersion(
+<a name="l00249"></a>00249     MP4FileHandle hFile,
+<a name="l00250"></a>00250     MP4TrackId    trackId,
+<a name="l00251"></a>00251     uint8_t       decoderVersion );
+<a name="l00252"></a>00252 
+<a name="l00253"></a>00253 MP4V2_EXPORT
+<a name="l00254"></a>00254 <span class="keywordtype">void</span> MP4SetH263Bitrates(
+<a name="l00255"></a>00255     MP4FileHandle hFile,
+<a name="l00256"></a>00256     MP4TrackId    trackId,
+<a name="l00257"></a>00257     uint32_t      avgBitrate,
+<a name="l00258"></a>00258     uint32_t      maxBitrate );
+<a name="l00259"></a>00259 
+<a name="l00260"></a>00260 MP4V2_EXPORT
+<a name="l00261"></a>00261 MP4TrackId MP4AddH263VideoTrack(
+<a name="l00262"></a>00262     MP4FileHandle hFile,
+<a name="l00263"></a>00263     uint32_t      timeScale,
+<a name="l00264"></a>00264     MP4Duration   sampleDuration,
+<a name="l00265"></a>00265     uint16_t      width,
+<a name="l00266"></a>00266     uint16_t      height,
+<a name="l00267"></a>00267     uint8_t       h263Level,
+<a name="l00268"></a>00268     uint8_t       h263Profile,
+<a name="l00269"></a>00269     uint32_t      avgBitrate,
+<a name="l00270"></a>00270     uint32_t      maxBitrate );
+<a name="l00271"></a>00271 
+<a name="l00295"></a>00295 MP4V2_EXPORT
+<a name="l00296"></a>00296 MP4TrackId <a class="code" href="group__mp4__track.html#g41fb8943e13e7fe4f2332d21964b0054" title="Add a hint track.">MP4AddHintTrack</a>(
+<a name="l00297"></a>00297     MP4FileHandle hFile,
+<a name="l00298"></a>00298     MP4TrackId    refTrackId );
+<a name="l00299"></a>00299 
+<a name="l00300"></a>00300 MP4V2_EXPORT
+<a name="l00301"></a>00301 MP4TrackId MP4AddTextTrack(
+<a name="l00302"></a>00302     MP4FileHandle hFile,
+<a name="l00303"></a>00303     MP4TrackId    refTrackId );
+<a name="l00304"></a>00304 
+<a name="l00305"></a>00305 MP4V2_EXPORT
+<a name="l00306"></a>00306 MP4TrackId MP4AddSubtitleTrack(
+<a name="l00307"></a>00307     MP4FileHandle hFile,
+<a name="l00308"></a>00308     MP4TrackId    refTrackId );
+<a name="l00309"></a>00309 
+<a name="l00310"></a>00310 MP4V2_EXPORT
+<a name="l00311"></a>00311 MP4TrackId MP4AddPixelAspectRatio(
+<a name="l00312"></a>00312     MP4FileHandle hFile,
+<a name="l00313"></a>00313     MP4TrackId    refTrackId,
+<a name="l00314"></a>00314     uint32_t      hSpacing,
+<a name="l00315"></a>00315     uint32_t      vSpacing );
+<a name="l00316"></a>00316 
+<a name="l00317"></a>00317 MP4V2_EXPORT
+<a name="l00318"></a>00318 MP4TrackId MP4AddColr(
+<a name="l00319"></a>00319     MP4FileHandle hFile,
+<a name="l00320"></a>00320     MP4TrackId    refTrackId,
+<a name="l00321"></a>00321     uint16_t      primary,
+<a name="l00322"></a>00322     uint16_t      transfer,
+<a name="l00323"></a>00323     uint16_t      matrix );
+<a name="l00324"></a>00324 
+<a name="l00325"></a>00325 MP4V2_EXPORT
+<a name="l00326"></a>00326 MP4TrackId MP4CloneTrack(
+<a name="l00327"></a>00327     MP4FileHandle srcFile,
+<a name="l00328"></a>00328     MP4TrackId    srcTrackId,
+<a name="l00329"></a>00329     MP4FileHandle dstFile DEFAULT(<a class="code" href="group__mp4__general.html#gfa387d447016a2c4fb1bb7e70b6e3b32" title="Constant: invalid MP4FileHandle.">MP4_INVALID_FILE_HANDLE</a>),
+<a name="l00330"></a>00330     MP4TrackId    dstHintTrackReferenceTrack DEFAULT(<a class="code" href="group__mp4__general.html#g20022a4a97dd9c2031ae2a1ef6db7241" title="Constant: invalid MP4TrackId.">MP4_INVALID_TRACK_ID</a>) );
+<a name="l00331"></a>00331 
+<a name="l00332"></a>00332 MP4V2_EXPORT
+<a name="l00333"></a>00333 MP4TrackId MP4CopyTrack(
+<a name="l00334"></a>00334     MP4FileHandle srcFile,
+<a name="l00335"></a>00335     MP4TrackId    srcTrackId,
+<a name="l00336"></a>00336     MP4FileHandle dstFile DEFAULT(<a class="code" href="group__mp4__general.html#gfa387d447016a2c4fb1bb7e70b6e3b32" title="Constant: invalid MP4FileHandle.">MP4_INVALID_FILE_HANDLE</a>),
+<a name="l00337"></a>00337     <span class="keywordtype">bool</span>          applyEdits DEFAULT(<span class="keyword">false</span>),
+<a name="l00338"></a>00338     MP4TrackId    dstHintTrackReferenceTrack DEFAULT(<a class="code" href="group__mp4__general.html#g20022a4a97dd9c2031ae2a1ef6db7241" title="Constant: invalid MP4TrackId.">MP4_INVALID_TRACK_ID</a>) );
+<a name="l00339"></a>00339 
+<a name="l00340"></a>00340 MP4V2_EXPORT
+<a name="l00341"></a>00341 <span class="keywordtype">void</span> MP4DeleteTrack(
+<a name="l00342"></a>00342     MP4FileHandle hFile,
+<a name="l00343"></a>00343     MP4TrackId    trackId );
+<a name="l00344"></a>00344 
+<a name="l00345"></a>00345 MP4V2_EXPORT
+<a name="l00346"></a>00346 uint32_t MP4GetNumberOfTracks(
+<a name="l00347"></a>00347     MP4FileHandle hFile,
+<a name="l00348"></a>00348     <span class="keyword">const</span> <span class="keywordtype">char</span>*   type DEFAULT(NULL),
+<a name="l00349"></a>00349     uint8_t       subType DEFAULT(0) );
+<a name="l00350"></a>00350 
+<a name="l00351"></a>00351 MP4V2_EXPORT
+<a name="l00352"></a>00352 MP4TrackId MP4FindTrackId(
+<a name="l00353"></a>00353     MP4FileHandle hFile,
+<a name="l00354"></a>00354     uint16_t      index,
+<a name="l00355"></a>00355     <span class="keyword">const</span> <span class="keywordtype">char</span>*   type DEFAULT(NULL),
+<a name="l00356"></a>00356     uint8_t       subType DEFAULT(0) );
+<a name="l00357"></a>00357 
+<a name="l00358"></a>00358 MP4V2_EXPORT
+<a name="l00359"></a>00359 uint16_t MP4FindTrackIndex(
+<a name="l00360"></a>00360     MP4FileHandle hFile,
+<a name="l00361"></a>00361     MP4TrackId    trackId );
+<a name="l00362"></a>00362 
+<a name="l00365"></a>00365 <span class="preprocessor">#endif </span><span class="comment">/* MP4V2_TRACK_H */</span>
 </pre></div></div>
 <div class="footer">
     <div>
-        generated on Fri Dec 12 15:25:20 2008 for <b>MP4v2 (2.0-r155)</b>
+        generated on Thu Dec 18 16:37:49 2008 for <b>MP4v2 (2.0-20081218)</b>
         by&nbsp;<a href="http://www.doxygen.org">Doxygen</a> 1.5.7.1-20081103
     </div>
 </div>

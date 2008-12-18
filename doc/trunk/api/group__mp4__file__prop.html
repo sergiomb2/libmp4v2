@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <title>MP4v2 2.0-r155 PROJECT_name: MP4v2 File Property</title>
+    <title>MP4v2 2.0-20081218 PROJECT_name: MP4v2 File Property</title>
     <link href="project.css" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -67,12 +67,12 @@ bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4SetBytesProperty</
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="ga0aea7d47894b34ae401637680bfe57b"></a><!-- doxytag: member="mp4_file_prop::MP4GetDuration" ref="ga0aea7d47894b34ae401637680bfe57b" args="(MP4FileHandle hFile)" -->
 MP4Duration&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4GetDuration</b> (MP4FileHandle hFile)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g283cd9775f9a755f763732631c88a961"></a><!-- doxytag: member="mp4_file_prop::MP4GetTimeScale" ref="g283cd9775f9a755f763732631c88a961" args="(MP4FileHandle hFile)" -->
-uint32_t&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4GetTimeScale</b> (MP4FileHandle hFile)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">uint32_t&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__file__prop.html#g283cd9775f9a755f763732631c88a961">MP4GetTimeScale</a> (MP4FileHandle hFile)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g467e2ec099be5d1829c4354e4724025d"></a><!-- doxytag: member="mp4_file_prop::MP4SetTimeScale" ref="g467e2ec099be5d1829c4354e4724025d" args="(MP4FileHandle hFile, uint32_t value)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4SetTimeScale</b> (MP4FileHandle hFile, uint32_t value)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the time scale of the movie (file).  <a href="#g283cd9775f9a755f763732631c88a961"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__file__prop.html#g467e2ec099be5d1829c4354e4724025d">MP4SetTimeScale</a> (MP4FileHandle hFile, uint32_t value)</td></tr>
 
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Set the time scale of the movie (file).  <a href="#g467e2ec099be5d1829c4354e4724025d"></a><br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__file__prop.html#g26fc06eef2d04a9bc5f1fbc47b222038">MP4ChangeMovieTimeScale</a> (MP4FileHandle hFile, uint32_t value)</td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Change the general timescale of file hFile.  <a href="#g26fc06eef2d04a9bc5f1fbc47b222038"></a><br></td></tr>
@@ -147,10 +147,78 @@ If the timescale is already equal to value nothing is done.<p>
 
 </div>
 </div><p>
+<a class="anchor" name="g283cd9775f9a755f763732631c88a961"></a><!-- doxytag: member="file_prop.h::MP4GetTimeScale" ref="g283cd9775f9a755f763732631c88a961" args="(MP4FileHandle hFile)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t MP4GetTimeScale           </td>
+          <td>(</td>
+          <td class="paramtype">MP4FileHandle&nbsp;</td>
+          <td class="paramname"> <em>hFile</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Get the time scale of the movie (file). 
+<p>
+MP4GetTimeScale returns the time scale in units of ticks per second for the mp4 file. Caveat: tracks may use the same time scale as the movie or may use their own time scale.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>hFile</em>&nbsp;</td><td>handle of file for operation.</td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>Returns:</b></dt><dd>timescale (ticks per second) of the mp4 file. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="g467e2ec099be5d1829c4354e4724025d"></a><!-- doxytag: member="file_prop.h::MP4SetTimeScale" ref="g467e2ec099be5d1829c4354e4724025d" args="(MP4FileHandle hFile, uint32_t value)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool MP4SetTimeScale           </td>
+          <td>(</td>
+          <td class="paramtype">MP4FileHandle&nbsp;</td>
+          <td class="paramname"> <em>hFile</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&nbsp;</td>
+          <td class="paramname"> <em>value</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Set the time scale of the movie (file). 
+<p>
+MP4SetTimeScale sets the time scale of the mp4 file. The time scale is in the number of clock ticks per second. Caveat: tracks may use the same time scale as the movie or may use their own time scale.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>hFile</em>&nbsp;</td><td>handle of file for operation. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>value</em>&nbsp;</td><td>desired timescale for the movie.</td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>Returns:</b></dt><dd>On success, true. On failure, false. </dd></dl>
+
+</div>
+</div><p>
 </div>
 <div class="footer">
     <div>
-        generated on Fri Dec 12 15:25:20 2008 for <b>MP4v2 (2.0-r155)</b>
+        generated on Thu Dec 18 16:37:49 2008 for <b>MP4v2 (2.0-20081218)</b>
         by&nbsp;<a href="http://www.doxygen.org">Doxygen</a> 1.5.7.1-20081103
     </div>
 </div>

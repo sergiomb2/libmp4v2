@@ -20,11 +20,10 @@
 --></style>
 </head>
 <body>
-<h2 class="majorheading"><a name="TOC0"></a>MP4v2 2.0-r155 Release Notes</h2>
+<h2 class="majorheading"><a name="TOC0"></a>MP4v2 2.0-20081218 Release Notes</h2>
 
 <blockquote>
-<b>Warning:</b> This is a <b>developer</b> release which includes all the normal pieces of a stable release but is considered <b>unstable</b>. 
-The purpose of a developer release is to make available to MP4v2 developers features which require collaborative testing. 
+<b>Note:</b> This is a <b>snapshot</b> release which includes all the normal pieces of a stable release but is considered <b>experimental</b>. The purpose of a snapshot is to make available to the general public experimental features which require a larger testing audience. Said features may or may not make it into the stable release. 
 </blockquote>
 
 <div class="contents">
@@ -55,7 +54,7 @@ The purpose of a developer release is to make available to MP4v2 developers feat
 
 <h3 class="section"><a name="TOC3"></a>2.1 Top-level header file</h3>
 
-<p>This release is <b>nearly</b> 100% API compatible with MPEG4IP, however there are some differences. There single change code using this library <b>must</b> make is to include the top-level public header file as follows. <b>This is the only supported mechanism to include the library</b>. We do not support attempts to include any sub-level header files; such files are private implementation details and their naming must not be relied upon.
+<p>This release is <b>nearly</b> 100% API compatible with MPEG4IP, however there are some differences. Dependents of this library <b>must</b> now include the top-level public header file as follows. <b>This is the only supported mechanism to include the library</b>. We do not support attempts to include any sub-level header files; such files are private implementation details and their naming must not be relied upon.
 
 <pre class="example">#include &lt;mp4v2/mp4v2.h&gt;
 </pre>
@@ -70,9 +69,9 @@ The purpose of a developer release is to make available to MP4v2 developers feat
 <pre class="example">url:  https://mp4v2.googlecode.com/svn/trunk
 root: https://mp4v2.googlecode.com/svn
 uuid: 6e6572fa-98a6-11dd-ad9f-f77439c74b79
-rev:  155
-date: 2008-12-12 15:23:15 -0500 (Fri, 12 Dec 2008)
-type: developer
+rev:  169
+date: 2008-12-18 16:02:21 -0500 (Thu, 18 Dec 2008)
+type: snapshot
 </pre>
 <h2 class="appendix"><a name="TOC6"></a>Appendix B Changelog</h2>
 
@@ -91,6 +90,8 @@ type: developer
      <li>Enhanced <samp><span class="command">mp4art</span></samp> to support multiple cover-art atoms.
 
      <li>Dropped <samp><span class="command">mp4dump</span></samp> and replaced with <samp><span class="command">mp4file</span></samp> which supports general file operations.
+
+     <li>Added <samp><span class="command">mp4track</span></samp> with colr-box and pasp-box support.
 
      </ol>
 

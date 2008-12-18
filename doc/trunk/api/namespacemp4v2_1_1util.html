@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <title>MP4v2 2.0-r155 PROJECT_name: mp4v2::util Namespace Reference</title>
+    <title>MP4v2 2.0-20081218 PROJECT_name: mp4v2::util Namespace Reference</title>
     <link href="project.css" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -79,6 +79,9 @@ uint32_t&nbsp;</td><td class="memItemRight" valign="bottom"><b>crc32</b> (const 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemp4v2_1_1util.html#94ba18fc192800d94dc9ca9ebb5745e1">fileFetchSummaryInfo</a> (MP4FileHandle file, FileSummaryInfo &amp;info)</td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Fetch mp4 file summary information.  <a href="#94ba18fc192800d94dc9ca9ebb5745e1"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">MP4FileHandle&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemp4v2_1_1util.html#9ff165a12467141604fb786bac7fe083">MP4ReadCopy</a> (const string &amp;fileName, uint32_t verbosity=0)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Read an existing mp4 file and disable write-protection.  <a href="#9ff165a12467141604fb786bac7fe083"></a><br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemp4v2_1_1util.html#ccaacd774412fd27f9ab4dede3022f46">MP4CopyClose</a> (MP4FileHandle hFile, const string &amp;copyFileName)</td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Copy-out and close an mp4 file.  <a href="#ccaacd774412fd27f9ab4dede3022f46"></a><br></td></tr>
@@ -168,10 +171,50 @@ This function writes out a copy of all the atoms from an open mp4 file. The new 
 
 </div>
 </div><p>
+<a class="anchor" name="9ff165a12467141604fb786bac7fe083"></a><!-- doxytag: member="mp4v2::util::MP4ReadCopy" ref="9ff165a12467141604fb786bac7fe083" args="(const string &amp;fileName, uint32_t verbosity=0)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">MP4FileHandle mp4v2::util::MP4ReadCopy           </td>
+          <td>(</td>
+          <td class="paramtype">const string &amp;&nbsp;</td>
+          <td class="paramname"> <em>fileName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&nbsp;</td>
+          <td class="paramname"> <em>verbosity</em> = <code>0</code></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Read an existing mp4 file and disable write-protection. 
+<p>
+This function is identical to <a class="el" href="group__mp4__file.html#g0dd0722e4dc234ea01bf55cc9cee15c5" title="Read an existing mp4 file.">MP4Read()</a> except that it disables write-protection for routines that would be incompatible with the MP4CloseCopy() workflow.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>fileName</em>&nbsp;</td><td>pathname of the file to be read. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>verbosity</em>&nbsp;</td><td>bitmask of diagnostic details the library should print to stdout during its functioning.</td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>Returns:</b></dt><dd>On success a handle of the file for use in subsequent calls to the library. On error, <a class="el" href="group__mp4__general.html#gfa387d447016a2c4fb1bb7e70b6e3b32" title="Constant: invalid MP4FileHandle.">MP4_INVALID_FILE_HANDLE</a>.</dd></dl>
+<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="group__mp4__file.html#g0f5a31d71dfda457588f6d7701153b40" title="Set verbosity level for diagnostic information.">MP4SetVerbosity()</a> for <b>verbosity</b> values. </dd></dl>
+
+</div>
+</div><p>
 </div>
 <div class="footer">
     <div>
-        generated on Fri Dec 12 15:25:20 2008 for <b>MP4v2 (2.0-r155)</b>
+        generated on Thu Dec 18 16:37:49 2008 for <b>MP4v2 (2.0-20081218)</b>
         by&nbsp;<a href="http://www.doxygen.org">Doxygen</a> 1.5.7.1-20081103
     </div>
 </div>

@@ -20,7 +20,7 @@
 --></style>
 </head>
 <body>
-<h2 class="majorheading"><a name="TOC0"></a>MP4v2 2.0-r155 Building the Source</h2>
+<h2 class="majorheading"><a name="TOC0"></a>MP4v2 2.0-20081218 Building the Source</h2>
 
 <div class="contents">
 <h2>Table of Contents</h2>
@@ -91,8 +91,8 @@
 
 <p>This chapter is for the impatient or those just looking for a quick summary of all the commands used in a typical build. You may skip this summary and jump to <a href="#Build-Process">Build Process</a>.
 
-<pre class="example">tar xf mp4v2-2.0-r155.tar.bz2
-cd mp4v2-2.0-r155/
+<pre class="example">tar xf mp4v2-2.0-20081218.tar.bz2
+cd mp4v2-2.0-20081218/
 rm -fr build/
 mkdir build/
 cd build/
@@ -109,20 +109,20 @@ make install-man
 
 <p>Extract sources from a source-distribution bundle. Releases are available from <a href="http://code.google.com/p/mp4v2">http://code.google.com/p/mp4v2</a> in the <a href="http://code.google.com/p/mp4v2/downloads/list">downloads</a> section.
 
-<pre class="example">tar xf mp4v2-2.0-r155.tar.bz2
-cd mp4v2-2.0-r155/
+<pre class="example">tar xf mp4v2-2.0-20081218.tar.bz2
+cd mp4v2-2.0-20081218/
 </pre>
 <p>Older versions of <code>tar</code> may not automatically uncompress the bundle, so you might have to either enter additional flags manually, or first decompress the bundle before extracting. Some possible command variations for uncompressing a <samp><span class="file">bz2</span></samp> file:
 
-<pre class="example">tar xjf mp4v2-2.0-r155.tar.bz2
-bunzip2 -c mp4v2-2.0-r155.tar.bz2 | tar xf -
-bzcat mp4v2-2.0-r155.tar.bz2 | tar xf -
+<pre class="example">tar xjf mp4v2-2.0-20081218.tar.bz2
+bunzip2 -c mp4v2-2.0-20081218.tar.bz2 | tar xf -
+bzcat mp4v2-2.0-20081218.tar.bz2 | tar xf -
 </pre>
 <p>And for a <samp><span class="file">gz</span></samp> file:
 
-<pre class="example">tar xzf mp4v2-2.0-r155.tar.gz
-gunzip -c mp4v2-2.0-r155.tar.gz | tar xf -
-gzcat mp4v2-2.0-r155.tar.gz | tar xf -
+<pre class="example">tar xzf mp4v2-2.0-20081218.tar.gz
+gunzip -c mp4v2-2.0-20081218.tar.gz | tar xf -
+gzcat mp4v2-2.0-20081218.tar.gz | tar xf -
 </pre>
 <p><a name="Configure"></a>
 
