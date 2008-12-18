@@ -18,7 +18,6 @@ Description of currently known iTunes tags.
 || Genre, Pre-defined || gnre || enum || Standard Genres according to ID3, the iTunes tag is one greater the the corresponding ID3 tag || Genre ||
 || Genre, User defined || ©gen || UTF-8 string || || Genre ||
 || Name || ©nam || UTF-8 string || || Name ||
-|| || ©st3 ||  UTF-8 string || Use? || ||
 || Encoding Tool || ©too ||  UTF-8 string || Software used for encoding || Tool ||
 || Composer || ©wrt ||  UTF-8 string || || Composer ||
 || Compilation || cpil || 8-bit integer  (boolean) || || Compilation ||
@@ -27,16 +26,15 @@ Description of currently known iTunes tags.
 || Content Rating || rtng || 8-bit integer || Explicit/Clean label || Explicit (currently read only) ||
 || Track Number || trkn || binary || || Track ||
 || BPM || tmpo ||16-bit integer || || BPM ||
-|| Track Number || trkn || binary || || Track ||
 || Gapless Playback || pgap || 8-bit integer (boolean) || || PartOfGaplessAlbum  ||
 || Category || catg || UTF-8 string || Use? || ||
 || Keyword || keyw || UTF-8 string || Use? || ||
 || Podcast || pcst || 8-bit integer  (boolean) || || ||
-|| Podcast URL || || UTF-8 string  || || ||
+|| Podcast URL || purl || UTF-8 string  || || ||
 || Description || desc || UTF-8 string || Short description|| ShortDescription ||
 || Long description || ldes || UTF-8 string || Not limited to 255 bytes. || LongDescription (read only) ||
 || Lyrics || ©lyr || UTF-8 string || Not limited to 255 bytes. || Lyrics (read only) ||
-|| TV Network Name || tvnn || UTF-8 string  || || TVNetworkName (read only) | ||
+|| TV Network Name || tvnn || UTF-8 string  || || TVNetworkName (read only) ||
 || TV Show Name || tvsh || UTF-8 string  || || TVShow (read only) ||
 || TV Episode Number || tven || UTF-8 string  || || TVEpisodeNumber (read only) ||
 || TV Season || tvsn || 32-bit integer  || || TVSeason (read only) ||
@@ -51,6 +49,7 @@ Description of currently known iTunes tags.
 || Sort Show || sosn || UTF-8 string  || || SortTVShow (read only) ||
 || HD Video || hdvd || 8-bit integer  (boolean)  || || HDVideo ||
 || Video Type || stik || 8-bit integer (enum)  || || ||
+|| || ©st3 ||  UTF-8 string || Use? || ||
 || || cnID || 32-bit integer || Use? || ||
 || || atID || 32-bit integer || Use? || ||
 || || plID || 64-bit integer || Use? || ||
