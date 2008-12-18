@@ -24,24 +24,23 @@ Description of currently known iTunes tags.
 || Compilation || cpil || 8-bit integer  (boolean) || || Compilation ||
 || Disc Number || disk || binary || || Disk ||
 || Grouping || grup ||  UTF-8 string || like TIT1 in ID3 || Grouping ||
-|| Content Rating || rtng || 8-bit integer (boolean) || Explicit label || Explicit (currently read only) ||
-|| Track Number || trkn || binary || || Track ||
 || Content Rating || rtng || 8-bit integer || Explicit/Clean label || Explicit (currently read only) ||
-|| BPM || tmpo ||32-bit integer || || BPM ||
 || Track Number || trkn || binary || || Track ||
-|| Gapless Playback || pgap || 8-bit integer || || PartOfGaplessAlbum  ||
+|| BPM || tmpo ||16-bit integer || || BPM ||
+|| Track Number || trkn || binary || || Track ||
+|| Gapless Playback || pgap || 8-bit integer (boolean) || || PartOfGaplessAlbum  ||
 || Category || catg || UTF-8 string || Use? || ||
 || Keyword || keyw || UTF-8 string || Use? || ||
 || Podcast || pcst || 8-bit integer  (boolean) || || ||
 || Podcast URL || || UTF-8 string  || || ||
 || Description || desc || UTF-8 string || Short description|| ShortDescription ||
-|| Long description || ldes || || Not limited to 255 bytes. || LongDescription (read only) ||
+|| Long description || ldes || UTF-8 string || Not limited to 255 bytes. || LongDescription (read only) ||
 || Lyrics || ©lyr || UTF-8 string || Not limited to 255 bytes. || Lyrics (read only) ||
 || TV Network Name || tvnn || UTF-8 string  || || TVNetworkName (read only) | ||
 || TV Show Name || tvsh || UTF-8 string  || || TVShow (read only) ||
 || TV Episode Number || tven || UTF-8 string  || || TVEpisodeNumber (read only) ||
-|| TV Season || tvsn || 8-bit integer  || || ||
-|| TV Episode || tves || 8-bit integer  || || ||
+|| TV Season || tvsn || 32-bit integer  || || TVSeason (read only) ||
+|| TV Episode || tves || 32-bit integer  || || TVEpisode (read only) ||
 || Purchase Date || purd || UTF-8 string  || || PurchaseDate (currently read only) ||
 || Purchase Account || apID || UTF-8 string  || || PurchaserAccount (currently read only) ||
 || Sort Album || soal || UTF-8 string  || || SortAlbum (read only)  ||
@@ -51,11 +50,18 @@ Description of currently known iTunes tags.
 || Sort Composer || soco || UTF-8 string  || || SortComposer (read only) ||
 || Sort Show || sosn || UTF-8 string  || || SortTVShow (read only) ||
 || HD Video || hdvd || 8-bit integer  (boolean)  || || HDVideo ||
+|| Video Type || stik || 8-bit integer (enum)  || || ||
+|| || cnID || 32-bit integer || Use? || ||
+|| || atID || 32-bit integer || Use? || ||
+|| || plID || 64-bit integer || Use? || ||
+|| || geID || 32-bit integer || Use? || ||
+|| || sfID || 32-bit integer || Use? || ||
+|| || akID || 8-bit integer || Use? || ||
+
 
 *A blank field means that this tag is currently not supported by libmp4v2
 
 Only one gerne tag (gnre or ©gen) is permitted at a time.
-All UFT Strings are limited to 255 bytes.
 
 The MP4GetMetadataGerne functions will read whichever is there.
 The MP4SetMetadataGerne trys to set the grne tag if its a match to an ID3V1 genre, else it sets the ©gen tag.
