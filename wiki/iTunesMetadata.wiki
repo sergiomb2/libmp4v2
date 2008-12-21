@@ -38,7 +38,7 @@ Description of currently known iTunes tags.
 || TV Show Name || tvsh || UTF-8 string  || || TVShow (read only) ||
 || TV Episode Number || tven || UTF-8 string  || || TVEpisodeNumber (read only) ||
 || TV Season || tvsn || 32-bit integer  || || TVSeason (read only) ||
-|| TV Episode || tves || 32-bit integer  || || TVEpisode (read only) ||
+|| TV Episode || tves || 32-bit integer  || || TVEpisode ||
 || Purchase Date || purd || UTF-8 string  || || PurchaseDate (currently read only) ||
 || Purchase Account || apID || UTF-8 string  || || PurchaserAccount (currently read only) ||
 || Sort Album || soal || UTF-8 string  || || SortAlbum (read only)  ||
