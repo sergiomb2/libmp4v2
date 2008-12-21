@@ -27,10 +27,10 @@ Description of currently known iTunes tags.
 || Track Number || trkn || binary || || Track ||
 || BPM || tmpo ||16-bit integer || || BPM ||
 || Gapless Playback || pgap || 8-bit integer (boolean) || || PartOfGaplessAlbum  ||
-|| Category || catg || UTF-8 string || Use? || ||
-|| Keyword || keyw || UTF-8 string || Use? || ||
-|| Podcast || pcst || 8-bit integer  (boolean) || || ||
-|| Podcast URL || purl || UTF-8 string  || || ||
+|| Category || catg || UTF-8 string || Used for Podcasts || Category (read only) ||
+|| Keywords || keyw || UTF-8 string || Used for Podcasts || Keywords (read only) ||
+|| Podcast || pcst || 8-bit integer  (boolean) || || Podcast (read only) ||
+|| Podcast URL || purl ||  || || ||
 || Description || desc || UTF-8 string || Short description|| ShortDescription ||
 || Long description || ldes || UTF-8 string || Not limited to 255 bytes. || LongDescription (read only) ||
 || Lyrics || ©lyr || UTF-8 string || Not limited to 255 bytes. || Lyrics (read only) ||
