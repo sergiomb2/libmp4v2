@@ -39,8 +39,8 @@ Description of currently known iTunes tags.
 || TV Episode Number || tven || UTF-8 string  || || TVEpisodeNumber (read only) ||
 || TV Season || tvsn || 32-bit integer  || || TVSeason (read only) ||
 || TV Episode || tves || 32-bit integer  || || TVEpisode ||
-|| Purchase Date || purd || UTF-8 string  || || PurchaseDate (currently read only) ||
-|| Purchase Account || apID || UTF-8 string  || || PurchaserAccount (currently read only) ||
+|| Purchase Date || purd || UTF-8 string  || || PurchaseDate (read only) ||
+|| Purchase Account || apID || UTF-8 string  || || PurchaserAccount (read only) ||
 || Sort Album || soal || UTF-8 string  || || SortAlbum (read only)  ||
 || Sort Name || sonm || UTF-8 string  || || SortName (read only) ||
 || Sort Artist || soar || UTF-8 string  || || SortArtist (read only) ||
@@ -48,14 +48,14 @@ Description of currently known iTunes tags.
 || Sort Composer || soco || UTF-8 string  || || SortComposer (read only) ||
 || Sort Show || sosn || UTF-8 string  || || SortTVShow (read only) ||
 || HD Video || hdvd || 8-bit integer  (boolean)  || || HDVideo ||
-|| Video Type || stik || 8-bit integer (enum)  || || ||
+|| Media Type || stik || 8-bit integer (enum)  || || MediaType (read only) ||
 || || ©st3 ||  UTF-8 string || Use? || ||
-|| || cnID || 32-bit integer || Use? || ||
+|| || cnID || 32-bit integer || Use? || CNID (read only) ||
 || || atID || 32-bit integer || Use? || ||
 || || plID || 64-bit integer || Use? || ||
 || || geID || 32-bit integer || Use? || ||
-|| || sfID || 32-bit integer || Use? || ||
-|| || akID || 8-bit integer || Use? || ||
+|| || sfID || 32-bit integer || Identifies in which iTunes Store a file was bought  || ||
+|| || akID || 8-bit integer || Identifies the iTunes account type (Apple or AOL) || ||
 
 
 *A blank field means that this tag is currently not supported by libmp4v2
