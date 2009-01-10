@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <title>MP4v2 2.0-20081218 PROJECT_name: MP4v2 Track Property</title>
+    <title>MP4v2 2.0-20090110 PROJECT_name: MP4v2 Track Property</title>
     <link href="project.css" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -58,6 +58,12 @@ MP4Duration&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4GetTrackDur
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__track__prop.html#g5fde63b190999c3b7b9c9917c6f0e376">MP4SetTrackTimeScale</a> (MP4FileHandle hFile, MP4TrackId trackId, uint32_t value)</td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Set the time scale of a track.  <a href="#g5fde63b190999c3b7b9c9917c6f0e376"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__track__prop.html#g6310d45eb55dde9ffb6e8cbbf1348e64">MP4GetTrackLanguage</a> (MP4FileHandle hFile, MP4TrackId trackId, char *code)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get ISO-639-2/T langauge code of a track.  <a href="#g6310d45eb55dde9ffb6e8cbbf1348e64"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__track__prop.html#g13f5e012d9eb170880bcfc4e09b9f895">MP4SetTrackLanguage</a> (MP4FileHandle hFile, MP4TrackId trackId, const char *code)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Set ISO-639-2/T langauge code of a track.  <a href="#g13f5e012d9eb170880bcfc4e09b9f895"></a><br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="gd7629c13f9bb0f0cd6f88dffa5aa9d86"></a><!-- doxytag: member="mp4_track_prop::MP4GetTrackAudioMpeg4Type" ref="gd7629c13f9bb0f0cd6f88dffa5aa9d86" args="(MP4FileHandle hFile, MP4TrackId trackId)" -->
 uint8_t&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4GetTrackAudioMpeg4Type</b> (MP4FileHandle hFile, MP4TrackId trackId)</td></tr>
 
@@ -132,6 +138,52 @@ bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4SetTrackBytesPrope
 
 </table>
 <hr><h2>Function Documentation</h2>
+<a class="anchor" name="g6310d45eb55dde9ffb6e8cbbf1348e64"></a><!-- doxytag: member="track_prop.h::MP4GetTrackLanguage" ref="g6310d45eb55dde9ffb6e8cbbf1348e64" args="(MP4FileHandle hFile, MP4TrackId trackId, char *code)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool MP4GetTrackLanguage           </td>
+          <td>(</td>
+          <td class="paramtype">MP4FileHandle&nbsp;</td>
+          <td class="paramname"> <em>hFile</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MP4TrackId&nbsp;</td>
+          <td class="paramname"> <em>trackId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&nbsp;</td>
+          <td class="paramname"> <em>code</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Get ISO-639-2/T langauge code of a track. 
+<p>
+The language code is a 3-char alpha code consisting of lower-case letters.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>hFile</em>&nbsp;</td><td>handle of file for operation. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>trackId</em>&nbsp;</td><td>id of track for operation. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>code</em>&nbsp;</td><td>buffer to hold 3-char+null (4-bytes total).</td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>Returns:</b></dt><dd><b>true</b> on success, <b>false</b> on failure. </dd></dl>
+
+</div>
+</div><p>
 <a class="anchor" name="g49d6fecc2825776503e461b055a5d2fe"></a><!-- doxytag: member="track_prop.h::MP4GetTrackTimeScale" ref="g49d6fecc2825776503e461b055a5d2fe" args="(MP4FileHandle hFile, MP4TrackId trackId)" -->
 <div class="memitem">
 <div class="memproto">
@@ -225,6 +277,52 @@ Known track types are: <ul>
 
 </div>
 </div><p>
+<a class="anchor" name="g13f5e012d9eb170880bcfc4e09b9f895"></a><!-- doxytag: member="track_prop.h::MP4SetTrackLanguage" ref="g13f5e012d9eb170880bcfc4e09b9f895" args="(MP4FileHandle hFile, MP4TrackId trackId, const char *code)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool MP4SetTrackLanguage           </td>
+          <td>(</td>
+          <td class="paramtype">MP4FileHandle&nbsp;</td>
+          <td class="paramname"> <em>hFile</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MP4TrackId&nbsp;</td>
+          <td class="paramname"> <em>trackId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&nbsp;</td>
+          <td class="paramname"> <em>code</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Set ISO-639-2/T langauge code of a track. 
+<p>
+The language code is a 3-char alpha code consisting of lower-case letters.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>hFile</em>&nbsp;</td><td>handle of file for operation. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>trackId</em>&nbsp;</td><td>id of track for operation. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>code</em>&nbsp;</td><td>3-char language code.</td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>Returns:</b></dt><dd><b>true</b> on success, <b>false</b> on failure. </dd></dl>
+
+</div>
+</div><p>
 <a class="anchor" name="g5fde63b190999c3b7b9c9917c6f0e376"></a><!-- doxytag: member="track_prop.h::MP4SetTrackTimeScale" ref="g5fde63b190999c3b7b9c9917c6f0e376" args="(MP4FileHandle hFile, MP4TrackId trackId, uint32_t value)" -->
 <div class="memitem">
 <div class="memproto">
@@ -265,17 +363,16 @@ Typically this value is set once when the track is created. However this call ca
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>hFile</em>&nbsp;</td><td>handle of file for operation. </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>trackId</em>&nbsp;</td><td>id of track for operation. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>timeScale</em>&nbsp;</td><td>desired time scale for the track.</td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>timeScale</em>&nbsp;</td><td>desired time scale for the track. </td></tr>
   </table>
 </dl>
-<dl class="return" compact><dt><b>Returns:</b></dt><dd>On success, true. On failure, false. </dd></dl>
 
 </div>
 </div><p>
 </div>
 <div class="footer">
     <div>
-        generated on Thu Dec 18 16:37:49 2008 for <b>MP4v2 (2.0-20081218)</b>
+        generated on Sat Jan 10 13:53:19 2009 for <b>MP4v2 (2.0-20090110)</b>
         by&nbsp;<a href="http://www.doxygen.org">Doxygen</a> 1.5.7.1-20081103
     </div>
 </div>

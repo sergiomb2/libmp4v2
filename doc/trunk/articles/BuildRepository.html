@@ -20,7 +20,7 @@
 --></style>
 </head>
 <body>
-<h2 class="majorheading"><a name="TOC0"></a>MP4v2 2.0-20081218 Building the Repository</h2>
+<h2 class="majorheading"><a name="TOC0"></a>MP4v2 2.0-20090110 Building the Repository</h2>
 
 <div class="contents">
 <h2>Table of Contents</h2>
@@ -157,6 +157,8 @@ cd build/
      <br><dt>`<samp><span class="samp">--disable-optimize</span></samp>'<dd>Do not optimize. Do not direct compiler to optimize code. By default compiler optimization is enabled if the platform supports it.
 
      <br><dt>`<samp><span class="samp">--disable-fvisibility</span></samp>'<dd>Do not set default ELF symbol visibility. By default configure attempts to detect if the compiler supports this feature. However on some platforms detecting incompatibilty of this feature might not be accurate in which case this option should be given.
+
+     <br><dt>`<samp><span class="samp">--disable-gch</span></samp>'<dd>By default certain platforms are marked to use GCC precompiled headers. Generally this greatly decrease build times but may require more diligence for iterative development; that is to say dependencies may not properly be tracked and more frequent <samp><span class="command">make clean</span></samp> may be required when headers are changed. Use this option to disable GCC precompiled headers.
 
      <br><dt>`<samp><span class="samp">--disable-largefile</span></samp>'<dd>On some 32-bit platforms or configurations it might be desirable to build without largefile (LFS) support. By default configure attempts to detect formal LFS support and enables it if found.
 

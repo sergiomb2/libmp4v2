@@ -20,7 +20,7 @@
 --></style>
 </head>
 <body>
-<h2 class="majorheading"><a name="TOC0"></a>MP4v2 2.0-20081218 Release Notes</h2>
+<h2 class="majorheading"><a name="TOC0"></a>MP4v2 2.0-20090110 Release Notes</h2>
 
 <blockquote>
 <b>Note:</b> This is a <b>snapshot</b> release which includes all the normal pieces of a stable release but is considered <b>experimental</b>. The purpose of a snapshot is to make available to the general public experimental features which require a larger testing audience. Said features may or may not make it into the stable release. 
@@ -69,8 +69,8 @@
 <pre class="example">url:  https://mp4v2.googlecode.com/svn/trunk
 root: https://mp4v2.googlecode.com/svn
 uuid: 6e6572fa-98a6-11dd-ad9f-f77439c74b79
-rev:  169
-date: 2008-12-18 16:02:21 -0500 (Thu, 18 Dec 2008)
+rev:  224
+date: 2009-01-10 13:51:24 -0500 (Sat, 10 Jan 2009)
 type: snapshot
 </pre>
 <h2 class="appendix"><a name="TOC6"></a>Appendix B Changelog</h2>
@@ -92,6 +92,20 @@ type: snapshot
      <li>Dropped <samp><span class="command">mp4dump</span></samp> and replaced with <samp><span class="command">mp4file</span></samp> which supports general file operations.
 
      <li>Added <samp><span class="command">mp4track</span></samp> with colr-box and pasp-box support.
+
+     <li>Fixed corruption of <b>udta.name</b> atom during read-in.
+
+     <li>Enhanced <samp><span class="command">mp4file --dump</span></samp> to show hexdump-style canonical hex+ASCII data.
+
+     <li>Enhanced <samp><span class="command">mp4file --dump</span></samp> to show human-readble value for tag <b>typeCode</b> values.
+
+     <li>Enhanced <samp><span class="command">mp4file --dump</span></samp> to show human-readble value for ISO-639-2/T language codes.
+
+     <li>Added new public-API: MP4GetTrackLanguage().
+
+     <li>Added new public-API: MP4SetTrackLanguage().
+
+     <li>Added support for GCC precompiled-headers on various *nix platforms to speed up builds as we are using quite a few C++ headers.
 
      </ol>
 

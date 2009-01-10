@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <title>MP4v2 2.0-20081218 PROJECT_name: MP4v2 iTunes Metadata</title>
+    <title>MP4v2 2.0-20090110 PROJECT_name: MP4v2 iTunes Metadata</title>
     <link href="project.css" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -36,6 +36,13 @@
 <div class="contents">
 <h1>MP4v2 iTunes Metadata</h1><table border="0" cellpadding="0" cellspacing="0">
 <tr><td></td></tr>
+<tr><td colspan="2"><br><h2>Classes</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">struct &nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4Metadata_s</b></td></tr>
+
+<tr><td colspan="2"><br><h2>Typedefs</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g0a40cf478289aca6c8052750c18624e3"></a><!-- doxytag: member="mp4_meta::MP4Metadata" ref="g0a40cf478289aca6c8052750c18624e3" args="" -->
+typedef struct MP4Metadata_s&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4Metadata</b></td></tr>
+
 <tr><td colspan="2"><br><h2>Functions</h2></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g05b9725192ef673e0d32979c2f953f11"></a><!-- doxytag: member="mp4_meta::MP4MetadataDelete" ref="g05b9725192ef673e0d32979c2f953f11" args="(MP4FileHandle hFile)" -->
 bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4MetadataDelete</b> (MP4FileHandle hFile)</td></tr>
@@ -286,6 +293,45 @@ bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4GetMetadataEncoded
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g6eb642a67fe0b73b903cfb63225910cb"></a><!-- doxytag: member="mp4_meta::MP4DeleteMetadataEncodedBy" ref="g6eb642a67fe0b73b903cfb63225910cb" args="(MP4FileHandle hFile)" -->
 bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4DeleteMetadataEncodedBy</b> (MP4FileHandle hFile)</td></tr>
 
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g6de47e773c02967cbd7099d16b3b8a52"></a><!-- doxytag: member="mp4_meta::MP4SetMetadataTVEpisode" ref="g6de47e773c02967cbd7099d16b3b8a52" args="(MP4FileHandle hFile, uint32_t value)" -->
+bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4SetMetadataTVEpisode</b> (MP4FileHandle hFile, uint32_t value)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g0f07c27b10708da78997730e4da750a3"></a><!-- doxytag: member="mp4_meta::MP4GetMetadataTVEpisode" ref="g0f07c27b10708da78997730e4da750a3" args="(MP4FileHandle hFile, uint32_t *value)" -->
+bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4GetMetadataTVEpisode</b> (MP4FileHandle hFile, uint32_t *value)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="ga0dfdf92435f34a4b083f8b86a4fa40f"></a><!-- doxytag: member="mp4_meta::MP4DeleteMetadataTVEpisode" ref="ga0dfdf92435f34a4b083f8b86a4fa40f" args="(MP4FileHandle hFile)" -->
+bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4DeleteMetadataTVEpisode</b> (MP4FileHandle hFile)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g52a2b70d0b8c005995a7e56ac7f6f468"></a><!-- doxytag: member="mp4_meta::MP4GetMetadataTVSeason" ref="g52a2b70d0b8c005995a7e56ac7f6f468" args="(MP4FileHandle hFile, uint32_t *value)" -->
+bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4GetMetadataTVSeason</b> (MP4FileHandle hFile, uint32_t *value)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="gb5b7098c048ceb8bb9ccab08fcd2fe9b"></a><!-- doxytag: member="mp4_meta::MP4GetMetadataPodcast" ref="gb5b7098c048ceb8bb9ccab08fcd2fe9b" args="(MP4FileHandle hFile, uint8_t *value)" -->
+bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4GetMetadataPodcast</b> (MP4FileHandle hFile, uint8_t *value)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="gdffd62e41201970f8c095071df5862b8"></a><!-- doxytag: member="mp4_meta::MP4GetMetadataKeywords" ref="gdffd62e41201970f8c095071df5862b8" args="(MP4FileHandle hFile, char **value)" -->
+bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4GetMetadataKeywords</b> (MP4FileHandle hFile, char **value)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g1320b55cc0880103b8b5f170ecebfa62"></a><!-- doxytag: member="mp4_meta::MP4GetMetadataCategory" ref="g1320b55cc0880103b8b5f170ecebfa62" args="(MP4FileHandle hFile, char **value)" -->
+bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4GetMetadataCategory</b> (MP4FileHandle hFile, char **value)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g1017465c3375b9a29d77d80783ddb1b9"></a><!-- doxytag: member="mp4_meta::MP4SetMetadataCNID" ref="g1017465c3375b9a29d77d80783ddb1b9" args="(MP4FileHandle hFile, uint32_t value)" -->
+bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4SetMetadataCNID</b> (MP4FileHandle hFile, uint32_t value)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="gab608229309f2ecfbb12b822469d4379"></a><!-- doxytag: member="mp4_meta::MP4DeleteMetadataCNID" ref="gab608229309f2ecfbb12b822469d4379" args="(MP4FileHandle hFile)" -->
+bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4DeleteMetadataCNID</b> (MP4FileHandle hFile)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g077aef1e8a4ef48128c1195c3f867e08"></a><!-- doxytag: member="mp4_meta::MP4GetMetadataCNID" ref="g077aef1e8a4ef48128c1195c3f867e08" args="(MP4FileHandle hFile, uint32_t *value)" -->
+bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4GetMetadataCNID</b> (MP4FileHandle hFile, uint32_t *value)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g9a0916c2b61d0639e4e01c6844b961cf"></a><!-- doxytag: member="mp4_meta::MP4SetMetadataMediaType" ref="g9a0916c2b61d0639e4e01c6844b961cf" args="(MP4FileHandle hFile, uint8_t value)" -->
+bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4SetMetadataMediaType</b> (MP4FileHandle hFile, uint8_t value)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g7af0bb3983da4fa8ac2ee16a95b2c60f"></a><!-- doxytag: member="mp4_meta::MP4GetMetadataMediaType" ref="g7af0bb3983da4fa8ac2ee16a95b2c60f" args="(MP4FileHandle hFile, uint8_t *value)" -->
+bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4GetMetadataMediaType</b> (MP4FileHandle hFile, uint8_t *value)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g52549d04601cf775e67e279b458bc8f5"></a><!-- doxytag: member="mp4_meta::MP4DeleteMetadataMediaType" ref="g52549d04601cf775e67e279b458bc8f5" args="(MP4FileHandle hFile)" -->
+bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4DeleteMetadataMediaType</b> (MP4FileHandle hFile)</td></tr>
+
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="ge11f93a7671db2f0d53a6b003bb304a3"></a><!-- doxytag: member="mp4_meta::MP4SetMetadataFreeForm" ref="ge11f93a7671db2f0d53a6b003bb304a3" args="(MP4FileHandle hFile, const char *name, const uint8_t *pValue, uint32_t valueSize, const char *owner=NULL)" -->
 bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4SetMetadataFreeForm</b> (MP4FileHandle hFile, const char *name, const uint8_t *pValue, uint32_t valueSize, const char *owner=NULL)</td></tr>
 
@@ -297,6 +343,54 @@ bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4DeleteMetadataFree
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g65571acf1deec33478431891f30faa4a"></a><!-- doxytag: member="mp4_meta::MP4AddIPodUUID" ref="g65571acf1deec33478431891f30faa4a" args="(MP4FileHandle hFile, MP4TrackId trackId)" -->
 void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4AddIPodUUID</b> (MP4FileHandle hFile, MP4TrackId trackId)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g7bbda916055202ca26de9cd86d4e1143"></a><!-- doxytag: member="mp4_meta::MP4MetadataAlloc" ref="g7bbda916055202ca26de9cd86d4e1143" args="(MP4FileHandle)" -->
+const MP4Metadata *&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4MetadataAlloc</b> (MP4FileHandle)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="gc2671888e8807c530c9b2367d80dab42"></a><!-- doxytag: member="mp4_meta::MP4MetadataFetch" ref="gc2671888e8807c530c9b2367d80dab42" args="(const MP4Metadata *)" -->
+void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4MetadataFetch</b> (const MP4Metadata *)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g06d406e37f524cc312a6ee4f4ba443d2"></a><!-- doxytag: member="mp4_meta::MP4MetadataStore" ref="g06d406e37f524cc312a6ee4f4ba443d2" args="(const MP4Metadata *)" -->
+void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4MetadataStore</b> (const MP4Metadata *)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g680b13e9340e87a0a42ba604add55d8a"></a><!-- doxytag: member="mp4_meta::MP4MetadataFree" ref="g680b13e9340e87a0a42ba604add55d8a" args="(const MP4Metadata *)" -->
+void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4MetadataFree</b> (const MP4Metadata *)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g14eb616cc2ed477f38ceebc6cf237337"></a><!-- doxytag: member="mp4_meta::MP4MetadataSetName" ref="g14eb616cc2ed477f38ceebc6cf237337" args="(const MP4Metadata *, const char *)" -->
+void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4MetadataSetName</b> (const MP4Metadata *, const char *)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g56c8cea8d905ace70ae4fe0e07f3cf12"></a><!-- doxytag: member="mp4_meta::MP4MetadataSetArtist" ref="g56c8cea8d905ace70ae4fe0e07f3cf12" args="(const MP4Metadata *, const char *)" -->
+void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4MetadataSetArtist</b> (const MP4Metadata *, const char *)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g84078f88b0d748500a3197bae98d7ff9"></a><!-- doxytag: member="mp4_meta::MP4MetadataSetAlbumArtist" ref="g84078f88b0d748500a3197bae98d7ff9" args="(const MP4Metadata *, const char *)" -->
+void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4MetadataSetAlbumArtist</b> (const MP4Metadata *, const char *)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="gd5b340cfb2722859962875bc899f6435"></a><!-- doxytag: member="mp4_meta::MP4MetadataSetAlbum" ref="gd5b340cfb2722859962875bc899f6435" args="(const MP4Metadata *, const char *)" -->
+void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4MetadataSetAlbum</b> (const MP4Metadata *, const char *)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="gbcb02d868ff99fc8de01adc4ecf95fc6"></a><!-- doxytag: member="mp4_meta::MP4MetadataSetGrouping" ref="gbcb02d868ff99fc8de01adc4ecf95fc6" args="(const MP4Metadata *, const char *)" -->
+void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4MetadataSetGrouping</b> (const MP4Metadata *, const char *)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g67c52bad2fadef8673a76c9cdd9ca15f"></a><!-- doxytag: member="mp4_meta::MP4MetadataSetComposer" ref="g67c52bad2fadef8673a76c9cdd9ca15f" args="(const MP4Metadata *, const char *)" -->
+void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4MetadataSetComposer</b> (const MP4Metadata *, const char *)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="gcb99acfc22d0bfccf69a3d18eaa4b3b3"></a><!-- doxytag: member="mp4_meta::MP4MetadataSetComments" ref="gcb99acfc22d0bfccf69a3d18eaa4b3b3" args="(const MP4Metadata *, const char *)" -->
+void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4MetadataSetComments</b> (const MP4Metadata *, const char *)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g1a598e686a08bb277cb91b8d40c04c6e"></a><!-- doxytag: member="mp4_meta::MP4MetadataSetReleaseDate" ref="g1a598e686a08bb277cb91b8d40c04c6e" args="(const MP4Metadata *, const char *)" -->
+void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4MetadataSetReleaseDate</b> (const MP4Metadata *, const char *)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g4b79cbcb7360bccd8a42c5c5c0a06818"></a><!-- doxytag: member="mp4_meta::MP4MetadataSetDescription" ref="g4b79cbcb7360bccd8a42c5c5c0a06818" args="(const MP4Metadata *, const char *)" -->
+void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4MetadataSetDescription</b> (const MP4Metadata *, const char *)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g1fb6cde1600e87d90b60612f282b45be"></a><!-- doxytag: member="mp4_meta::MP4MetadataSetCopyright" ref="g1fb6cde1600e87d90b60612f282b45be" args="(const MP4Metadata *, const char *)" -->
+void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4MetadataSetCopyright</b> (const MP4Metadata *, const char *)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g8b9a8e49670b038033a17612c7fc7a3c"></a><!-- doxytag: member="mp4_meta::MP4MetadataSetEncodingTool" ref="g8b9a8e49670b038033a17612c7fc7a3c" args="(const MP4Metadata *, const char *)" -->
+void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4MetadataSetEncodingTool</b> (const MP4Metadata *, const char *)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g6dcc37e7db058735a4cf09ee04ce83e5"></a><!-- doxytag: member="mp4_meta::MP4MetadataSetEncodedBy" ref="g6dcc37e7db058735a4cf09ee04ce83e5" args="(const MP4Metadata *, const char *)" -->
+void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4MetadataSetEncodedBy</b> (const MP4Metadata *, const char *)</td></tr>
 
 </table>
 <hr><h2>Function Documentation</h2>
@@ -546,7 +640,7 @@ void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4AddIPodUUID</b> (M
 </div>
 <div class="footer">
     <div>
-        generated on Thu Dec 18 16:37:49 2008 for <b>MP4v2 (2.0-20081218)</b>
+        generated on Sat Jan 10 13:53:19 2009 for <b>MP4v2 (2.0-20090110)</b>
         by&nbsp;<a href="http://www.doxygen.org">Doxygen</a> 1.5.7.1-20081103
     </div>
 </div>
