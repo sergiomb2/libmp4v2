@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <title>MP4v2 2.0-20090110 PROJECT_name: MP4v2 iTunes Metadata</title>
+    <title>MP4v2 2.0-r232 PROJECT_name: MP4v2 iTunes Metadata</title>
     <link href="project.css" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -37,12 +37,13 @@
 <h1>MP4v2 iTunes Metadata</h1><table border="0" cellpadding="0" cellspacing="0">
 <tr><td></td></tr>
 <tr><td colspan="2"><br><h2>Classes</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">struct &nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4Metadata_s</b></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">struct &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_m_p4_tags__s.html">MP4Tags_s</a></td></tr>
 
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Tags <b>convenience</b> structure.  <a href="struct_m_p4_tags__s.html#_details">More...</a><br></td></tr>
 <tr><td colspan="2"><br><h2>Typedefs</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g0a40cf478289aca6c8052750c18624e3"></a><!-- doxytag: member="mp4_meta::MP4Metadata" ref="g0a40cf478289aca6c8052750c18624e3" args="" -->
-typedef struct MP4Metadata_s&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4Metadata</b></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">typedef struct <a class="el" href="struct_m_p4_tags__s.html">MP4Tags_s</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__meta.html#g70ddca09695919f7f046cf7bafd2f841">MP4Tags</a></td></tr>
 
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Tags <b>convenience</b> structure.  <a href="#g70ddca09695919f7f046cf7bafd2f841"></a><br></td></tr>
 <tr><td colspan="2"><br><h2>Functions</h2></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g05b9725192ef673e0d32979c2f953f11"></a><!-- doxytag: member="mp4_meta::MP4MetadataDelete" ref="g05b9725192ef673e0d32979c2f953f11" args="(MP4FileHandle hFile)" -->
 bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4MetadataDelete</b> (MP4FileHandle hFile)</td></tr>
@@ -50,23 +51,17 @@ bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4MetadataDelete</b>
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g1fe59bcf4652d453db62cb25e9fcfe93"></a><!-- doxytag: member="mp4_meta::MP4GetMetadataByIndex" ref="g1fe59bcf4652d453db62cb25e9fcfe93" args="(MP4FileHandle hFile, uint32_t index, char **ppName, uint8_t **ppValue, uint32_t *pValueSize)" -->
 bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4GetMetadataByIndex</b> (MP4FileHandle hFile, uint32_t index, char **ppName, uint8_t **ppValue, uint32_t *pValueSize)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g1273686c6c5687a565d62b31cde01ebf"></a><!-- doxytag: member="mp4_meta::MP4SetMetadataName" ref="g1273686c6c5687a565d62b31cde01ebf" args="(MP4FileHandle hFile, const char *value)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4SetMetadataName</b> (MP4FileHandle hFile, const char *value)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__meta.html#g1273686c6c5687a565d62b31cde01ebf">MP4SetMetadataName</a> (MP4FileHandle hFile, const char *value)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g9ebc0674e3d7eeb9a2af1575fbb8830d"></a><!-- doxytag: member="mp4_meta::MP4GetMetadataName" ref="g9ebc0674e3d7eeb9a2af1575fbb8830d" args="(MP4FileHandle hFile, char **value)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4GetMetadataName</b> (MP4FileHandle hFile, char **value)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__meta.html#g9ebc0674e3d7eeb9a2af1575fbb8830d">MP4GetMetadataName</a> (MP4FileHandle hFile, char **value)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="ge3b73256bbab1f682f257215e2500433"></a><!-- doxytag: member="mp4_meta::MP4DeleteMetadataName" ref="ge3b73256bbab1f682f257215e2500433" args="(MP4FileHandle hFile)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4DeleteMetadataName</b> (MP4FileHandle hFile)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__meta.html#ge3b73256bbab1f682f257215e2500433">MP4DeleteMetadataName</a> (MP4FileHandle hFile)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="ge3807dc3f797822db676fc5cb0ef34ef"></a><!-- doxytag: member="mp4_meta::MP4SetMetadataArtist" ref="ge3807dc3f797822db676fc5cb0ef34ef" args="(MP4FileHandle hFile, const char *value)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4SetMetadataArtist</b> (MP4FileHandle hFile, const char *value)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__meta.html#ge3807dc3f797822db676fc5cb0ef34ef">MP4SetMetadataArtist</a> (MP4FileHandle hFile, const char *value)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g5619a9d7d3832881c076543822dc63cb"></a><!-- doxytag: member="mp4_meta::MP4GetMetadataArtist" ref="g5619a9d7d3832881c076543822dc63cb" args="(MP4FileHandle hFile, char **value)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4GetMetadataArtist</b> (MP4FileHandle hFile, char **value)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__meta.html#g5619a9d7d3832881c076543822dc63cb">MP4GetMetadataArtist</a> (MP4FileHandle hFile, char **value)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g8e0bb105a9638278495281c326b7458c"></a><!-- doxytag: member="mp4_meta::MP4DeleteMetadataArtist" ref="g8e0bb105a9638278495281c326b7458c" args="(MP4FileHandle hFile)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4DeleteMetadataArtist</b> (MP4FileHandle hFile)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__meta.html#g8e0bb105a9638278495281c326b7458c">MP4DeleteMetadataArtist</a> (MP4FileHandle hFile)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__meta.html#gb51da77a1885bf2466494dd8387d3044">MP4SetMetadataWriter</a> (MP4FileHandle hFile, const char *value)</td></tr>
 
@@ -74,32 +69,17 @@ bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4DeleteMetadataArti
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__meta.html#gf46227abbea8850160b164c50c2c904c">MP4DeleteMetadataWriter</a> (MP4FileHandle hFile)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="gb3acf0ed488f9fe2d0e9b0967f02809b"></a><!-- doxytag: member="mp4_meta::MP4SetMetadataComposer" ref="gb3acf0ed488f9fe2d0e9b0967f02809b" args="(MP4FileHandle hFile, const char *value)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4SetMetadataComposer</b> (MP4FileHandle hFile, const char *value)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__meta.html#g64b56d6c3abe90fee5a73d3dd9ecfe9b">MP4SetMetadataComment</a> (MP4FileHandle hFile, const char *value)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g831150f1f9992a99ddaaf948f0bfc1f0"></a><!-- doxytag: member="mp4_meta::MP4GetMetadataComposer" ref="g831150f1f9992a99ddaaf948f0bfc1f0" args="(MP4FileHandle hFile, char **value)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4GetMetadataComposer</b> (MP4FileHandle hFile, char **value)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__meta.html#g6cb5d0bb6d795f7224eafe0a6bfe7d46">MP4GetMetadataComment</a> (MP4FileHandle hFile, char **value)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="gb3ccc42f4689f682555ef7aaf7a22a91"></a><!-- doxytag: member="mp4_meta::MP4DeleteMetadataComposer" ref="gb3ccc42f4689f682555ef7aaf7a22a91" args="(MP4FileHandle hFile)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4DeleteMetadataComposer</b> (MP4FileHandle hFile)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__meta.html#gd40da834c5541a87834a78cfea179bdd">MP4DeleteMetadataComment</a> (MP4FileHandle hFile)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g64b56d6c3abe90fee5a73d3dd9ecfe9b"></a><!-- doxytag: member="mp4_meta::MP4SetMetadataComment" ref="g64b56d6c3abe90fee5a73d3dd9ecfe9b" args="(MP4FileHandle hFile, const char *value)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4SetMetadataComment</b> (MP4FileHandle hFile, const char *value)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__meta.html#g888916e0a8875c2f715473d6547e1712">MP4SetMetadataTool</a> (MP4FileHandle hFile, const char *value)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g6cb5d0bb6d795f7224eafe0a6bfe7d46"></a><!-- doxytag: member="mp4_meta::MP4GetMetadataComment" ref="g6cb5d0bb6d795f7224eafe0a6bfe7d46" args="(MP4FileHandle hFile, char **value)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4GetMetadataComment</b> (MP4FileHandle hFile, char **value)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__meta.html#g28f9e7279e97ab1f92d9a932de3704a3">MP4GetMetadataTool</a> (MP4FileHandle hFile, char **value)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="gd40da834c5541a87834a78cfea179bdd"></a><!-- doxytag: member="mp4_meta::MP4DeleteMetadataComment" ref="gd40da834c5541a87834a78cfea179bdd" args="(MP4FileHandle hFile)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4DeleteMetadataComment</b> (MP4FileHandle hFile)</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g888916e0a8875c2f715473d6547e1712"></a><!-- doxytag: member="mp4_meta::MP4SetMetadataTool" ref="g888916e0a8875c2f715473d6547e1712" args="(MP4FileHandle hFile, const char *value)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4SetMetadataTool</b> (MP4FileHandle hFile, const char *value)</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g28f9e7279e97ab1f92d9a932de3704a3"></a><!-- doxytag: member="mp4_meta::MP4GetMetadataTool" ref="g28f9e7279e97ab1f92d9a932de3704a3" args="(MP4FileHandle hFile, char **value)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4GetMetadataTool</b> (MP4FileHandle hFile, char **value)</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="gf9c80f6e77191e0958c797ea4976481b"></a><!-- doxytag: member="mp4_meta::MP4DeleteMetadataTool" ref="gf9c80f6e77191e0958c797ea4976481b" args="(MP4FileHandle hFile)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4DeleteMetadataTool</b> (MP4FileHandle hFile)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__meta.html#gf9c80f6e77191e0958c797ea4976481b">MP4DeleteMetadataTool</a> (MP4FileHandle hFile)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__meta.html#g8d4e459cce608dda6dd1e6a6ed54cc4e">MP4SetMetadataYear</a> (MP4FileHandle hFile, const char *value)</td></tr>
 
@@ -107,23 +87,11 @@ bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4DeleteMetadataTool
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__meta.html#g414623c45d097c73071f9b30787f801c">MP4DeleteMetadataYear</a> (MP4FileHandle hFile)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g58393df0aff4a6dc18e424b8fd962111"></a><!-- doxytag: member="mp4_meta::MP4SetMetadataReleaseDate" ref="g58393df0aff4a6dc18e424b8fd962111" args="(MP4FileHandle hFile, const char *value)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4SetMetadataReleaseDate</b> (MP4FileHandle hFile, const char *value)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__meta.html#gd1701f4b3041872ecb5f2fa77d788d59">MP4SetMetadataAlbum</a> (MP4FileHandle hFile, const char *value)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g8e0beaabb9d2f988999d4bf1ebabb3c5"></a><!-- doxytag: member="mp4_meta::MP4GetMetadataReleaseDate" ref="g8e0beaabb9d2f988999d4bf1ebabb3c5" args="(MP4FileHandle hFile, char **value)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4GetMetadataReleaseDate</b> (MP4FileHandle hFile, char **value)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__meta.html#gfe8a59f257a9fda88beed04c3f82c64f">MP4GetMetadataAlbum</a> (MP4FileHandle hFile, char **value)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="ge097e296edc0d23848f8fe032a7fcdf2"></a><!-- doxytag: member="mp4_meta::MP4DeleteMetadataReleaseDate" ref="ge097e296edc0d23848f8fe032a7fcdf2" args="(MP4FileHandle hFile)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4DeleteMetadataReleaseDate</b> (MP4FileHandle hFile)</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="gd1701f4b3041872ecb5f2fa77d788d59"></a><!-- doxytag: member="mp4_meta::MP4SetMetadataAlbum" ref="gd1701f4b3041872ecb5f2fa77d788d59" args="(MP4FileHandle hFile, const char *value)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4SetMetadataAlbum</b> (MP4FileHandle hFile, const char *value)</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="gfe8a59f257a9fda88beed04c3f82c64f"></a><!-- doxytag: member="mp4_meta::MP4GetMetadataAlbum" ref="gfe8a59f257a9fda88beed04c3f82c64f" args="(MP4FileHandle hFile, char **value)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4GetMetadataAlbum</b> (MP4FileHandle hFile, char **value)</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g12ed2634e577e710f4a530281aad1489"></a><!-- doxytag: member="mp4_meta::MP4DeleteMetadataAlbum" ref="g12ed2634e577e710f4a530281aad1489" args="(MP4FileHandle hFile)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4DeleteMetadataAlbum</b> (MP4FileHandle hFile)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__meta.html#g12ed2634e577e710f4a530281aad1489">MP4DeleteMetadataAlbum</a> (MP4FileHandle hFile)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g29c5ff2ca423d9a5a715c62c6e153b33"></a><!-- doxytag: member="mp4_meta::MP4SetMetadataTrack" ref="g29c5ff2ca423d9a5a715c62c6e153b33" args="(MP4FileHandle hFile, uint16_t track, uint16_t totalTracks)" -->
 bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4SetMetadataTrack</b> (MP4FileHandle hFile, uint16_t track, uint16_t totalTracks)</td></tr>
@@ -152,29 +120,20 @@ bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4GetMetadataGenre</
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g4a8c7bddad2aca88994c593fe15ac991"></a><!-- doxytag: member="mp4_meta::MP4DeleteMetadataGenre" ref="g4a8c7bddad2aca88994c593fe15ac991" args="(MP4FileHandle hFile)" -->
 bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4DeleteMetadataGenre</b> (MP4FileHandle hFile)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g70809e4fee3bd8bd725f48a46a766c86"></a><!-- doxytag: member="mp4_meta::MP4SetMetadataGrouping" ref="g70809e4fee3bd8bd725f48a46a766c86" args="(MP4FileHandle hFile, const char *grouping)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4SetMetadataGrouping</b> (MP4FileHandle hFile, const char *grouping)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__meta.html#g70809e4fee3bd8bd725f48a46a766c86">MP4SetMetadataGrouping</a> (MP4FileHandle hFile, const char *grouping)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g5eb1a422f1bd4cb304cafa7c6e5bfe64"></a><!-- doxytag: member="mp4_meta::MP4GetMetadataGrouping" ref="g5eb1a422f1bd4cb304cafa7c6e5bfe64" args="(MP4FileHandle hFile, char **grouping)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4GetMetadataGrouping</b> (MP4FileHandle hFile, char **grouping)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__meta.html#g5eb1a422f1bd4cb304cafa7c6e5bfe64">MP4GetMetadataGrouping</a> (MP4FileHandle hFile, char **grouping)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g37feeece1634c732adbc3f86ee2eafbf"></a><!-- doxytag: member="mp4_meta::MP4DeleteMetadataGrouping" ref="g37feeece1634c732adbc3f86ee2eafbf" args="(MP4FileHandle hFile)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4DeleteMetadataGrouping</b> (MP4FileHandle hFile)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__meta.html#g37feeece1634c732adbc3f86ee2eafbf">MP4DeleteMetadataGrouping</a> (MP4FileHandle hFile)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__meta.html#g956ecf6a93666a1750645c200842d043">MP4SetMetadataTempo</a> (MP4FileHandle hFile, uint16_t tempo)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g956ecf6a93666a1750645c200842d043"></a><!-- doxytag: member="mp4_meta::MP4SetMetadataTempo" ref="g956ecf6a93666a1750645c200842d043" args="(MP4FileHandle hFile, uint16_t tempo)" -->
+bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4SetMetadataTempo</b> (MP4FileHandle hFile, uint16_t tempo)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__meta.html#gc9d87d854130d4b771567516ed5a9808">MP4GetMetadataTempo</a> (MP4FileHandle hFile, uint16_t *tempo)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="gc9d87d854130d4b771567516ed5a9808"></a><!-- doxytag: member="mp4_meta::MP4GetMetadataTempo" ref="gc9d87d854130d4b771567516ed5a9808" args="(MP4FileHandle hFile, uint16_t *tempo)" -->
+bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4GetMetadataTempo</b> (MP4FileHandle hFile, uint16_t *tempo)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__meta.html#gc69907f36772f0962148b6ef60b41d8c">MP4DeleteMetadataTempo</a> (MP4FileHandle hFile)</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="gc67f154365b5d8b76309fc2150c1917a"></a><!-- doxytag: member="mp4_meta::MP4SetMetadataBPM" ref="gc67f154365b5d8b76309fc2150c1917a" args="(MP4FileHandle hFile, uint16_t tempo)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4SetMetadataBPM</b> (MP4FileHandle hFile, uint16_t tempo)</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="gec693d3a0cc99e1f4bf0e022ea27654f"></a><!-- doxytag: member="mp4_meta::MP4GetMetadataBPM" ref="gec693d3a0cc99e1f4bf0e022ea27654f" args="(MP4FileHandle hFile, uint16_t *tempo)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4GetMetadataBPM</b> (MP4FileHandle hFile, uint16_t *tempo)</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g8b1750088ff87359f896e92617534f57"></a><!-- doxytag: member="mp4_meta::MP4DeleteMetadataBPM" ref="g8b1750088ff87359f896e92617534f57" args="(MP4FileHandle hFile)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4DeleteMetadataBPM</b> (MP4FileHandle hFile)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="gc69907f36772f0962148b6ef60b41d8c"></a><!-- doxytag: member="mp4_meta::MP4DeleteMetadataTempo" ref="gc69907f36772f0962148b6ef60b41d8c" args="(MP4FileHandle hFile)" -->
+bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4DeleteMetadataTempo</b> (MP4FileHandle hFile)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="ged31ed8d47bac71ce6fa9af62952dbad"></a><!-- doxytag: member="mp4_meta::MP4SetMetadataCompilation" ref="ged31ed8d47bac71ce6fa9af62952dbad" args="(MP4FileHandle hFile, uint8_t cpl)" -->
 bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4SetMetadataCompilation</b> (MP4FileHandle hFile, uint8_t cpl)</td></tr>
@@ -206,32 +165,11 @@ uint32_t&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4GetMetadataCov
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g5a181d07c7bcce67c716c55c3761e748"></a><!-- doxytag: member="mp4_meta::MP4DeleteMetadataCoverArt" ref="g5a181d07c7bcce67c716c55c3761e748" args="(MP4FileHandle hFile)" -->
 bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4DeleteMetadataCoverArt</b> (MP4FileHandle hFile)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g74bb27f50c047f6fb71c0badf4fa0d99"></a><!-- doxytag: member="mp4_meta::MP4SetMetadataAlbumArtist" ref="g74bb27f50c047f6fb71c0badf4fa0d99" args="(MP4FileHandle hFile, const char *value)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4SetMetadataAlbumArtist</b> (MP4FileHandle hFile, const char *value)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__meta.html#g74bb27f50c047f6fb71c0badf4fa0d99">MP4SetMetadataAlbumArtist</a> (MP4FileHandle hFile, const char *value)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g7d1dd96c63773c5a563408d92cc4e3e4"></a><!-- doxytag: member="mp4_meta::MP4GetMetadataAlbumArtist" ref="g7d1dd96c63773c5a563408d92cc4e3e4" args="(MP4FileHandle hFile, char **value)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4GetMetadataAlbumArtist</b> (MP4FileHandle hFile, char **value)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__meta.html#g7d1dd96c63773c5a563408d92cc4e3e4">MP4GetMetadataAlbumArtist</a> (MP4FileHandle hFile, char **value)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g74c9b9253263932fdad73a49c457ca45"></a><!-- doxytag: member="mp4_meta::MP4DeleteMetadataAlbumArtist" ref="g74c9b9253263932fdad73a49c457ca45" args="(MP4FileHandle hFile)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4DeleteMetadataAlbumArtist</b> (MP4FileHandle hFile)</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g3b090b233dac6e08da63adf9284871fd"></a><!-- doxytag: member="mp4_meta::MP4SetMetadataCopyright" ref="g3b090b233dac6e08da63adf9284871fd" args="(MP4FileHandle hFile, const char *value)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4SetMetadataCopyright</b> (MP4FileHandle hFile, const char *value)</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g472700c80a33e208642351a32a2b9ebc"></a><!-- doxytag: member="mp4_meta::MP4GetMetadataCopyright" ref="g472700c80a33e208642351a32a2b9ebc" args="(MP4FileHandle hFile, char **value)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4GetMetadataCopyright</b> (MP4FileHandle hFile, char **value)</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="ga9d6a77172844fb1f4f02c7c64e22b01"></a><!-- doxytag: member="mp4_meta::MP4DeleteMetadataCopyright" ref="ga9d6a77172844fb1f4f02c7c64e22b01" args="(MP4FileHandle hFile)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4DeleteMetadataCopyright</b> (MP4FileHandle hFile)</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g61e7bf74720e106246d5172fe422b6f2"></a><!-- doxytag: member="mp4_meta::MP4GetMetadataExplicit" ref="g61e7bf74720e106246d5172fe422b6f2" args="(MP4FileHandle hFile, uint8_t *value)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4GetMetadataExplicit</b> (MP4FileHandle hFile, uint8_t *value)</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g38653a2dc548c6aae9b7a8b91d261aec"></a><!-- doxytag: member="mp4_meta::MP4GetMetadataPurchaserAccount" ref="g38653a2dc548c6aae9b7a8b91d261aec" args="(MP4FileHandle hFile, char **value)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4GetMetadataPurchaserAccount</b> (MP4FileHandle hFile, char **value)</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g4024cca0c60af875a998a3ff0129a55d"></a><!-- doxytag: member="mp4_meta::MP4GetMetadataPurchaseDate" ref="g4024cca0c60af875a998a3ff0129a55d" args="(MP4FileHandle hFile, char **value)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4GetMetadataPurchaseDate</b> (MP4FileHandle hFile, char **value)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__meta.html#g74c9b9253263932fdad73a49c457ca45">MP4DeleteMetadataAlbumArtist</a> (MP4FileHandle hFile)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="gd93987e8d51fbf167856fda667521ca0"></a><!-- doxytag: member="mp4_meta::MP4SetMetadataHDVideo" ref="gd93987e8d51fbf167856fda667521ca0" args="(MP4FileHandle hFile, uint8_t value)" -->
 bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4SetMetadataHDVideo</b> (MP4FileHandle hFile, uint8_t value)</td></tr>
@@ -241,57 +179,6 @@ bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4GetMetadataHDVideo
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="gb5c7611a81b8e9288d77d0229e037789"></a><!-- doxytag: member="mp4_meta::MP4DeleteMetadataHDVideo" ref="gb5c7611a81b8e9288d77d0229e037789" args="(MP4FileHandle hFile)" -->
 bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4DeleteMetadataHDVideo</b> (MP4FileHandle hFile)</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g65dd97bfd320e29fefb1c6eb90a61a45"></a><!-- doxytag: member="mp4_meta::MP4GetMetadataTVShow" ref="g65dd97bfd320e29fefb1c6eb90a61a45" args="(MP4FileHandle hFile, char **value)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4GetMetadataTVShow</b> (MP4FileHandle hFile, char **value)</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="gcf1466669a3d18f6f2cb294578d2310f"></a><!-- doxytag: member="mp4_meta::MP4SetMetadataShortDescription" ref="gcf1466669a3d18f6f2cb294578d2310f" args="(MP4FileHandle hFile, const char *value)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4SetMetadataShortDescription</b> (MP4FileHandle hFile, const char *value)</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g92040a24259bc600161e04bd0833bc6e"></a><!-- doxytag: member="mp4_meta::MP4GetMetadataShortDescription" ref="g92040a24259bc600161e04bd0833bc6e" args="(MP4FileHandle hFile, char **value)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4GetMetadataShortDescription</b> (MP4FileHandle hFile, char **value)</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="gd4a881ca71506b7c81cde95548bdf8e1"></a><!-- doxytag: member="mp4_meta::MP4DeleteMetadataShortDescription" ref="gd4a881ca71506b7c81cde95548bdf8e1" args="(MP4FileHandle hFile)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4DeleteMetadataShortDescription</b> (MP4FileHandle hFile)</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="gb5d939ece259e72c459c7bd87b621ca4"></a><!-- doxytag: member="mp4_meta::MP4GetMetadataSortName" ref="gb5d939ece259e72c459c7bd87b621ca4" args="(MP4FileHandle hFile, char **value)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4GetMetadataSortName</b> (MP4FileHandle hFile, char **value)</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g09bd4f8d39f92c3df7b6772aa26bab26"></a><!-- doxytag: member="mp4_meta::MP4GetMetadataSortArtist" ref="g09bd4f8d39f92c3df7b6772aa26bab26" args="(MP4FileHandle hFile, char **value)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4GetMetadataSortArtist</b> (MP4FileHandle hFile, char **value)</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g7280fb542548946e81f7ab93847e65a5"></a><!-- doxytag: member="mp4_meta::MP4GetMetadataSortAlbum" ref="g7280fb542548946e81f7ab93847e65a5" args="(MP4FileHandle hFile, char **value)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4GetMetadataSortAlbum</b> (MP4FileHandle hFile, char **value)</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="gfde26fde2d67fe5752df469483c27ce7"></a><!-- doxytag: member="mp4_meta::MP4GetMetadataSortAlbumArtist" ref="gfde26fde2d67fe5752df469483c27ce7" args="(MP4FileHandle hFile, char **value)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4GetMetadataSortAlbumArtist</b> (MP4FileHandle hFile, char **value)</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="ga1986dd5f39b3d23cd490404a7dba062"></a><!-- doxytag: member="mp4_meta::MP4GetMetadataSortComposer" ref="ga1986dd5f39b3d23cd490404a7dba062" args="(MP4FileHandle hFile, char **value)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4GetMetadataSortComposer</b> (MP4FileHandle hFile, char **value)</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g8b8dd4aed89a4db7a9b67db0f44b8498"></a><!-- doxytag: member="mp4_meta::MP4GetMetadataSortTVShow" ref="g8b8dd4aed89a4db7a9b67db0f44b8498" args="(MP4FileHandle hFile, char **value)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4GetMetadataSortTVShow</b> (MP4FileHandle hFile, char **value)</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="gfbe76e11aecb80f50397144fe769b0ec"></a><!-- doxytag: member="mp4_meta::MP4GetMetadataTVNetworkName" ref="gfbe76e11aecb80f50397144fe769b0ec" args="(MP4FileHandle hFile, char **value)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4GetMetadataTVNetworkName</b> (MP4FileHandle hFile, char **value)</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="gfe3606564cfe2f9ee6b30f2078d8ed84"></a><!-- doxytag: member="mp4_meta::MP4GetMetadataTVEpisodeNumber" ref="gfe3606564cfe2f9ee6b30f2078d8ed84" args="(MP4FileHandle hFile, char **value)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4GetMetadataTVEpisodeNumber</b> (MP4FileHandle hFile, char **value)</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g154f2b66097138a63d725a2ac67639db"></a><!-- doxytag: member="mp4_meta::MP4GetMetadataLongDescription" ref="g154f2b66097138a63d725a2ac67639db" args="(MP4FileHandle hFile, char **value)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4GetMetadataLongDescription</b> (MP4FileHandle hFile, char **value)</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g081cd166e3691237a0bfe498a389fb2d"></a><!-- doxytag: member="mp4_meta::MP4GetMetadataLyrics" ref="g081cd166e3691237a0bfe498a389fb2d" args="(MP4FileHandle hFile, char **value)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4GetMetadataLyrics</b> (MP4FileHandle hFile, char **value)</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="gd30fc202bb36799d78d8ae039bfd0544"></a><!-- doxytag: member="mp4_meta::MP4SetMetadataEncodedBy" ref="gd30fc202bb36799d78d8ae039bfd0544" args="(MP4FileHandle hFile, const char *value)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4SetMetadataEncodedBy</b> (MP4FileHandle hFile, const char *value)</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="gef87c8ad0709a7175397923314392baf"></a><!-- doxytag: member="mp4_meta::MP4GetMetadataEncodedBy" ref="gef87c8ad0709a7175397923314392baf" args="(MP4FileHandle hFile, char **value)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4GetMetadataEncodedBy</b> (MP4FileHandle hFile, char **value)</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g6eb642a67fe0b73b903cfb63225910cb"></a><!-- doxytag: member="mp4_meta::MP4DeleteMetadataEncodedBy" ref="g6eb642a67fe0b73b903cfb63225910cb" args="(MP4FileHandle hFile)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4DeleteMetadataEncodedBy</b> (MP4FileHandle hFile)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g6de47e773c02967cbd7099d16b3b8a52"></a><!-- doxytag: member="mp4_meta::MP4SetMetadataTVEpisode" ref="g6de47e773c02967cbd7099d16b3b8a52" args="(MP4FileHandle hFile, uint32_t value)" -->
 bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4SetMetadataTVEpisode</b> (MP4FileHandle hFile, uint32_t value)</td></tr>
@@ -305,14 +192,8 @@ bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4DeleteMetadataTVEp
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g52a2b70d0b8c005995a7e56ac7f6f468"></a><!-- doxytag: member="mp4_meta::MP4GetMetadataTVSeason" ref="g52a2b70d0b8c005995a7e56ac7f6f468" args="(MP4FileHandle hFile, uint32_t *value)" -->
 bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4GetMetadataTVSeason</b> (MP4FileHandle hFile, uint32_t *value)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="gb5b7098c048ceb8bb9ccab08fcd2fe9b"></a><!-- doxytag: member="mp4_meta::MP4GetMetadataPodcast" ref="gb5b7098c048ceb8bb9ccab08fcd2fe9b" args="(MP4FileHandle hFile, uint8_t *value)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4GetMetadataPodcast</b> (MP4FileHandle hFile, uint8_t *value)</td></tr>
-
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="gdffd62e41201970f8c095071df5862b8"></a><!-- doxytag: member="mp4_meta::MP4GetMetadataKeywords" ref="gdffd62e41201970f8c095071df5862b8" args="(MP4FileHandle hFile, char **value)" -->
 bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4GetMetadataKeywords</b> (MP4FileHandle hFile, char **value)</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g1320b55cc0880103b8b5f170ecebfa62"></a><!-- doxytag: member="mp4_meta::MP4GetMetadataCategory" ref="g1320b55cc0880103b8b5f170ecebfa62" args="(MP4FileHandle hFile, char **value)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4GetMetadataCategory</b> (MP4FileHandle hFile, char **value)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g1017465c3375b9a29d77d80783ddb1b9"></a><!-- doxytag: member="mp4_meta::MP4SetMetadataCNID" ref="g1017465c3375b9a29d77d80783ddb1b9" args="(MP4FileHandle hFile, uint32_t value)" -->
 bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4SetMetadataCNID</b> (MP4FileHandle hFile, uint32_t value)</td></tr>
@@ -344,62 +225,117 @@ bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4DeleteMetadataFree
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g65571acf1deec33478431891f30faa4a"></a><!-- doxytag: member="mp4_meta::MP4AddIPodUUID" ref="g65571acf1deec33478431891f30faa4a" args="(MP4FileHandle hFile, MP4TrackId trackId)" -->
 void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4AddIPodUUID</b> (MP4FileHandle hFile, MP4TrackId trackId)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g7bbda916055202ca26de9cd86d4e1143"></a><!-- doxytag: member="mp4_meta::MP4MetadataAlloc" ref="g7bbda916055202ca26de9cd86d4e1143" args="(MP4FileHandle)" -->
-const MP4Metadata *&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4MetadataAlloc</b> (MP4FileHandle)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">const <a class="el" href="struct_m_p4_tags__s.html">MP4Tags</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__meta.html#g0cb0641062c03beab28d71f977393171">MP4TagsAlloc</a> (MP4FileHandle hFile)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="gc2671888e8807c530c9b2367d80dab42"></a><!-- doxytag: member="mp4_meta::MP4MetadataFetch" ref="gc2671888e8807c530c9b2367d80dab42" args="(const MP4Metadata *)" -->
-void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4MetadataFetch</b> (const MP4Metadata *)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Allocate tags convenience structure for reading and settings tags.  <a href="#g0cb0641062c03beab28d71f977393171"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__meta.html#gf27990b2a9708da6faf789f37f1d3752">MP4TagsFetch</a> (const <a class="el" href="struct_m_p4_tags__s.html">MP4Tags</a> *tags)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g06d406e37f524cc312a6ee4f4ba443d2"></a><!-- doxytag: member="mp4_meta::MP4MetadataStore" ref="g06d406e37f524cc312a6ee4f4ba443d2" args="(const MP4Metadata *)" -->
-void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4MetadataStore</b> (const MP4Metadata *)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Fetch data from mp4 file and populate structure.  <a href="#gf27990b2a9708da6faf789f37f1d3752"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__meta.html#gfc8f38fdf13fe1927304b64b3560a39d">MP4TagsStore</a> (const <a class="el" href="struct_m_p4_tags__s.html">MP4Tags</a> *tags)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g680b13e9340e87a0a42ba604add55d8a"></a><!-- doxytag: member="mp4_meta::MP4MetadataFree" ref="g680b13e9340e87a0a42ba604add55d8a" args="(const MP4Metadata *)" -->
-void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4MetadataFree</b> (const MP4Metadata *)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Store data to mp4 file from structure.  <a href="#gfc8f38fdf13fe1927304b64b3560a39d"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__meta.html#gd5b9e876efc7d50673e05f6100af4d68">MP4TagsFree</a> (const <a class="el" href="struct_m_p4_tags__s.html">MP4Tags</a> *tags)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g14eb616cc2ed477f38ceebc6cf237337"></a><!-- doxytag: member="mp4_meta::MP4MetadataSetName" ref="g14eb616cc2ed477f38ceebc6cf237337" args="(const MP4Metadata *, const char *)" -->
-void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4MetadataSetName</b> (const MP4Metadata *, const char *)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Free tags convenience structure.  <a href="#gd5b9e876efc7d50673e05f6100af4d68"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g0d863f747cea532a1eaf58a3f58f2f75"></a><!-- doxytag: member="mp4_meta::MP4TagsSetName" ref="g0d863f747cea532a1eaf58a3f58f2f75" args="(const MP4Tags *, const char *)" -->
+void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4TagsSetName</b> (const <a class="el" href="struct_m_p4_tags__s.html">MP4Tags</a> *, const char *)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g56c8cea8d905ace70ae4fe0e07f3cf12"></a><!-- doxytag: member="mp4_meta::MP4MetadataSetArtist" ref="g56c8cea8d905ace70ae4fe0e07f3cf12" args="(const MP4Metadata *, const char *)" -->
-void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4MetadataSetArtist</b> (const MP4Metadata *, const char *)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g8a902fee249e174cbaa0f814b38ec1ca"></a><!-- doxytag: member="mp4_meta::MP4TagsSetArtist" ref="g8a902fee249e174cbaa0f814b38ec1ca" args="(const MP4Tags *, const char *)" -->
+void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4TagsSetArtist</b> (const <a class="el" href="struct_m_p4_tags__s.html">MP4Tags</a> *, const char *)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g84078f88b0d748500a3197bae98d7ff9"></a><!-- doxytag: member="mp4_meta::MP4MetadataSetAlbumArtist" ref="g84078f88b0d748500a3197bae98d7ff9" args="(const MP4Metadata *, const char *)" -->
-void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4MetadataSetAlbumArtist</b> (const MP4Metadata *, const char *)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g4b2d9fe86892be7f20fa3c93575f6390"></a><!-- doxytag: member="mp4_meta::MP4TagsSetAlbumArtist" ref="g4b2d9fe86892be7f20fa3c93575f6390" args="(const MP4Tags *, const char *)" -->
+void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4TagsSetAlbumArtist</b> (const <a class="el" href="struct_m_p4_tags__s.html">MP4Tags</a> *, const char *)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="gd5b340cfb2722859962875bc899f6435"></a><!-- doxytag: member="mp4_meta::MP4MetadataSetAlbum" ref="gd5b340cfb2722859962875bc899f6435" args="(const MP4Metadata *, const char *)" -->
-void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4MetadataSetAlbum</b> (const MP4Metadata *, const char *)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g61252f9a38d67b74d20eefd184afa27f"></a><!-- doxytag: member="mp4_meta::MP4TagsSetAlbum" ref="g61252f9a38d67b74d20eefd184afa27f" args="(const MP4Tags *, const char *)" -->
+void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4TagsSetAlbum</b> (const <a class="el" href="struct_m_p4_tags__s.html">MP4Tags</a> *, const char *)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="gbcb02d868ff99fc8de01adc4ecf95fc6"></a><!-- doxytag: member="mp4_meta::MP4MetadataSetGrouping" ref="gbcb02d868ff99fc8de01adc4ecf95fc6" args="(const MP4Metadata *, const char *)" -->
-void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4MetadataSetGrouping</b> (const MP4Metadata *, const char *)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="gb341d3875b3f22c7fec4e4c388a9950c"></a><!-- doxytag: member="mp4_meta::MP4TagsSetGrouping" ref="gb341d3875b3f22c7fec4e4c388a9950c" args="(const MP4Tags *, const char *)" -->
+void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4TagsSetGrouping</b> (const <a class="el" href="struct_m_p4_tags__s.html">MP4Tags</a> *, const char *)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g67c52bad2fadef8673a76c9cdd9ca15f"></a><!-- doxytag: member="mp4_meta::MP4MetadataSetComposer" ref="g67c52bad2fadef8673a76c9cdd9ca15f" args="(const MP4Metadata *, const char *)" -->
-void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4MetadataSetComposer</b> (const MP4Metadata *, const char *)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g0f80b7ba5402c60f343085e9f81bd268"></a><!-- doxytag: member="mp4_meta::MP4TagsSetComposer" ref="g0f80b7ba5402c60f343085e9f81bd268" args="(const MP4Tags *, const char *)" -->
+void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4TagsSetComposer</b> (const <a class="el" href="struct_m_p4_tags__s.html">MP4Tags</a> *, const char *)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="gcb99acfc22d0bfccf69a3d18eaa4b3b3"></a><!-- doxytag: member="mp4_meta::MP4MetadataSetComments" ref="gcb99acfc22d0bfccf69a3d18eaa4b3b3" args="(const MP4Metadata *, const char *)" -->
-void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4MetadataSetComments</b> (const MP4Metadata *, const char *)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="gac885d34549d857959a11bbcb65096bf"></a><!-- doxytag: member="mp4_meta::MP4TagsSetComments" ref="gac885d34549d857959a11bbcb65096bf" args="(const MP4Tags *, const char *)" -->
+void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4TagsSetComments</b> (const <a class="el" href="struct_m_p4_tags__s.html">MP4Tags</a> *, const char *)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g1a598e686a08bb277cb91b8d40c04c6e"></a><!-- doxytag: member="mp4_meta::MP4MetadataSetReleaseDate" ref="g1a598e686a08bb277cb91b8d40c04c6e" args="(const MP4Metadata *, const char *)" -->
-void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4MetadataSetReleaseDate</b> (const MP4Metadata *, const char *)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g83dd611a380810f1848c3b7c766be069"></a><!-- doxytag: member="mp4_meta::MP4TagsSetReleaseDate" ref="g83dd611a380810f1848c3b7c766be069" args="(const MP4Tags *, const char *)" -->
+void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4TagsSetReleaseDate</b> (const <a class="el" href="struct_m_p4_tags__s.html">MP4Tags</a> *, const char *)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g4b79cbcb7360bccd8a42c5c5c0a06818"></a><!-- doxytag: member="mp4_meta::MP4MetadataSetDescription" ref="g4b79cbcb7360bccd8a42c5c5c0a06818" args="(const MP4Metadata *, const char *)" -->
-void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4MetadataSetDescription</b> (const MP4Metadata *, const char *)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="gdfb55e4f1534e763bd70a3981017c360"></a><!-- doxytag: member="mp4_meta::MP4TagsSetDescription" ref="gdfb55e4f1534e763bd70a3981017c360" args="(const MP4Tags *, const char *)" -->
+void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4TagsSetDescription</b> (const <a class="el" href="struct_m_p4_tags__s.html">MP4Tags</a> *, const char *)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g1fb6cde1600e87d90b60612f282b45be"></a><!-- doxytag: member="mp4_meta::MP4MetadataSetCopyright" ref="g1fb6cde1600e87d90b60612f282b45be" args="(const MP4Metadata *, const char *)" -->
-void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4MetadataSetCopyright</b> (const MP4Metadata *, const char *)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g97b5fd6addb13ad56dcb430042fbaf29"></a><!-- doxytag: member="mp4_meta::MP4TagsSetCopyright" ref="g97b5fd6addb13ad56dcb430042fbaf29" args="(const MP4Tags *, const char *)" -->
+void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4TagsSetCopyright</b> (const <a class="el" href="struct_m_p4_tags__s.html">MP4Tags</a> *, const char *)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g8b9a8e49670b038033a17612c7fc7a3c"></a><!-- doxytag: member="mp4_meta::MP4MetadataSetEncodingTool" ref="g8b9a8e49670b038033a17612c7fc7a3c" args="(const MP4Metadata *, const char *)" -->
-void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4MetadataSetEncodingTool</b> (const MP4Metadata *, const char *)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="gcd7a7ae6587a8f31f59dc572e635d649"></a><!-- doxytag: member="mp4_meta::MP4TagsSetEncodingTool" ref="gcd7a7ae6587a8f31f59dc572e635d649" args="(const MP4Tags *, const char *)" -->
+void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4TagsSetEncodingTool</b> (const <a class="el" href="struct_m_p4_tags__s.html">MP4Tags</a> *, const char *)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g6dcc37e7db058735a4cf09ee04ce83e5"></a><!-- doxytag: member="mp4_meta::MP4MetadataSetEncodedBy" ref="g6dcc37e7db058735a4cf09ee04ce83e5" args="(const MP4Metadata *, const char *)" -->
-void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4MetadataSetEncodedBy</b> (const MP4Metadata *, const char *)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="gb63597616f034030e9c72bfed1f2a466"></a><!-- doxytag: member="mp4_meta::MP4TagsSetEncodedBy" ref="gb63597616f034030e9c72bfed1f2a466" args="(const MP4Tags *, const char *)" -->
+void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4TagsSetEncodedBy</b> (const <a class="el" href="struct_m_p4_tags__s.html">MP4Tags</a> *, const char *)</td></tr>
 
 </table>
-<hr><h2>Function Documentation</h2>
-<a class="anchor" name="gc69907f36772f0962148b6ef60b41d8c"></a><!-- doxytag: member="meta.h::MP4DeleteMetadataTempo" ref="gc69907f36772f0962148b6ef60b41d8c" args="(MP4FileHandle hFile)" -->
+<hr><h2>Typedef Documentation</h2>
+<a class="anchor" name="g70ddca09695919f7f046cf7bafd2f841"></a><!-- doxytag: member="meta.h::MP4Tags" ref="g70ddca09695919f7f046cf7bafd2f841" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool MP4DeleteMetadataTempo           </td>
+          <td class="memname">typedef struct <a class="el" href="struct_m_p4_tags__s.html">MP4Tags_s</a>  <a class="el" href="struct_m_p4_tags__s.html">MP4Tags</a>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Tags <b>convenience</b> structure. 
+<p>
+This structure is used in the tags convenience API which allows for simplified retrieval and modification of the majority of known tags.<p>
+This is a read-only structure and each tag is present if and only if the pointer is a <b>non-NULL</b> value. The actual data is backed by a hidden data cache which is only updated when the appropriate metadata <b>set</b> function is used, or if <a class="el" href="group__mp4__meta.html#gf27990b2a9708da6faf789f37f1d3752" title="Fetch data from mp4 file and populate structure.">MP4TagsFetch()</a> is invoked. Thus, if other API is used to manipulate relevent atom structure of the MP4 file, the user is responsible for re-fetching the data in this structure.<p>
+Example usage:<p>
+<div class="fragment"><pre class="fragment"><span class="comment">// ...MP4 file has been opened by other code for modification</span>
+
+<span class="comment">// allocate structure and pull data from file</span>
+<span class="keyword">const</span> <a class="code" href="struct_m_p4_tags__s.html" title="Tags convenience structure.">MP4Tags</a>* m = <a class="code" href="group__mp4__meta.html#g0cb0641062c03beab28d71f977393171" title="Allocate tags convenience structure for reading and settings tags.">MP4TagsAlloc</a>( file );
+
+<span class="comment">// show tag name if present</span>
+<span class="keywordflow">if</span>( m-&gt;<a class="code" href="struct_m_p4_tags__s.html#82d3121df47542c33e69814d31439c9e">name</a> )
+    printf( <span class="stringliteral">"name: %s\n"</span>, m-&gt;<a class="code" href="struct_m_p4_tags__s.html#82d3121df47542c33e69814d31439c9e">name</a> );
+
+<span class="comment">// show tag artist if present</span>
+<span class="keywordflow">if</span>( m-&gt;<a class="code" href="struct_m_p4_tags__s.html#de57556dc74b0ff5d7de26b890a7221a">artist</a> )
+    printf( <span class="stringliteral">"artist: %s\n"</span>, m-&gt;<a class="code" href="struct_m_p4_tags__s.html#de57556dc74b0ff5d7de26b890a7221a">artist</a> );
+
+<span class="comment">// set a new name</span>
+MP4TagsSetName( m, <span class="stringliteral">"This is our new name"</span> );
+
+<span class="comment">// remove tag artist</span>
+MP4TagsSetArtist( m, NULL );
+
+<span class="comment">// show tag name if present</span>
+<span class="keywordflow">if</span>( m-&gt;<a class="code" href="struct_m_p4_tags__s.html#82d3121df47542c33e69814d31439c9e">name</a> )
+    printf( <span class="stringliteral">"name: %s\n"</span>, m-&gt;<a class="code" href="struct_m_p4_tags__s.html#82d3121df47542c33e69814d31439c9e">name</a> );
+
+<span class="comment">// show tag artist if present</span>
+<span class="keywordflow">if</span>( m-&gt;<a class="code" href="struct_m_p4_tags__s.html#de57556dc74b0ff5d7de26b890a7221a">artist</a> )
+    printf( <span class="stringliteral">"artist: %s\n"</span>, m-&gt;<a class="code" href="struct_m_p4_tags__s.html#de57556dc74b0ff5d7de26b890a7221a">artist</a> );
+
+<span class="comment">// push data to MP4 file atom structure</span>
+<a class="code" href="group__mp4__meta.html#gfc8f38fdf13fe1927304b64b3560a39d" title="Store data to mp4 file from structure.">MP4TagsStore</a>( m );
+
+<span class="comment">// free memory associated with structure</span>
+<a class="code" href="group__mp4__meta.html#gd5b9e876efc7d50673e05f6100af4d68" title="Free tags convenience structure.">MP4TagsFree</a>( m );
+
+<span class="comment">// ...MP4 file is eventually closed (written-out)</span>
+</pre></div> 
+</div>
+</div><p>
+<hr><h2>Function Documentation</h2>
+<a class="anchor" name="g12ed2634e577e710f4a530281aad1489"></a><!-- doxytag: member="meta.h::MP4DeleteMetadataAlbum" ref="g12ed2634e577e710f4a530281aad1489" args="(MP4FileHandle hFile)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool MP4DeleteMetadataAlbum           </td>
           <td>(</td>
           <td class="paramtype">MP4FileHandle&nbsp;</td>
           <td class="paramname"> <em>hFile</em>          </td>
@@ -411,7 +347,133 @@ void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4MetadataSetEncoded
 <div class="memdoc">
 
 <p>
-<dl compact><dt><b><a class="el" href="deprecated.html#_deprecated000011">Deprecated:</a></b></dt><dd>scheduled for removal, use MP4DeleteMetadataBPM(). </dd></dl>
+<dl compact><dt><b><a class="el" href="deprecated.html#_deprecated000023">Deprecated:</a></b></dt><dd>Deprecated, scheduled for removal. Please use the tags convenience API. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="g74c9b9253263932fdad73a49c457ca45"></a><!-- doxytag: member="meta.h::MP4DeleteMetadataAlbumArtist" ref="g74c9b9253263932fdad73a49c457ca45" args="(MP4FileHandle hFile)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool MP4DeleteMetadataAlbumArtist           </td>
+          <td>(</td>
+          <td class="paramtype">MP4FileHandle&nbsp;</td>
+          <td class="paramname"> <em>hFile</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+<dl compact><dt><b><a class="el" href="deprecated.html#_deprecated000029">Deprecated:</a></b></dt><dd>Deprecated, scheduled for removal. Please use the tags convenience API. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="g8e0bb105a9638278495281c326b7458c"></a><!-- doxytag: member="meta.h::MP4DeleteMetadataArtist" ref="g8e0bb105a9638278495281c326b7458c" args="(MP4FileHandle hFile)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool MP4DeleteMetadataArtist           </td>
+          <td>(</td>
+          <td class="paramtype">MP4FileHandle&nbsp;</td>
+          <td class="paramname"> <em>hFile</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+<dl compact><dt><b><a class="el" href="deprecated.html#_deprecated000008">Deprecated:</a></b></dt><dd>Deprecated, scheduled for removal. Please use the tags convenience API. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="gd40da834c5541a87834a78cfea179bdd"></a><!-- doxytag: member="meta.h::MP4DeleteMetadataComment" ref="gd40da834c5541a87834a78cfea179bdd" args="(MP4FileHandle hFile)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool MP4DeleteMetadataComment           </td>
+          <td>(</td>
+          <td class="paramtype">MP4FileHandle&nbsp;</td>
+          <td class="paramname"> <em>hFile</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+<dl compact><dt><b><a class="el" href="deprecated.html#_deprecated000014">Deprecated:</a></b></dt><dd>Deprecated, scheduled for removal. Please use the tags convenience API. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="g37feeece1634c732adbc3f86ee2eafbf"></a><!-- doxytag: member="meta.h::MP4DeleteMetadataGrouping" ref="g37feeece1634c732adbc3f86ee2eafbf" args="(MP4FileHandle hFile)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool MP4DeleteMetadataGrouping           </td>
+          <td>(</td>
+          <td class="paramtype">MP4FileHandle&nbsp;</td>
+          <td class="paramname"> <em>hFile</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+<dl compact><dt><b><a class="el" href="deprecated.html#_deprecated000026">Deprecated:</a></b></dt><dd>Deprecated, scheduled for removal. Please use the tags convenience API. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="ge3b73256bbab1f682f257215e2500433"></a><!-- doxytag: member="meta.h::MP4DeleteMetadataName" ref="ge3b73256bbab1f682f257215e2500433" args="(MP4FileHandle hFile)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool MP4DeleteMetadataName           </td>
+          <td>(</td>
+          <td class="paramtype">MP4FileHandle&nbsp;</td>
+          <td class="paramname"> <em>hFile</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+<dl compact><dt><b><a class="el" href="deprecated.html#_deprecated000005">Deprecated:</a></b></dt><dd>Deprecated, scheduled for removal. Please use the tags convenience API. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="gf9c80f6e77191e0958c797ea4976481b"></a><!-- doxytag: member="meta.h::MP4DeleteMetadataTool" ref="gf9c80f6e77191e0958c797ea4976481b" args="(MP4FileHandle hFile)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool MP4DeleteMetadataTool           </td>
+          <td>(</td>
+          <td class="paramtype">MP4FileHandle&nbsp;</td>
+          <td class="paramname"> <em>hFile</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+<dl compact><dt><b><a class="el" href="deprecated.html#_deprecated000017">Deprecated:</a></b></dt><dd>Deprecated, scheduled for removal. Please use the tags convenience API. </dd></dl>
 
 </div>
 </div><p>
@@ -432,7 +494,7 @@ void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4MetadataSetEncoded
 <div class="memdoc">
 
 <p>
-<dl compact><dt><b><a class="el" href="deprecated.html#_deprecated000005">Deprecated:</a></b></dt><dd>scheduled for removal,use MP4DeleteMetadataComposer(). </dd></dl>
+<dl compact><dt><b><a class="el" href="deprecated.html#_deprecated000011">Deprecated:</a></b></dt><dd>Deprecated, scheduled for removal. Please use the tags convenience API. </dd></dl>
 
 </div>
 </div><p>
@@ -453,16 +515,16 @@ void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4MetadataSetEncoded
 <div class="memdoc">
 
 <p>
-<dl compact><dt><b><a class="el" href="deprecated.html#_deprecated000008">Deprecated:</a></b></dt><dd>scheduled for removal, use MP4DeleteMetadataReleaseDate(). </dd></dl>
+<dl compact><dt><b><a class="el" href="deprecated.html#_deprecated000020">Deprecated:</a></b></dt><dd>Deprecated, scheduled for removal. Please use the tags convenience API. </dd></dl>
 
 </div>
 </div><p>
-<a class="anchor" name="gc9d87d854130d4b771567516ed5a9808"></a><!-- doxytag: member="meta.h::MP4GetMetadataTempo" ref="gc9d87d854130d4b771567516ed5a9808" args="(MP4FileHandle hFile, uint16_t *tempo)" -->
+<a class="anchor" name="gfe8a59f257a9fda88beed04c3f82c64f"></a><!-- doxytag: member="meta.h::MP4GetMetadataAlbum" ref="gfe8a59f257a9fda88beed04c3f82c64f" args="(MP4FileHandle hFile, char **value)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool MP4GetMetadataTempo           </td>
+          <td class="memname">bool MP4GetMetadataAlbum           </td>
           <td>(</td>
           <td class="paramtype">MP4FileHandle&nbsp;</td>
           <td class="paramname"> <em>hFile</em>, </td>
@@ -470,8 +532,8 @@ void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4MetadataSetEncoded
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">uint16_t *&nbsp;</td>
-          <td class="paramname"> <em>tempo</em></td><td>&nbsp;</td>
+          <td class="paramtype">char **&nbsp;</td>
+          <td class="paramname"> <em>value</em></td><td>&nbsp;</td>
         </tr>
         <tr>
           <td></td>
@@ -483,7 +545,187 @@ void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4MetadataSetEncoded
 <div class="memdoc">
 
 <p>
-<dl compact><dt><b><a class="el" href="deprecated.html#_deprecated000010">Deprecated:</a></b></dt><dd>scheduled for removal, use MP4GetMetadataBPM(). </dd></dl>
+<dl compact><dt><b><a class="el" href="deprecated.html#_deprecated000022">Deprecated:</a></b></dt><dd>Deprecated, scheduled for removal. Please use the tags convenience API. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="g7d1dd96c63773c5a563408d92cc4e3e4"></a><!-- doxytag: member="meta.h::MP4GetMetadataAlbumArtist" ref="g7d1dd96c63773c5a563408d92cc4e3e4" args="(MP4FileHandle hFile, char **value)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool MP4GetMetadataAlbumArtist           </td>
+          <td>(</td>
+          <td class="paramtype">MP4FileHandle&nbsp;</td>
+          <td class="paramname"> <em>hFile</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char **&nbsp;</td>
+          <td class="paramname"> <em>value</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+<dl compact><dt><b><a class="el" href="deprecated.html#_deprecated000028">Deprecated:</a></b></dt><dd>Deprecated, scheduled for removal. Please use the tags convenience API. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="g5619a9d7d3832881c076543822dc63cb"></a><!-- doxytag: member="meta.h::MP4GetMetadataArtist" ref="g5619a9d7d3832881c076543822dc63cb" args="(MP4FileHandle hFile, char **value)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool MP4GetMetadataArtist           </td>
+          <td>(</td>
+          <td class="paramtype">MP4FileHandle&nbsp;</td>
+          <td class="paramname"> <em>hFile</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char **&nbsp;</td>
+          <td class="paramname"> <em>value</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+<dl compact><dt><b><a class="el" href="deprecated.html#_deprecated000007">Deprecated:</a></b></dt><dd>Deprecated, scheduled for removal. Please use the tags convenience API. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="g6cb5d0bb6d795f7224eafe0a6bfe7d46"></a><!-- doxytag: member="meta.h::MP4GetMetadataComment" ref="g6cb5d0bb6d795f7224eafe0a6bfe7d46" args="(MP4FileHandle hFile, char **value)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool MP4GetMetadataComment           </td>
+          <td>(</td>
+          <td class="paramtype">MP4FileHandle&nbsp;</td>
+          <td class="paramname"> <em>hFile</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char **&nbsp;</td>
+          <td class="paramname"> <em>value</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+<dl compact><dt><b><a class="el" href="deprecated.html#_deprecated000013">Deprecated:</a></b></dt><dd>Deprecated, scheduled for removal. Please use the tags convenience API. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="g5eb1a422f1bd4cb304cafa7c6e5bfe64"></a><!-- doxytag: member="meta.h::MP4GetMetadataGrouping" ref="g5eb1a422f1bd4cb304cafa7c6e5bfe64" args="(MP4FileHandle hFile, char **grouping)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool MP4GetMetadataGrouping           </td>
+          <td>(</td>
+          <td class="paramtype">MP4FileHandle&nbsp;</td>
+          <td class="paramname"> <em>hFile</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char **&nbsp;</td>
+          <td class="paramname"> <em>grouping</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+<dl compact><dt><b><a class="el" href="deprecated.html#_deprecated000025">Deprecated:</a></b></dt><dd>Deprecated, scheduled for removal. Please use the tags convenience API. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="g9ebc0674e3d7eeb9a2af1575fbb8830d"></a><!-- doxytag: member="meta.h::MP4GetMetadataName" ref="g9ebc0674e3d7eeb9a2af1575fbb8830d" args="(MP4FileHandle hFile, char **value)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool MP4GetMetadataName           </td>
+          <td>(</td>
+          <td class="paramtype">MP4FileHandle&nbsp;</td>
+          <td class="paramname"> <em>hFile</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char **&nbsp;</td>
+          <td class="paramname"> <em>value</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+<dl compact><dt><b><a class="el" href="deprecated.html#_deprecated000004">Deprecated:</a></b></dt><dd>Deprecated, scheduled for removal. Please use the tags convenience API. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="g28f9e7279e97ab1f92d9a932de3704a3"></a><!-- doxytag: member="meta.h::MP4GetMetadataTool" ref="g28f9e7279e97ab1f92d9a932de3704a3" args="(MP4FileHandle hFile, char **value)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool MP4GetMetadataTool           </td>
+          <td>(</td>
+          <td class="paramtype">MP4FileHandle&nbsp;</td>
+          <td class="paramname"> <em>hFile</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char **&nbsp;</td>
+          <td class="paramname"> <em>value</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+<dl compact><dt><b><a class="el" href="deprecated.html#_deprecated000016">Deprecated:</a></b></dt><dd>Deprecated, scheduled for removal. Please use the tags convenience API. </dd></dl>
 
 </div>
 </div><p>
@@ -513,7 +755,7 @@ void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4MetadataSetEncoded
 <div class="memdoc">
 
 <p>
-<dl compact><dt><b><a class="el" href="deprecated.html#_deprecated000004">Deprecated:</a></b></dt><dd>scheduled for removal, use MP4GetMetadataComposer(). </dd></dl>
+<dl compact><dt><b><a class="el" href="deprecated.html#_deprecated000010">Deprecated:</a></b></dt><dd>Deprecated, scheduled for removal. Please use the tags convenience API. </dd></dl>
 
 </div>
 </div><p>
@@ -543,16 +785,16 @@ void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4MetadataSetEncoded
 <div class="memdoc">
 
 <p>
-<dl compact><dt><b><a class="el" href="deprecated.html#_deprecated000007">Deprecated:</a></b></dt><dd>scheduled for removal, use MP4GetMetadataReleaseDate(). </dd></dl>
+<dl compact><dt><b><a class="el" href="deprecated.html#_deprecated000019">Deprecated:</a></b></dt><dd>Deprecated, scheduled for removal. Please use the tags convenience API. </dd></dl>
 
 </div>
 </div><p>
-<a class="anchor" name="g956ecf6a93666a1750645c200842d043"></a><!-- doxytag: member="meta.h::MP4SetMetadataTempo" ref="g956ecf6a93666a1750645c200842d043" args="(MP4FileHandle hFile, uint16_t tempo)" -->
+<a class="anchor" name="gd1701f4b3041872ecb5f2fa77d788d59"></a><!-- doxytag: member="meta.h::MP4SetMetadataAlbum" ref="gd1701f4b3041872ecb5f2fa77d788d59" args="(MP4FileHandle hFile, const char *value)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool MP4SetMetadataTempo           </td>
+          <td class="memname">bool MP4SetMetadataAlbum           </td>
           <td>(</td>
           <td class="paramtype">MP4FileHandle&nbsp;</td>
           <td class="paramname"> <em>hFile</em>, </td>
@@ -560,8 +802,8 @@ void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4MetadataSetEncoded
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">uint16_t&nbsp;</td>
-          <td class="paramname"> <em>tempo</em></td><td>&nbsp;</td>
+          <td class="paramtype">const char *&nbsp;</td>
+          <td class="paramname"> <em>value</em></td><td>&nbsp;</td>
         </tr>
         <tr>
           <td></td>
@@ -573,7 +815,187 @@ void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4MetadataSetEncoded
 <div class="memdoc">
 
 <p>
-<dl compact><dt><b><a class="el" href="deprecated.html#_deprecated000009">Deprecated:</a></b></dt><dd>scheduled for removal, use MP4SetMetadataBPM(). </dd></dl>
+<dl compact><dt><b><a class="el" href="deprecated.html#_deprecated000021">Deprecated:</a></b></dt><dd>Deprecated, scheduled for removal. Please use the tags convenience API. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="g74bb27f50c047f6fb71c0badf4fa0d99"></a><!-- doxytag: member="meta.h::MP4SetMetadataAlbumArtist" ref="g74bb27f50c047f6fb71c0badf4fa0d99" args="(MP4FileHandle hFile, const char *value)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool MP4SetMetadataAlbumArtist           </td>
+          <td>(</td>
+          <td class="paramtype">MP4FileHandle&nbsp;</td>
+          <td class="paramname"> <em>hFile</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&nbsp;</td>
+          <td class="paramname"> <em>value</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+<dl compact><dt><b><a class="el" href="deprecated.html#_deprecated000027">Deprecated:</a></b></dt><dd>Deprecated, scheduled for removal. Please use the tags convenience API. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="ge3807dc3f797822db676fc5cb0ef34ef"></a><!-- doxytag: member="meta.h::MP4SetMetadataArtist" ref="ge3807dc3f797822db676fc5cb0ef34ef" args="(MP4FileHandle hFile, const char *value)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool MP4SetMetadataArtist           </td>
+          <td>(</td>
+          <td class="paramtype">MP4FileHandle&nbsp;</td>
+          <td class="paramname"> <em>hFile</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&nbsp;</td>
+          <td class="paramname"> <em>value</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+<dl compact><dt><b><a class="el" href="deprecated.html#_deprecated000006">Deprecated:</a></b></dt><dd>Deprecated, scheduled for removal. Please use the tags convenience API. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="g64b56d6c3abe90fee5a73d3dd9ecfe9b"></a><!-- doxytag: member="meta.h::MP4SetMetadataComment" ref="g64b56d6c3abe90fee5a73d3dd9ecfe9b" args="(MP4FileHandle hFile, const char *value)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool MP4SetMetadataComment           </td>
+          <td>(</td>
+          <td class="paramtype">MP4FileHandle&nbsp;</td>
+          <td class="paramname"> <em>hFile</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&nbsp;</td>
+          <td class="paramname"> <em>value</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+<dl compact><dt><b><a class="el" href="deprecated.html#_deprecated000012">Deprecated:</a></b></dt><dd>Deprecated, scheduled for removal. Please use the tags convenience API. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="g70809e4fee3bd8bd725f48a46a766c86"></a><!-- doxytag: member="meta.h::MP4SetMetadataGrouping" ref="g70809e4fee3bd8bd725f48a46a766c86" args="(MP4FileHandle hFile, const char *grouping)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool MP4SetMetadataGrouping           </td>
+          <td>(</td>
+          <td class="paramtype">MP4FileHandle&nbsp;</td>
+          <td class="paramname"> <em>hFile</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&nbsp;</td>
+          <td class="paramname"> <em>grouping</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+<dl compact><dt><b><a class="el" href="deprecated.html#_deprecated000024">Deprecated:</a></b></dt><dd>Deprecated, scheduled for removal. Please use the tags convenience API. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="g1273686c6c5687a565d62b31cde01ebf"></a><!-- doxytag: member="meta.h::MP4SetMetadataName" ref="g1273686c6c5687a565d62b31cde01ebf" args="(MP4FileHandle hFile, const char *value)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool MP4SetMetadataName           </td>
+          <td>(</td>
+          <td class="paramtype">MP4FileHandle&nbsp;</td>
+          <td class="paramname"> <em>hFile</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&nbsp;</td>
+          <td class="paramname"> <em>value</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+<dl compact><dt><b><a class="el" href="deprecated.html#_deprecated000003">Deprecated:</a></b></dt><dd>Deprecated, scheduled for removal. Please use the tags convenience API. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="g888916e0a8875c2f715473d6547e1712"></a><!-- doxytag: member="meta.h::MP4SetMetadataTool" ref="g888916e0a8875c2f715473d6547e1712" args="(MP4FileHandle hFile, const char *value)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool MP4SetMetadataTool           </td>
+          <td>(</td>
+          <td class="paramtype">MP4FileHandle&nbsp;</td>
+          <td class="paramname"> <em>hFile</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&nbsp;</td>
+          <td class="paramname"> <em>value</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+<dl compact><dt><b><a class="el" href="deprecated.html#_deprecated000015">Deprecated:</a></b></dt><dd>Deprecated, scheduled for removal. Please use the tags convenience API. </dd></dl>
 
 </div>
 </div><p>
@@ -603,7 +1025,7 @@ void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4MetadataSetEncoded
 <div class="memdoc">
 
 <p>
-<dl compact><dt><b><a class="el" href="deprecated.html#_deprecated000003">Deprecated:</a></b></dt><dd>scheduled for removal, use MP4SetMetadataComposer(). </dd></dl>
+<dl compact><dt><b><a class="el" href="deprecated.html#_deprecated000009">Deprecated:</a></b></dt><dd>Deprecated, scheduled for removal. Please use the tags convenience API. </dd></dl>
 
 </div>
 </div><p>
@@ -633,14 +1055,127 @@ void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4MetadataSetEncoded
 <div class="memdoc">
 
 <p>
-<dl compact><dt><b><a class="el" href="deprecated.html#_deprecated000006">Deprecated:</a></b></dt><dd>scheduled for removal, use MP4SetMetadataReleaseDate(). </dd></dl>
+<dl compact><dt><b><a class="el" href="deprecated.html#_deprecated000018">Deprecated:</a></b></dt><dd>Deprecated, scheduled for removal. Please use the tags convenience API. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="g0cb0641062c03beab28d71f977393171"></a><!-- doxytag: member="meta.h::MP4TagsAlloc" ref="g0cb0641062c03beab28d71f977393171" args="(MP4FileHandle hFile)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="struct_m_p4_tags__s.html">MP4Tags</a>* MP4TagsAlloc           </td>
+          <td>(</td>
+          <td class="paramtype">MP4FileHandle&nbsp;</td>
+          <td class="paramname"> <em>hFile</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Allocate tags convenience structure for reading and settings tags. 
+<p>
+This function allocates a new structure for reading and setting of metadata tags and populates the structure by automatically invoking <a class="el" href="group__mp4__meta.html#gf27990b2a9708da6faf789f37f1d3752" title="Fetch data from mp4 file and populate structure.">MP4TagsFetch()</a>. It is the caller's responsibility to free the structure with <a class="el" href="group__mp4__meta.html#gd5b9e876efc7d50673e05f6100af4d68" title="Free tags convenience structure.">MP4TagsFree()</a>.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>hFile</em>&nbsp;</td><td>handle of file to operate upon.</td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>Returns:</b></dt><dd>convenience structure associated with file. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="gf27990b2a9708da6faf789f37f1d3752"></a><!-- doxytag: member="meta.h::MP4TagsFetch" ref="gf27990b2a9708da6faf789f37f1d3752" args="(const MP4Tags *tags)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MP4TagsFetch           </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_m_p4_tags__s.html">MP4Tags</a> *&nbsp;</td>
+          <td class="paramname"> <em>tags</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Fetch data from mp4 file and populate structure. 
+<p>
+The tags structure and its hidden data-cache is updated to reflect the actual tags values found in the file to which <b>tags</b> was associated to during allocation.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>tags</em>&nbsp;</td><td>structure to fetch (write) into. </td></tr>
+  </table>
+</dl>
+
+</div>
+</div><p>
+<a class="anchor" name="gd5b9e876efc7d50673e05f6100af4d68"></a><!-- doxytag: member="meta.h::MP4TagsFree" ref="gd5b9e876efc7d50673e05f6100af4d68" args="(const MP4Tags *tags)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MP4TagsFree           </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_m_p4_tags__s.html">MP4Tags</a> *&nbsp;</td>
+          <td class="paramname"> <em>tags</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Free tags convenience structure. 
+<p>
+This function frees any memory associated with the structure.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>tags</em>&nbsp;</td><td>structure to destroy. </td></tr>
+  </table>
+</dl>
+
+</div>
+</div><p>
+<a class="anchor" name="gfc8f38fdf13fe1927304b64b3560a39d"></a><!-- doxytag: member="meta.h::MP4TagsStore" ref="gfc8f38fdf13fe1927304b64b3560a39d" args="(const MP4Tags *tags)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MP4TagsStore           </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_m_p4_tags__s.html">MP4Tags</a> *&nbsp;</td>
+          <td class="paramname"> <em>tags</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Store data to mp4 file from structure. 
+<p>
+The tags structure state is pushed out to the mp4 file, adding tags if needed, removing tags if needed, and updating the values to modified tags.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>tags</em>&nbsp;</td><td>structure to store (read) from. </td></tr>
+  </table>
+</dl>
 
 </div>
 </div><p>
 </div>
 <div class="footer">
     <div>
-        generated on Sat Jan 10 13:53:19 2009 for <b>MP4v2 (2.0-20090110)</b>
+        generated on Sun Jan 11 14:45:27 2009 for <b>MP4v2 (2.0-r232)</b>
         by&nbsp;<a href="http://www.doxygen.org">Doxygen</a> 1.5.7.1-20081103
     </div>
 </div>
