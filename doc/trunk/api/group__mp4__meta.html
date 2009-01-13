@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <title>MP4v2 2.0-r232 PROJECT_name: MP4v2 iTunes Metadata</title>
+    <title>MP4v2 2.0-r237 PROJECT_name: MP4v2 iTunes Metadata</title>
     <link href="project.css" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -37,13 +37,34 @@
 <h1>MP4v2 iTunes Metadata</h1><table border="0" cellpadding="0" cellspacing="0">
 <tr><td></td></tr>
 <tr><td colspan="2"><br><h2>Classes</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">struct &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_m_p4_tag_artwork__s.html">MP4TagArtwork_s</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Data object representing a single piece of artwork.  <a href="struct_m_p4_tag_artwork__s.html#_details">More...</a><br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">struct &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_m_p4_tags__s.html">MP4Tags_s</a></td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Tags <b>convenience</b> structure.  <a href="struct_m_p4_tags__s.html#_details">More...</a><br></td></tr>
 <tr><td colspan="2"><br><h2>Typedefs</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">typedef enum <a class="el" href="group__mp4__meta.html#g59f167c06590b037529e0a72a9f39f19">MP4TagArtworkType_e</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__meta.html#g5d1c1dde79b30394c5a5954c8d71621a">MP4TagArtworkType</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Enumeration of possible <a class="el" href="struct_m_p4_tag_artwork__s.html#9e50a9c85c9964542948d3e63f8ba516" title="data type">MP4TagArtwork::type</a> values.  <a href="#g5d1c1dde79b30394c5a5954c8d71621a"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">typedef struct <a class="el" href="struct_m_p4_tag_artwork__s.html">MP4TagArtwork_s</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__meta.html#g0cd34d658f4d9bef613a6bb85de76a64">MP4TagArtwork</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Data object representing a single piece of artwork.  <a href="#g0cd34d658f4d9bef613a6bb85de76a64"></a><br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">typedef struct <a class="el" href="struct_m_p4_tags__s.html">MP4Tags_s</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__meta.html#g70ddca09695919f7f046cf7bafd2f841">MP4Tags</a></td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Tags <b>convenience</b> structure.  <a href="#g70ddca09695919f7f046cf7bafd2f841"></a><br></td></tr>
+<tr><td colspan="2"><br><h2>Enumerations</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">enum &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__meta.html#g59f167c06590b037529e0a72a9f39f19">MP4TagArtworkType_e</a> { <br>
+&nbsp;&nbsp;<b>MP4_ART_UNDEFINED</b> =  0, 
+<b>MP4_ART_BMP</b> =  1, 
+<b>MP4_ART_GIF</b> =  2, 
+<br>
+&nbsp;&nbsp;<b>MP4_ART_JPEG</b> =  3, 
+<b>MP4_ART_PNG</b> =  4
+<br>
+ }</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Enumeration of possible <a class="el" href="struct_m_p4_tag_artwork__s.html#9e50a9c85c9964542948d3e63f8ba516" title="data type">MP4TagArtwork::type</a> values.  <a href="group__mp4__meta.html#g59f167c06590b037529e0a72a9f39f19">More...</a><br></td></tr>
 <tr><td colspan="2"><br><h2>Functions</h2></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g05b9725192ef673e0d32979c2f953f11"></a><!-- doxytag: member="mp4_meta::MP4MetadataDelete" ref="g05b9725192ef673e0d32979c2f953f11" args="(MP4FileHandle hFile)" -->
 bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4MetadataDelete</b> (MP4FileHandle hFile)</td></tr>
@@ -225,15 +246,15 @@ bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4DeleteMetadataFree
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g65571acf1deec33478431891f30faa4a"></a><!-- doxytag: member="mp4_meta::MP4AddIPodUUID" ref="g65571acf1deec33478431891f30faa4a" args="(MP4FileHandle hFile, MP4TrackId trackId)" -->
 void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4AddIPodUUID</b> (MP4FileHandle hFile, MP4TrackId trackId)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">const <a class="el" href="struct_m_p4_tags__s.html">MP4Tags</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__meta.html#g0cb0641062c03beab28d71f977393171">MP4TagsAlloc</a> (MP4FileHandle hFile)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">const <a class="el" href="struct_m_p4_tags__s.html">MP4Tags</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__meta.html#g1a6fbc40c9fa9ae70d8eba4cd5d0e8fb">MP4TagsAlloc</a> ()</td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Allocate tags convenience structure for reading and settings tags.  <a href="#g0cb0641062c03beab28d71f977393171"></a><br></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__meta.html#gf27990b2a9708da6faf789f37f1d3752">MP4TagsFetch</a> (const <a class="el" href="struct_m_p4_tags__s.html">MP4Tags</a> *tags)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Allocate tags convenience structure for reading and settings tags.  <a href="#g1a6fbc40c9fa9ae70d8eba4cd5d0e8fb"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__meta.html#g71f371b895fe494922900a48383a6a4f">MP4TagsFetch</a> (const <a class="el" href="struct_m_p4_tags__s.html">MP4Tags</a> *tags, MP4FileHandle hFile)</td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Fetch data from mp4 file and populate structure.  <a href="#gf27990b2a9708da6faf789f37f1d3752"></a><br></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__meta.html#gfc8f38fdf13fe1927304b64b3560a39d">MP4TagsStore</a> (const <a class="el" href="struct_m_p4_tags__s.html">MP4Tags</a> *tags)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Fetch data from mp4 file and populate structure.  <a href="#g71f371b895fe494922900a48383a6a4f"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__meta.html#g14d7b2b74478294cdc0084a01eb37783">MP4TagsStore</a> (const <a class="el" href="struct_m_p4_tags__s.html">MP4Tags</a> *tags, MP4FileHandle hFile)</td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Store data to mp4 file from structure.  <a href="#gfc8f38fdf13fe1927304b64b3560a39d"></a><br></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Store data to mp4 file from structure.  <a href="#g14d7b2b74478294cdc0084a01eb37783"></a><br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__meta.html#gd5b9e876efc7d50673e05f6100af4d68">MP4TagsFree</a> (const <a class="el" href="struct_m_p4_tags__s.html">MP4Tags</a> *tags)</td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Free tags convenience structure.  <a href="#gd5b9e876efc7d50673e05f6100af4d68"></a><br></td></tr>
@@ -273,8 +294,51 @@ void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4TagsSetEncodingToo
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="gb63597616f034030e9c72bfed1f2a466"></a><!-- doxytag: member="mp4_meta::MP4TagsSetEncodedBy" ref="gb63597616f034030e9c72bfed1f2a466" args="(const MP4Tags *, const char *)" -->
 void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4TagsSetEncodedBy</b> (const <a class="el" href="struct_m_p4_tags__s.html">MP4Tags</a> *, const char *)</td></tr>
 
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g34e48eba18c6938953cbf52ab99015e2"></a><!-- doxytag: member="mp4_meta::MP4TagsAddArtwork" ref="g34e48eba18c6938953cbf52ab99015e2" args="(const MP4Tags *, MP4TagArtwork *)" -->
+void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4TagsAddArtwork</b> (const <a class="el" href="struct_m_p4_tags__s.html">MP4Tags</a> *, <a class="el" href="struct_m_p4_tag_artwork__s.html">MP4TagArtwork</a> *)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g5bab6075832cd19150f21b9f2b96c530"></a><!-- doxytag: member="mp4_meta::MP4TagsSetArtwork" ref="g5bab6075832cd19150f21b9f2b96c530" args="(const MP4Tags *, uint32_t, MP4TagArtwork *)" -->
+void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4TagsSetArtwork</b> (const <a class="el" href="struct_m_p4_tags__s.html">MP4Tags</a> *, uint32_t, <a class="el" href="struct_m_p4_tag_artwork__s.html">MP4TagArtwork</a> *)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g99c8097918e9f886ad4611b750d0b46b"></a><!-- doxytag: member="mp4_meta::MP4TagsRemoveArtwork" ref="g99c8097918e9f886ad4611b750d0b46b" args="(const MP4Tags *, uint32_t)" -->
+void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4TagsRemoveArtwork</b> (const <a class="el" href="struct_m_p4_tags__s.html">MP4Tags</a> *, uint32_t)</td></tr>
+
 </table>
 <hr><h2>Typedef Documentation</h2>
+<a class="anchor" name="g0cd34d658f4d9bef613a6bb85de76a64"></a><!-- doxytag: member="meta.h::MP4TagArtwork" ref="g0cd34d658f4d9bef613a6bb85de76a64" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct <a class="el" href="struct_m_p4_tag_artwork__s.html">MP4TagArtwork_s</a>  <a class="el" href="struct_m_p4_tag_artwork__s.html">MP4TagArtwork</a>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Data object representing a single piece of artwork. 
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="g5d1c1dde79b30394c5a5954c8d71621a"></a><!-- doxytag: member="meta.h::MP4TagArtworkType" ref="g5d1c1dde79b30394c5a5954c8d71621a" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef enum <a class="el" href="group__mp4__meta.html#g59f167c06590b037529e0a72a9f39f19">MP4TagArtworkType_e</a>  <a class="el" href="group__mp4__meta.html#g5d1c1dde79b30394c5a5954c8d71621a">MP4TagArtworkType</a>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Enumeration of possible <a class="el" href="struct_m_p4_tag_artwork__s.html#9e50a9c85c9964542948d3e63f8ba516" title="data type">MP4TagArtwork::type</a> values. 
+<p>
+
+</div>
+</div><p>
 <a class="anchor" name="g70ddca09695919f7f046cf7bafd2f841"></a><!-- doxytag: member="meta.h::MP4Tags" ref="g70ddca09695919f7f046cf7bafd2f841" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -290,43 +354,91 @@ void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4TagsSetEncodedBy</
 Tags <b>convenience</b> structure. 
 <p>
 This structure is used in the tags convenience API which allows for simplified retrieval and modification of the majority of known tags.<p>
-This is a read-only structure and each tag is present if and only if the pointer is a <b>non-NULL</b> value. The actual data is backed by a hidden data cache which is only updated when the appropriate metadata <b>set</b> function is used, or if <a class="el" href="group__mp4__meta.html#gf27990b2a9708da6faf789f37f1d3752" title="Fetch data from mp4 file and populate structure.">MP4TagsFetch()</a> is invoked. Thus, if other API is used to manipulate relevent atom structure of the MP4 file, the user is responsible for re-fetching the data in this structure.<p>
-Example usage:<p>
-<div class="fragment"><pre class="fragment"><span class="comment">// ...MP4 file has been opened by other code for modification</span>
+This is a read-only structure and each tag is present if and only if the pointer is a <b>non-NULL</b> value. The actual data is backed by a hidden data cache which is only updated when the appropriate metadata <b>set</b> function is used, or if <a class="el" href="group__mp4__meta.html#g71f371b895fe494922900a48383a6a4f" title="Fetch data from mp4 file and populate structure.">MP4TagsFetch()</a> is invoked. Thus, if other API is used to manipulate relevent atom structure of the MP4 file, the user is responsible for re-fetching the data in this structure.<p>
+Example usage: <div class="fragment"><pre class="fragment"><span class="preprocessor">#include &lt;mp4v2/mp4v2.h&gt;</span>
 
-<span class="comment">// allocate structure and pull data from file</span>
-<span class="keyword">const</span> <a class="code" href="struct_m_p4_tags__s.html" title="Tags convenience structure.">MP4Tags</a>* m = <a class="code" href="group__mp4__meta.html#g0cb0641062c03beab28d71f977393171" title="Allocate tags convenience structure for reading and settings tags.">MP4TagsAlloc</a>( file );
+<span class="keywordtype">int</span> main( <span class="keywordtype">int</span> argc, <span class="keywordtype">char</span>** argv )
+{
+    <span class="keywordtype">int</span> i;
 
-<span class="comment">// show tag name if present</span>
-<span class="keywordflow">if</span>( m-&gt;<a class="code" href="struct_m_p4_tags__s.html#82d3121df47542c33e69814d31439c9e">name</a> )
-    printf( <span class="stringliteral">"name: %s\n"</span>, m-&gt;<a class="code" href="struct_m_p4_tags__s.html#82d3121df47542c33e69814d31439c9e">name</a> );
+    <span class="keywordflow">if</span>( argc != 2 ) {
+        printf( <span class="stringliteral">"usage: %s file.mp4\n"</span>, argv[0] );
+        <span class="keywordflow">return</span> 1;
+    }
 
-<span class="comment">// show tag artist if present</span>
-<span class="keywordflow">if</span>( m-&gt;<a class="code" href="struct_m_p4_tags__s.html#de57556dc74b0ff5d7de26b890a7221a">artist</a> )
-    printf( <span class="stringliteral">"artist: %s\n"</span>, m-&gt;<a class="code" href="struct_m_p4_tags__s.html#de57556dc74b0ff5d7de26b890a7221a">artist</a> );
+    <span class="comment">// open file for modification</span>
+    MP4FileHandle file = <a class="code" href="group__mp4__file.html#gfedbb759caed3c0ef88980e51111c250" title="Modify an existing mp4 file.">MP4Modify</a>( argv[1], <a class="code" href="group__mp4__file.html#ga4985d912f22993dc83724d9301802ad" title="Verbosity bit: reasons for errors.">MP4_DETAILS_ERROR</a>, 0 );
+    <span class="keywordflow">if</span>( file == <a class="code" href="group__mp4__general.html#gfa387d447016a2c4fb1bb7e70b6e3b32" title="Constant: invalid MP4FileHandle.">MP4_INVALID_FILE_HANDLE</a> ) {
+        printf( <span class="stringliteral">"MP4Modify failed\n"</span> );
+        <span class="keywordflow">return</span> 1;
+    }
 
-<span class="comment">// set a new name</span>
-MP4TagsSetName( m, <span class="stringliteral">"This is our new name"</span> );
+    <span class="comment">// allocate structure</span>
+    <span class="keyword">const</span> <a class="code" href="struct_m_p4_tags__s.html" title="Tags convenience structure.">MP4Tags</a>* tags = <a class="code" href="group__mp4__meta.html#g1a6fbc40c9fa9ae70d8eba4cd5d0e8fb" title="Allocate tags convenience structure for reading and settings tags.">MP4TagsAlloc</a>();
 
-<span class="comment">// remove tag artist</span>
-MP4TagsSetArtist( m, NULL );
+    <span class="comment">// fetch data from MP4 file and populate structure</span>
+    <a class="code" href="group__mp4__meta.html#g71f371b895fe494922900a48383a6a4f" title="Fetch data from mp4 file and populate structure.">MP4TagsFetch</a>( tags, file );
 
-<span class="comment">// show tag name if present</span>
-<span class="keywordflow">if</span>( m-&gt;<a class="code" href="struct_m_p4_tags__s.html#82d3121df47542c33e69814d31439c9e">name</a> )
-    printf( <span class="stringliteral">"name: %s\n"</span>, m-&gt;<a class="code" href="struct_m_p4_tags__s.html#82d3121df47542c33e69814d31439c9e">name</a> );
+    <span class="comment">// show tag name if present</span>
+    <span class="keywordflow">if</span>( tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#82d3121df47542c33e69814d31439c9e">name</a> )
+        printf( <span class="stringliteral">"name: %s\n"</span>, tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#82d3121df47542c33e69814d31439c9e">name</a> );
 
-<span class="comment">// show tag artist if present</span>
-<span class="keywordflow">if</span>( m-&gt;<a class="code" href="struct_m_p4_tags__s.html#de57556dc74b0ff5d7de26b890a7221a">artist</a> )
-    printf( <span class="stringliteral">"artist: %s\n"</span>, m-&gt;<a class="code" href="struct_m_p4_tags__s.html#de57556dc74b0ff5d7de26b890a7221a">artist</a> );
+    <span class="comment">// show tag artist if present</span>
+    <span class="keywordflow">if</span>( tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#de57556dc74b0ff5d7de26b890a7221a">artist</a> )
+        printf( <span class="stringliteral">"artist: %s\n"</span>, tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#de57556dc74b0ff5d7de26b890a7221a">artist</a> );
 
-<span class="comment">// push data to MP4 file atom structure</span>
-<a class="code" href="group__mp4__meta.html#gfc8f38fdf13fe1927304b64b3560a39d" title="Store data to mp4 file from structure.">MP4TagsStore</a>( m );
+    <span class="comment">// show artwork if present</span>
+    printf( <span class="stringliteral">"artwork: %d items\n"</span>, tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#d453c6d9df40f60112df1a0fd1d29e3c">artworkSize</a> );
+    <span class="keywordflow">for</span>( i = 0; i &lt; tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#d453c6d9df40f60112df1a0fd1d29e3c">artworkSize</a>; i++ ) {
+        <span class="keyword">const</span> <a class="code" href="struct_m_p4_tag_artwork__s.html" title="Data object representing a single piece of artwork.">MP4TagArtwork</a>* art = tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#b2efac6fa5136010a3f0078c0abe7c6a">artwork</a> + i;
+        printf( <span class="stringliteral">"art[%d]: type=%d size=%u data=%p\n"</span>, i, art-&gt;<a class="code" href="struct_m_p4_tag_artwork__s.html#9e50a9c85c9964542948d3e63f8ba516" title="data type">type</a>, art-&gt;<a class="code" href="struct_m_p4_tag_artwork__s.html#1d5bd30cbd0754d1023404e5b41c2587" title="data size in bytes">size</a>, art-&gt;<a class="code" href="struct_m_p4_tag_artwork__s.html#6bdc006f66a1461906295266a29e7d67" title="raw picture data">data</a> );
+    }
 
-<span class="comment">// free memory associated with structure</span>
-<a class="code" href="group__mp4__meta.html#gd5b9e876efc7d50673e05f6100af4d68" title="Free tags convenience structure.">MP4TagsFree</a>( m );
+    <span class="comment">// set a new name</span>
+    MP4TagsSetName( tags, <span class="stringliteral">"This is our new name"</span> );
 
-<span class="comment">// ...MP4 file is eventually closed (written-out)</span>
+    <span class="comment">// remove tag artist</span>
+    MP4TagsSetArtist( tags, NULL );
+
+    <span class="comment">// remove first artwork</span>
+    MP4TagsRemoveArtwork( tags, 0 );
+
+    <span class="comment">// show tag name if present</span>
+    <span class="keywordflow">if</span>( tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#82d3121df47542c33e69814d31439c9e">name</a> )
+        printf( <span class="stringliteral">"name: %s\n"</span>, tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#82d3121df47542c33e69814d31439c9e">name</a> );
+
+    <span class="comment">// show tag artist if present</span>
+    <span class="keywordflow">if</span>( tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#de57556dc74b0ff5d7de26b890a7221a">artist</a> )
+        printf( <span class="stringliteral">"artist: %s\n"</span>, tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#de57556dc74b0ff5d7de26b890a7221a">artist</a> );
+
+    <span class="comment">// push data from structure to MP4 file</span>
+    <a class="code" href="group__mp4__meta.html#g14d7b2b74478294cdc0084a01eb37783" title="Store data to mp4 file from structure.">MP4TagsStore</a>( tags, file );
+
+    <span class="comment">// free memory associated with structure and close&gt;</span>
+    <a class="code" href="group__mp4__meta.html#gd5b9e876efc7d50673e05f6100af4d68" title="Free tags convenience structure.">MP4TagsFree</a>( tags );
+    <a class="code" href="group__mp4__file.html#g5123d9288961860eeb9100ac10927ff2" title="Close an mp4 file.">MP4Close</a>( file );
+
+    <span class="keywordflow">return</span> 0;
+}
 </pre></div> 
+</div>
+</div><p>
+<hr><h2>Enumeration Type Documentation</h2>
+<a class="anchor" name="g59f167c06590b037529e0a72a9f39f19"></a><!-- doxytag: member="meta.h::MP4TagArtworkType_e" ref="g59f167c06590b037529e0a72a9f39f19" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="group__mp4__meta.html#g59f167c06590b037529e0a72a9f39f19">MP4TagArtworkType_e</a>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Enumeration of possible <a class="el" href="struct_m_p4_tag_artwork__s.html#9e50a9c85c9964542948d3e63f8ba516" title="data type">MP4TagArtwork::type</a> values. 
+<p>
+
 </div>
 </div><p>
 <hr><h2>Function Documentation</h2>
@@ -1059,15 +1171,14 @@ MP4TagsSetArtist( m, NULL );
 
 </div>
 </div><p>
-<a class="anchor" name="g0cb0641062c03beab28d71f977393171"></a><!-- doxytag: member="meta.h::MP4TagsAlloc" ref="g0cb0641062c03beab28d71f977393171" args="(MP4FileHandle hFile)" -->
+<a class="anchor" name="g1a6fbc40c9fa9ae70d8eba4cd5d0e8fb"></a><!-- doxytag: member="meta.h::MP4TagsAlloc" ref="g1a6fbc40c9fa9ae70d8eba4cd5d0e8fb" args="()" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">const <a class="el" href="struct_m_p4_tags__s.html">MP4Tags</a>* MP4TagsAlloc           </td>
           <td>(</td>
-          <td class="paramtype">MP4FileHandle&nbsp;</td>
-          <td class="paramname"> <em>hFile</em>          </td>
+          <td class="paramname">          </td>
           <td>&nbsp;)&nbsp;</td>
           <td></td>
         </tr>
@@ -1078,17 +1189,12 @@ MP4TagsSetArtist( m, NULL );
 <p>
 Allocate tags convenience structure for reading and settings tags. 
 <p>
-This function allocates a new structure for reading and setting of metadata tags and populates the structure by automatically invoking <a class="el" href="group__mp4__meta.html#gf27990b2a9708da6faf789f37f1d3752" title="Fetch data from mp4 file and populate structure.">MP4TagsFetch()</a>. It is the caller's responsibility to free the structure with <a class="el" href="group__mp4__meta.html#gd5b9e876efc7d50673e05f6100af4d68" title="Free tags convenience structure.">MP4TagsFree()</a>.<p>
-<dl compact><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>hFile</em>&nbsp;</td><td>handle of file to operate upon.</td></tr>
-  </table>
-</dl>
-<dl class="return" compact><dt><b>Returns:</b></dt><dd>convenience structure associated with file. </dd></dl>
+This function allocates a new structure which represents a snapshot of all the tags therein, tracking if the tag is missing, or present and with value. It is the caller's responsibility to free the structure with <a class="el" href="group__mp4__meta.html#gd5b9e876efc7d50673e05f6100af4d68" title="Free tags convenience structure.">MP4TagsFree()</a>.<p>
+<dl class="return" compact><dt><b>Returns:</b></dt><dd>structure with all tags missing. </dd></dl>
 
 </div>
 </div><p>
-<a class="anchor" name="gf27990b2a9708da6faf789f37f1d3752"></a><!-- doxytag: member="meta.h::MP4TagsFetch" ref="gf27990b2a9708da6faf789f37f1d3752" args="(const MP4Tags *tags)" -->
+<a class="anchor" name="g71f371b895fe494922900a48383a6a4f"></a><!-- doxytag: member="meta.h::MP4TagsFetch" ref="g71f371b895fe494922900a48383a6a4f" args="(const MP4Tags *tags, MP4FileHandle hFile)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1096,9 +1202,18 @@ This function allocates a new structure for reading and setting of metadata tags
           <td class="memname">void MP4TagsFetch           </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="struct_m_p4_tags__s.html">MP4Tags</a> *&nbsp;</td>
-          <td class="paramname"> <em>tags</em>          </td>
-          <td>&nbsp;)&nbsp;</td>
+          <td class="paramname"> <em>tags</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">MP4FileHandle&nbsp;</td>
+          <td class="paramname"> <em>hFile</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
         </tr>
       </table>
 </div>
@@ -1107,10 +1222,11 @@ This function allocates a new structure for reading and setting of metadata tags
 <p>
 Fetch data from mp4 file and populate structure. 
 <p>
-The tags structure and its hidden data-cache is updated to reflect the actual tags values found in the file to which <b>tags</b> was associated to during allocation.<p>
+The tags structure and its hidden data-cache is updated to reflect the actual tags values found in the <b>hFile</b>.<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>tags</em>&nbsp;</td><td>structure to fetch (write) into. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>hFile</em>&nbsp;</td><td>handle of file to fetch data from. </td></tr>
   </table>
 </dl>
 
@@ -1135,7 +1251,7 @@ The tags structure and its hidden data-cache is updated to reflect the actual ta
 <p>
 Free tags convenience structure. 
 <p>
-This function frees any memory associated with the structure.<p>
+This function frees memory associated with the structure.<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>tags</em>&nbsp;</td><td>structure to destroy. </td></tr>
@@ -1144,7 +1260,7 @@ This function frees any memory associated with the structure.<p>
 
 </div>
 </div><p>
-<a class="anchor" name="gfc8f38fdf13fe1927304b64b3560a39d"></a><!-- doxytag: member="meta.h::MP4TagsStore" ref="gfc8f38fdf13fe1927304b64b3560a39d" args="(const MP4Tags *tags)" -->
+<a class="anchor" name="g14d7b2b74478294cdc0084a01eb37783"></a><!-- doxytag: member="meta.h::MP4TagsStore" ref="g14d7b2b74478294cdc0084a01eb37783" args="(const MP4Tags *tags, MP4FileHandle hFile)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1152,9 +1268,18 @@ This function frees any memory associated with the structure.<p>
           <td class="memname">void MP4TagsStore           </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="struct_m_p4_tags__s.html">MP4Tags</a> *&nbsp;</td>
-          <td class="paramname"> <em>tags</em>          </td>
-          <td>&nbsp;)&nbsp;</td>
+          <td class="paramname"> <em>tags</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">MP4FileHandle&nbsp;</td>
+          <td class="paramname"> <em>hFile</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
         </tr>
       </table>
 </div>
@@ -1163,10 +1288,11 @@ This function frees any memory associated with the structure.<p>
 <p>
 Store data to mp4 file from structure. 
 <p>
-The tags structure state is pushed out to the mp4 file, adding tags if needed, removing tags if needed, and updating the values to modified tags.<p>
+The tags structure is pushed out to the mp4 file, adding tags if needed, removing tags if needed, and updating the values to modified tags.<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>tags</em>&nbsp;</td><td>structure to store (read) from. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>hFile</em>&nbsp;</td><td>handle of file to store data to. </td></tr>
   </table>
 </dl>
 
@@ -1175,7 +1301,7 @@ The tags structure state is pushed out to the mp4 file, adding tags if needed, r
 </div>
 <div class="footer">
     <div>
-        generated on Sun Jan 11 14:45:27 2009 for <b>MP4v2 (2.0-r232)</b>
+        generated on Mon Jan 12 21:15:07 2009 for <b>MP4v2 (2.0-r237)</b>
         by&nbsp;<a href="http://www.doxygen.org">Doxygen</a> 1.5.7.1-20081103
     </div>
 </div>
