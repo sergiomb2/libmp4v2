@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <title>MP4v2 2.0-r237 PROJECT_name: MP4Tags_s Struct Reference</title>
+    <title>MP4v2 2.0-r241 PROJECT_name: MP4Tags_s Struct Reference</title>
     <link href="project.css" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -133,8 +133,8 @@ const char *&nbsp;</td><td class="memItemRight" valign="bottom"><b>sortTVShow</b
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="b2efac6fa5136010a3f0078c0abe7c6a"></a><!-- doxytag: member="MP4Tags_s::artwork" ref="b2efac6fa5136010a3f0078c0abe7c6a" args="" -->
 const <a class="el" href="struct_m_p4_tag_artwork__s.html">MP4TagArtwork</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><b>artwork</b></td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="d453c6d9df40f60112df1a0fd1d29e3c"></a><!-- doxytag: member="MP4Tags_s::artworkSize" ref="d453c6d9df40f60112df1a0fd1d29e3c" args="" -->
-uint32_t&nbsp;</td><td class="memItemRight" valign="bottom"><b>artworkSize</b></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="058fa3f96afaa3b8841a8bebdab2cb4c"></a><!-- doxytag: member="MP4Tags_s::artworkCount" ref="058fa3f96afaa3b8841a8bebdab2cb4c" args="" -->
+uint32_t&nbsp;</td><td class="memItemRight" valign="bottom"><b>artworkCount</b></td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="a783fd8ae705557a43cd92c221e70224"></a><!-- doxytag: member="MP4Tags_s::copyright" ref="a783fd8ae705557a43cd92c221e70224" args="" -->
 const char *&nbsp;</td><td class="memItemRight" valign="bottom"><b>copyright</b></td></tr>
@@ -214,11 +214,12 @@ Example usage: <div class="fragment"><pre class="fragment"><span class="preproce
         printf( <span class="stringliteral">"artist: %s\n"</span>, tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#de57556dc74b0ff5d7de26b890a7221a">artist</a> );
 
     <span class="comment">// show artwork if present</span>
-    printf( <span class="stringliteral">"artwork: %d items\n"</span>, tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#d453c6d9df40f60112df1a0fd1d29e3c">artworkSize</a> );
-    <span class="keywordflow">for</span>( i = 0; i &lt; tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#d453c6d9df40f60112df1a0fd1d29e3c">artworkSize</a>; i++ ) {
-        <span class="keyword">const</span> <a class="code" href="struct_m_p4_tag_artwork__s.html" title="Data object representing a single piece of artwork.">MP4TagArtwork</a>* art = tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#b2efac6fa5136010a3f0078c0abe7c6a">artwork</a> + i;
+    printf( <span class="stringliteral">"artwork: %u items\n"</span>, tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#058fa3f96afaa3b8841a8bebdab2cb4c">artworkCount</a> );
+
+    <span class="comment">// NOTE: artwork != NULL when artworkCount &gt; 0</span>
+    <span class="keyword">const</span> <a class="code" href="struct_m_p4_tag_artwork__s.html" title="Data object representing a single piece of artwork.">MP4TagArtwork</a>* art = tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#b2efac6fa5136010a3f0078c0abe7c6a">artwork</a>;
+    <span class="keywordflow">for</span>( i = 0; i &lt; tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#058fa3f96afaa3b8841a8bebdab2cb4c">artworkCount</a>; i++, art++ )
         printf( <span class="stringliteral">"art[%d]: type=%d size=%u data=%p\n"</span>, i, art-&gt;<a class="code" href="struct_m_p4_tag_artwork__s.html#9e50a9c85c9964542948d3e63f8ba516" title="data type">type</a>, art-&gt;<a class="code" href="struct_m_p4_tag_artwork__s.html#1d5bd30cbd0754d1023404e5b41c2587" title="data size in bytes">size</a>, art-&gt;<a class="code" href="struct_m_p4_tag_artwork__s.html#6bdc006f66a1461906295266a29e7d67" title="raw picture data">data</a> );
-    }
 
     <span class="comment">// set a new name</span>
     MP4TagsSetName( tags, <span class="stringliteral">"This is our new name"</span> );
@@ -249,7 +250,7 @@ Example usage: <div class="fragment"><pre class="fragment"><span class="preproce
 </pre></div> </div>
 <div class="footer">
     <div>
-        generated on Mon Jan 12 21:15:07 2009 for <b>MP4v2 (2.0-r237)</b>
+        generated on Tue Jan 13 19:30:57 2009 for <b>MP4v2 (2.0-r241)</b>
         by&nbsp;<a href="http://www.doxygen.org">Doxygen</a> 1.5.7.1-20081103
     </div>
 </div>
