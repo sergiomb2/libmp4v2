@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <title>MP4v2 2.0-r241 PROJECT_name: MP4v2 iTunes Metadata</title>
+    <title>MP4v2 2.0-r248 PROJECT_name: MP4v2 iTunes Metadata</title>
     <link href="project.css" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -132,14 +132,11 @@ bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4GetMetadataDisk</b
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="geb165d67741bf33f93549e60a1adf0b6"></a><!-- doxytag: member="mp4_meta::MP4DeleteMetadataDisk" ref="geb165d67741bf33f93549e60a1adf0b6" args="(MP4FileHandle hFile)" -->
 bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4DeleteMetadataDisk</b> (MP4FileHandle hFile)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="gf040ba04e1e88c0f5b2e3e8118494292"></a><!-- doxytag: member="mp4_meta::MP4SetMetadataGenre" ref="gf040ba04e1e88c0f5b2e3e8118494292" args="(MP4FileHandle hFile, const char *genre)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4SetMetadataGenre</b> (MP4FileHandle hFile, const char *genre)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__meta.html#gf040ba04e1e88c0f5b2e3e8118494292">MP4SetMetadataGenre</a> (MP4FileHandle hFile, const char *genre)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g82eb1d71f66d1ef84ad5838c5985b3a0"></a><!-- doxytag: member="mp4_meta::MP4GetMetadataGenre" ref="g82eb1d71f66d1ef84ad5838c5985b3a0" args="(MP4FileHandle hFile, char **genre)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4GetMetadataGenre</b> (MP4FileHandle hFile, char **genre)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__meta.html#g82eb1d71f66d1ef84ad5838c5985b3a0">MP4GetMetadataGenre</a> (MP4FileHandle hFile, char **genre)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g4a8c7bddad2aca88994c593fe15ac991"></a><!-- doxytag: member="mp4_meta::MP4DeleteMetadataGenre" ref="g4a8c7bddad2aca88994c593fe15ac991" args="(MP4FileHandle hFile)" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4DeleteMetadataGenre</b> (MP4FileHandle hFile)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__meta.html#g4a8c7bddad2aca88994c593fe15ac991">MP4DeleteMetadataGenre</a> (MP4FileHandle hFile)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__meta.html#g70809e4fee3bd8bd725f48a46a766c86">MP4SetMetadataGrouping</a> (MP4FileHandle hFile, const char *grouping)</td></tr>
 
@@ -279,6 +276,9 @@ void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4TagsSetComposer</b
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="gac885d34549d857959a11bbcb65096bf"></a><!-- doxytag: member="mp4_meta::MP4TagsSetComments" ref="gac885d34549d857959a11bbcb65096bf" args="(const MP4Tags *, const char *)" -->
 void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4TagsSetComments</b> (const <a class="el" href="struct_m_p4_tags__s.html">MP4Tags</a> *, const char *)</td></tr>
 
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="gecb5de7709d90b3be732caaac44db731"></a><!-- doxytag: member="mp4_meta::MP4TagsSetGenre" ref="gecb5de7709d90b3be732caaac44db731" args="(const MP4Tags *, const char *)" -->
+void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4TagsSetGenre</b> (const <a class="el" href="struct_m_p4_tags__s.html">MP4Tags</a> *, const char *)</td></tr>
+
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g83dd611a380810f1848c3b7c766be069"></a><!-- doxytag: member="mp4_meta::MP4TagsSetReleaseDate" ref="g83dd611a380810f1848c3b7c766be069" args="(const MP4Tags *, const char *)" -->
 void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4TagsSetReleaseDate</b> (const <a class="el" href="struct_m_p4_tags__s.html">MP4Tags</a> *, const char *)</td></tr>
 
@@ -415,7 +415,7 @@ Example usage: <div class="fragment"><pre class="fragment"><span class="preproce
     <span class="comment">// push data from structure to MP4 file</span>
     <a class="code" href="group__mp4__meta.html#g14d7b2b74478294cdc0084a01eb37783" title="Store data to mp4 file from structure.">MP4TagsStore</a>( tags, file );
 
-    <span class="comment">// free memory associated with structure and close&gt;</span>
+    <span class="comment">// free memory associated with structure and close</span>
     <a class="code" href="group__mp4__meta.html#gd5b9e876efc7d50673e05f6100af4d68" title="Free tags convenience structure.">MP4TagsFree</a>( tags );
     <a class="code" href="group__mp4__file.html#g5123d9288961860eeb9100ac10927ff2" title="Close an mp4 file.">MP4Close</a>( file );
 
@@ -481,7 +481,7 @@ Enumeration of possible <a class="el" href="struct_m_p4_tag_artwork__s.html#9e50
 <div class="memdoc">
 
 <p>
-<dl compact><dt><b><a class="el" href="deprecated.html#_deprecated000029">Deprecated:</a></b></dt><dd>Deprecated, scheduled for removal. Please use the tags convenience API. </dd></dl>
+<dl compact><dt><b><a class="el" href="deprecated.html#_deprecated000032">Deprecated:</a></b></dt><dd>Deprecated, scheduled for removal. Please use the tags convenience API. </dd></dl>
 
 </div>
 </div><p>
@@ -527,6 +527,27 @@ Enumeration of possible <a class="el" href="struct_m_p4_tag_artwork__s.html#9e50
 
 </div>
 </div><p>
+<a class="anchor" name="g4a8c7bddad2aca88994c593fe15ac991"></a><!-- doxytag: member="meta.h::MP4DeleteMetadataGenre" ref="g4a8c7bddad2aca88994c593fe15ac991" args="(MP4FileHandle hFile)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool MP4DeleteMetadataGenre           </td>
+          <td>(</td>
+          <td class="paramtype">MP4FileHandle&nbsp;</td>
+          <td class="paramname"> <em>hFile</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+<dl compact><dt><b><a class="el" href="deprecated.html#_deprecated000026">Deprecated:</a></b></dt><dd>Deprecated, scheduled for removal. Please use the tags convenience API. </dd></dl>
+
+</div>
+</div><p>
 <a class="anchor" name="g37feeece1634c732adbc3f86ee2eafbf"></a><!-- doxytag: member="meta.h::MP4DeleteMetadataGrouping" ref="g37feeece1634c732adbc3f86ee2eafbf" args="(MP4FileHandle hFile)" -->
 <div class="memitem">
 <div class="memproto">
@@ -544,7 +565,7 @@ Enumeration of possible <a class="el" href="struct_m_p4_tag_artwork__s.html#9e50
 <div class="memdoc">
 
 <p>
-<dl compact><dt><b><a class="el" href="deprecated.html#_deprecated000026">Deprecated:</a></b></dt><dd>Deprecated, scheduled for removal. Please use the tags convenience API. </dd></dl>
+<dl compact><dt><b><a class="el" href="deprecated.html#_deprecated000029">Deprecated:</a></b></dt><dd>Deprecated, scheduled for removal. Please use the tags convenience API. </dd></dl>
 
 </div>
 </div><p>
@@ -688,7 +709,7 @@ Enumeration of possible <a class="el" href="struct_m_p4_tag_artwork__s.html#9e50
 <div class="memdoc">
 
 <p>
-<dl compact><dt><b><a class="el" href="deprecated.html#_deprecated000028">Deprecated:</a></b></dt><dd>Deprecated, scheduled for removal. Please use the tags convenience API. </dd></dl>
+<dl compact><dt><b><a class="el" href="deprecated.html#_deprecated000031">Deprecated:</a></b></dt><dd>Deprecated, scheduled for removal. Please use the tags convenience API. </dd></dl>
 
 </div>
 </div><p>
@@ -752,6 +773,36 @@ Enumeration of possible <a class="el" href="struct_m_p4_tag_artwork__s.html#9e50
 
 </div>
 </div><p>
+<a class="anchor" name="g82eb1d71f66d1ef84ad5838c5985b3a0"></a><!-- doxytag: member="meta.h::MP4GetMetadataGenre" ref="g82eb1d71f66d1ef84ad5838c5985b3a0" args="(MP4FileHandle hFile, char **genre)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool MP4GetMetadataGenre           </td>
+          <td>(</td>
+          <td class="paramtype">MP4FileHandle&nbsp;</td>
+          <td class="paramname"> <em>hFile</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char **&nbsp;</td>
+          <td class="paramname"> <em>genre</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+<dl compact><dt><b><a class="el" href="deprecated.html#_deprecated000025">Deprecated:</a></b></dt><dd>Deprecated, scheduled for removal. Please use the tags convenience API. </dd></dl>
+
+</div>
+</div><p>
 <a class="anchor" name="g5eb1a422f1bd4cb304cafa7c6e5bfe64"></a><!-- doxytag: member="meta.h::MP4GetMetadataGrouping" ref="g5eb1a422f1bd4cb304cafa7c6e5bfe64" args="(MP4FileHandle hFile, char **grouping)" -->
 <div class="memitem">
 <div class="memproto">
@@ -778,7 +829,7 @@ Enumeration of possible <a class="el" href="struct_m_p4_tag_artwork__s.html#9e50
 <div class="memdoc">
 
 <p>
-<dl compact><dt><b><a class="el" href="deprecated.html#_deprecated000025">Deprecated:</a></b></dt><dd>Deprecated, scheduled for removal. Please use the tags convenience API. </dd></dl>
+<dl compact><dt><b><a class="el" href="deprecated.html#_deprecated000028">Deprecated:</a></b></dt><dd>Deprecated, scheduled for removal. Please use the tags convenience API. </dd></dl>
 
 </div>
 </div><p>
@@ -958,7 +1009,7 @@ Enumeration of possible <a class="el" href="struct_m_p4_tag_artwork__s.html#9e50
 <div class="memdoc">
 
 <p>
-<dl compact><dt><b><a class="el" href="deprecated.html#_deprecated000027">Deprecated:</a></b></dt><dd>Deprecated, scheduled for removal. Please use the tags convenience API. </dd></dl>
+<dl compact><dt><b><a class="el" href="deprecated.html#_deprecated000030">Deprecated:</a></b></dt><dd>Deprecated, scheduled for removal. Please use the tags convenience API. </dd></dl>
 
 </div>
 </div><p>
@@ -1022,6 +1073,36 @@ Enumeration of possible <a class="el" href="struct_m_p4_tag_artwork__s.html#9e50
 
 </div>
 </div><p>
+<a class="anchor" name="gf040ba04e1e88c0f5b2e3e8118494292"></a><!-- doxytag: member="meta.h::MP4SetMetadataGenre" ref="gf040ba04e1e88c0f5b2e3e8118494292" args="(MP4FileHandle hFile, const char *genre)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool MP4SetMetadataGenre           </td>
+          <td>(</td>
+          <td class="paramtype">MP4FileHandle&nbsp;</td>
+          <td class="paramname"> <em>hFile</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&nbsp;</td>
+          <td class="paramname"> <em>genre</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+<dl compact><dt><b><a class="el" href="deprecated.html#_deprecated000024">Deprecated:</a></b></dt><dd>Deprecated, scheduled for removal. Please use the tags convenience API. </dd></dl>
+
+</div>
+</div><p>
 <a class="anchor" name="g70809e4fee3bd8bd725f48a46a766c86"></a><!-- doxytag: member="meta.h::MP4SetMetadataGrouping" ref="g70809e4fee3bd8bd725f48a46a766c86" args="(MP4FileHandle hFile, const char *grouping)" -->
 <div class="memitem">
 <div class="memproto">
@@ -1048,7 +1129,7 @@ Enumeration of possible <a class="el" href="struct_m_p4_tag_artwork__s.html#9e50
 <div class="memdoc">
 
 <p>
-<dl compact><dt><b><a class="el" href="deprecated.html#_deprecated000024">Deprecated:</a></b></dt><dd>Deprecated, scheduled for removal. Please use the tags convenience API. </dd></dl>
+<dl compact><dt><b><a class="el" href="deprecated.html#_deprecated000027">Deprecated:</a></b></dt><dd>Deprecated, scheduled for removal. Please use the tags convenience API. </dd></dl>
 
 </div>
 </div><p>
@@ -1302,7 +1383,7 @@ The tags structure is pushed out to the mp4 file, adding tags if needed, removin
 </div>
 <div class="footer">
     <div>
-        generated on Tue Jan 13 19:30:57 2009 for <b>MP4v2 (2.0-r241)</b>
+        generated on Sat Jan 17 04:07:16 2009 for <b>MP4v2 (2.0-r248)</b>
         by&nbsp;<a href="http://www.doxygen.org">Doxygen</a> 1.5.7.1-20081103
     </div>
 </div>

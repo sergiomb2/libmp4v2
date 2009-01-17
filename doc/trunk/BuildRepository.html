@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <title>MP4v2 2.0-r241 Building the Repository</title>
+    <title>MP4v2 2.0-r248 Building the Repository</title>
     <link href="project.css" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -23,7 +23,7 @@
     </div>
 </div>
 <div id="content">
-<h2 class="majorheading"><a name="TOC0"></a>MP4v2 2.0-r241 Building the Repository</h2>
+<h2 class="majorheading"><a name="TOC0"></a>MP4v2 2.0-r248 Building the Repository</h2>
 
 <div class="contents">
 <h2>Table of Contents</h2>
@@ -40,45 +40,46 @@
 <li><a href="#TOC9">4.5 Install</a>
 <li><a href="#TOC10">4.6 Create Distribution</a>
 <li><a href="#TOC11">4.7 Build Documentation</a>
+<li><a href="#TOC12">4.8 Post Site and API Documentation to project website.</a>
 </li></ul>
-<li><a name="toc_TOC12" href="#TOC12">5 Platform Notes</a>
+<li><a name="toc_TOC13" href="#TOC13">5 Platform Notes</a>
 <ul>
-<li><a href="#TOC13">5.1 Mac OS X</a>
+<li><a href="#TOC14">5.1 Mac OS X</a>
 <ul>
-<li><a href="#TOC14">5.1.1 Default Binaries</a>
-<li><a href="#TOC15">5.1.2 Release Binaries</a>
-<li><a href="#TOC16">5.1.3 Developer Binaries</a>
-<li><a href="#TOC17">5.1.4 Universal Binaries - all architectures</a>
-<li><a href="#TOC18">5.1.5 Universal Binaries - selected architectures</a>
+<li><a href="#TOC15">5.1.1 Default Binaries</a>
+<li><a href="#TOC16">5.1.2 Release Binaries</a>
+<li><a href="#TOC17">5.1.3 Developer Binaries</a>
+<li><a href="#TOC18">5.1.4 Universal Binaries - all architectures</a>
+<li><a href="#TOC19">5.1.5 Universal Binaries - selected architectures</a>
 </li></ul>
-<li><a href="#TOC19">5.2 Linux</a>
+<li><a href="#TOC20">5.2 Linux</a>
 <ul>
-<li><a href="#TOC20">5.2.1 Default Binaries</a>
-<li><a href="#TOC21">5.2.2 Release Binaries</a>
-<li><a href="#TOC22">5.2.3 Developer Binaries</a>
-<li><a href="#TOC23">5.2.4 Bi-arch compilation</a>
+<li><a href="#TOC21">5.2.1 Default Binaries</a>
+<li><a href="#TOC22">5.2.2 Release Binaries</a>
+<li><a href="#TOC23">5.2.3 Developer Binaries</a>
+<li><a href="#TOC24">5.2.4 Bi-arch compilation</a>
 </li></ul>
-<li><a href="#TOC24">5.3 FreeBSD</a>
+<li><a href="#TOC25">5.3 FreeBSD</a>
 <ul>
-<li><a href="#TOC25">5.3.1 Default Binaries</a>
-<li><a href="#TOC26">5.3.2 Release Binaries</a>
-<li><a href="#TOC27">5.3.3 Developer Binaries</a>
-<li><a href="#TOC28">5.3.4 Bi-arch compilation</a>
+<li><a href="#TOC26">5.3.1 Default Binaries</a>
+<li><a href="#TOC27">5.3.2 Release Binaries</a>
+<li><a href="#TOC28">5.3.3 Developer Binaries</a>
+<li><a href="#TOC29">5.3.4 Bi-arch compilation</a>
 </li></ul>
-<li><a href="#TOC29">5.4 Solaris</a>
+<li><a href="#TOC30">5.4 Solaris</a>
 <ul>
-<li><a href="#TOC30">5.4.1 Default Binaries</a>
-<li><a href="#TOC31">5.4.2 Release Binaries</a>
-<li><a href="#TOC32">5.4.3 Developer Binaries</a>
-<li><a href="#TOC33">5.4.4 Bi-arch compilation</a>
+<li><a href="#TOC31">5.4.1 Default Binaries</a>
+<li><a href="#TOC32">5.4.2 Release Binaries</a>
+<li><a href="#TOC33">5.4.3 Developer Binaries</a>
+<li><a href="#TOC34">5.4.4 Bi-arch compilation</a>
 </li></ul>
-<li><a href="#TOC34">5.5 Cygwin</a>
+<li><a href="#TOC35">5.5 Cygwin</a>
 <ul>
-<li><a href="#TOC35">5.5.1 Default Binaries</a>
-<li><a href="#TOC36">5.5.2 Release Binaries</a>
-<li><a href="#TOC37">5.5.3 Developer Binaries</a>
+<li><a href="#TOC36">5.5.1 Default Binaries</a>
+<li><a href="#TOC37">5.5.2 Release Binaries</a>
+<li><a href="#TOC38">5.5.3 Developer Binaries</a>
 </li></ul>
-<li><a href="#TOC38">5.6 Windows</a>
+<li><a href="#TOC39">5.6 Windows</a>
 </li></ul>
 </li></ul>
 </div>
@@ -262,13 +263,34 @@ make apiclean
 make articlesclean
 make docclean
 </pre>
-<h2 class="chapter"><a name="TOC12"></a>5 Platform Notes</h2>
+<h3 class="section"><a name="TOC12"></a>4.8 Post Site and API Documentation to project website.</h3>
+
+<p>This step is for project maintainers and can be used to update Site and API documentation. The following components are updated:
+
+     <ul>
+<li>Featured Wiki article: BuildRepository
+<li>Featured Wiki article: BuildSource
+<li>MP4v2 (trunk) docs (includes Release Notes and other articles, and API docs). 
+</ul>
+
+<p>This procedure may only be run from a *nix platform and has only been tested on Mac OS X.
+
+     <dl>
+<dt>`<samp><span class="samp">make google.clean</span></samp>'<dd>Clean any local working copy of google changeset.
+
+     <br><dt>`<samp><span class="samp">make google.post</span></samp>'<dd>Generate required docs, sparse-checkout google tree, remove files which are no longer generated, add new files which are generated, and update existing files.
+
+     <br><dt>`<samp><span class="samp">svn ci -m "-refreshed GoogleCode site+api docs." google/.</span></samp>'<dd>Check-in changes. This might take several minutes, especially if your upstream bandwidth is limited.
+
+</dl>
+
+<h2 class="chapter"><a name="TOC13"></a>5 Platform Notes</h2>
 
 <p>MP4v2 builds on many unix-style platforms, also commonly referred to as posix-style systems. Building on Mac OS X, Linux, FreeBSD, Solaris, Cygwin, Windows are known to work.
 
 <p>Similar platforms should also work. Please see the following platform specific notes for instructions on commonly used options for various platforms.
 
-<h3 class="section"><a name="TOC13"></a>5.1 Mac OS X</h3>
+<h3 class="section"><a name="TOC14"></a>5.1 Mac OS X</h3>
 
 <p>Building on Mac OS X is well supported as it is used by maintainers of this project. The following are the recommended specifications for this platform; but is not necessarily the only configuration that is possible:
 
@@ -284,37 +306,37 @@ make docclean
 <b>Note:</b> It is recommended to use the platform distribution's bundled compiler for maximum C++ compatibility. If you build with a custom compiler it will likely introduce non-standard runtime requirements for your users. There are of course many valid reasons to build with unbundled compilers, but be aware that is generally unsupported and left as an exercise to the reader. 
 </blockquote>
 
-<h4 class="subsection"><a name="TOC14"></a>5.1.1 Default Binaries</h4>
+<h4 class="subsection"><a name="TOC15"></a>5.1.1 Default Binaries</h4>
 
 <p>The preferred method to produce default binaries is to run configure without any options which will compile with debug+optimize and produce static+shared libraries and dynamic executables.
 
 <pre class="example">../configure
 </pre>
-<h4 class="subsection"><a name="TOC15"></a>5.1.2 Release Binaries</h4>
+<h4 class="subsection"><a name="TOC16"></a>5.1.2 Release Binaries</h4>
 
 <p>The preferred method to produce binaries suitable for releases, (ie. which does not contain debug information) is to pass the following to configure:
 
 <pre class="example">../configure --disable-debug
 </pre>
-<h4 class="subsection"><a name="TOC16"></a>5.1.3 Developer Binaries</h4>
+<h4 class="subsection"><a name="TOC17"></a>5.1.3 Developer Binaries</h4>
 
 <p>The preferred method to produce binaries suitable for development is to pass the following to configure.  Default Binaries will work, however for the best debugging experience we recommend no optimize and no static libraries.
 
 <pre class="example">../configure --disable-optimize --disable-static
 </pre>
-<h4 class="subsection"><a name="TOC17"></a>5.1.4 Universal Binaries - all architectures</h4>
+<h4 class="subsection"><a name="TOC18"></a>5.1.4 Universal Binaries - all architectures</h4>
 
 <p>The preferred method to produce universal binaries for all supported architectures is to pass the following option to configure. As of this writing, architectures { i386, x86_64, ppc, ppc64 } are built.
 
 <pre class="example">../configure --enable-ub
 </pre>
-<h4 class="subsection"><a name="TOC18"></a>5.1.5 Universal Binaries - selected architectures</h4>
+<h4 class="subsection"><a name="TOC19"></a>5.1.5 Universal Binaries - selected architectures</h4>
 
 <p>The preferred method to produce universal binaries for selected architectures is to specify a comma-delimited list specifying the desired architecture identifiers. Passing the following option will produce universal binaries for architectures { i386, x86_64 }.
 
 <pre class="example">../configure --enable-ub=i386,x86_64
 </pre>
-<h3 class="section"><a name="TOC19"></a>5.2 Linux</h3>
+<h3 class="section"><a name="TOC20"></a>5.2 Linux</h3>
 
 <p>Building on Linux is well supported as it is used by maintainers of this project. The following are the recommended specifications for this platform; but is not necessarily the only configuration that is possible:
 
@@ -328,25 +350,25 @@ make docclean
 <b>Note:</b> It is recommended to use the platform distribution's bundled compiler for maximum C++ compatibility. If you build with a custom compiler it will likely introduce non-standard runtime requirements for your users. There are of course many valid reasons to build with unbundled compilers, but be aware that is generally unsupported and left as an exercise to the reader. 
 </blockquote>
 
-<h4 class="subsection"><a name="TOC20"></a>5.2.1 Default Binaries</h4>
+<h4 class="subsection"><a name="TOC21"></a>5.2.1 Default Binaries</h4>
 
 <p>The preferred method to produce default binaries is to run configure without any options which will compile with debug+optimize and produce static+shared libraries and dynamic executables.
 
 <pre class="example">../configure
 </pre>
-<h4 class="subsection"><a name="TOC21"></a>5.2.2 Release Binaries</h4>
+<h4 class="subsection"><a name="TOC22"></a>5.2.2 Release Binaries</h4>
 
 <p>The preferred method to produce binaries suitable for releases, (ie. which does not contain debug information) is to pass the following to configure:
 
 <pre class="example">../configure --disable-debug
 </pre>
-<h4 class="subsection"><a name="TOC22"></a>5.2.3 Developer Binaries</h4>
+<h4 class="subsection"><a name="TOC23"></a>5.2.3 Developer Binaries</h4>
 
 <p>The preferred method to produce binaries suitable for development is to pass the following to configure.  Default Binaries will work, however for the best debugging experience we recommend no optimize and no static libraries.
 
 <pre class="example">../configure --disable-optimize --disable-static
 </pre>
-<h4 class="subsection"><a name="TOC23"></a>5.2.4 Bi-arch compilation</h4>
+<h4 class="subsection"><a name="TOC24"></a>5.2.4 Bi-arch compilation</h4>
 
 <p>The preferred method to produce a bi-arch binary is to specify the target (eg. 32-bit) with the following option to configure. This example will produce a 32-bit binary if compiling on a platform which defaults to producing 64-bit binaries. The inverse is also possible.
 
@@ -356,7 +378,7 @@ make docclean
 <b>Warning:</b> Currently bi-arch cross-compilation is not supported due to a bug with libtool which fails miserably during linking. 
 </blockquote>
 
-<h3 class="section"><a name="TOC24"></a>5.3 FreeBSD</h3>
+<h3 class="section"><a name="TOC25"></a>5.3 FreeBSD</h3>
 
 <p>Building on FreeBSD is supported. The following are the recommended specifications for this platform; but is not necessarily the only configuration that is possible:
 
@@ -370,25 +392,25 @@ make docclean
 <b>Note:</b> It is recommended to use the platform distribution's bundled compiler for maximum C++ compatibility. If you build with a custom compiler it will likely introduce non-standard runtime requirements for your users. There are of course many valid reasons to build with unbundled compilers, but be aware that is generally unsupported and left as an exercise to the reader. 
 </blockquote>
 
-<h4 class="subsection"><a name="TOC25"></a>5.3.1 Default Binaries</h4>
+<h4 class="subsection"><a name="TOC26"></a>5.3.1 Default Binaries</h4>
 
 <p>The preferred method to produce default binaries is to run configure without any options which will compile with debug+optimize and produce static+shared libraries and dynamic executables.
 
 <pre class="example">../configure
 </pre>
-<h4 class="subsection"><a name="TOC26"></a>5.3.2 Release Binaries</h4>
+<h4 class="subsection"><a name="TOC27"></a>5.3.2 Release Binaries</h4>
 
 <p>The preferred method to produce binaries suitable for releases, (ie. which does not contain debug information) is to pass the following to configure:
 
 <pre class="example">../configure --disable-debug
 </pre>
-<h4 class="subsection"><a name="TOC27"></a>5.3.3 Developer Binaries</h4>
+<h4 class="subsection"><a name="TOC28"></a>5.3.3 Developer Binaries</h4>
 
 <p>The preferred method to produce binaries suitable for development is to pass the following to configure.  Default Binaries will work, however for the best debugging experience we recommend no optimize and no static libraries.
 
 <pre class="example">../configure --disable-optimize --disable-static
 </pre>
-<h4 class="subsection"><a name="TOC28"></a>5.3.4 Bi-arch compilation</h4>
+<h4 class="subsection"><a name="TOC29"></a>5.3.4 Bi-arch compilation</h4>
 
 <p>The preferred method to produce a bi-arch binary is to specify the target (eg. 32-bit) with the following option to configure. This example will produce a 32-bit binary if compiling on a platform which defaults to producing 64-bit binaries. The inverse is also possible.
 
@@ -398,7 +420,7 @@ make docclean
 <b>Warning:</b> Currently bi-arch cross-compilation is not supported due to a bug with libtool which fails miserably during linking. 
 </blockquote>
 
-<h3 class="section"><a name="TOC29"></a>5.4 Solaris</h3>
+<h3 class="section"><a name="TOC30"></a>5.4 Solaris</h3>
 
 <p>Building on Solaris is supported. The following are the recommended specifications for this platform; but is not necessarily the only configuration that is possible:
 
@@ -415,25 +437,25 @@ make docclean
 <b>Note:</b> Solaris does not (yet) really bundle a compiler. The recommendation is to use the companion-disk compiler for maximum C++ runtime compatibility. It is usually found in <samp><span class="file">/usr/sfw/bin</span></samp>. 
 </blockquote>
 
-<h4 class="subsection"><a name="TOC30"></a>5.4.1 Default Binaries</h4>
+<h4 class="subsection"><a name="TOC31"></a>5.4.1 Default Binaries</h4>
 
 <p>The preferred method to produce default binaries is to run configure without any options which will compile with debug+optimize and produce static+shared libraries and dynamic executables.
 
 <pre class="example">../configure
 </pre>
-<h4 class="subsection"><a name="TOC31"></a>5.4.2 Release Binaries</h4>
+<h4 class="subsection"><a name="TOC32"></a>5.4.2 Release Binaries</h4>
 
 <p>The preferred method to produce binaries suitable for releases, (ie. which does not contain debug information) is to pass the following to configure:
 
 <pre class="example">../configure --disable-debug
 </pre>
-<h4 class="subsection"><a name="TOC32"></a>5.4.3 Developer Binaries</h4>
+<h4 class="subsection"><a name="TOC33"></a>5.4.3 Developer Binaries</h4>
 
 <p>The preferred method to produce binaries suitable for development is to pass the following to configure.  Default Binaries will work, however for the best debugging experience we recommend no optimize and no static libraries.
 
 <pre class="example">../configure --disable-optimize --disable-static
 </pre>
-<h4 class="subsection"><a name="TOC33"></a>5.4.4 Bi-arch compilation</h4>
+<h4 class="subsection"><a name="TOC34"></a>5.4.4 Bi-arch compilation</h4>
 
 <p>The preferred method to produce a bi-arch binary is to specify the target (eg. 32-bit) with the following option to configure. This example will produce a 32-bit binary if compiling on a platform which defaults to producing 64-bit binaries. The inverse is also possible.
 
@@ -443,7 +465,7 @@ make docclean
 <b>Warning:</b> Currently bi-arch cross-compilation is not supported due to a bug with libtool which fails miserably during linking. 
 </blockquote>
 
-<h3 class="section"><a name="TOC34"></a>5.5 Cygwin</h3>
+<h3 class="section"><a name="TOC35"></a>5.5 Cygwin</h3>
 
 <p>Building on Cygwin is supported. The following are the recommended specifications for this platform; but is not necessarily the only configuration that is possible:
 
@@ -461,25 +483,25 @@ make docclean
 setenv CXX gcc-4
 ../configure
 </pre>
-<h4 class="subsection"><a name="TOC35"></a>5.5.1 Default Binaries</h4>
+<h4 class="subsection"><a name="TOC36"></a>5.5.1 Default Binaries</h4>
 
 <p>The preferred method to produce default binaries is to run configure without any options which will compile with debug+optimize and produce static+shared libraries and dynamic executables.
 
 <pre class="example">../configure
 </pre>
-<h4 class="subsection"><a name="TOC36"></a>5.5.2 Release Binaries</h4>
+<h4 class="subsection"><a name="TOC37"></a>5.5.2 Release Binaries</h4>
 
 <p>The preferred method to produce binaries suitable for releases, (ie. which does not contain debug information) is to pass the following to configure:
 
 <pre class="example">../configure --disable-debug
 </pre>
-<h4 class="subsection"><a name="TOC37"></a>5.5.3 Developer Binaries</h4>
+<h4 class="subsection"><a name="TOC38"></a>5.5.3 Developer Binaries</h4>
 
 <p>The preferred method to produce binaries suitable for development is to pass the following to configure.  Default Binaries will work, however for the best debugging experience we recommend no optimize and no static libraries.
 
 <pre class="example">../configure --disable-optimize --disable-static
 </pre>
-<h3 class="section"><a name="TOC38"></a>5.6 Windows</h3>
+<h3 class="section"><a name="TOC39"></a>5.6 Windows</h3>
 
 <p>Native builds on Windows is supported via Microsoft's Visual Studio package. Both the commercial version and free version (express) are known to work. The following are the recommended specifications for this platform; but is not necessarily the only configuration that is possible:
 
@@ -503,7 +525,7 @@ setenv CXX gcc-4
 </div>
 <div id="footer">
     <div>
-        generated on Tue Jan 13 19:30:53 EST 2009 for <b>MP4v2 (2.0-r241)</b>
+        generated on Sat Jan 17 04:06:24 EST 2009 for <b>MP4v2 (2.0-r248)</b>
     </div>
 </div>
 </body>

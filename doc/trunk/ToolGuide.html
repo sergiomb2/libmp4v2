@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <title>MP4v2 2.0-r241 Command-line Tools Guide</title>
+    <title>MP4v2 2.0-r248 Command-line Tools Guide</title>
     <link href="project.css" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -23,7 +23,7 @@
     </div>
 </div>
 <div id="content">
-<h2 class="majorheading"><a name="TOC0"></a>MP4v2 2.0-r241 Command-line Tools Guide</h2>
+<h2 class="majorheading"><a name="TOC0"></a>MP4v2 2.0-r248 Command-line Tools Guide</h2>
 
 <div class="contents">
 <h2>Table of Contents</h2>
@@ -143,38 +143,82 @@ influenced by `<samp><span class="samp">--debug</span></samp>' option.
 
 <h2 class="chapter"><a name="TOC5"></a>5 mp4track</h2>
 
-<p>This tool is used to manage various aspects of individual tracks in an mp4 file. Some of the actions are mp4 (generic) while others may support standards based on mp4 files such as `<samp><span class="samp">.m4a</span></samp>' or `<samp><span class="samp">.m4v</span></samp>' files. The default is to try and act on all tracks in a file; but some actions will require an individual track be specified.
+<p>This tool is used to manage various aspects of individual tracks in an mp4 file. Some of the actions are mp4 (generic) while others may support standards based on mp4 files such as `<samp><span class="samp">.m4a</span></samp>' or `<samp><span class="samp">.m4v</span></samp>' files. Each action has an appropriate scope upon which it acts. See individual actions for details. The following parameters are used to set scopes for actions:
 
      <dl>
-<dt>`<samp><span class="samp">--track-any</span></samp>'<dd>act on any track (default). 
-Specifies the scope of the action to operate on all, if applicable, tracks.
+<dt>`<samp><span class="samp">--track-any</span></samp>'<dd>act on any/all tracks.
 
-     <br><dt>`<samp><span class="samp">--track-index IDX</span></samp>'<dd>act on track id INDEX. 
-Specifies the scope of the action to operate on track-index IDX.
+     <br><dt>`<samp><span class="samp">--track-index IDX</span></samp>'<dd>act on a single track specified by <b>index</b> value. 
+A track index is 0-based and counts upwards for each track available.
 
-     <br><dt>`<samp><span class="samp">--track-id ID</span></samp>'<dd>act on track id ID. 
-Specifies the scope of the action to operate on track-id ID. 
+     <br><dt>`<samp><span class="samp">--track-id ID</span></samp>'<dd>act on a single track specified by <b>id</b> value. 
+A track id is a unique value assigned to each track and never changes. 
 </dl>
+
+<p>The <b>list</b> action will produce a brief report of each track for each mp4 file. 
+Many (but not all) of the values shown may be modified by actions documented later in this article. 
+This will produce a brief report of each track for each mp4 file.
 
      <dl>
 <dt>`<samp><span class="samp">--list</span></samp>'<dd>list all tracks in mp4. 
-This will produce a brief report of each track for each mp4 file. 
-<b>IDX</b> shows the track-index (0-based). 
-<b>ID</b> shows the track-id. 
-<b>TYPE</b> shows the track type. 
-<b>FLAGS</b> shows track flags in hex. 
 Example output:
-     <pre class="example">     IDX    ID  TYPE      FLAGS   #SAMPL  FILE
-     ----------------------------------------------------------------------
-       0     1  audio     000001  238500  Song.m4a
-       0     1  video     000001  239800  Movie1.m4v
-       1     2  audio     000003  468100
-       2     3  text      00000e  100000
-       0     1  video     000001  239800  Movie2.m4v
-       1     2  audio     000003  468100
-       2     3  text      00000e  100000
+     <pre class="example">     track[0] id=1
+       type           = video
+       enabled        = true
+       inMovie        = false
+       inPreview      = false
+       layer          = 0
+       alternateGroup = 0
+       volume         = 0.0000
+       width          = 850.96295166
+       height         = 360.00000000
+       language       = UNDEFINED(0)
+       handlerName    =
+       userDataName   = &lt;absent&gt;
 </pre>
      </dl>
+
+<p>The following group of actions are used to modify the values shown by <b>&ndash;list</b> action. The modification of these values should be done with great care on any files, and as always you are cautioned to <b>backup</b> your media files before modification.
+
+     <dl>
+<dt>`<samp><span class="samp">--enabled BOOL</span></samp>'<dd>set trak.tkhd.flags (enabled bit). 
+When <b>true</b> indicates the track is enabled.
+
+     <br><dt>`<samp><span class="samp">--inmovie BOOL</span></samp>'<dd>set trak.tkhd.flags (inMovie bit). 
+When <b>true</b> indicates the track is used in the movie.
+
+     <br><dt>`<samp><span class="samp">--inpreview BOOL</span></samp>'<dd>set trak.tkhd.flags (inPreview bit). 
+When <b>true</b> indicates the track is used in the movie's preview.
+
+     <br><dt>`<samp><span class="samp">--layer NUM</span></samp>'<dd>set trak.tkhd.layer. 
+Specifies the front-to-back ordering of video tracks; tracks with lower numbers are closer to the viewer. 
+<b>0</b> is the normal value, and <b>-1</b> would be in front of track 0, and so on.
+
+     <br><dt>`<samp><span class="samp">--altgroup NUM</span></samp>'<dd>set trak.tkhd.alternate_group. 
+An integer that specifies a group or collection of tracks. If this field is 0 there is no information on possible relations to other tracks. If this field is not 0, it should be the same for tracks that contain alternate data for one another and different for tracks belonging to different such groups. Only one track within an alternate group should be played or streamed at any one time, and must be distinguishable from other tracks in the group via attributes such as bitrate, codec, language, packet size etc. A group may have only one member.
+
+     <br><dt>`<samp><span class="samp">--volume FLOAT</span></samp>'<dd>set trak.tkhd.volume. 
+Specifies the track's relative audio volume. Full volume is <b>1.0</b> and is the normal value.
+
+     <br><dt>`<samp><span class="samp">--width FLOAT</span></samp>'<dd>set trak.tkhd.width. 
+Specifies the track's visual presentation width. By default this is the same as the pixel width of the images. All images in the sequence are scaled to this size <b>before</b> any overall transformation by the matrix.
+
+     <br><dt>`<samp><span class="samp">--height FLOAT</span></samp>'<dd>set trak.tkhd.height. 
+Specifies the track's visual presentation height. By default this is the same as the pixel width of the images. All images in the sequence are scaled to this size <b>before</b> any overall transformation by the matrix.
+
+     <br><dt>`<samp><span class="samp">--language CODE</span></samp>'<dd>set trak.mdia.mdhd.language. 
+Specifies the ISO-639-2/T langauge code of the track. For example, `<samp><span class="samp">eng</span></samp>' for English, `<samp><span class="samp">fra</span></samp>' for French.
+
+     <br><dt>`<samp><span class="samp">--hdlrname STR</span></samp>'<dd>set trak.mdia.hdlr.name. 
+Specifies a human-readable track type (for debugging and inspection purposes).
+
+     <br><dt>`<samp><span class="samp">--udtaname STR</span></samp>'<dd>set trak.udta.name.value. 
+Specifies an arbitrary track-name. This value is optional (may be absent).
+
+     <br><dt>`<samp><span class="samp">--udtaname-remove</span></samp>'<dd>remove trak.udta.name atom. 
+This action will remove the <b>optional</b> atom.
+
+</dl>
 
 <p>The <b>colr</b> related actions manage <b>Color Parameter</b> boxes which are used by QuickTime to map numerical values of pixels in a file to a common representation of color for video tracks. They may or may not be suitable for other Apple media players. Community feedback on compatibility is welcome.
 
@@ -290,7 +334,7 @@ This will extract all covr-box data to image files in the format of `<samp><span
 </div>
 <div id="footer">
     <div>
-        generated on Tue Jan 13 19:30:53 EST 2009 for <b>MP4v2 (2.0-r241)</b>
+        generated on Sat Jan 17 04:06:24 EST 2009 for <b>MP4v2 (2.0-r248)</b>
     </div>
 </div>
 </body>
