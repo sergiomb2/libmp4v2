@@ -57,13 +57,41 @@ Description of currently known iTunes tags.
 || || sfID || 32-bit integer || Identifies in which iTunes Store a file was bought  || ||
 || || akID || 8-bit integer || Identifies the iTunes account type (Apple or AOL) || ||
 
-
 *A blank field means that this tag is currently not supported by libmp4v2
-
 Only one gerne tag (gnre or ©gen) is permitted at a time.
 
 The MP4GetMetadataGerne functions will read whichever is there.
 The MP4SetMetadataGerne trys to set the grne tag if its a match to an ID3V1 genre, else it sets the ©gen tag.
+
+== iTunes Store Account Type (akID) ==
+|| Account Type || akID ||
+|| iTunes || 0 ||
+|| AOL || 1 ||
+
+== iTunes Store Country Codes (sfID) ==
+|| Country || ISO 3166-1 alpha-3 Code || sfID ||
+|| Australia || AUS || 143460 ||
+|| Austria || AUT || 143445 ||
+|| Belgium || BEL || 143446 ||
+|| Canada || CAN || 143455 ||
+|| Denmark || DNK || 143458 ||
+|| Finland || FIN || 143447 ||
+|| France || FRA || 143442 ||
+|| Germany  || DEU || 143443 ||
+|| Greece || GRC || 143448 ||
+|| Ireland || IRL || 143449  ||
+|| Italy || ITA || 143450 ||
+|| Japan || JPN || 143462 ||
+|| Luxembourg || LUX || 143451 ||
+|| Netherlands || NLD || 143452 ||
+|| New Zealand || NZL || 143461 ||
+|| Norway || NOR || 143457 ||
+|| Portugal || PRT || 143453 ||
+|| Spain || ESP || 143454 ||
+|| Sweden || SWE || 143456 ||
+|| Switzerland || CHE || 143459 ||
+|| United Kingdom || GBR || 143444 ||
+|| United States || USA || 143441 ||
 
 = Sources =
  * [http://atomicparsley.sourceforge.net/mpeg-4files.html AtomicParsley documentation]
