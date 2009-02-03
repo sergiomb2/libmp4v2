@@ -1,61 +1,65 @@
 #summary Description of iTunes style metadata.
 
+<wiki:toc max_depth="1" />
+
 = Introduction =
 
 Description of currently known iTunes tags.
 
+*Please Note: This document currently only describes the new, unfinished, metadata connivence API. Information about the old API will be back later*
+
 = Tags used by iTunes =
 
 || Element || Tag || Data Type || Comment || mp4v2 Name* ||
-|| Album || ©alb || UTF-8 string  || || Album ||
-|| Album Artist || aART || UTF-8 string || || AlbumArtist ||
-|| Artist || ©ART || UTF-8 string || || Artist ||
-|| Comment || ©cmt || UTF-8 string || || Comment ||
-|| Cover Art || covr || JPEG/PNG/BMP || May have multiple data atoms || CoverArt ||
-|| Copyright || cprt || UTF-8 string || Only ISO standard tag || Copyright ||
-|| Release Date || ©day || UTF-8 string || YYYY-MM-DD format, may be incomplete (e.g. just the year) || ReleaseDate ||
-|| Encoded By  || ©enc || UTF-8 string || Person/company who encoded the file || EncodedBy ||
-|| Genre, Pre-defined || gnre || enum || Standard Genres according to ID3, the iTunes tag is one greater the the corresponding ID3 tag || Genre ||
-|| Genre, User defined || ©gen || UTF-8 string || || Genre ||
-|| Name || ©nam || UTF-8 string || || Name ||
-|| Encoding Tool || ©too ||  UTF-8 string || Software used for encoding || Tool ||
-|| Composer || ©wrt ||  UTF-8 string || || Composer ||
-|| Compilation || cpil || 8-bit integer  (boolean) || || Compilation ||
-|| Disc Number || disk || binary || || Disk ||
-|| Grouping || grup ||  UTF-8 string || like TIT1 in ID3 || Grouping ||
-|| Content Rating || rtng || 8-bit integer || Explicit/Clean label || Explicit (currently read only) ||
-|| Track Number || trkn || binary || || Track ||
-|| BPM || tmpo ||16-bit integer || || BPM ||
-|| Gapless Playback || pgap || 8-bit integer (boolean) || || PartOfGaplessAlbum  ||
-|| Category || catg || UTF-8 string || Used for Podcasts || Category (read only) ||
-|| Keywords || keyw || UTF-8 string || Used for Podcasts || Keywords (read only) ||
-|| Podcast || pcst || 8-bit integer  (boolean) || || Podcast (read only) ||
+|| Name || ©nam || UTF-8 string || || name ||
+|| Artist || ©ART || UTF-8 string || || artist ||
+|| Album Artist || aART || UTF-8 string || || albumArtist ||
+|| Album || ©alb || UTF-8 string  || || album ||
+|| Grouping || grup ||  UTF-8 string || like TIT1 in ID3 || grouping ||
+|| Composer || ©wrt ||  UTF-8 string || || composer ||
+|| Comment || ©cmt || UTF-8 string || || comments ||
+|| Genre, Pre-defined || gnre || enum || Standard Genres according to ID3, the iTunes tag is one greater the the corresponding ID3 tag || genre ||
+|| Genre, User defined || ©gen || UTF-8 string || || genre ||
+|| Release Date || ©day || UTF-8 string || YYYY-MM-DD format, may be incomplete (e.g. just the year) || releaseDate ||
+|| Track Number || trkn || binary || || ||
+|| Disc Number || disk || binary || || ||
+|| BPM || tmpo ||16-bit integer || || beatsPerMinute (read only) ||
+|| Compilation || cpil || 8-bit integer  (boolean) || || compilation (read only) ||
+|| TV Show Name || tvsh || UTF-8 string  || || tvShow (read only) ||
+|| TV Episode ID || tven || UTF-8 string  || || tvEpisodeID (read only) ||
+|| TV Season || tvsn || 32-bit integer  || || tvSeason (read only) ||
+|| TV Episode || tves || 32-bit integer  || || tvEpisode (read only) ||
+|| TV Network || tvnn || UTF-8 string  || || tvNetwork (read only) ||
+|| Description || desc || UTF-8 string || Short description || description ||
+|| Long description || ldes || UTF-8 string || Not limited to 255 bytes. || longDescription (read only) ||
+|| Lyrics || ©lyr || UTF-8 string || Not limited to 255 bytes. || lyrics (read only) ||
+|| Sort Name || sonm || UTF-8 string  || || sortName (read only) ||
+|| Sort Artist || soar || UTF-8 string  || || sortArtist (read only) ||
+|| Sort Album Artist || soaa || UTF-8 string  || || sortAlbumArtist (read only) ||
+|| Sort Album || soal || UTF-8 string  || || sortAlbum (read only) ||
+|| Sort Composer || soco || UTF-8 string  || || sortComposer (read only) ||
+|| Sort Show || sosn || UTF-8 string  || || sortTVShow (read only) ||
+|| Cover Art || covr || JPEG/PNG/BMP || May have multiple data atoms || artwork ||
+|| Copyright || cprt || UTF-8 string || Only ISO standard tag || copyright ||
+|| Encoding Tool || ©too ||  UTF-8 string || Software used for encoding || encodingTool ||
+|| Encoded By  || ©enc || UTF-8 string || Person/company who encoded the file || encodedBy ||
+|| Purchase Date || purd || UTF-8 string  || || purchaseDate (read only) ||
+|| Podcast || pcst || 8-bit integer  (boolean) || || podcast (read only) ||
 || Podcast URL || purl ||  || || ||
-|| Description || desc || UTF-8 string || Short description|| ShortDescription ||
-|| Long description || ldes || UTF-8 string || Not limited to 255 bytes. || LongDescription (read only) ||
-|| Lyrics || ©lyr || UTF-8 string || Not limited to 255 bytes. || Lyrics (read only) ||
-|| TV Network Name || tvnn || UTF-8 string  || || TVNetworkName (read only) ||
-|| TV Show Name || tvsh || UTF-8 string  || || TVShow (read only) ||
-|| TV Episode Number || tven || UTF-8 string  || || TVEpisodeNumber (read only) ||
-|| TV Season || tvsn || 32-bit integer  || || TVSeason (read only) ||
-|| TV Episode || tves || 32-bit integer  || || TVEpisode ||
-|| Purchase Date || purd || UTF-8 string  || || PurchaseDate (read only) ||
-|| Purchase Account || apID || UTF-8 string  || || PurchaserAccount (read only) ||
-|| Sort Album || soal || UTF-8 string  || || SortAlbum (read only)  ||
-|| Sort Name || sonm || UTF-8 string  || || SortName (read only) ||
-|| Sort Artist || soar || UTF-8 string  || || SortArtist (read only) ||
-|| Sort Album Artist || soaa || UTF-8 string  || || SortAlbumArtist (read only) ||
-|| Sort Composer || soco || UTF-8 string  || || SortComposer (read only) ||
-|| Sort Show || sosn || UTF-8 string  || || SortTVShow (read only) ||
-|| HD Video || hdvd || 8-bit integer  (boolean)  || || HDVideo ||
-|| Media Type || stik || 8-bit integer (enum)  || || MediaType (read only) ||
-|| || ©st3 ||  UTF-8 string || Use? || ||
-|| || cnID || 32-bit integer || Use? || CNID (read only) ||
+|| Keywords || keyw || UTF-8 string || Used for Podcasts || keywords (read only) ||
+|| Category || catg || UTF-8 string || Used for Podcasts || category (read only) ||
+|| HD Video || hdvd || 8-bit integer  (boolean)  || || hdVideo (read only) ||
+|| Media Type || stik || 8-bit integer (enum)  || || mediaType (read only) ||
+|| Content Rating || rtng || 8-bit integer || Explicit/Clean label || contentRating (read only) ||
+|| Gapless Playback || pgap || 8-bit integer (boolean) || || gapless (read only) ||
+|| Purchase Account || apID || UTF-8 string  || || iTunesAccount (read only) ||
+|| Account Type|| akID || 8-bit integer || Identifies the iTunes Store account type  || iTunesAccountType (read only) ||
+|| || cnID || 32-bit integer || Use? || cnID (read only) ||
+|| Country Code || sfID || 32-bit integer || Identifies in which iTunes Store a file was bought  || iTunesCountry (read only) ||
 || || atID || 32-bit integer || Use? || ||
 || || plID || 64-bit integer || Use? || ||
 || || geID || 32-bit integer || Use? || ||
-|| || sfID || 32-bit integer || Identifies in which iTunes Store a file was bought  || ||
-|| || akID || 8-bit integer || Identifies the iTunes account type (Apple or AOL) || ||
+|| || ©st3 ||  UTF-8 string || Use? || ||
 
 *A blank field means that this tag is currently not supported by libmp4v2
 Only one gerne tag (gnre or ©gen) is permitted at a time.
