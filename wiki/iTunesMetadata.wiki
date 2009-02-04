@@ -1,6 +1,6 @@
 #summary Description of iTunes style metadata.
 
-<wiki:toc max_depth="1" />
+<wiki:toc max_depth="2" />
 
 = Introduction =
 
@@ -67,10 +67,29 @@ Only one gerne tag (gnre or ©gen) is permitted at a time.
 The MP4GetMetadataGerne functions will read whichever is there.
 The MP4SetMetadataGerne trys to set the grne tag if its a match to an ID3V1 genre, else it sets the ©gen tag.
 
+== Media Type (stik) ==
+|| Media Type || stik ||
+|| Movie || 0 ||
+|| Normal (Music) || 1 ||
+|| Audiobook || 2 ||
+|| Music Video || 6 ||
+|| Short Film || 9 ||
+|| TV Show || 10 ||
+|| Booklet || 11 ||
+
+
+== Content Rating (rtng) ==
+|| Rating || rtng ||
+|| None || 0 ||
+|| Clean || 2 ||
+|| Explicit || 4 ||
+
+
 == iTunes Store Account Type (akID) ==
 || Account Type || akID ||
 || iTunes || 0 ||
 || AOL || 1 ||
+
 
 == iTunes Store Country Codes (sfID) ==
 || Country || ISO 3166-1 alpha-3 Code || sfID ||
