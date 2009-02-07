@@ -23,16 +23,16 @@ Description of currently known iTunes tags.
 || Release Date || ©day || UTF-8 string || YYYY-MM-DD format, may be incomplete (e.g. just the year) || releaseDate ||
 || Track Number || trkn || binary || || ||
 || Disc Number || disk || binary || || ||
-|| BPM || tmpo ||16-bit integer || || beatsPerMinute (read only) ||
-|| Compilation || cpil || 8-bit integer  (boolean) || || compilation (read only) ||
+|| Tempo || tmpo ||16-bit integer || in beats per minute || tempo ||
+|| Compilation || cpil || 8-bit integer  (boolean) || || compilation ||
 || TV Show Name || tvsh || UTF-8 string  || || tvShow (read only) ||
 || TV Episode ID || tven || UTF-8 string  || || tvEpisodeID (read only) ||
 || TV Season || tvsn || 32-bit integer  || || tvSeason (read only) ||
-|| TV Episode || tves || 32-bit integer  || || tvEpisode (read only) ||
+|| TV Episode || tves || 32-bit integer  || || tvEpisode ||
 || TV Network || tvnn || UTF-8 string  || || tvNetwork (read only) ||
 || Description || desc || UTF-8 string || Short description || description ||
-|| Long description || ldes || UTF-8 string || Not limited to 255 bytes. || longDescription (read only) ||
-|| Lyrics || ©lyr || UTF-8 string || Not limited to 255 bytes. || lyrics (read only) ||
+|| Long description || ldes || UTF-8 string || Not limited to 255 bytes. || longDescription ||
+|| Lyrics || ©lyr || UTF-8 string || Not limited to 255 bytes. || lyrics ||
 || Sort Name || sonm || UTF-8 string  || || sortName (read only) ||
 || Sort Artist || soar || UTF-8 string  || || sortArtist (read only) ||
 || Sort Album Artist || soaa || UTF-8 string  || || sortAlbumArtist (read only) ||
@@ -48,13 +48,13 @@ Description of currently known iTunes tags.
 || Podcast URL || purl ||  || || ||
 || Keywords || keyw || UTF-8 string || Used for Podcasts || keywords (read only) ||
 || Category || catg || UTF-8 string || Used for Podcasts || category (read only) ||
-|| HD Video || hdvd || 8-bit integer  (boolean)  || || hdVideo (read only) ||
-|| Media Type || stik || 8-bit integer (enum)  || || mediaType (read only) ||
+|| HD Video || hdvd || 8-bit integer  (boolean)  || || hdVideo ||
+|| Media Type || stik || 8-bit integer (enum)  || || mediaType ||
 || Content Rating || rtng || 8-bit integer || Explicit/Clean label || contentRating (read only) ||
-|| Gapless Playback || pgap || 8-bit integer (boolean) || || gapless (read only) ||
+|| Gapless Playback || pgap || 8-bit integer (boolean) || || gapless ||
 || Purchase Account || apID || UTF-8 string  || || iTunesAccount (read only) ||
 || Account Type|| akID || 8-bit integer || Identifies the iTunes Store account type  || iTunesAccountType (read only) ||
-|| || cnID || 32-bit integer || Use? || cnID (read only) ||
+|| || cnID || 32-bit integer || Use? || cnID ||
 || Country Code || sfID || 32-bit integer || Identifies in which iTunes Store a file was bought  || iTunesCountry (read only) ||
 || || atID || 32-bit integer || Use? || ||
 || || plID || 64-bit integer || Use? || ||
