@@ -21,15 +21,15 @@ Description of currently known iTunes tags.
 || Genre, Pre-defined || gnre || enum || Standard Genres according to ID3, the iTunes tag is one greater the the corresponding ID3 tag || genre ||
 || Genre, User defined || ©gen || UTF-8 string || || genre ||
 || Release Date || ©day || UTF-8 string || YYYY-MM-DD format, may be incomplete (e.g. just the year) || releaseDate ||
-|| Track Number || trkn || binary || || ||
-|| Disc Number || disk || binary || || ||
+|| Track Number || trkn || binary || || track ||
+|| Disc Number || disk || binary || || disk ||
 || Tempo || tmpo ||16-bit integer || in beats per minute || tempo ||
 || Compilation || cpil || 8-bit integer  (boolean) || || compilation ||
-|| TV Show Name || tvsh || UTF-8 string  || || tvShow (read only) ||
-|| TV Episode ID || tven || UTF-8 string  || || tvEpisodeID (read only) ||
-|| TV Season || tvsn || 32-bit integer  || || tvSeason (read only) ||
+|| TV Show Name || tvsh || UTF-8 string  || || tvShow ||
+|| TV Episode ID || tven || UTF-8 string  || || tvEpisodeID ||
+|| TV Season || tvsn || 32-bit integer  || || tvSeason ||
 || TV Episode || tves || 32-bit integer  || || tvEpisode ||
-|| TV Network || tvnn || UTF-8 string  || || tvNetwork (read only) ||
+|| TV Network || tvnn || UTF-8 string  || || tvNetwork ||
 || Description || desc || UTF-8 string || Short description || description ||
 || Long description || ldes || UTF-8 string || Not limited to 255 bytes. || longDescription ||
 || Lyrics || ©lyr || UTF-8 string || Not limited to 255 bytes. || lyrics ||
