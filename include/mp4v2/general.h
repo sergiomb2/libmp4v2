@@ -35,6 +35,17 @@ typedef struct Virtual_IO
     VIRTUALIO_CLOSE Close;
 } Virtual_IO_t;
 
+typedef enum {
+    MP4LogNone = 0,
+    MP4LogError = 1,
+    MP4LogWarning = 2,
+    MP4LogInfo = 3,
+    MP4LogVerbose1 = 4,
+    MP4LogVerbose2 = 5,
+    MP4LogVerbose3 = 6,
+    MP4LogVerbose4 = 7
+}  MP4LogLevel;
+
 /*****************************************************************************/
 
 typedef void (*error_msg_func_t)(
@@ -48,6 +59,11 @@ typedef void (*lib_message_func_t)(
     const char* lib,
     const char* fmt,
     ... );
+
+typedef void (*MP4LogCallback)(
+    MP4LogLevel loglevel,
+    const char* fmt,
+    va_list     ap );
 
 /*****************************************************************************/
 
@@ -488,6 +504,13 @@ MP4V2_EXPORT
 void MP4SetLibFunc(
     lib_message_func_t libfunc );
 
+/** Set the function to call in place of default logging behavior
+ *
+ * @param cb_func the function to call
+ */
+MP4V2_EXPORT
+void MP4SetLogCallback(
+    MP4LogCallback cb_func );
 /** @} ***********************************************************************/
 
 #endif /* MP4V2_GENERAL_H */
