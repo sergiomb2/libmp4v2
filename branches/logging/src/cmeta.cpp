@@ -40,7 +40,7 @@
 #include "src/impl.h"
 
 #define PRINT_ERROR(e) \
-    VERBOSE_ERROR(((MP4File*)hFile)->GetVerbosity(), e->Print());
+    VERBOSE_ERROR(((MP4File*)hFile)->verbosity, e->Print());
 
 using namespace mp4v2::impl;
 
@@ -885,7 +885,7 @@ MP4TagsFetch( const MP4Tags* tags, MP4FileHandle hFile )
         cpp->c_fetch( c, hFile );
     }
     catch( MP4Error* e ) {
-        VERBOSE_ERROR( static_cast<MP4File*>(hFile)->GetVerbosity(), e->Print() );
+        VERBOSE_ERROR( static_cast<MP4File*>(hFile)->verbosity, e->Print() );
         delete e;
     }
 }
@@ -922,7 +922,7 @@ MP4TagsStore( const MP4Tags* tags, MP4FileHandle hFile )
         cpp->c_store( c, hFile );
     }
     catch( MP4Error* e ) {
-        VERBOSE_ERROR( static_cast<MP4File*>(hFile)->GetVerbosity(), e->Print() );
+        VERBOSE_ERROR( static_cast<MP4File*>(hFile)->verbosity, e->Print() );
         delete e;
     }
 }

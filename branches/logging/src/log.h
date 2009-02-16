@@ -41,32 +41,44 @@ public:
     const MP4LogLevel&          verbosity;
 
 public:
-    Log( MP4LogLevel = MP4LogNone );
+    Log( MP4LogLevel = MP4_LOG_NONE );
     Log( uint32_t );
     virtual ~Log();
 
     static void setLogCallback ( MP4LogCallback );
 
+    uint32_t getVerbosity() const;
     void setVerbosity   ( MP4LogLevel );
     void setVerbosity   ( uint32_t );
 
-    void errorf ( const char* format, ... );
-    void warningf ( const char* format, ... );
-    void infof ( const char* format, ... );
-    void verbose1f ( const char* format, ... );
-    void verbose2f ( const char* format, ... );
-    void verbose3f ( const char* format, ... );
-    void verbose4f ( const char* format, ... );
+    void errorf ( const char* format, ... ) MP4V2_WFORMAT_PRINTF(2,3);
+    void warningf ( const char* format, ... ) MP4V2_WFORMAT_PRINTF(2,3);
+    void infof ( const char* format, ... ) MP4V2_WFORMAT_PRINTF(2,3);
+    void verbose1f ( const char* format, ... ) MP4V2_WFORMAT_PRINTF(2,3);
+    void verbose2f ( const char* format, ... ) MP4V2_WFORMAT_PRINTF(2,3);
+    void verbose3f ( const char* format, ... ) MP4V2_WFORMAT_PRINTF(2,3);
+    void verbose4f ( const char* format, ... ) MP4V2_WFORMAT_PRINTF(2,3);
 
     void printf ( MP4LogLevel   verbosity_,
-                  const char*   format, ... );
+                  const char*   format, ... ) MP4V2_WFORMAT_PRINTF(2,3);
     void vprintf ( MP4LogLevel  verbosity_,
-                   const char*  format, va_list ap );
+                   const char*  format, va_list ap ) MP4V2_WFORMAT_PRINTF(2,3);
+
+    void hexDump ( MP4LogLevel  verbosity_,
+                   uint8_t      *pBytes,
+                   uint32_t     numBytes,
+                   const char*  format, ... ) MP4V2_WFORMAT_PRINTF(5,6);
 
 private:
     static MP4LogLevel detailsToLevel ( uint32_t );
 };
 
+/**
+ * A global (at least to mp4v2) log object for code that
+ * needs to log something but doesn't otherwise have access
+ * to one
+ */
+extern Log log;
 ///////////////////////////////////////////////////////////////////////////////
 
 }} // namespace mp4v2::impl

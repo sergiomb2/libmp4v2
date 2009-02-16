@@ -83,8 +83,8 @@ void MP4TextAtom::Generate()
         AddPropertiesGmhdType();
         GenerateGmhdType();
     } else {
-        VERBOSE_WARNING(m_pFile->GetVerbosity(),
-                        printf("Warning: text atom in unexpected context, can not generate"));
+        ASSERT(m_pFile);
+        m_pFile->warningf("%s text atom in unexpected context, can not generate", __FUNCTION__);
     }
 
 }

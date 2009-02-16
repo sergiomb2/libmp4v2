@@ -39,7 +39,7 @@
 #include "src/impl.h"
 
 #define PRINT_ERROR(e) \
-    VERBOSE_ERROR(((MP4File*)hFile)->GetVerbosity(), e->Print());
+    VERBOSE_ERROR(((MP4File*)hFile)->verbosity, e->Print());
 
 using namespace mp4v2::impl;
 
@@ -195,7 +195,7 @@ extern "C" {
     {
         if (MP4_IS_VALID_FILE_HANDLE(hFile)) {
             try {
-                return ((MP4File*)hFile)->GetVerbosity();
+                return ((MP4File*)hFile)->verbosity;
             }
             catch (MP4Error* e) {
                 PRINT_ERROR(e);
@@ -209,7 +209,7 @@ extern "C" {
     {
         if (MP4_IS_VALID_FILE_HANDLE(hFile)) {
             try {
-                ((MP4File*)hFile)->SetVerbosity(verbosity);
+                ((MP4File*)hFile)->setVerbosity(verbosity);
                 return;
             }
             catch (MP4Error* e) {

@@ -73,9 +73,7 @@ void MP4File::MakeIsmaCompliant(bool addIsmaComplianceSdp)
         audio_media_data_name = MP4GetTrackMediaDataName(this, audioTrackId);
         if (!(ATOMID(audio_media_data_name) == ATOMID("mp4a") ||
                 ATOMID(audio_media_data_name) == ATOMID("enca"))) {
-            VERBOSE_ERROR(m_verbosity,
-                          printf("MakeIsmaCompliant:can't make ISMA compliant when file contains an %s track\n", audio_media_data_name);
-                         );
+            errorf("MakeIsmaCompliant:can't make ISMA compliant when file contains an %s track", audio_media_data_name);
             return;
         }
     }
@@ -85,15 +83,14 @@ void MP4File::MakeIsmaCompliant(bool addIsmaComplianceSdp)
         video_media_data_name = MP4GetTrackMediaDataName(this, videoTrackId);
         if (!(ATOMID(video_media_data_name) == ATOMID("mp4v") ||
                 ATOMID(video_media_data_name) == ATOMID("encv"))) {
-            VERBOSE_ERROR(m_verbosity,
-                          printf("MakeIsmaCompliant:can't make ISMA compliant when file contains an %s track\n", video_media_data_name);
-                         );
+            errorf("%s: %s: can't make ISMA compliant when file contains an %s track", __FUNCTION__, 
+                   m_fileName ? m_fileName : "(null)", video_media_data_name);
             return;
         }
-        uint32_t verb = GetVerbosity();
-        SetVerbosity(verb & ~MP4_DETAILS_ERROR);
+        uint32_t verb = this->getVerbosity();
+        setVerbosity(verb & ~MP4_DETAILS_ERROR);
         videoProfile = MP4GetVideoProfileLevel(this, videoTrackId);
-        SetVerbosity(verb);
+        setVerbosity(verb);
     }
 
     m_useIsma = true;
@@ -200,8 +197,7 @@ void MP4File::MakeIsmaCompliant(bool addIsmaComplianceSdp)
 
     SetSessionSdp(sdpBuf);
 
-    VERBOSE_ISMA(GetVerbosity(),
-                 printf("IOD SDP = %s\n", sdpBuf));
+    verbose1f("IOD SDP = %s", sdpBuf);
 
     MP4Free(iodBase64);
     iodBase64 = NULL;
@@ -280,8 +276,7 @@ void MP4File::CreateIsmaIodFromFile(
         &pBytes,
         &numBytes);
 
-    VERBOSE_ISMA(GetVerbosity(),
-                 printf("OD data =\n"); MP4HexDump(pBytes, numBytes));
+    hexDump(MP4_LOG_VERBOSE1, pBytes, numBytes, "OD data");
 
     char* odCmdBase64 = MP4ToBase64(pBytes, numBytes);
 
@@ -297,8 +292,7 @@ void MP4File::CreateIsmaIodFromFile(
                              (MP4Property**)&pUrlProperty))
         pUrlProperty->SetValue(urlBuf);
 
-    VERBOSE_ISMA(GetVerbosity(),
-                 printf("OD data URL = \042%s\042\n", urlBuf));
+    verbose1f("OD data URL = \042%s\042", urlBuf);
 
     MP4Free(odCmdBase64);
     odCmdBase64 = NULL;
@@ -353,8 +347,7 @@ void MP4File::CreateIsmaIodFromFile(
         &pBytes,
         &numBytes);
 
-    VERBOSE_ISMA(GetVerbosity(),
-                 printf("Scene data =\n"); MP4HexDump(pBytes, numBytes));
+    hexDump(MP4_LOG_VERBOSE1, pBytes, numBytes, "Scene data");
 
     char *sceneCmdBase64 = MP4ToBase64(pBytes, numBytes);
 
@@ -367,8 +360,7 @@ void MP4File::CreateIsmaIodFromFile(
                                 (MP4Property**)&pUrlProperty))
         pUrlProperty->SetValue(urlBuf);
 
-    VERBOSE_ISMA(GetVerbosity(),
-                 printf("Scene data URL = \042%s\042\n", urlBuf));
+    verbose1f("Scene data URL = \042%s\042", urlBuf);
 
     MP4Free(sceneCmdBase64);
     sceneCmdBase64 = NULL;
@@ -412,8 +404,7 @@ void MP4File::CreateIsmaIodFromFile(
 
     delete pIod;
 
-    VERBOSE_ISMA(GetVerbosity(),
-                 printf("IOD data =\n"); MP4HexDump(*ppBytes, *pNumBytes));
+    hexDump(MP4_LOG_VERBOSE1, *ppBytes, *pNumBytes, "IOD data");
 }
 
 void MP4File::CreateIsmaIodFromParams(
@@ -460,8 +451,7 @@ void MP4File::CreateIsmaIodFromParams(
         &pBytes,
         &numBytes);
 
-    VERBOSE_ISMA(GetVerbosity(),
-                 printf("Scene data =\n"); MP4HexDump(pBytes, numBytes));
+    hexDump(MP4_LOG_VERBOSE1, pBytes, numBytes, "Scene data");
 
     char* sceneCmdBase64 = MP4ToBase64(pBytes, numBytes);
 
@@ -471,8 +461,7 @@ void MP4File::CreateIsmaIodFromParams(
              "data:application/mpeg4-bifs-au;base64,%s",
              sceneCmdBase64);
 
-    VERBOSE_ISMA(GetVerbosity(),
-                 printf("Scene data URL = \042%s\042\n", urlBuf));
+    verbose1f("Scene data URL = \042%s\042", urlBuf);
 
     /* MP4Descriptor* pSceneEsd = */
     CreateESD(
@@ -539,8 +528,7 @@ void MP4File::CreateIsmaIodFromParams(
     delete pAudioEsdProperty;
     delete pVideoEsdProperty;
 
-    VERBOSE_ISMA(GetVerbosity(),
-                 printf("OD data = %" PRIu64 " bytes\n", numBytes); MP4HexDump(pBytes, numBytes));
+    hexDump(MP4_LOG_VERBOSE1,pBytes, numBytes,"OD data = %" PRIu64 " bytes",numBytes);
 
     char* odCmdBase64 = MP4ToBase64(pBytes, numBytes);
 
@@ -550,8 +538,7 @@ void MP4File::CreateIsmaIodFromParams(
                  "data:application/mpeg4-od-au;base64,%s",
                  odCmdBase64);
 
-        VERBOSE_ISMA(GetVerbosity(),
-                     printf("OD data URL = \042%s\042\n", urlBuf));
+        verbose1f("OD data URL = \042%s\042", urlBuf);
 
         /* MP4Descriptor* pOdEsd = */
         CreateESD(
@@ -578,8 +565,7 @@ void MP4File::CreateIsmaIodFromParams(
 
     delete pIod;
 
-    VERBOSE_ISMA(GetVerbosity(),
-                 printf("IOD data =\n"); MP4HexDump(*ppIodBytes, *pIodNumBytes));
+    hexDump(MP4_LOG_VERBOSE1,*ppIodBytes, *pIodNumBytes,"IOD data");
 }
 
 void MP4File::CreateESD(
@@ -807,8 +793,9 @@ void MP4File::CreateIsmaODUpdateCommandFromFileForStream(
 
     CreateIsmaODUpdateCommandForStream(
         pAudioEsd, pVideoEsd, ppBytes, pNumBytes);
-    VERBOSE_ISMA(GetVerbosity(),
-                 printf("After CreateImsaODUpdateCommandForStream len %" PRIu64 " =\n", *pNumBytes); MP4HexDump(*ppBytes, *pNumBytes));
+    hexDump(MP4_LOG_VERBOSE1, *ppBytes, *pNumBytes,
+            "After CreateImsaODUpdateCommandForStream len %" PRIu64,*pNumBytes);
+
     // return SL config values to 2 (file)
     // return ESID values to 0
     if (pAudioSLConfigPredef) {

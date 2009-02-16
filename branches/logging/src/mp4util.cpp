@@ -403,7 +403,7 @@ uint64_t MP4ConvertTime(uint64_t t,
 }
 
 const char* MP4NormalizeTrackType (const char* type,
-                                   uint32_t verbosity)
+                                   MP4LogLevel verbosity)
 {
     if (!strcasecmp(type, "vide")
             || !strcasecmp(type, "video")
@@ -437,9 +437,10 @@ const char* MP4NormalizeTrackType (const char* type,
     if (strcasecmp(type, "cntl") == 0) {
         return MP4_CNTL_TRACK_TYPE;
     }
-    VERBOSE_WARNING(verbosity,
-                    printf("Attempt to normalize %s did not match\n",
-                           type));
+
+    log.printf(verbosity,"Attempt to normalize %s did not match",
+               type);
+
     return type;
 }
 

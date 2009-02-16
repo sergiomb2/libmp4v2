@@ -43,9 +43,10 @@ class MP4BytesProperty;
 class MP4Descriptor;
 class MP4DescriptorProperty;
 
-class MP4File {
+class MP4File : public Log {
 public: /* equivalent to MP4 library API */
     MP4File(uint32_t verbosity = 0);
+    MP4File(MP4LogLevel verbosity);
     ~MP4File();
 
     /* file operations */
@@ -62,15 +63,6 @@ public: /* equivalent to MP4 library API */
     void Dump(FILE* pDumpFile = NULL, bool dumpImplicits = false);
     bool CopyClose( const string& copyFileName );
     void Close();
-
-    /* library property per file */
-
-    uint32_t GetVerbosity() {
-        return m_verbosity;
-    }
-    void SetVerbosity(uint32_t verbosity) {
-        m_verbosity = verbosity;
-    }
 
     bool Use64Bits(const char *atomName);
     void Check64BitStatus(const char *atomName);
@@ -855,6 +847,7 @@ public:
     void SetDisableWriteProtection( bool );
 
 protected:
+    void Init();
     void Open(const char* fmode);
     void ReadFromFile();
     void GenerateTracks();
@@ -969,7 +962,6 @@ protected:
     MP4Integer32Array m_trakIds;
     MP4TrackArray   m_pTracks;
     MP4TrackId      m_odTrackId;
-    uint32_t        m_verbosity;
     char            m_mode;
     bool            m_disableWriteProtection;
     uint32_t        m_createFlags;

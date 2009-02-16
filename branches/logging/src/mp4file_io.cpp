@@ -95,7 +95,7 @@ void MP4File::ReadBytes(uint8_t* pBytes, uint32_t numBytes, FILE* pFile)
     }
 
     ASSERT(pBytes);
-    WARNING(m_numReadBits > 0);
+    WARNING(this,m_numReadBits > 0);
 
     if (m_memoryBuffer == NULL) {
         if (pFile == NULL) {
@@ -446,7 +446,7 @@ char* MP4File::ReadCountedString(uint8_t charSize, bool allowExpandedCount, uint
          * a non counted string has been used in the place of a
          * counted string).
          */  
-        WARNING(charLength > fixedLength);
+        WARNING(this,charLength > fixedLength);
         charLength = fixedLength - 1U;
     }
 

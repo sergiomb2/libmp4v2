@@ -37,11 +37,11 @@ namespace mp4v2 { namespace impl {
         }
 #endif
 
-#define WARNING(expr) \
+#define WARNING(logobj,expr) \
+    ASSERT(logobj); \
     if (expr) { \
-        fflush(stdout); \
-        fprintf(stderr, "Warning (%s) in %s at line %u\n", \
-            LIBMPV42_STRINGIFY(expr), __FILE__, __LINE__); \
+        (logobj)->errorf("Warning (%s) in %s at line %u", \
+                         LIBMPV42_STRINGIFY(expr), __FILE__, __LINE__); \
     }
 
 #define VERBOSE(exprverbosity, verbosity, expr) \
@@ -49,42 +49,6 @@ namespace mp4v2 { namespace impl {
 
 #define VERBOSE_ERROR(verbosity, expr)      \
     VERBOSE(MP4_DETAILS_ERROR, verbosity, expr)
-
-#define VERBOSE_WARNING(verbosity, expr)        \
-    VERBOSE(MP4_DETAILS_WARNING, verbosity, expr)
-
-#define VERBOSE_READ(verbosity, expr)       \
-    VERBOSE(MP4_DETAILS_READ, verbosity, expr)
-
-#define VERBOSE_READ_TABLE(verbosity, expr) \
-    VERBOSE((MP4_DETAILS_READ | MP4_DETAILS_TABLE), verbosity, expr)
-
-#define VERBOSE_READ_SAMPLE(verbosity, expr)    \
-    VERBOSE((MP4_DETAILS_READ | MP4_DETAILS_SAMPLE), verbosity, expr)
-
-#define VERBOSE_READ_HINT(verbosity, expr)  \
-    VERBOSE((MP4_DETAILS_READ | MP4_DETAILS_HINT), verbosity, expr)
-
-#define VERBOSE_WRITE(verbosity, expr)      \
-    VERBOSE(MP4_DETAILS_WRITE, verbosity, expr)
-
-#define VERBOSE_WRITE_TABLE(verbosity, expr)    \
-    VERBOSE((MP4_DETAILS_WRITE | MP4_DETAILS_TABLE), verbosity, expr)
-
-#define VERBOSE_WRITE_SAMPLE(verbosity, expr)   \
-    VERBOSE((MP4_DETAILS_WRITE | MP4_DETAILS_SAMPLE), verbosity, expr)
-
-#define VERBOSE_WRITE_HINT(verbosity, expr) \
-    VERBOSE((MP4_DETAILS_WRITE | MP4_DETAILS_HINT), verbosity, expr)
-
-#define VERBOSE_FIND(verbosity, expr)       \
-    VERBOSE(MP4_DETAILS_FIND, verbosity, expr)
-
-#define VERBOSE_ISMA(verbosity, expr)       \
-    VERBOSE(MP4_DETAILS_ISMA, verbosity, expr)
-
-#define VERBOSE_EDIT(verbosity, expr)       \
-    VERBOSE(MP4_DETAILS_EDIT, verbosity, expr)
 
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -166,7 +130,7 @@ char* MP4ToBase16(const uint8_t* pData, uint32_t dataSize);
 char* MP4ToBase64(const uint8_t* pData, uint32_t dataSize);
 
 const char* MP4NormalizeTrackType(const char* type,
-                                  uint32_t verbosity);
+                                  MP4LogLevel verbosity);
 
 ///////////////////////////////////////////////////////////////////////////////
 

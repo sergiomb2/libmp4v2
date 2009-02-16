@@ -36,14 +36,14 @@ typedef struct Virtual_IO
 } Virtual_IO_t;
 
 typedef enum {
-    MP4LogNone = 0,
-    MP4LogError = 1,
-    MP4LogWarning = 2,
-    MP4LogInfo = 3,
-    MP4LogVerbose1 = 4,
-    MP4LogVerbose2 = 5,
-    MP4LogVerbose3 = 6,
-    MP4LogVerbose4 = 7
+    MP4_LOG_NONE = 0,
+    MP4_LOG_ERROR = 1,
+    MP4_LOG_WARNING = 2,
+    MP4_LOG_INFO = 3,
+    MP4_LOG_VERBOSE1 = 4,
+    MP4_LOG_VERBOSE2 = 5,
+    MP4_LOG_VERBOSE3 = 6,
+    MP4_LOG_VERBOSE4 = 7
 }  MP4LogLevel;
 
 /*****************************************************************************/

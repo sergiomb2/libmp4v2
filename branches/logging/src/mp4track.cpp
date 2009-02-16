@@ -251,7 +251,7 @@ const char* MP4Track::GetType()
 void MP4Track::SetType(const char* type)
 {
     m_pTypeProperty->SetValue(MP4NormalizeTrackType(type,
-                              m_pFile->GetVerbosity()));
+                              m_pFile->verbosity));
 }
 
 void MP4Track::ReadSample(
@@ -290,9 +290,8 @@ void MP4Track::ReadSample(
     }
     *pNumBytes = sampleSize;
 
-    VERBOSE_READ_SAMPLE(m_pFile->GetVerbosity(),
-                        printf("ReadSample: track %u id %u offset 0x%" PRIx64 " size %u (0x%x)\n",
-                               m_trackId, sampleId, fileOffset, *pNumBytes, *pNumBytes));
+    m_pFile->verbose3f("ReadSample: track %u id %u offset 0x%" PRIx64 " size %u (0x%x)",
+                       m_trackId, sampleId, fileOffset, *pNumBytes, *pNumBytes);
 
     bool bufferMalloc = false;
     if (*ppBytes == NULL) {
@@ -308,24 +307,20 @@ void MP4Track::ReadSample(
         if (pStartTime || pDuration) {
             GetSampleTimes(sampleId, pStartTime, pDuration);
 
-            VERBOSE_READ_SAMPLE(m_pFile->GetVerbosity(),
-                                printf("ReadSample:  start %" PRIu64 " duration %" PRId64 "\n",
-                                       (pStartTime ? *pStartTime : 0),
-                                       (pDuration ? *pDuration : 0)));
+            m_pFile->verbose3f("ReadSample:  start %" PRIu64 " duration %" PRId64,
+                               (pStartTime ? *pStartTime : 0),
+                               (pDuration ? *pDuration : 0));
         }
         if (pRenderingOffset) {
             *pRenderingOffset = GetSampleRenderingOffset(sampleId);
 
-            VERBOSE_READ_SAMPLE(m_pFile->GetVerbosity(),
-                                printf("ReadSample:  renderingOffset %" PRId64 "\n",
-                                       *pRenderingOffset));
+            m_pFile->verbose3f("ReadSample:  renderingOffset %" PRId64,
+                               *pRenderingOffset);
         }
         if (pIsSyncSample) {
             *pIsSyncSample = IsSyncSample(sampleId);
 
-            VERBOSE_READ_SAMPLE(m_pFile->GetVerbosity(),
-                                printf("ReadSample:  isSyncSample %u\n",
-                                       *pIsSyncSample));
+            m_pFile->verbose3f("ReadSample:  isSyncSample %u",*pIsSyncSample);
         }
     }
 
@@ -388,9 +383,9 @@ void MP4Track::WriteSample(
 {
     uint8_t curMode = 0;
 
-    VERBOSE_WRITE_SAMPLE(m_pFile->GetVerbosity(),
-                         printf("WriteSample: track %u id %u size %u (0x%x) ",
-                                m_trackId, m_writeSampleId, numBytes, numBytes));
+    ASSERT(m_pFile);
+    m_pFile->verbose3f("WriteSample: track %u id %u size %u (0x%x) ",
+                       m_trackId, m_writeSampleId, numBytes, numBytes);
 
     if (pBytes == NULL && numBytes > 0) {
         throw new MP4Error("no sample data", "MP4WriteSample");
@@ -415,8 +410,7 @@ void MP4Track::WriteSample(
         duration = GetFixedSampleDuration();
     }
 
-    VERBOSE_WRITE_SAMPLE(m_pFile->GetVerbosity(),
-                         printf("duration %" PRIu64 "\n", duration));
+    m_pFile->verbose3f("duration %" PRIu64, duration);
 
     if ((m_isAmr == AMR_TRUE) &&
             (m_curMode != curMode)) {
@@ -459,15 +453,16 @@ void MP4Track::WriteChunkBuffer()
         return;
     }
 
+    ASSERT(m_pFile);
+
     uint64_t chunkOffset = m_pFile->GetPosition();
 
     // write chunk buffer
     m_pFile->WriteBytes(m_pChunkBuffer, m_chunkBufferSize);
 
-    VERBOSE_WRITE_SAMPLE(m_pFile->GetVerbosity(),
-                         printf("WriteChunk: track %u offset 0x%" PRIx64 " size %u (0x%x) numSamples %u\n",
-                                m_trackId, chunkOffset, m_chunkBufferSize,
-                                m_chunkBufferSize, m_chunkSamples));
+    m_pFile->verbose3f("WriteChunk: track %u offset 0x%" PRIx64 " size %u (0x%x) numSamples %u",
+                       m_trackId, chunkOffset, m_chunkBufferSize,
+                       m_chunkBufferSize, m_chunkSamples);
 
     UpdateSampleToChunk(m_writeSampleId,
                         m_pChunkCountProperty->GetValue() + 1,
@@ -644,10 +639,9 @@ void MP4Track::UpdateSampleSizes(MP4SampleId sampleId, uint32_t numBytes)
     if (m_bytesPerSample > 1) {
         if ((numBytes % m_bytesPerSample) != 0) {
             // error
-            VERBOSE_ERROR(m_pFile->GetVerbosity(),
-                          printf("UpdateSampleSize: numBytes %u not divisible by bytesPerSample %u sampleId %u\n",
-                                 numBytes, m_bytesPerSample, sampleId);
-                         );
+            ASSERT(m_pFile);
+            m_pFile->errorf("UpdateSampleSize: numBytes %u not divisible by bytesPerSample %u sampleId %u",
+                            numBytes, m_bytesPerSample, sampleId);
         }
         numBytes /= m_bytesPerSample;
     }
@@ -852,8 +846,8 @@ FILE* MP4Track::GetSampleFile(MP4SampleId sampleId)
 
         const char* url = pLocationProperty->GetValue();
 
-        VERBOSE_READ_SAMPLE(m_pFile->GetVerbosity(),
-                            printf("dref url = %s\n", url));
+        ASSERT(m_pFile);
+        m_pFile->verbose3f("dref url = %s", url);
 
         pFile = (FILE*)-1;
 
@@ -1033,6 +1027,7 @@ MP4SampleId MP4Track::GetSampleIdFromTime(
     MP4SampleId sid = 1;
     MP4Duration elapsed = 0;
 
+    ASSERT(m_pFile);
     for (uint32_t sttsIndex = 0; sttsIndex < numStts; sttsIndex++) {
         uint32_t sampleCount =
             m_pSttsSampleCountProperty->GetValue(sttsIndex);
@@ -1040,9 +1035,8 @@ MP4SampleId MP4Track::GetSampleIdFromTime(
             m_pSttsSampleDeltaProperty->GetValue(sttsIndex);
 
         if (sampleDelta == 0 && sttsIndex < numStts - 1) {
-            VERBOSE_READ(m_pFile->GetVerbosity(),
-                         printf("Warning: Zero sample duration, stts entry %u\n",
-                                sttsIndex));
+            m_pFile->verbose1f("Warning: Zero sample duration, stts entry %u",
+                               sttsIndex);
         }
 
         MP4Duration d = when - elapsed;
@@ -1499,9 +1493,9 @@ void MP4Track::ReadChunk(MP4ChunkId chunkId,
     *pChunkSize = GetChunkSize(chunkId);
     *ppChunk = (uint8_t*)MP4Malloc(*pChunkSize);
 
-    VERBOSE_READ_SAMPLE(m_pFile->GetVerbosity(),
-                        printf("ReadChunk: track %u id %u offset 0x%" PRIx64 " size %u (0x%x)\n",
-                               m_trackId, chunkId, chunkOffset, *pChunkSize, *pChunkSize));
+    ASSERT(m_pFile);
+    m_pFile->verbose3f("ReadChunk: track %u id %u offset 0x%" PRIx64 " size %u (0x%x)",
+                       m_trackId, chunkId, chunkOffset, *pChunkSize, *pChunkSize);
 
     uint64_t oldPos = m_pFile->GetPosition(); // only used in mode == 'w'
     try {
@@ -1527,15 +1521,16 @@ void MP4Track::ReadChunk(MP4ChunkId chunkId,
 void MP4Track::RewriteChunk(MP4ChunkId chunkId,
                             uint8_t* pChunk, uint32_t chunkSize)
 {
+    ASSERT(m_pFile);
+
     uint64_t chunkOffset = m_pFile->GetPosition();
 
     m_pFile->WriteBytes(pChunk, chunkSize);
 
     m_pChunkOffsetProperty->SetValue(chunkOffset, chunkId - 1);
 
-    VERBOSE_WRITE_SAMPLE(m_pFile->GetVerbosity(),
-                         printf("RewriteChunk: track %u id %u offset 0x%" PRIx64 " size %u (0x%x)\n",
-                                m_trackId, chunkId, chunkOffset, chunkSize, chunkSize));
+    m_pFile->verbose3f("RewriteChunk: track %u id %u offset 0x%" PRIx64 " size %u (0x%x)",
+                       m_trackId, chunkId, chunkOffset, chunkSize, chunkSize);
 }
 
 // map track type name aliases to official names
@@ -1770,11 +1765,11 @@ MP4SampleId MP4Track::GetSampleIdFromEditTime(
                 *pDuration = editSampleDuration;
             }
 
-            VERBOSE_EDIT(m_pFile->GetVerbosity(),
-                         printf("GetSampleIdFromEditTime: when %" PRIu64 " "
-                                "sampleId %u start %" PRIu64 " duration %" PRId64 "\n",
-                                editWhen, sampleId,
-                                editSampleStartTime, editSampleDuration));
+            ASSERT(m_pFile);
+            m_pFile->verbose2f("GetSampleIdFromEditTime: when %" PRIu64 " "
+                               "sampleId %u start %" PRIu64 " duration %" PRId64,
+                               editWhen, sampleId,
+                               editSampleStartTime, editSampleDuration);
 
             return sampleId;
         }

@@ -85,9 +85,9 @@ void MP4Descriptor::Read(MP4File* pFile)
 
 void MP4Descriptor::ReadHeader(MP4File* pFile)
 {
-    VERBOSE_READ(pFile->GetVerbosity(),
-                 printf("ReadDescriptor: pos = 0x%" PRIx64 "\n",
-                        pFile->GetPosition()));
+    ASSERT(pFile);
+    pFile->verbose1f("ReadDescriptor: pos = 0x%" PRIx64,
+                     pFile->GetPosition());
 
     // read tag and length
     uint8_t tag = pFile->ReadUInt8();
@@ -99,9 +99,8 @@ void MP4Descriptor::ReadHeader(MP4File* pFile)
     m_size = pFile->ReadMpegLength();
     m_start = pFile->GetPosition();
 
-    VERBOSE_READ(pFile->GetVerbosity(),
-                 printf("ReadDescriptor: tag 0x%02x data size %u (0x%x)\n",
-                        m_tag, m_size, m_size));
+    pFile->verbose1f("ReadDescriptor: tag 0x%02x data size %u (0x%x)",
+                     m_tag, m_size, m_size);
 }
 
 void MP4Descriptor::ReadProperties(MP4File* pFile,
@@ -128,17 +127,17 @@ void MP4Descriptor::ReadProperties(MP4File* pFile,
             if (remaining >= 0) {
                 pProperty->Read(pFile);
 
-                if (pProperty->GetType() == TableProperty) {
-                    VERBOSE_READ_TABLE(pFile->GetVerbosity(),
-                                       printf("Read: "); pProperty->Dump(stdout, 0, true));
-                } else {
-                    VERBOSE_READ(pFile->GetVerbosity(),
-                                 printf("Read: "); pProperty->Dump(stdout, 0, true));
+                MP4LogLevel thisVerbosity =
+                    (pProperty->GetType() == TableProperty) ?
+                    MP4_LOG_VERBOSE2 : MP4_LOG_VERBOSE1;
+
+                if (pFile->verbosity >= thisVerbosity) {
+                    pFile->printf(thisVerbosity,"Read: ");
+                    pProperty->Dump(stdout, 0, true);
                 }
             } else {
-                VERBOSE_ERROR(pFile->GetVerbosity(),
-                              printf("Overran descriptor, tag %u data size %u property %u\n",
-                                     m_tag, m_size, i));
+                pFile->errorf("Overran descriptor, tag %u data size %u property %u",
+                              m_tag, m_size, i);
                 throw new MP4Error("overran descriptor",
                                    "MP4Descriptor::ReadProperties");
             }
@@ -154,7 +153,7 @@ void MP4Descriptor::Write(MP4File* pFile)
     uint32_t numProperties = m_pProperties.Size();
 
     if (numProperties == 0) {
-        WARNING(numProperties == 0);
+        WARNING(pFile,numProperties == 0);
         return;
     }
 
@@ -199,7 +198,8 @@ void MP4Descriptor::Dump(FILE* pFile, uint8_t indent, bool dumpImplicits)
     uint32_t numProperties = m_pProperties.Size();
 
     if (numProperties == 0) {
-        WARNING(numProperties == 0);
+        // Note: using the global log object here.
+        WARNING(&log,numProperties == 0);
         return;
     }
     for (uint32_t i = 0; i < numProperties; i++) {
