@@ -172,10 +172,6 @@ if ADD_PLATFORM_WIN32
         libplatform/number/random_win32.cpp    \
         libplatform/process/process_win32.cpp  \
         libplatform/time/time_win32.cpp
-# libtool needs this on win32 to create shared libraries
-    libmp4v2_la_LDFLAGS = -no-undefined
-# And -D_WINDLL which we also need for a shared library
-    libmp4v2_la_CPPFLAGS = ${AM_CPPFLAGS} -D_WINDLL
 endif
 
 if ADD_UTIL
