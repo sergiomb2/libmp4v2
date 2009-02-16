@@ -43,6 +43,8 @@ MP4DrefAtom::MP4DrefAtom()
 
 void MP4DrefAtom::Read()
 {
+    ASSERT(m_pFile);
+
     /* do the usual read */
     MP4Atom::Read();
 
@@ -51,8 +53,7 @@ void MP4DrefAtom::Read()
         (MP4Integer32Property*)m_pProperties[2];
 
     if (m_pChildAtoms.Size() != pCount->GetValue()) {
-        VERBOSE_READ(GetVerbosity(),
-                     MP4Printf("Warning: dref inconsistency with number of entries"));
+        m_pFile->verbose1f("Warning: dref inconsistency with number of entries");
 
         /* fix it */
         pCount->SetReadOnly(false);

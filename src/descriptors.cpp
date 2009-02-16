@@ -497,6 +497,7 @@ MP4ContentIdDescriptor::MP4ContentIdDescriptor()
 
 void MP4ContentIdDescriptor::Read(MP4File* pFile)
 {
+    ASSERT(pFile);
     ReadHeader(pFile);
 
     /* read the first property, 'compatiblity' */
@@ -505,8 +506,7 @@ void MP4ContentIdDescriptor::Read(MP4File* pFile)
     /* if compatiblity != 0 */
     if (((MP4Integer8Property*)m_pProperties[0])->GetValue() != 0) {
         /* we don't understand it */
-        VERBOSE_READ(pFile->GetVerbosity(),
-                     printf("incompatible content id descriptor\n"));
+        pFile->verbose1f("incompatible content id descriptor");
         return;
     }
 

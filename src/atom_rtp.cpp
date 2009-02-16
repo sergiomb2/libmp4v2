@@ -75,8 +75,8 @@ void MP4RtpAtom::Generate()
         AddPropertiesHntiType();
         GenerateHntiType();
     } else {
-        VERBOSE_WARNING(m_pFile->GetVerbosity(),
-                        printf("Warning: rtp atom in unexpected context, can not generate"));
+        ASSERT(m_pFile);
+        m_pFile->warningf("rtp atom in unexpected context, can not generate");
     }
 }
 
@@ -106,8 +106,8 @@ void MP4RtpAtom::Read()
         AddPropertiesHntiType();
         ReadHntiType();
     } else {
-        VERBOSE_READ(m_pFile->GetVerbosity(),
-                     printf("rtp atom in unexpected context, can not read"));
+        ASSERT(m_pFile);
+        m_pFile->verbose1f("rtp atom in unexpected context, can not read");
     }
 
     Skip(); // to end of atom

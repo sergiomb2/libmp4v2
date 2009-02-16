@@ -1,0 +1,29 @@
+change log for logging branch
+
+$Revision: 5680 $
+$Date: 2009-01-30 17:25:34 -0800 (Fri, 30 Jan 2009) $
+
+-------------------
+
+(16-feb-09, dbyron)
+
+- First pass of actually using the Log class:
+
+  - MP4LogNone --> MP4_LOG_NONE
+  - add global log object (log, declared in log.h)
+  - change MP4File to inherit from Log
+    - remove m_verbosity member variable
+    - remove MP4File::GetVerbosity, SetVerbosity methods
+  - change MP4NormalizeTrackType to take MP4LogLevel
+  - replace VERBOSE_* with corresponding Log method calls
+  (VERBOSE_ERROR remains until exception handling gets
+  revisited)
+  - change WARNING macro to take a Log object as the first
+  argument
+  - add Log::hexDump to mostly replace MP4HexDump (though
+  MP4HexDump is still called if there's no logging callback)
+  - fix MP4_DETAILS_ALL handling in Log::detailsToLevel
+  - add uint32_t Log::getVerbosity() const
+  - add Log::hexDump
+  - add uint32_t Log::getVerbosity
+  - add Log::verbose3f, verbose4f
