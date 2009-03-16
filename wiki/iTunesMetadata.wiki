@@ -21,8 +21,8 @@ Description of currently known iTunes tags.
 || Genre, Pre-defined || gnre || enum || Standard Genres according to ID3, the iTunes tag is one greater the the corresponding ID3 tag || genre ||
 || Genre, User defined || ©gen || UTF-8 string || || genre ||
 || Release Date || ©day || UTF-8 string || YYYY-MM-DD format, may be incomplete (e.g. just the year) || releaseDate ||
-|| Track Number || trkn || binary || || track ||
-|| Disc Number || disk || binary || || disk ||
+|| Track Number || trkn || binary || || track (read only) ||
+|| Disc Number || disk || binary || || disk (read only) ||
 || Tempo || tmpo ||16-bit integer || in beats per minute || tempo ||
 || Compilation || cpil || 8-bit integer  (boolean) || || compilation ||
 || TV Show Name || tvsh || UTF-8 string  || || tvShow ||
@@ -33,12 +33,12 @@ Description of currently known iTunes tags.
 || Description || desc || UTF-8 string || Short description || description ||
 || Long description || ldes || UTF-8 string || Not limited to 255 bytes. || longDescription ||
 || Lyrics || ©lyr || UTF-8 string || Not limited to 255 bytes. || lyrics ||
-|| Sort Name || sonm || UTF-8 string  || || sortName (read only) ||
-|| Sort Artist || soar || UTF-8 string  || || sortArtist (read only) ||
-|| Sort Album Artist || soaa || UTF-8 string  || || sortAlbumArtist (read only) ||
-|| Sort Album || soal || UTF-8 string  || || sortAlbum (read only) ||
-|| Sort Composer || soco || UTF-8 string  || || sortComposer (read only) ||
-|| Sort Show || sosn || UTF-8 string  || || sortTVShow (read only) ||
+|| Sort Name || sonm || UTF-8 string  || || sortName ||
+|| Sort Artist || soar || UTF-8 string  || || sortArtist ||
+|| Sort Album Artist || soaa || UTF-8 string  || || sortAlbumArtist ||
+|| Sort Album || soal || UTF-8 string  || || sortAlbum ||
+|| Sort Composer || soco || UTF-8 string  || || sortComposer ||
+|| Sort Show || sosn || UTF-8 string  || || sortTVShow ||
 || Cover Art || covr || JPEG/PNG/BMP || May have multiple data atoms || artwork ||
 || Copyright || cprt || UTF-8 string || Only ISO standard tag || copyright ||
 || Encoding Tool || ©too ||  UTF-8 string || Software used for encoding || encodingTool ||
@@ -54,11 +54,11 @@ Description of currently known iTunes tags.
 || Gapless Playback || pgap || 8-bit integer (boolean) || || gapless ||
 || Purchase Account || apID || UTF-8 string  || || iTunesAccount (read only) ||
 || Account Type|| akID || 8-bit integer || Identifies the iTunes Store account type  || iTunesAccountType (read only) ||
-|| || cnID || 32-bit integer || Use? || cnID ||
+|| || cnID || 32-bit integer || iTunes Catalog ID, used for combing SD  and HD encodes in iTunes || cnID ||
 || Country Code || sfID || 32-bit integer || Identifies in which iTunes Store a file was bought  || iTunesCountry (read only) ||
-|| || atID || 32-bit integer || Use? || ||
+|| || atID || 32-bit integer || Use? || atID ||
 || || plID || 64-bit integer || Use? || ||
-|| || geID || 32-bit integer || Use? || ||
+|| || geID || 32-bit integer || Use? || geID ||
 || || ©st3 ||  UTF-8 string || Use? || ||
 
 *A blank field means that this tag is currently not supported by libmp4v2
@@ -75,6 +75,7 @@ The MP4SetMetadataGerne trys to set the grne tag if its a match to an ID3V1 genr
 || Music Video || 6 ||
 || Short Film || 9 ||
 || TV Show || 10 ||
+|| Booklet || 11 ||
 || Booklet || 11 ||
 
 
