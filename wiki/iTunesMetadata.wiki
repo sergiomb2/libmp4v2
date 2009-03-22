@@ -43,14 +43,14 @@ Description of currently known iTunes tags.
 || Copyright || cprt || UTF-8 string || Only ISO standard tag || copyright ||
 || Encoding Tool || ©too ||  UTF-8 string || Software used for encoding || encodingTool ||
 || Encoded By  || ©enc || UTF-8 string || Person/company who encoded the file || encodedBy ||
-|| Purchase Date || purd || UTF-8 string  || || purchaseDate (read only) ||
+|| Purchase Date || purd || UTF-8 string  || || purchaseDate ||
 || Podcast || pcst || 8-bit integer  (boolean) || || podcast (read only) ||
 || Podcast URL || purl ||  || || ||
 || Keywords || keyw || UTF-8 string || Used for Podcasts || keywords (read only) ||
 || Category || catg || UTF-8 string || Used for Podcasts || category (read only) ||
 || HD Video || hdvd || 8-bit integer  (boolean)  || || hdVideo ||
 || Media Type || stik || 8-bit integer (enum)  || || mediaType ||
-|| Content Rating || rtng || 8-bit integer || Explicit/Clean label || contentRating (read only) ||
+|| Content Rating || rtng || 8-bit integer || Explicit/Clean label || contentRating ||
 || Gapless Playback || pgap || 8-bit integer (boolean) || || gapless ||
 || Purchase Account || apID || UTF-8 string  || || iTunesAccount (read only) ||
 || Account Type|| akID || 8-bit integer || Identifies the iTunes Store account type  || iTunesAccountType (read only) ||
@@ -69,14 +69,14 @@ The MP4SetMetadataGerne trys to set the grne tag if its a match to an ID3V1 genr
 
 == Media Type (stik) ==
 || Media Type || stik ||
-|| Movie || 0 ||
+|| Movie (is now 9) || 0 ||
 || Normal (Music) || 1 ||
 || Audiobook || 2 ||
 || Music Video || 6 ||
-|| Short Film || 9 ||
+|| Movie || 9 ||
 || TV Show || 10 ||
 || Booklet || 11 ||
-|| Booklet || 11 ||
+|| Ringtone || 14 ||
 
 
 == Content Rating (rtng) ==
