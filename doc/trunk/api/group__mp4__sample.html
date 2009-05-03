@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <title>MP4v2 2.0-r286 PROJECT_name: MP4v2 Sample</title>
+    <title>MP4v2 2.0-r290 PROJECT_name: MP4v2 Sample</title>
     <link href="project.css" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -36,6 +36,28 @@
 <div class="contents">
 <h1>MP4v2 Sample</h1><table border="0" cellpadding="0" cellspacing="0">
 <tr><td></td></tr>
+<tr><td colspan="2"><br><h2>Typedefs</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">typedef enum <br class="typebreak">
+<a class="el" href="group__mp4__sample.html#g69a6af6f3a3207ee0425524682d1748c">MP4SampleDependencyType_e</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__sample.html#g1a7ac41e916e9d3e89df0f08e4a8e45d">MP4SampleDependencyType</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Sample dependency types.  <a href="#g1a7ac41e916e9d3e89df0f08e4a8e45d"></a><br></td></tr>
+<tr><td colspan="2"><br><h2>Enumerations</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">enum &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__sample.html#g69a6af6f3a3207ee0425524682d1748c">MP4SampleDependencyType_e</a> { <br>
+&nbsp;&nbsp;<a class="el" href="group__mp4__sample.html#gg69a6af6f3a3207ee0425524682d1748c2843ac91ec7cbff3750e992800ad2caf">MP4_SDT_UNKNOWN</a> =  0x00, 
+<a class="el" href="group__mp4__sample.html#gg69a6af6f3a3207ee0425524682d1748c9033cf6ead3162ea2f63c75e4a91211c">MP4_SDT_HAS_REDUNDANT_CODING</a> =  0x01, 
+<a class="el" href="group__mp4__sample.html#gg69a6af6f3a3207ee0425524682d1748ce262fc6d1738663fc47b8a34e32e51ce">MP4_SDT_HAS_NO_REDUNDANT_CODING</a> =  0x02, 
+<br>
+&nbsp;&nbsp;<a class="el" href="group__mp4__sample.html#gg69a6af6f3a3207ee0425524682d1748cf4a37d745f1b5d50701078e6cd0b06a6">MP4_SDT_HAS_DEPENDENTS</a> =  0x04, 
+<a class="el" href="group__mp4__sample.html#gg69a6af6f3a3207ee0425524682d1748c9c5acf494e12e1e890010a2fc3ef315f">MP4_SDT_HAS_NO_DEPENDENTS</a> =  0x08, 
+<a class="el" href="group__mp4__sample.html#gg69a6af6f3a3207ee0425524682d1748c1c248687bf773e05d7f6f33f2b76655f">MP4_SDT_IS_DEPENDENT</a> =  0x10, 
+<br>
+&nbsp;&nbsp;<a class="el" href="group__mp4__sample.html#gg69a6af6f3a3207ee0425524682d1748c21f4c599f022f4e69c730064a38a0b50">MP4_SDT_IS_INDEPENDENT</a> =  0x20, 
+<a class="el" href="group__mp4__sample.html#gg69a6af6f3a3207ee0425524682d1748cf6178b9a949bb6a037a70ed072ca985a">MP4_SDT_EARLIER_DISPLAY_TIMES_ALLOWED</a> =  0x40, 
+<a class="el" href="group__mp4__sample.html#gg69a6af6f3a3207ee0425524682d1748c4a59666f1d0106c23079f40a188307fd">_MP4_SDT_RESERVED</a> =  0x80
+<br>
+ }</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Sample dependency types.  <a href="group__mp4__sample.html#g69a6af6f3a3207ee0425524682d1748c">More...</a><br></td></tr>
 <tr><td colspan="2"><br><h2>Functions</h2></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__sample.html#g8d62988a2bc1563546b4b420d782377b">MP4ReadSample</a> (MP4FileHandle hFile, MP4TrackId trackId, MP4SampleId sampleId, uint8_t **ppBytes, uint32_t *pNumBytes, MP4Timestamp *pStartTime=NULL, MP4Duration *pDuration=NULL, MP4Duration *pRenderingOffset=NULL, bool *pIsSyncSample=NULL)</td></tr>
 
@@ -46,6 +68,9 @@
 <tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__sample.html#ga952428b21b52d023124a4c868f9b5fa">MP4WriteSample</a> (MP4FileHandle hFile, MP4TrackId trackId, const uint8_t *pBytes, uint32_t numBytes, MP4Duration duration=MP4_INVALID_DURATION, MP4Duration renderingOffset=0, bool isSyncSample=true)</td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Write a track sample.  <a href="#ga952428b21b52d023124a4c868f9b5fa"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__sample.html#g87d57d3b6cf4fc3e8da4fd089252eee1">MP4WriteSampleDependency</a> (MP4FileHandle hFile, MP4TrackId trackId, const uint8_t *pBytes, uint32_t numBytes, MP4Duration duration, MP4Duration renderingOffset, bool isSyncSample, uint32_t dependencyFlags)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Write a track sample and supply dependency information.  <a href="#g87d57d3b6cf4fc3e8da4fd089252eee1"></a><br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__sample.html#g5dccb14facae1f3c0ae251ede6771e65">MP4CopySample</a> (MP4FileHandle srcFile, MP4TrackId srcTrackId, MP4SampleId srcSampleId, MP4FileHandle dstFile=MP4_INVALID_FILE_HANDLE, MP4TrackId dstTrackId=MP4_INVALID_TRACK_ID, MP4Duration dstSampleDuration=MP4_INVALID_DURATION)</td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Make a copy of a sample.  <a href="#g5dccb14facae1f3c0ae251ede6771e65"></a><br></td></tr>
@@ -81,6 +106,64 @@ bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get sync/random access state of sample.  <a href="#g6b3e3011e6f698a8e75b21c09d9779b4"></a><br></td></tr>
 </table>
+<hr><h2>Typedef Documentation</h2>
+<a class="anchor" name="g1a7ac41e916e9d3e89df0f08e4a8e45d"></a><!-- doxytag: member="sample.h::MP4SampleDependencyType" ref="g1a7ac41e916e9d3e89df0f08e4a8e45d" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef enum <a class="el" href="group__mp4__sample.html#g69a6af6f3a3207ee0425524682d1748c">MP4SampleDependencyType_e</a>  <a class="el" href="group__mp4__sample.html#g1a7ac41e916e9d3e89df0f08e4a8e45d">MP4SampleDependencyType</a>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Sample dependency types. 
+<p>
+Bit combinations 0x03, 0x30, 0xc0 are reserved. 
+</div>
+</div><p>
+<hr><h2>Enumeration Type Documentation</h2>
+<a class="anchor" name="g69a6af6f3a3207ee0425524682d1748c"></a><!-- doxytag: member="sample.h::MP4SampleDependencyType_e" ref="g69a6af6f3a3207ee0425524682d1748c" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="group__mp4__sample.html#g69a6af6f3a3207ee0425524682d1748c">MP4SampleDependencyType_e</a>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Sample dependency types. 
+<p>
+Bit combinations 0x03, 0x30, 0xc0 are reserved. <dl compact><dt><b>Enumerator: </b></dt><dd>
+<table border="0" cellspacing="2" cellpadding="0">
+<tr><td valign="top"><em><a class="anchor" name="gg69a6af6f3a3207ee0425524682d1748c2843ac91ec7cbff3750e992800ad2caf"></a><!-- doxytag: member="MP4_SDT_UNKNOWN" ref="gg69a6af6f3a3207ee0425524682d1748c2843ac91ec7cbff3750e992800ad2caf" args="" -->MP4_SDT_UNKNOWN</em>&nbsp;</td><td>
+unknown </td></tr>
+<tr><td valign="top"><em><a class="anchor" name="gg69a6af6f3a3207ee0425524682d1748c9033cf6ead3162ea2f63c75e4a91211c"></a><!-- doxytag: member="MP4_SDT_HAS_REDUNDANT_CODING" ref="gg69a6af6f3a3207ee0425524682d1748c9033cf6ead3162ea2f63c75e4a91211c" args="" -->MP4_SDT_HAS_REDUNDANT_CODING</em>&nbsp;</td><td>
+contains redundant coding </td></tr>
+<tr><td valign="top"><em><a class="anchor" name="gg69a6af6f3a3207ee0425524682d1748ce262fc6d1738663fc47b8a34e32e51ce"></a><!-- doxytag: member="MP4_SDT_HAS_NO_REDUNDANT_CODING" ref="gg69a6af6f3a3207ee0425524682d1748ce262fc6d1738663fc47b8a34e32e51ce" args="" -->MP4_SDT_HAS_NO_REDUNDANT_CODING</em>&nbsp;</td><td>
+does not contain redundant coding </td></tr>
+<tr><td valign="top"><em><a class="anchor" name="gg69a6af6f3a3207ee0425524682d1748cf4a37d745f1b5d50701078e6cd0b06a6"></a><!-- doxytag: member="MP4_SDT_HAS_DEPENDENTS" ref="gg69a6af6f3a3207ee0425524682d1748cf4a37d745f1b5d50701078e6cd0b06a6" args="" -->MP4_SDT_HAS_DEPENDENTS</em>&nbsp;</td><td>
+referenced by other samples </td></tr>
+<tr><td valign="top"><em><a class="anchor" name="gg69a6af6f3a3207ee0425524682d1748c9c5acf494e12e1e890010a2fc3ef315f"></a><!-- doxytag: member="MP4_SDT_HAS_NO_DEPENDENTS" ref="gg69a6af6f3a3207ee0425524682d1748c9c5acf494e12e1e890010a2fc3ef315f" args="" -->MP4_SDT_HAS_NO_DEPENDENTS</em>&nbsp;</td><td>
+not referenced by other samples </td></tr>
+<tr><td valign="top"><em><a class="anchor" name="gg69a6af6f3a3207ee0425524682d1748c1c248687bf773e05d7f6f33f2b76655f"></a><!-- doxytag: member="MP4_SDT_IS_DEPENDENT" ref="gg69a6af6f3a3207ee0425524682d1748c1c248687bf773e05d7f6f33f2b76655f" args="" -->MP4_SDT_IS_DEPENDENT</em>&nbsp;</td><td>
+references other samples </td></tr>
+<tr><td valign="top"><em><a class="anchor" name="gg69a6af6f3a3207ee0425524682d1748c21f4c599f022f4e69c730064a38a0b50"></a><!-- doxytag: member="MP4_SDT_IS_INDEPENDENT" ref="gg69a6af6f3a3207ee0425524682d1748c21f4c599f022f4e69c730064a38a0b50" args="" -->MP4_SDT_IS_INDEPENDENT</em>&nbsp;</td><td>
+does not reference other samples </td></tr>
+<tr><td valign="top"><em><a class="anchor" name="gg69a6af6f3a3207ee0425524682d1748cf6178b9a949bb6a037a70ed072ca985a"></a><!-- doxytag: member="MP4_SDT_EARLIER_DISPLAY_TIMES_ALLOWED" ref="gg69a6af6f3a3207ee0425524682d1748cf6178b9a949bb6a037a70ed072ca985a" args="" -->MP4_SDT_EARLIER_DISPLAY_TIMES_ALLOWED</em>&nbsp;</td><td>
+subequent samples in GOP may display earlier </td></tr>
+<tr><td valign="top"><em><a class="anchor" name="gg69a6af6f3a3207ee0425524682d1748c4a59666f1d0106c23079f40a188307fd"></a><!-- doxytag: member="_MP4_SDT_RESERVED" ref="gg69a6af6f3a3207ee0425524682d1748c4a59666f1d0106c23079f40a188307fd" args="" -->_MP4_SDT_RESERVED</em>&nbsp;</td><td>
+reserved </td></tr>
+</table>
+</dl>
+
+</div>
+</div><p>
 <hr><h2>Function Documentation</h2>
 <a class="anchor" name="g5dccb14facae1f3c0ae251ede6771e65"></a><!-- doxytag: member="sample.h::MP4CopySample" ref="g5dccb14facae1f3c0ae251ede6771e65" args="(MP4FileHandle srcFile, MP4TrackId srcTrackId, MP4SampleId srcSampleId, MP4FileHandle dstFile=MP4_INVALID_FILE_HANDLE, MP4TrackId dstTrackId=MP4_INVALID_TRACK_ID, MP4Duration dstSampleDuration=MP4_INVALID_DURATION)" -->
 <div class="memitem">
@@ -895,10 +978,96 @@ Other media types fall between these two extremes.<p>
 
 </div>
 </div><p>
+<a class="anchor" name="g87d57d3b6cf4fc3e8da4fd089252eee1"></a><!-- doxytag: member="sample.h::MP4WriteSampleDependency" ref="g87d57d3b6cf4fc3e8da4fd089252eee1" args="(MP4FileHandle hFile, MP4TrackId trackId, const uint8_t *pBytes, uint32_t numBytes, MP4Duration duration, MP4Duration renderingOffset, bool isSyncSample, uint32_t dependencyFlags)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool MP4WriteSampleDependency           </td>
+          <td>(</td>
+          <td class="paramtype">MP4FileHandle&nbsp;</td>
+          <td class="paramname"> <em>hFile</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MP4TrackId&nbsp;</td>
+          <td class="paramname"> <em>trackId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const uint8_t *&nbsp;</td>
+          <td class="paramname"> <em>pBytes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&nbsp;</td>
+          <td class="paramname"> <em>numBytes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MP4Duration&nbsp;</td>
+          <td class="paramname"> <em>duration</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MP4Duration&nbsp;</td>
+          <td class="paramname"> <em>renderingOffset</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&nbsp;</td>
+          <td class="paramname"> <em>isSyncSample</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&nbsp;</td>
+          <td class="paramname"> <em>dependencyFlags</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Write a track sample and supply dependency information. 
+<p>
+MP4WriteSampleDependency writes the given sample at the end of the specified track. Currently the library does not support random insertion of samples into the track timeline. Note that with mp4 there cannot be any holes or overlapping samples in the track timeline. The last three arguments give optional sample information.<p>
+The value of duration can be given as <a class="el" href="group__mp4__general.html#g2a4f35efc02ce66d8a393696371546fc" title="Constant: invalid MP4Duration.">MP4_INVALID_DURATION</a> if all samples in the track have the same duration. This can be specified with <a class="el" href="group__mp4__track.html#g369946dba2763f562bbbc98d98a2fa45" title="Add a user defined track.">MP4AddTrack()</a> and related functions.<p>
+When this method is used instead of <a class="el" href="group__mp4__sample.html#ga952428b21b52d023124a4c868f9b5fa" title="Write a track sample.">MP4WriteSample()</a> it enables <b>sdtp</b> atom to be written out. This atom may be used by advanced players to optimize trick-operations such as fast-fwd, reverse or scrubbing.<p>
+An <b>sdtp</b> atom will always be written out if this method is used. To avoid writing the atom, use <a class="el" href="group__mp4__sample.html#ga952428b21b52d023124a4c868f9b5fa" title="Write a track sample.">MP4WriteSample()</a> instead.<p>
+Intermixing use of <a class="el" href="group__mp4__sample.html#g87d57d3b6cf4fc3e8da4fd089252eee1" title="Write a track sample and supply dependency information.">MP4WriteSampleDependency()</a> and <a class="el" href="group__mp4__sample.html#ga952428b21b52d023124a4c868f9b5fa" title="Write a track sample.">MP4WriteSample()</a> on the same track is not permitted.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>hFile</em>&nbsp;</td><td>handle of file for operation. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>trackId</em>&nbsp;</td><td>id of track for operation. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>pBytes</em>&nbsp;</td><td>pointer to sample data. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>numBytes</em>&nbsp;</td><td>length of sample data in bytes. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>duration</em>&nbsp;</td><td>sample duration. Caveat: should be in track timescale. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>renderingOffset</em>&nbsp;</td><td>the rendering offset for this sample. Currently the only media type that needs this feature is MPEG video. Caveat: The offset should be in the track timescale. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>isSyncSample</em>&nbsp;</td><td>the sync/random access flag for this sample. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>dependencyFlags</em>&nbsp;</td><td>bitmask specifying sample dependency characteristics.</td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>Returns:</b></dt><dd><b>true</b> on success, <b>false</b> on failure.</dd></dl>
+<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="group__mp4__track.html#g369946dba2763f562bbbc98d98a2fa45" title="Add a user defined track.">MP4AddTrack()</a>. </dd></dl>
+
+</div>
+</div><p>
 </div>
 <div class="footer">
     <div>
-        generated on Mon Apr 20 20:09:15 2009 for <b>MP4v2 (2.0-r286)</b>
+        generated on Sun May 3 09:35:04 2009 for <b>MP4v2 (2.0-r290)</b>
         by&nbsp;<a href="http://www.doxygen.org">Doxygen</a> 1.5.8
     </div>
 </div>
