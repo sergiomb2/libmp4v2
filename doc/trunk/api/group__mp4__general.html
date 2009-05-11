@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <title>MP4v2 2.0-r290 PROJECT_name: MP4v2 General</title>
+    <title>MP4v2 2.0-r297 PROJECT_name: MP4v2 General</title>
     <link href="project.css" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -36,9 +36,6 @@
 <div class="contents">
 <h1>MP4v2 General</h1><table border="0" cellpadding="0" cellspacing="0">
 <tr><td></td></tr>
-<tr><td colspan="2"><br><h2>Classes</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">struct &nbsp;</td><td class="memItemRight" valign="bottom"><b>Virtual_IO</b></td></tr>
-
 <tr><td colspan="2"><br><h2>Defines</h2></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__general.html#gfa387d447016a2c4fb1bb7e70b6e3b32">MP4_INVALID_FILE_HANDLE</a>&nbsp;&nbsp;&nbsp;((MP4FileHandle)NULL)</td></tr>
 
@@ -527,30 +524,6 @@ typedef uint64_t&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4Durati
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g47be5da531b0358afb91126d22379c5a"></a><!-- doxytag: member="mp4_general::MP4EditId" ref="g47be5da531b0358afb91126d22379c5a" args="" -->
 typedef uint32_t&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4EditId</b></td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g0b3a13871bac4112c50d1594afa86cc1"></a><!-- doxytag: member="mp4_general::VIRTUALIO_GETFILELENGTH" ref="g0b3a13871bac4112c50d1594afa86cc1" args=")(void *user)" -->
-typedef uint64_t(*&nbsp;</td><td class="memItemRight" valign="bottom"><b>VIRTUALIO_GETFILELENGTH</b> )(void *user)</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g5b99086baa8b3159aaf6d13bf566da65"></a><!-- doxytag: member="mp4_general::VIRTUALIO_SETPOSITION" ref="g5b99086baa8b3159aaf6d13bf566da65" args=")(void *user, uint64_t position)" -->
-typedef int(*&nbsp;</td><td class="memItemRight" valign="bottom"><b>VIRTUALIO_SETPOSITION</b> )(void *user, uint64_t position)</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g0cb9cc5ae8cbc0082308786f532ae42e"></a><!-- doxytag: member="mp4_general::VIRTUALIO_GETPOSITION" ref="g0cb9cc5ae8cbc0082308786f532ae42e" args=")(void *user, uint64_t *position)" -->
-typedef int(*&nbsp;</td><td class="memItemRight" valign="bottom"><b>VIRTUALIO_GETPOSITION</b> )(void *user, uint64_t *position)</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g4ab89a6a5b1845ba8a7d82268022fa6d"></a><!-- doxytag: member="mp4_general::VIRTUALIO_READ" ref="g4ab89a6a5b1845ba8a7d82268022fa6d" args=")(void *user, void *buffer, size_t size)" -->
-typedef size_t(*&nbsp;</td><td class="memItemRight" valign="bottom"><b>VIRTUALIO_READ</b> )(void *user, void *buffer, size_t size)</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g252607b56ef0ea1fdf058f4e68f2064d"></a><!-- doxytag: member="mp4_general::VIRTUALIO_WRITE" ref="g252607b56ef0ea1fdf058f4e68f2064d" args=")(void *user, void *buffer, size_t size)" -->
-typedef size_t(*&nbsp;</td><td class="memItemRight" valign="bottom"><b>VIRTUALIO_WRITE</b> )(void *user, void *buffer, size_t size)</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="gca1e211cd850eabd69d72f5d4d7b2089"></a><!-- doxytag: member="mp4_general::VIRTUALIO_ENDOFFILE" ref="gca1e211cd850eabd69d72f5d4d7b2089" args=")(void *user)" -->
-typedef int(*&nbsp;</td><td class="memItemRight" valign="bottom"><b>VIRTUALIO_ENDOFFILE</b> )(void *user)</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="ge91b090a5cdfe033b63accd0b59ec371"></a><!-- doxytag: member="mp4_general::VIRTUALIO_CLOSE" ref="ge91b090a5cdfe033b63accd0b59ec371" args=")(void *user)" -->
-typedef int(*&nbsp;</td><td class="memItemRight" valign="bottom"><b>VIRTUALIO_CLOSE</b> )(void *user)</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g8762154ba5e49b709131f412e541250b"></a><!-- doxytag: member="mp4_general::Virtual_IO_t" ref="g8762154ba5e49b709131f412e541250b" args="" -->
-typedef struct Virtual_IO&nbsp;</td><td class="memItemRight" valign="bottom"><b>Virtual_IO_t</b></td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="g6d02b899b45792de93498762b77226a6"></a><!-- doxytag: member="mp4_general::error_msg_func_t" ref="g6d02b899b45792de93498762b77226a6" args=")(int loglevel, const char *lib, const char *fmt, va_list ap)" -->
 typedef void(*&nbsp;</td><td class="memItemRight" valign="bottom"><b>error_msg_func_t</b> )(int loglevel, const char *lib, const char *fmt, va_list ap)</td></tr>
@@ -1304,7 +1277,7 @@ MP4ConvertToTrackDuration converts a duration such as a sample duration from the
 </div>
 <div class="footer">
     <div>
-        generated on Sun May 3 09:35:04 2009 for <b>MP4v2 (2.0-r290)</b>
+        generated on Mon May 11 13:23:00 2009 for <b>MP4v2 (2.0-r297)</b>
         by&nbsp;<a href="http://www.doxygen.org">Doxygen</a> 1.5.8
     </div>
 </div>

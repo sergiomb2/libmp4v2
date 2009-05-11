@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <title>MP4v2 2.0-r290 PROJECT_name: include/mp4v2/sample.h Source File</title>
+    <title>MP4v2 2.0-r297 PROJECT_name: include/mp4v2/sample.h Source File</title>
     <link href="project.css" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -93,102 +93,102 @@
 <a name="l00224"></a>00224     MP4Duration    renderingOffset DEFAULT(0),
 <a name="l00225"></a>00225     <span class="keywordtype">bool</span>           isSyncSample DEFAULT(<span class="keyword">true</span>) );
 <a name="l00226"></a>00226 
-<a name="l00264"></a>00264 MP4V2_EXPORT
-<a name="l00265"></a>00265 <span class="keywordtype">bool</span> <a class="code" href="group__mp4__sample.html#g87d57d3b6cf4fc3e8da4fd089252eee1" title="Write a track sample and supply dependency information.">MP4WriteSampleDependency</a>(
-<a name="l00266"></a>00266     MP4FileHandle  hFile,
-<a name="l00267"></a>00267     MP4TrackId     trackId,
-<a name="l00268"></a>00268     <span class="keyword">const</span> uint8_t* pBytes,
-<a name="l00269"></a>00269     uint32_t       numBytes,
-<a name="l00270"></a>00270     MP4Duration    duration,
-<a name="l00271"></a>00271     MP4Duration    renderingOffset,
-<a name="l00272"></a>00272     <span class="keywordtype">bool</span>           isSyncSample,
-<a name="l00273"></a>00273     uint32_t       dependencyFlags );
-<a name="l00274"></a>00274 
-<a name="l00307"></a>00307 MP4V2_EXPORT
-<a name="l00308"></a>00308 <span class="keywordtype">bool</span> <a class="code" href="group__mp4__sample.html#g5dccb14facae1f3c0ae251ede6771e65" title="Make a copy of a sample.">MP4CopySample</a>(
-<a name="l00309"></a>00309     MP4FileHandle srcFile,
-<a name="l00310"></a>00310     MP4TrackId    srcTrackId,
-<a name="l00311"></a>00311     MP4SampleId   srcSampleId,
-<a name="l00312"></a>00312     MP4FileHandle dstFile DEFAULT(<a class="code" href="group__mp4__general.html#gfa387d447016a2c4fb1bb7e70b6e3b32" title="Constant: invalid MP4FileHandle.">MP4_INVALID_FILE_HANDLE</a>),
-<a name="l00313"></a>00313     MP4TrackId    dstTrackId DEFAULT(<a class="code" href="group__mp4__general.html#g20022a4a97dd9c2031ae2a1ef6db7241" title="Constant: invalid MP4TrackId.">MP4_INVALID_TRACK_ID</a>),
-<a name="l00314"></a>00314     MP4Duration   dstSampleDuration DEFAULT(<a class="code" href="group__mp4__general.html#g2a4f35efc02ce66d8a393696371546fc" title="Constant: invalid MP4Duration.">MP4_INVALID_DURATION</a>) );
-<a name="l00315"></a>00315 
-<a name="l00341"></a>00341 MP4V2_EXPORT
-<a name="l00342"></a>00342 <span class="keywordtype">bool</span> <a class="code" href="group__mp4__sample.html#gecf2598c6229e8c87cfced3ea1ef8b04" title="Make a copy of a sample.">MP4EncAndCopySample</a>(
-<a name="l00343"></a>00343     MP4FileHandle srcFile,
-<a name="l00344"></a>00344     MP4TrackId    srcTrackId,
-<a name="l00345"></a>00345     MP4SampleId   srcSampleId,
-<a name="l00346"></a>00346     <a class="code" href="group__mp4__general.html#geed625a43f5c3bd48a4ab48ada133fea" title="Encryption function pointer.">encryptFunc_t</a> encfcnp,
-<a name="l00347"></a>00347     uint32_t      encfcnparam1,
-<a name="l00348"></a>00348     MP4FileHandle dstFile DEFAULT(<a class="code" href="group__mp4__general.html#gfa387d447016a2c4fb1bb7e70b6e3b32" title="Constant: invalid MP4FileHandle.">MP4_INVALID_FILE_HANDLE</a>),
-<a name="l00349"></a>00349     MP4TrackId    dstTrackId DEFAULT(<a class="code" href="group__mp4__general.html#g20022a4a97dd9c2031ae2a1ef6db7241" title="Constant: invalid MP4TrackId.">MP4_INVALID_TRACK_ID</a>),
-<a name="l00350"></a>00350     MP4Duration   dstSampleDuration DEFAULT(<a class="code" href="group__mp4__general.html#g2a4f35efc02ce66d8a393696371546fc" title="Constant: invalid MP4Duration.">MP4_INVALID_DURATION</a>) );
-<a name="l00351"></a>00351 
-<a name="l00354"></a>00354 MP4V2_EXPORT
-<a name="l00355"></a>00355 <span class="keywordtype">bool</span> <a class="code" href="group__mp4__sample.html#g97e2daf9e0b898d8f928810e145a6d40" title="Not implemented.">MP4ReferenceSample</a>(
-<a name="l00356"></a>00356     MP4FileHandle srcFile,
-<a name="l00357"></a>00357     MP4TrackId    srcTrackId,
-<a name="l00358"></a>00358     MP4SampleId   srcSampleId,
-<a name="l00359"></a>00359     MP4FileHandle dstFile,
-<a name="l00360"></a>00360     MP4TrackId    dstTrackId,
-<a name="l00361"></a>00361     MP4Duration   dstSampleDuration DEFAULT(<a class="code" href="group__mp4__general.html#g2a4f35efc02ce66d8a393696371546fc" title="Constant: invalid MP4Duration.">MP4_INVALID_DURATION</a>) );
-<a name="l00362"></a>00362 
-<a name="l00375"></a>00375 MP4V2_EXPORT
-<a name="l00376"></a>00376 uint32_t <a class="code" href="group__mp4__sample.html#g09a60dc0c9532581e888fe31251096fa" title="Get size of a track sample.">MP4GetSampleSize</a>(
-<a name="l00377"></a>00377     MP4FileHandle hFile,
-<a name="l00378"></a>00378     MP4TrackId    trackId,
-<a name="l00379"></a>00379     MP4SampleId   sampleId);
-<a name="l00380"></a>00380 
-<a name="l00393"></a>00393 MP4V2_EXPORT
-<a name="l00394"></a>00394 uint32_t <a class="code" href="group__mp4__sample.html#g10dbc113e94a614b4b99a5f107c99fad" title="Get the maximum sample size of a track.">MP4GetTrackMaxSampleSize</a>(
-<a name="l00395"></a>00395     MP4FileHandle hFile,
-<a name="l00396"></a>00396     MP4TrackId    trackId );
-<a name="l00397"></a>00397 
-<a name="l00426"></a>00426 MP4V2_EXPORT
-<a name="l00427"></a>00427 MP4SampleId <a class="code" href="group__mp4__sample.html#gee1d20b3ab490f2ff6cabaede899ddd1" title="Get sample id of a specified time.">MP4GetSampleIdFromTime</a>(
-<a name="l00428"></a>00428     MP4FileHandle hFile,
-<a name="l00429"></a>00429     MP4TrackId    trackId,
-<a name="l00430"></a>00430     MP4Timestamp  when,
-<a name="l00431"></a>00431     <span class="keywordtype">bool</span>          wantSyncSample DEFAULT(<span class="keyword">false</span>) );
-<a name="l00432"></a>00432 
-<a name="l00449"></a>00449 MP4V2_EXPORT
-<a name="l00450"></a>00450 MP4Timestamp <a class="code" href="group__mp4__sample.html#gfbc4fbbf11f43cc56fd24221be203ddf" title="Get start time of track sample.">MP4GetSampleTime</a>(
-<a name="l00451"></a>00451     MP4FileHandle hFile,
-<a name="l00452"></a>00452     MP4TrackId    trackId,
-<a name="l00453"></a>00453     MP4SampleId   sampleId );
-<a name="l00454"></a>00454 
-<a name="l00471"></a>00471 MP4V2_EXPORT
-<a name="l00472"></a>00472 MP4Duration <a class="code" href="group__mp4__sample.html#g24ccf30492a095bace79d36bd39827ef" title="Get the duration of a track sample.">MP4GetSampleDuration</a>(
-<a name="l00473"></a>00473     MP4FileHandle hFile,
-<a name="l00474"></a>00474     MP4TrackId    trackId,
-<a name="l00475"></a>00475     MP4SampleId   sampleId );
-<a name="l00476"></a>00476 
-<a name="l00505"></a>00505 MP4V2_EXPORT
-<a name="l00506"></a>00506 MP4Duration <a class="code" href="group__mp4__sample.html#gb68eec0276742f24ddb80c831c52b60d" title="Get the rendering offset of a track sample.">MP4GetSampleRenderingOffset</a>(
-<a name="l00507"></a>00507     MP4FileHandle hFile,
-<a name="l00508"></a>00508     MP4TrackId    trackId,
-<a name="l00509"></a>00509     MP4SampleId   sampleId );
-<a name="l00510"></a>00510 
-<a name="l00529"></a>00529 MP4V2_EXPORT
-<a name="l00530"></a>00530 <span class="keywordtype">bool</span> <a class="code" href="group__mp4__sample.html#gf705406eab58dff93e4f37f62607a785" title="Set the rendering offset of a track sample.">MP4SetSampleRenderingOffset</a>(
-<a name="l00531"></a>00531     MP4FileHandle hFile,
-<a name="l00532"></a>00532     MP4TrackId    trackId,
-<a name="l00533"></a>00533     MP4SampleId   sampleId,
-<a name="l00534"></a>00534     MP4Duration   renderingOffset );
-<a name="l00535"></a>00535 
-<a name="l00548"></a>00548 MP4V2_EXPORT
-<a name="l00549"></a>00549 int8_t <a class="code" href="group__mp4__sample.html#g6b3e3011e6f698a8e75b21c09d9779b4" title="Get sync/random access state of sample.">MP4GetSampleSync</a>(
-<a name="l00550"></a>00550     MP4FileHandle hFile,
-<a name="l00551"></a>00551     MP4TrackId    trackId,
-<a name="l00552"></a>00552     MP4SampleId   sampleId );
-<a name="l00553"></a>00553 
-<a name="l00554"></a>00554 <span class="comment">/* @} ***********************************************************************/</span>
-<a name="l00555"></a>00555 
-<a name="l00556"></a>00556 <span class="preprocessor">#endif </span><span class="comment">/* MP4V2_SAMPLE_H */</span>
+<a name="l00265"></a>00265 MP4V2_EXPORT
+<a name="l00266"></a>00266 <span class="keywordtype">bool</span> <a class="code" href="group__mp4__sample.html#g87d57d3b6cf4fc3e8da4fd089252eee1" title="Write a track sample and supply dependency information.">MP4WriteSampleDependency</a>(
+<a name="l00267"></a>00267     MP4FileHandle  hFile,
+<a name="l00268"></a>00268     MP4TrackId     trackId,
+<a name="l00269"></a>00269     <span class="keyword">const</span> uint8_t* pBytes,
+<a name="l00270"></a>00270     uint32_t       numBytes,
+<a name="l00271"></a>00271     MP4Duration    duration,
+<a name="l00272"></a>00272     MP4Duration    renderingOffset,
+<a name="l00273"></a>00273     <span class="keywordtype">bool</span>           isSyncSample,
+<a name="l00274"></a>00274     uint32_t       dependencyFlags );
+<a name="l00275"></a>00275 
+<a name="l00308"></a>00308 MP4V2_EXPORT
+<a name="l00309"></a>00309 <span class="keywordtype">bool</span> <a class="code" href="group__mp4__sample.html#g5dccb14facae1f3c0ae251ede6771e65" title="Make a copy of a sample.">MP4CopySample</a>(
+<a name="l00310"></a>00310     MP4FileHandle srcFile,
+<a name="l00311"></a>00311     MP4TrackId    srcTrackId,
+<a name="l00312"></a>00312     MP4SampleId   srcSampleId,
+<a name="l00313"></a>00313     MP4FileHandle dstFile DEFAULT(<a class="code" href="group__mp4__general.html#gfa387d447016a2c4fb1bb7e70b6e3b32" title="Constant: invalid MP4FileHandle.">MP4_INVALID_FILE_HANDLE</a>),
+<a name="l00314"></a>00314     MP4TrackId    dstTrackId DEFAULT(<a class="code" href="group__mp4__general.html#g20022a4a97dd9c2031ae2a1ef6db7241" title="Constant: invalid MP4TrackId.">MP4_INVALID_TRACK_ID</a>),
+<a name="l00315"></a>00315     MP4Duration   dstSampleDuration DEFAULT(<a class="code" href="group__mp4__general.html#g2a4f35efc02ce66d8a393696371546fc" title="Constant: invalid MP4Duration.">MP4_INVALID_DURATION</a>) );
+<a name="l00316"></a>00316 
+<a name="l00342"></a>00342 MP4V2_EXPORT
+<a name="l00343"></a>00343 <span class="keywordtype">bool</span> <a class="code" href="group__mp4__sample.html#gecf2598c6229e8c87cfced3ea1ef8b04" title="Make a copy of a sample.">MP4EncAndCopySample</a>(
+<a name="l00344"></a>00344     MP4FileHandle srcFile,
+<a name="l00345"></a>00345     MP4TrackId    srcTrackId,
+<a name="l00346"></a>00346     MP4SampleId   srcSampleId,
+<a name="l00347"></a>00347     <a class="code" href="group__mp4__general.html#geed625a43f5c3bd48a4ab48ada133fea" title="Encryption function pointer.">encryptFunc_t</a> encfcnp,
+<a name="l00348"></a>00348     uint32_t      encfcnparam1,
+<a name="l00349"></a>00349     MP4FileHandle dstFile DEFAULT(<a class="code" href="group__mp4__general.html#gfa387d447016a2c4fb1bb7e70b6e3b32" title="Constant: invalid MP4FileHandle.">MP4_INVALID_FILE_HANDLE</a>),
+<a name="l00350"></a>00350     MP4TrackId    dstTrackId DEFAULT(<a class="code" href="group__mp4__general.html#g20022a4a97dd9c2031ae2a1ef6db7241" title="Constant: invalid MP4TrackId.">MP4_INVALID_TRACK_ID</a>),
+<a name="l00351"></a>00351     MP4Duration   dstSampleDuration DEFAULT(<a class="code" href="group__mp4__general.html#g2a4f35efc02ce66d8a393696371546fc" title="Constant: invalid MP4Duration.">MP4_INVALID_DURATION</a>) );
+<a name="l00352"></a>00352 
+<a name="l00355"></a>00355 MP4V2_EXPORT
+<a name="l00356"></a>00356 <span class="keywordtype">bool</span> <a class="code" href="group__mp4__sample.html#g97e2daf9e0b898d8f928810e145a6d40" title="Not implemented.">MP4ReferenceSample</a>(
+<a name="l00357"></a>00357     MP4FileHandle srcFile,
+<a name="l00358"></a>00358     MP4TrackId    srcTrackId,
+<a name="l00359"></a>00359     MP4SampleId   srcSampleId,
+<a name="l00360"></a>00360     MP4FileHandle dstFile,
+<a name="l00361"></a>00361     MP4TrackId    dstTrackId,
+<a name="l00362"></a>00362     MP4Duration   dstSampleDuration DEFAULT(<a class="code" href="group__mp4__general.html#g2a4f35efc02ce66d8a393696371546fc" title="Constant: invalid MP4Duration.">MP4_INVALID_DURATION</a>) );
+<a name="l00363"></a>00363 
+<a name="l00376"></a>00376 MP4V2_EXPORT
+<a name="l00377"></a>00377 uint32_t <a class="code" href="group__mp4__sample.html#g09a60dc0c9532581e888fe31251096fa" title="Get size of a track sample.">MP4GetSampleSize</a>(
+<a name="l00378"></a>00378     MP4FileHandle hFile,
+<a name="l00379"></a>00379     MP4TrackId    trackId,
+<a name="l00380"></a>00380     MP4SampleId   sampleId);
+<a name="l00381"></a>00381 
+<a name="l00394"></a>00394 MP4V2_EXPORT
+<a name="l00395"></a>00395 uint32_t <a class="code" href="group__mp4__sample.html#g10dbc113e94a614b4b99a5f107c99fad" title="Get the maximum sample size of a track.">MP4GetTrackMaxSampleSize</a>(
+<a name="l00396"></a>00396     MP4FileHandle hFile,
+<a name="l00397"></a>00397     MP4TrackId    trackId );
+<a name="l00398"></a>00398 
+<a name="l00427"></a>00427 MP4V2_EXPORT
+<a name="l00428"></a>00428 MP4SampleId <a class="code" href="group__mp4__sample.html#gee1d20b3ab490f2ff6cabaede899ddd1" title="Get sample id of a specified time.">MP4GetSampleIdFromTime</a>(
+<a name="l00429"></a>00429     MP4FileHandle hFile,
+<a name="l00430"></a>00430     MP4TrackId    trackId,
+<a name="l00431"></a>00431     MP4Timestamp  when,
+<a name="l00432"></a>00432     <span class="keywordtype">bool</span>          wantSyncSample DEFAULT(<span class="keyword">false</span>) );
+<a name="l00433"></a>00433 
+<a name="l00450"></a>00450 MP4V2_EXPORT
+<a name="l00451"></a>00451 MP4Timestamp <a class="code" href="group__mp4__sample.html#gfbc4fbbf11f43cc56fd24221be203ddf" title="Get start time of track sample.">MP4GetSampleTime</a>(
+<a name="l00452"></a>00452     MP4FileHandle hFile,
+<a name="l00453"></a>00453     MP4TrackId    trackId,
+<a name="l00454"></a>00454     MP4SampleId   sampleId );
+<a name="l00455"></a>00455 
+<a name="l00472"></a>00472 MP4V2_EXPORT
+<a name="l00473"></a>00473 MP4Duration <a class="code" href="group__mp4__sample.html#g24ccf30492a095bace79d36bd39827ef" title="Get the duration of a track sample.">MP4GetSampleDuration</a>(
+<a name="l00474"></a>00474     MP4FileHandle hFile,
+<a name="l00475"></a>00475     MP4TrackId    trackId,
+<a name="l00476"></a>00476     MP4SampleId   sampleId );
+<a name="l00477"></a>00477 
+<a name="l00506"></a>00506 MP4V2_EXPORT
+<a name="l00507"></a>00507 MP4Duration <a class="code" href="group__mp4__sample.html#gb68eec0276742f24ddb80c831c52b60d" title="Get the rendering offset of a track sample.">MP4GetSampleRenderingOffset</a>(
+<a name="l00508"></a>00508     MP4FileHandle hFile,
+<a name="l00509"></a>00509     MP4TrackId    trackId,
+<a name="l00510"></a>00510     MP4SampleId   sampleId );
+<a name="l00511"></a>00511 
+<a name="l00530"></a>00530 MP4V2_EXPORT
+<a name="l00531"></a>00531 <span class="keywordtype">bool</span> <a class="code" href="group__mp4__sample.html#gf705406eab58dff93e4f37f62607a785" title="Set the rendering offset of a track sample.">MP4SetSampleRenderingOffset</a>(
+<a name="l00532"></a>00532     MP4FileHandle hFile,
+<a name="l00533"></a>00533     MP4TrackId    trackId,
+<a name="l00534"></a>00534     MP4SampleId   sampleId,
+<a name="l00535"></a>00535     MP4Duration   renderingOffset );
+<a name="l00536"></a>00536 
+<a name="l00549"></a>00549 MP4V2_EXPORT
+<a name="l00550"></a>00550 int8_t <a class="code" href="group__mp4__sample.html#g6b3e3011e6f698a8e75b21c09d9779b4" title="Get sync/random access state of sample.">MP4GetSampleSync</a>(
+<a name="l00551"></a>00551     MP4FileHandle hFile,
+<a name="l00552"></a>00552     MP4TrackId    trackId,
+<a name="l00553"></a>00553     MP4SampleId   sampleId );
+<a name="l00554"></a>00554 
+<a name="l00555"></a>00555 <span class="comment">/* @} ***********************************************************************/</span>
+<a name="l00556"></a>00556 
+<a name="l00557"></a>00557 <span class="preprocessor">#endif </span><span class="comment">/* MP4V2_SAMPLE_H */</span>
 </pre></div></div>
 <div class="footer">
     <div>
-        generated on Sun May 3 09:35:04 2009 for <b>MP4v2 (2.0-r290)</b>
+        generated on Mon May 11 13:23:00 2009 for <b>MP4v2 (2.0-r297)</b>
         by&nbsp;<a href="http://www.doxygen.org">Doxygen</a> 1.5.8
     </div>
 </div>

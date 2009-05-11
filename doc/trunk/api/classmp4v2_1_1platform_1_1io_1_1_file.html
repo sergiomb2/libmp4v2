@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <title>MP4v2 2.0-r290 PROJECT_name: mp4v2::platform::io::File Class Reference</title>
+    <title>MP4v2 2.0-r297 PROJECT_name: mp4v2::platform::io::File Class Reference</title>
     <link href="project.css" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -43,7 +43,7 @@
   </div>
 </div>
 <div class="contents">
-<h1>mp4v2::platform::io::File Class Reference</h1><!-- doxytag: class="mp4v2::platform::io::File" -->Base file interface.  
+<h1>mp4v2::platform::io::File Class Reference</h1><!-- doxytag: class="mp4v2::platform::io::File" --><!-- doxytag: inherits="mp4v2::platform::io::FileProvider" --><a class="el" href="classmp4v2_1_1platform_1_1io_1_1_file.html" title="File implementation.">File</a> implementation.  
 <a href="#_details">More...</a>
 <p>
 <div class="dynheader">
@@ -52,61 +52,68 @@ Inheritance diagram for mp4v2::platform::io::File:</div>
 
 <p><center><img src="classmp4v2_1_1platform_1_1io_1_1_file.png" usemap="#mp4v2::platform::io::File_map" border="0" alt=""></center>
 <map name="mp4v2::platform::io::File_map">
-<area href="classmp4v2_1_1platform_1_1io_1_1_stdio_file.html" alt="mp4v2::platform::io::StdioFile" shape="rect" coords="0,56,171,80">
 </map>
 </div>
 
 <p>
 <a href="classmp4v2_1_1platform_1_1io_1_1_file-members.html">List of all members.</a><table border="0" cellpadding="0" cellspacing="0">
 <tr><td></td></tr>
-<tr><td colspan="2"><br><h2>Public Types</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="f65f7e9cb1e78c220cc68cee9124cc23"></a><!-- doxytag: member="mp4v2::platform::io::File::Size" ref="f65f7e9cb1e78c220cc68cee9124cc23" args="" -->
-typedef int64_t&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmp4v2_1_1platform_1_1io_1_1_file.html#f65f7e9cb1e78c220cc68cee9124cc23">Size</a></td></tr>
-
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">type used to represent all file sizes and offsets <br></td></tr>
 <tr><td colspan="2"><br><h2>Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmp4v2_1_1platform_1_1io_1_1_file.html#937b88e763b190dc69f82670959ed718">close</a> ()=0</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmp4v2_1_1platform_1_1io_1_1_file.html#fe0e693931a024c6d2f89206c4d2903e">File</a> (std::string <a class="el" href="classmp4v2_1_1platform_1_1io_1_1_file.html#e756d4f32d293e948b4585ead84344e4">name</a>=&quot;&quot;, Mode <a class="el" href="classmp4v2_1_1platform_1_1io_1_1_file.html#204e93e6bd9b3c1866f764c79655ec40">mode</a>=MODE_UNDEFINED, FileProvider *=NULL)</td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Closes file.  <a href="#937b88e763b190dc69f82670959ed718"></a><br></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmp4v2_1_1platform_1_1io_1_1_file.html#8e6d57ef334458d900cd1b6ae3b8f05a">getPosition</a> (<a class="el" href="classmp4v2_1_1platform_1_1io_1_1_file.html#f65f7e9cb1e78c220cc68cee9124cc23">Size</a> &amp;pos)=0</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Constructor.  <a href="#fe0e693931a024c6d2f89206c4d2903e"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmp4v2_1_1platform_1_1io_1_1_file.html#97e983620b335aa06f96d13f64267880">~File</a> ()</td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get current file position in bytes.  <a href="#8e6d57ef334458d900cd1b6ae3b8f05a"></a><br></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmp4v2_1_1platform_1_1io_1_1_file.html#fd00356f7d550261b930078b8bbb8904">getSize</a> (<a class="el" href="classmp4v2_1_1platform_1_1io_1_1_file.html#f65f7e9cb1e78c220cc68cee9124cc23">Size</a> &amp;size)=0</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Destructor.  <a href="#97e983620b335aa06f96d13f64267880"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmp4v2_1_1platform_1_1io_1_1_file.html#99f2cf71ad6d0aecb41b40fe7fba8f96">open</a> (std::string <a class="el" href="classmp4v2_1_1platform_1_1io_1_1_file.html#e756d4f32d293e948b4585ead84344e4">name</a>=&quot;&quot;, Mode <a class="el" href="classmp4v2_1_1platform_1_1io_1_1_file.html#204e93e6bd9b3c1866f764c79655ec40">mode</a>=MODE_UNDEFINED)</td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get current file size in bytes.  <a href="#fd00356f7d550261b930078b8bbb8904"></a><br></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmp4v2_1_1platform_1_1io_1_1_file.html#9a48a0230d14816ce04682e98ff5ee06">setPosition</a> (<a class="el" href="classmp4v2_1_1platform_1_1io_1_1_file.html#f65f7e9cb1e78c220cc68cee9124cc23">Size</a> pos)=0</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Open file.  <a href="#99f2cf71ad6d0aecb41b40fe7fba8f96"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmp4v2_1_1platform_1_1io_1_1_file.html#2227fae093d0c65840b9b940ed95aff6">close</a> ()</td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Set current file position in bytes.  <a href="#9a48a0230d14816ce04682e98ff5ee06"></a><br></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmp4v2_1_1platform_1_1io_1_1_file.html#882893e0c0eebf5aced298b1b982aa2f">read</a> (void *buffer, <a class="el" href="classmp4v2_1_1platform_1_1io_1_1_file.html#f65f7e9cb1e78c220cc68cee9124cc23">Size</a> size, <a class="el" href="classmp4v2_1_1platform_1_1io_1_1_file.html#f65f7e9cb1e78c220cc68cee9124cc23">Size</a> &amp;nin, <a class="el" href="classmp4v2_1_1platform_1_1io_1_1_file.html#f65f7e9cb1e78c220cc68cee9124cc23">Size</a> maxChunkSize=0)=0</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Closes file.  <a href="#2227fae093d0c65840b9b940ed95aff6"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmp4v2_1_1platform_1_1io_1_1_file.html#6cd85fb147ff255b885daf2d9c770672">seek</a> (Size pos)</td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Binary stream read.  <a href="#882893e0c0eebf5aced298b1b982aa2f"></a><br></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmp4v2_1_1platform_1_1io_1_1_file.html#34fc864e83d6f22622a369b26f3491cb">write</a> (const void *buffer, <a class="el" href="classmp4v2_1_1platform_1_1io_1_1_file.html#f65f7e9cb1e78c220cc68cee9124cc23">Size</a> size, <a class="el" href="classmp4v2_1_1platform_1_1io_1_1_file.html#f65f7e9cb1e78c220cc68cee9124cc23">Size</a> &amp;nout, <a class="el" href="classmp4v2_1_1platform_1_1io_1_1_file.html#f65f7e9cb1e78c220cc68cee9124cc23">Size</a> maxChunkSize=0)=0</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Set current file position in bytes.  <a href="#6cd85fb147ff255b885daf2d9c770672"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmp4v2_1_1platform_1_1io_1_1_file.html#7d43f14c0aa3c6c312bddf30e5964d94">read</a> (void *buffer, Size <a class="el" href="classmp4v2_1_1platform_1_1io_1_1_file.html#5c28def91107076941dbf7f4ee1829a6">size</a>, Size &amp;nin, Size maxChunkSize=0)</td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Binary stream write.  <a href="#34fc864e83d6f22622a369b26f3491cb"></a><br></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Binary stream read.  <a href="#7d43f14c0aa3c6c312bddf30e5964d94"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmp4v2_1_1platform_1_1io_1_1_file.html#7444155d516807c5d272e666e211422e">write</a> (const void *buffer, Size <a class="el" href="classmp4v2_1_1platform_1_1io_1_1_file.html#5c28def91107076941dbf7f4ee1829a6">size</a>, Size &amp;nout, Size maxChunkSize=0)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Binary stream write.  <a href="#7444155d516807c5d272e666e211422e"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="886d70c44951013607c6dba24e0c8dbb"></a><!-- doxytag: member="mp4v2::platform::io::File::setName" ref="886d70c44951013607c6dba24e0c8dbb" args="(const std::string &amp;name)" -->
+void&nbsp;</td><td class="memItemRight" valign="bottom"><b>setName</b> (const std::string &amp;<a class="el" href="classmp4v2_1_1platform_1_1io_1_1_file.html#e756d4f32d293e948b4585ead84344e4">name</a>)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="d9ffca7161dc6dc86779877efdc21654"></a><!-- doxytag: member="mp4v2::platform::io::File::setMode" ref="d9ffca7161dc6dc86779877efdc21654" args="(Mode mode)" -->
+void&nbsp;</td><td class="memItemRight" valign="bottom"><b>setMode</b> (Mode <a class="el" href="classmp4v2_1_1platform_1_1io_1_1_file.html#204e93e6bd9b3c1866f764c79655ec40">mode</a>)</td></tr>
+
 <tr><td colspan="2"><br><h2>Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="e756d4f32d293e948b4585ead84344e4"></a><!-- doxytag: member="mp4v2::platform::io::File::name" ref="e756d4f32d293e948b4585ead84344e4" args="" -->
 const std::string &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmp4v2_1_1platform_1_1io_1_1_file.html#e756d4f32d293e948b4585ead84344e4">name</a></td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">read-only: file pathname or empty-string if not applicable <br></td></tr>
-<tr><td colspan="2"><br><h2>Protected Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmp4v2_1_1platform_1_1io_1_1_file.html#d3c2d399560be9e75e45fd92e36848c2">File</a> (std::string <a class="el" href="classmp4v2_1_1platform_1_1io_1_1_file.html#e756d4f32d293e948b4585ead84344e4">name</a>, bool owner)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="fa4fed0f3657d55650f709d72b631707"></a><!-- doxytag: member="mp4v2::platform::io::File::isOpen" ref="fa4fed0f3657d55650f709d72b631707" args="" -->
+const bool &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmp4v2_1_1platform_1_1io_1_1_file.html#fa4fed0f3657d55650f709d72b631707">isOpen</a></td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Constructor.  <a href="#d3c2d399560be9e75e45fd92e36848c2"></a><br></td></tr>
-<tr><td colspan="2"><br><h2>Protected Attributes</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="c2d52b741c8322a077fcc10cb0de1148"></a><!-- doxytag: member="mp4v2::platform::io::File::_name" ref="c2d52b741c8322a077fcc10cb0de1148" args="" -->
-std::string&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmp4v2_1_1platform_1_1io_1_1_file.html#c2d52b741c8322a077fcc10cb0de1148">_name</a></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">read-only: true if file is open <br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="204e93e6bd9b3c1866f764c79655ec40"></a><!-- doxytag: member="mp4v2::platform::io::File::mode" ref="204e93e6bd9b3c1866f764c79655ec40" args="" -->
+const Mode &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmp4v2_1_1platform_1_1io_1_1_file.html#204e93e6bd9b3c1866f764c79655ec40">mode</a></td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">file pathname or empty-string if not applicable <br></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="d53b98dac8c86f609dc235928dc629b0"></a><!-- doxytag: member="mp4v2::platform::io::File::_owner" ref="d53b98dac8c86f609dc235928dc629b0" args="" -->
-const bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmp4v2_1_1platform_1_1io_1_1_file.html#d53b98dac8c86f609dc235928dc629b0">_owner</a></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">read-only: file mode <br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="5c28def91107076941dbf7f4ee1829a6"></a><!-- doxytag: member="mp4v2::platform::io::File::size" ref="5c28def91107076941dbf7f4ee1829a6" args="" -->
+const Size &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmp4v2_1_1platform_1_1io_1_1_file.html#5c28def91107076941dbf7f4ee1829a6">size</a></td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">indicates object owns file and will close it upon destruction <br></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">read-only: file size <br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="7383e0d5626a1444857635f24363b27f"></a><!-- doxytag: member="mp4v2::platform::io::File::position" ref="7383e0d5626a1444857635f24363b27f" args="" -->
+const Size &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmp4v2_1_1platform_1_1io_1_1_file.html#7383e0d5626a1444857635f24363b27f">position</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">read-only: file position <br></td></tr>
 </table>
 <hr><a name="_details"></a><h2>Detailed Description</h2>
-Base file interface. 
+<a class="el" href="classmp4v2_1_1platform_1_1io_1_1_file.html" title="File implementation.">File</a> implementation. 
 <p>
-<a class="el" href="classmp4v2_1_1platform_1_1io_1_1_file.html" title="Base file interface.">File</a> abstracts basic file functionality that may apply to many types of files. All files are assumed to be 64-bit files unless built on a 32-bit <a class="el" href="namespacemp4v2_1_1platform.html" title="(private) Platform abstraction.">platform</a> which does not support 64-bit file offsets. The interface uses a signed 64-bit value which can help with filesize math, thus limiting actual file size to 63-bits, roughly 9.22 million TB. <hr><h2>Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" name="d3c2d399560be9e75e45fd92e36848c2"></a><!-- doxytag: member="mp4v2::platform::io::File::File" ref="d3c2d399560be9e75e45fd92e36848c2" args="(std::string name, bool owner)" -->
+<a class="el" href="classmp4v2_1_1platform_1_1io_1_1_file.html" title="File implementation.">File</a> objects model real filesystem files in a 1:1 releationship and always treated as binary; there are no translations of text content performed.<p>
+The interface represents all sizes with a signed 64-bit value, thus the limit to this interface is 63-bits of size, roughly 9.22 million TB. <hr><h2>Constructor &amp; Destructor Documentation</h2>
+<a class="anchor" name="fe0e693931a024c6d2f89206c4d2903e"></a><!-- doxytag: member="mp4v2::platform::io::File::File" ref="fe0e693931a024c6d2f89206c4d2903e" args="(std::string name=&quot;&quot;, Mode mode=MODE_UNDEFINED, FileProvider *=NULL)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -114,18 +121,24 @@ Base file interface.
           <td class="memname">mp4v2::platform::io::File::File           </td>
           <td>(</td>
           <td class="paramtype">std::string&nbsp;</td>
-          <td class="paramname"> <em>name</em>, </td>
+          <td class="paramname"> <em>name</em> = <code>&quot;&quot;</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">bool&nbsp;</td>
-          <td class="paramname"> <em>owner</em></td><td>&nbsp;</td>
+          <td class="paramtype">Mode&nbsp;</td>
+          <td class="paramname"> <em>mode</em> = <code>MODE_UNDEFINED</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FileProvider *&nbsp;</td>
+          <td class="paramname"> = <code>NULL</code></td><td>&nbsp;</td>
         </tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td><td><code> [protected]</code></td>
+          <td></td><td></td><td><code> [explicit]</code></td>
         </tr>
       </table>
 </div>
@@ -134,26 +147,49 @@ Base file interface.
 <p>
 Constructor. 
 <p>
+A new file object is constructed but not opened.<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>name</em>&nbsp;</td><td>filename of file object, or empty-string. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>owner</em>&nbsp;</td><td>true if object is considered owner of file resources and responsible for closing them on destruction. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>mode</em>&nbsp;</td><td>bitmask specifying mode flags. See Mode for bit constants. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>provider</em>&nbsp;</td><td>a fileprovider instance. If NULL a standard file provider will be used otherwise the supplied provider must be new-allocated and will be delete'd via <a class="el" href="classmp4v2_1_1platform_1_1io_1_1_file.html#97e983620b335aa06f96d13f64267880" title="Destructor.">~File()</a>. </td></tr>
   </table>
 </dl>
 
 </div>
 </div><p>
-<hr><h2>Member Function Documentation</h2>
-<a class="anchor" name="937b88e763b190dc69f82670959ed718"></a><!-- doxytag: member="mp4v2::platform::io::File::close" ref="937b88e763b190dc69f82670959ed718" args="()=0" -->
+<a class="anchor" name="97e983620b335aa06f96d13f64267880"></a><!-- doxytag: member="mp4v2::platform::io::File::~File" ref="97e983620b335aa06f96d13f64267880" args="()" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">virtual bool mp4v2::platform::io::File::close           </td>
+          <td class="memname">mp4v2::platform::io::File::~File           </td>
           <td>(</td>
           <td class="paramname">          </td>
           <td>&nbsp;)&nbsp;</td>
-          <td><code> [pure virtual]</code></td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Destructor. 
+<p>
+<a class="el" href="classmp4v2_1_1platform_1_1io_1_1_file.html" title="File implementation.">File</a> object is destroyed. If the file is opened it is closed prior to destruction. 
+</div>
+</div><p>
+<hr><h2>Member Function Documentation</h2>
+<a class="anchor" name="2227fae093d0c65840b9b940ed95aff6"></a><!-- doxytag: member="mp4v2::platform::io::File::close" ref="2227fae093d0c65840b9b940ed95aff6" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool mp4v2::platform::io::File::close           </td>
+          <td>(</td>
+          <td class="paramname">          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
         </tr>
       </table>
 </div>
@@ -165,76 +201,50 @@ Closes file.
 If the file has not been opened or is not considered the owner of a filehandle, no action is taken.<p>
 <dl class="return" compact><dt><b>Returns:</b></dt><dd>true on failure, false on success. </dd></dl>
 
-<p>Implemented in <a class="el" href="classmp4v2_1_1platform_1_1io_1_1_stdio_file.html#eed534b2cf53eab308474c7e1b1a84d3">mp4v2::platform::io::StdioFile</a>.</p>
-
 </div>
 </div><p>
-<a class="anchor" name="8e6d57ef334458d900cd1b6ae3b8f05a"></a><!-- doxytag: member="mp4v2::platform::io::File::getPosition" ref="8e6d57ef334458d900cd1b6ae3b8f05a" args="(Size &amp;pos)=0" -->
+<a class="anchor" name="99f2cf71ad6d0aecb41b40fe7fba8f96"></a><!-- doxytag: member="mp4v2::platform::io::File::open" ref="99f2cf71ad6d0aecb41b40fe7fba8f96" args="(std::string name=&quot;&quot;, Mode mode=MODE_UNDEFINED)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">virtual bool mp4v2::platform::io::File::getPosition           </td>
+          <td class="memname">bool mp4v2::platform::io::File::open           </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classmp4v2_1_1platform_1_1io_1_1_file.html#f65f7e9cb1e78c220cc68cee9124cc23">Size</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>pos</em>          </td>
-          <td>&nbsp;)&nbsp;</td>
-          <td><code> [pure virtual]</code></td>
+          <td class="paramtype">std::string&nbsp;</td>
+          <td class="paramname"> <em>name</em> = <code>&quot;&quot;</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Mode&nbsp;</td>
+          <td class="paramname"> <em>mode</em> = <code>MODE_UNDEFINED</code></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
 <p>
-Get current file position in bytes. 
+Open file. 
 <p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>pos</em>&nbsp;</td><td>output indicating file position.</td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>name</em>&nbsp;</td><td>filename of file object, or empty-string to use <a class="el" href="classmp4v2_1_1platform_1_1io_1_1_file.html#e756d4f32d293e948b4585ead84344e4" title="read-only: file pathname or empty-string if not applicable">name</a>. </td></tr>
   </table>
 </dl>
-<dl class="return" compact><dt><b>Returns:</b></dt><dd>true on failure, false on success. </dd></dl>
-
-<p>Implemented in <a class="el" href="classmp4v2_1_1platform_1_1io_1_1_stdio_file.html#6b21e38302c14a1601c8b4311c3e7881">mp4v2::platform::io::StdioFile</a>.</p>
 
 </div>
 </div><p>
-<a class="anchor" name="fd00356f7d550261b930078b8bbb8904"></a><!-- doxytag: member="mp4v2::platform::io::File::getSize" ref="fd00356f7d550261b930078b8bbb8904" args="(Size &amp;size)=0" -->
+<a class="anchor" name="7d43f14c0aa3c6c312bddf30e5964d94"></a><!-- doxytag: member="mp4v2::platform::io::File::read" ref="7d43f14c0aa3c6c312bddf30e5964d94" args="(void *buffer, Size size, Size &amp;nin, Size maxChunkSize=0)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">virtual bool mp4v2::platform::io::File::getSize           </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classmp4v2_1_1platform_1_1io_1_1_file.html#f65f7e9cb1e78c220cc68cee9124cc23">Size</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>size</em>          </td>
-          <td>&nbsp;)&nbsp;</td>
-          <td><code> [pure virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-Get current file size in bytes. 
-<p>
-<dl compact><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>size</em>&nbsp;</td><td>output indicating file size.</td></tr>
-  </table>
-</dl>
-<dl class="return" compact><dt><b>Returns:</b></dt><dd>true on failure, false on success. </dd></dl>
-
-<p>Implemented in <a class="el" href="classmp4v2_1_1platform_1_1io_1_1_stdio_file.html#8d693450bf7423da28d3019a48b19a30">mp4v2::platform::io::StdioFile</a>.</p>
-
-</div>
-</div><p>
-<a class="anchor" name="882893e0c0eebf5aced298b1b982aa2f"></a><!-- doxytag: member="mp4v2::platform::io::File::read" ref="882893e0c0eebf5aced298b1b982aa2f" args="(void *buffer, Size size, Size &amp;nin, Size maxChunkSize=0)=0" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual bool mp4v2::platform::io::File::read           </td>
+          <td class="memname">bool mp4v2::platform::io::File::read           </td>
           <td>(</td>
           <td class="paramtype">void *&nbsp;</td>
           <td class="paramname"> <em>buffer</em>, </td>
@@ -242,25 +252,25 @@ Get current file size in bytes.
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classmp4v2_1_1platform_1_1io_1_1_file.html#f65f7e9cb1e78c220cc68cee9124cc23">Size</a>&nbsp;</td>
+          <td class="paramtype">Size&nbsp;</td>
           <td class="paramname"> <em>size</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classmp4v2_1_1platform_1_1io_1_1_file.html#f65f7e9cb1e78c220cc68cee9124cc23">Size</a> &amp;&nbsp;</td>
+          <td class="paramtype">Size &amp;&nbsp;</td>
           <td class="paramname"> <em>nin</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classmp4v2_1_1platform_1_1io_1_1_file.html#f65f7e9cb1e78c220cc68cee9124cc23">Size</a>&nbsp;</td>
+          <td class="paramtype">Size&nbsp;</td>
           <td class="paramname"> <em>maxChunkSize</em> = <code>0</code></td><td>&nbsp;</td>
         </tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td><td><code> [pure virtual]</code></td>
+          <td></td><td></td><td></td>
         </tr>
       </table>
 </div>
@@ -280,21 +290,19 @@ The function reads up to a maximum <b>size</b> bytes from file, storing them in 
 </dl>
 <dl class="return" compact><dt><b>Returns:</b></dt><dd>true on failure, false on success. </dd></dl>
 
-<p>Implemented in <a class="el" href="classmp4v2_1_1platform_1_1io_1_1_stdio_file.html#e15519bd19bfb2e30f6b16255254346f">mp4v2::platform::io::StdioFile</a>.</p>
-
 </div>
 </div><p>
-<a class="anchor" name="9a48a0230d14816ce04682e98ff5ee06"></a><!-- doxytag: member="mp4v2::platform::io::File::setPosition" ref="9a48a0230d14816ce04682e98ff5ee06" args="(Size pos)=0" -->
+<a class="anchor" name="6cd85fb147ff255b885daf2d9c770672"></a><!-- doxytag: member="mp4v2::platform::io::File::seek" ref="6cd85fb147ff255b885daf2d9c770672" args="(Size pos)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">virtual bool mp4v2::platform::io::File::setPosition           </td>
+          <td class="memname">bool mp4v2::platform::io::File::seek           </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classmp4v2_1_1platform_1_1io_1_1_file.html#f65f7e9cb1e78c220cc68cee9124cc23">Size</a>&nbsp;</td>
+          <td class="paramtype">Size&nbsp;</td>
           <td class="paramname"> <em>pos</em>          </td>
           <td>&nbsp;)&nbsp;</td>
-          <td><code> [pure virtual]</code></td>
+          <td></td>
         </tr>
       </table>
 </div>
@@ -305,21 +313,19 @@ Set current file position in bytes.
 <p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>pos</em>&nbsp;</td><td>new position in file.</td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>pos</em>&nbsp;</td><td>new file position in bytes.</td></tr>
   </table>
 </dl>
 <dl class="return" compact><dt><b>Returns:</b></dt><dd>true on failure, false on success. </dd></dl>
 
-<p>Implemented in <a class="el" href="classmp4v2_1_1platform_1_1io_1_1_stdio_file.html#ba481a38783da2ef4ce9a842d6785f93">mp4v2::platform::io::StdioFile</a>.</p>
-
 </div>
 </div><p>
-<a class="anchor" name="34fc864e83d6f22622a369b26f3491cb"></a><!-- doxytag: member="mp4v2::platform::io::File::write" ref="34fc864e83d6f22622a369b26f3491cb" args="(const void *buffer, Size size, Size &amp;nout, Size maxChunkSize=0)=0" -->
+<a class="anchor" name="7444155d516807c5d272e666e211422e"></a><!-- doxytag: member="mp4v2::platform::io::File::write" ref="7444155d516807c5d272e666e211422e" args="(const void *buffer, Size size, Size &amp;nout, Size maxChunkSize=0)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">virtual bool mp4v2::platform::io::File::write           </td>
+          <td class="memname">bool mp4v2::platform::io::File::write           </td>
           <td>(</td>
           <td class="paramtype">const void *&nbsp;</td>
           <td class="paramname"> <em>buffer</em>, </td>
@@ -327,25 +333,25 @@ Set current file position in bytes.
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classmp4v2_1_1platform_1_1io_1_1_file.html#f65f7e9cb1e78c220cc68cee9124cc23">Size</a>&nbsp;</td>
+          <td class="paramtype">Size&nbsp;</td>
           <td class="paramname"> <em>size</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classmp4v2_1_1platform_1_1io_1_1_file.html#f65f7e9cb1e78c220cc68cee9124cc23">Size</a> &amp;&nbsp;</td>
+          <td class="paramtype">Size &amp;&nbsp;</td>
           <td class="paramname"> <em>nout</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classmp4v2_1_1platform_1_1io_1_1_file.html#f65f7e9cb1e78c220cc68cee9124cc23">Size</a>&nbsp;</td>
+          <td class="paramtype">Size&nbsp;</td>
           <td class="paramname"> <em>maxChunkSize</em> = <code>0</code></td><td>&nbsp;</td>
         </tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td><td><code> [pure virtual]</code></td>
+          <td></td><td></td><td></td>
         </tr>
       </table>
 </div>
@@ -365,14 +371,12 @@ The function writes up to a maximum <b>size</b> bytes from <b>buffer</b> to file
 </dl>
 <dl class="return" compact><dt><b>Returns:</b></dt><dd>true on failure, false on success. </dd></dl>
 
-<p>Implemented in <a class="el" href="classmp4v2_1_1platform_1_1io_1_1_stdio_file.html#b6183a725d537eea1d524815c32bc6da">mp4v2::platform::io::StdioFile</a>.</p>
-
 </div>
 </div><p>
 </div>
 <div class="footer">
     <div>
-        generated on Sun May 3 09:35:04 2009 for <b>MP4v2 (2.0-r290)</b>
+        generated on Mon May 11 13:23:00 2009 for <b>MP4v2 (2.0-r297)</b>
         by&nbsp;<a href="http://www.doxygen.org">Doxygen</a> 1.5.8
     </div>
 </div>

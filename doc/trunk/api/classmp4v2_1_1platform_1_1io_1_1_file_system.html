@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <title>MP4v2 2.0-r290 PROJECT_name: mp4v2::platform::io::FileSystem Class Reference</title>
+    <title>MP4v2 2.0-r297 PROJECT_name: mp4v2::platform::io::FileSystem Class Reference</title>
     <link href="project.css" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -60,6 +60,9 @@
 <tr><td class="memItemLeft" nowrap align="right" valign="top">static bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmp4v2_1_1platform_1_1io_1_1_file_system.html#1a6d62c9c52d06108e6678b769c3638a">isFile</a> (std::string name)</td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Query file type.  <a href="#1a6d62c9c52d06108e6678b769c3638a"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">static bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmp4v2_1_1platform_1_1io_1_1_file_system.html#67296f8279ea9bba2ae27b31804edf7e">getFileSize</a> (std::string name, File::Size &amp;size)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Query file size.  <a href="#67296f8279ea9bba2ae27b31804edf7e"></a><br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">static bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmp4v2_1_1platform_1_1io_1_1_file_system.html#aaae67178abc1ce2ceb6ac955ee799ae">rename</a> (std::string oldname, std::string newname)</td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Rename file or directory.  <a href="#aaae67178abc1ce2ceb6ac955ee799ae"></a><br></td></tr>
@@ -114,6 +117,44 @@ Check if <b>name</b> exists. <dl compact><dt><b>Parameters:</b></dt><dd>
   </table>
 </dl>
 <dl class="return" compact><dt><b>Returns:</b></dt><dd>true if present, false otherwise. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="67296f8279ea9bba2ae27b31804edf7e"></a><!-- doxytag: member="mp4v2::platform::io::FileSystem::getFileSize" ref="67296f8279ea9bba2ae27b31804edf7e" args="(std::string name, File::Size &amp;size)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool mp4v2::platform::io::FileSystem::getFileSize           </td>
+          <td>(</td>
+          <td class="paramtype">std::string&nbsp;</td>
+          <td class="paramname"> <em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">File::Size &amp;&nbsp;</td>
+          <td class="paramname"> <em>size</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Query file size. 
+<p>
+Check if <b>name</b> exists and is a file. <dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>name</em>&nbsp;</td><td>filename to query. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>size</em>&nbsp;</td><td>output indicating file size in bytes. </td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>Returns:</b></dt><dd>true on failure, false on success. </dd></dl>
 
 </div>
 </div><p>
@@ -351,7 +392,7 @@ Rename <b>oldname</b> to <b>newname</b>. If <b>newname</b> exists, it is first r
 </div>
 <div class="footer">
     <div>
-        generated on Sun May 3 09:35:04 2009 for <b>MP4v2 (2.0-r290)</b>
+        generated on Mon May 11 13:23:00 2009 for <b>MP4v2 (2.0-r297)</b>
         by&nbsp;<a href="http://www.doxygen.org">Doxygen</a> 1.5.8
     </div>
 </div>
