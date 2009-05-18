@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <title>MP4v2 2.0-20090515 PROJECT_name: mp4v2::impl::itmf Namespace Reference</title>
+    <title>MP4v2 2.0-r306 PROJECT_name: mp4v2::impl::itmf Namespace Reference</title>
     <link href="project.css" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -30,6 +30,7 @@
       <li class="current"><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
+      <li><a href="examples.html"><span>Examples</span></a></li>
     </ul>
   </div>
   <div class="tabs">
@@ -354,6 +355,33 @@ CR_UNDEFINED &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><b>EnumCont
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">enumerated 8-bit Content Rating used by iTunes.  <a href="namespacemp4v2_1_1impl_1_1itmf.html#948b123a03f8305354632daaf23e2688">More...</a><br></td></tr>
 <tr><td colspan="2"><br><h2>Functions</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="381b7586faafbf64b5bb122414d92380"></a><!-- doxytag: member="mp4v2::impl::itmf::genericItemAlloc" ref="381b7586faafbf64b5bb122414d92380" args="(const char *code, uint32_t numData)" -->
+<a class="el" href="struct_m_p4_itmf_item__s.html">MP4ItmfItem</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><b>genericItemAlloc</b> (const char *code, uint32_t numData)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="478998c0a65009136ad3fadd2854b3ff"></a><!-- doxytag: member="mp4v2::impl::itmf::genericItemFree" ref="478998c0a65009136ad3fadd2854b3ff" args="(MP4ItmfItem *item)" -->
+void&nbsp;</td><td class="memItemRight" valign="bottom"><b>genericItemFree</b> (<a class="el" href="struct_m_p4_itmf_item__s.html">MP4ItmfItem</a> *item)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="f80a5016c25e3e5a12a285f0117cc940"></a><!-- doxytag: member="mp4v2::impl::itmf::genericItemListFree" ref="f80a5016c25e3e5a12a285f0117cc940" args="(MP4ItmfItemList *list)" -->
+void&nbsp;</td><td class="memItemRight" valign="bottom"><b>genericItemListFree</b> (<a class="el" href="struct_m_p4_itmf_item_list__s.html">MP4ItmfItemList</a> *list)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="1b402610c362ac80698078e9b31f2abd"></a><!-- doxytag: member="mp4v2::impl::itmf::genericGetItems" ref="1b402610c362ac80698078e9b31f2abd" args="(MP4File &amp;file)" -->
+<a class="el" href="struct_m_p4_itmf_item_list__s.html">MP4ItmfItemList</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><b>genericGetItems</b> (MP4File &amp;file)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="d172fce6a9240f8c5d619b0321695179"></a><!-- doxytag: member="mp4v2::impl::itmf::genericGetItemsByCode" ref="d172fce6a9240f8c5d619b0321695179" args="(MP4File &amp;file, const char *code)" -->
+<a class="el" href="struct_m_p4_itmf_item_list__s.html">MP4ItmfItemList</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><b>genericGetItemsByCode</b> (MP4File &amp;file, const char *code)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="815358de5424af57e62a448d137d20a7"></a><!-- doxytag: member="mp4v2::impl::itmf::genericGetItemsByMeaning" ref="815358de5424af57e62a448d137d20a7" args="(MP4File &amp;file, const char *meaning, const char *name)" -->
+<a class="el" href="struct_m_p4_itmf_item_list__s.html">MP4ItmfItemList</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><b>genericGetItemsByMeaning</b> (MP4File &amp;file, const char *meaning, const char *name)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="28dd0a1d9d225d85b7b7c4b31383119f"></a><!-- doxytag: member="mp4v2::impl::itmf::genericAddItem" ref="28dd0a1d9d225d85b7b7c4b31383119f" args="(MP4File &amp;file, const MP4ItmfItem *item)" -->
+bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>genericAddItem</b> (MP4File &amp;file, const <a class="el" href="struct_m_p4_itmf_item__s.html">MP4ItmfItem</a> *item)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="936dcfd49c916c47a90484236467b452"></a><!-- doxytag: member="mp4v2::impl::itmf::genericSetItem" ref="936dcfd49c916c47a90484236467b452" args="(MP4File &amp;file, const MP4ItmfItem *item)" -->
+bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>genericSetItem</b> (MP4File &amp;file, const <a class="el" href="struct_m_p4_itmf_item__s.html">MP4ItmfItem</a> *item)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="ad6004b0faefc3e6789d8a3835d74c04"></a><!-- doxytag: member="mp4v2::impl::itmf::genericRemoveItem" ref="ad6004b0faefc3e6789d8a3835d74c04" args="(MP4File &amp;file, const MP4ItmfItem *item)" -->
+bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>genericRemoveItem</b> (MP4File &amp;file, const <a class="el" href="struct_m_p4_itmf_item__s.html">MP4ItmfItem</a> *item)</td></tr>
+
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="namespacemp4v2_1_1impl_1_1itmf.html#b92b6bd5b61ff4939f5fe9f69d9314d3">BasicType</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemp4v2_1_1impl_1_1itmf.html#6b857e197dade9d243ab3f09233f976d">computeBasicType</a> (const void *buffer, uint32_t size)</td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">compute BasicType by examining raw bytes header.  <a href="#6b857e197dade9d243ab3f09233f976d"></a><br></td></tr>
@@ -565,7 +593,7 @@ compute BasicType by examining raw bytes header.
 </div>
 <div class="footer">
     <div>
-        generated on Fri May 15 21:39:46 2009 for <b>MP4v2 (2.0-20090515)</b>
+        generated on Mon May 18 11:20:38 2009 for <b>MP4v2 (2.0-r306)</b>
         by&nbsp;<a href="http://www.doxygen.org">Doxygen</a> 1.5.8
     </div>
 </div>

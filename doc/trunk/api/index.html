@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <title>MP4v2 2.0-20090515 PROJECT_name: MP4v2 API Reference</title>
+    <title>MP4v2 2.0-r306 PROJECT_name: MP4v2 API Reference</title>
     <link href="project.css" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -30,6 +30,7 @@
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
+      <li><a href="examples.html"><span>Examples</span></a></li>
     </ul>
   </div>
 </div>
@@ -48,12 +49,10 @@ The mp4 library is focussed on providing an easy to use API for the mp4 file for
 In providing a easy to use API not all the information in the mp4 file is directly exposed via the API. To accomodate applications that need access to information not otherwise available via the API there are file and track level generic get and set property routines that use arbitary string property names. To use these routines you will need to be familar with the mp4 file specification or be willing to wade through the output of a file-dump which may be produced using <a class="el" href="group__mp4__file.html#g79137293b4c80a8c39368098f4e2a732" title="Dump mp4 file contents as ASCII.">MP4Dump()</a> or with some of the command-line tools bundled with MP4v2.<h2><a class="anchor" name="headers">
 Public Headers</a></h2>
 The public libary API is defined in <code>&lt;<a class="el" href="mp4v2_8h-source.html">mp4v2/mp4v2.h</a>&gt;</code> which includes all the necessary dependent header files. <b>You must never use any other header files</b> for public API. Using other header files or symbols which are not exported via the public API is expressly not supported and may change at any time without notice.<p>
-The MP4v2 library can be used by either C or C++ programs. The calling convention is C but for convenience if C++ is used default function arguments have been added where appropriate.<h2><a class="anchor" name="examples">
-Examples</a></h2>
-See <code>util/</code> source code for programs that use this library. </div>
+The MP4v2 library can be used by either C or C++ programs. The calling convention is C but for convenience if C++ is used default function arguments have been added where appropriate. </div>
 <div class="footer">
     <div>
-        generated on Fri May 15 21:39:45 2009 for <b>MP4v2 (2.0-20090515)</b>
+        generated on Mon May 18 11:20:38 2009 for <b>MP4v2 (2.0-r306)</b>
         by&nbsp;<a href="http://www.doxygen.org">Doxygen</a> 1.5.8
     </div>
 </div>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <title>MP4v2 2.0-20090515 PROJECT_name: MP4Tags_s Struct Reference</title>
+    <title>MP4v2 2.0-r306 PROJECT_name: MP4Tags_s Struct Reference</title>
     <link href="project.css" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -30,6 +30,7 @@
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
+      <li><a href="examples.html"><span>Examples</span></a></li>
     </ul>
   </div>
   <div class="tabs">
@@ -43,7 +44,7 @@
 <div class="contents">
 <h1>MP4Tags_s Struct Reference<br>
 <small>
-[<a class="el" href="group__mp4__meta.html">MP4v2 iTunes Metadata</a>]</small>
+[<a class="el" href="group__mp4__itmf__tags.html">MP4v2 iTMF (iTunes Metadata Format) Tags</a>]</small>
 </h1><!-- doxytag: class="MP4Tags_s" -->Tags <b>convenience</b> structure.  
 <a href="#_details">More...</a>
 <p>
@@ -201,81 +202,13 @@ const uint32_t *&nbsp;</td><td class="memItemRight" valign="bottom"><b>geID</b><
 Tags <b>convenience</b> structure. 
 <p>
 This structure is used in the tags convenience API which allows for simplified retrieval and modification of the majority of known tags.<p>
-This is a read-only structure and each tag is present if and only if the pointer is a <b>non-NULL</b> value. The actual data is backed by a hidden data cache which is only updated when the appropriate metadata <b>set</b> function is used, or if <a class="el" href="group__mp4__meta.html#g71f371b895fe494922900a48383a6a4f" title="Fetch data from mp4 file and populate structure.">MP4TagsFetch()</a> is invoked. Thus, if other API is used to manipulate relevent atom structure of the MP4 file, the user is responsible for re-fetching the data in this structure.<p>
-Example usage: <div class="fragment"><pre class="fragment"><span class="comment">/* This is an example of Tags convenience API usage.</span>
-<span class="comment"> * WARNING: this program will change/destroy certain tags in an mp4 file.</span>
-<span class="comment"> */</span>
+This is a read-only structure and each tag is present if and only if the pointer is a <b>non-NULL</b> value. The actual data is backed by a hidden data cache which is only updated when the appropriate metadata <b>set</b> function is used, or if <a class="el" href="group__mp4__itmf__tags.html#g71f371b895fe494922900a48383a6a4f" title="Fetch data from mp4 file and populate structure.">MP4TagsFetch()</a> is invoked. Thus, if other API is used to manipulate relevent atom structure of the MP4 file, the user is responsible for re-fetching the data in this structure. <dl compact><dt><b>Examples: </b></dt><dd>
 
-<span class="preprocessor">#include &lt;mp4v2/mp4v2.h&gt;</span>
-
-<span class="keywordtype">int</span> main( <span class="keywordtype">int</span> argc, <span class="keywordtype">char</span>** argv )
-{
-    <span class="keywordtype">int</span> i;
-
-    <span class="keywordflow">if</span>( argc != 2 ) {
-        printf( <span class="stringliteral">"usage: %s file.mp4\n"</span>, argv[0] );
-        <span class="keywordflow">return</span> 1;
-    }
-
-    <span class="comment">/* open file for modification */</span>
-    MP4FileHandle file = <a class="code" href="group__mp4__file.html#gfedbb759caed3c0ef88980e51111c250" title="Modify an existing mp4 file.">MP4Modify</a>( argv[1], <a class="code" href="group__mp4__file.html#ga4985d912f22993dc83724d9301802ad" title="Verbosity bit: reasons for errors.">MP4_DETAILS_ERROR</a>, 0 );
-    <span class="keywordflow">if</span>( file == <a class="code" href="group__mp4__general.html#gfa387d447016a2c4fb1bb7e70b6e3b32" title="Constant: invalid MP4FileHandle.">MP4_INVALID_FILE_HANDLE</a> ) {
-        printf( <span class="stringliteral">"MP4Modify failed\n"</span> );
-        <span class="keywordflow">return</span> 1;
-    }
-
-    <span class="comment">/* allocate structure */</span>
-    <span class="keyword">const</span> <a class="code" href="struct_m_p4_tags__s.html" title="Tags convenience structure.">MP4Tags</a>* tags = <a class="code" href="group__mp4__meta.html#g1a6fbc40c9fa9ae70d8eba4cd5d0e8fb" title="Allocate tags convenience structure for reading and settings tags.">MP4TagsAlloc</a>();
-
-    <span class="comment">/* fetch data from MP4 file and populate structure */</span>
-    <a class="code" href="group__mp4__meta.html#g71f371b895fe494922900a48383a6a4f" title="Fetch data from mp4 file and populate structure.">MP4TagsFetch</a>( tags, file );
-
-    <span class="comment">/* show tag name if present */</span>
-    <span class="keywordflow">if</span>( tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#82d3121df47542c33e69814d31439c9e">name</a> )
-        printf( <span class="stringliteral">"name: %s\n"</span>, tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#82d3121df47542c33e69814d31439c9e">name</a> );
-
-    <span class="comment">/* show tag artist if present */</span>
-    <span class="keywordflow">if</span>( tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#de57556dc74b0ff5d7de26b890a7221a">artist</a> )
-        printf( <span class="stringliteral">"artist: %s\n"</span>, tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#de57556dc74b0ff5d7de26b890a7221a">artist</a> );
-
-    <span class="comment">/* show artwork if present */</span>
-    printf( <span class="stringliteral">"artwork: %u items\n"</span>, tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#058fa3f96afaa3b8841a8bebdab2cb4c">artworkCount</a> );
-
-    <span class="comment">/* NOTE: artwork != NULL when artworkCount &gt; 0 */</span>
-    <span class="keyword">const</span> <a class="code" href="struct_m_p4_tag_artwork__s.html" title="Data object representing a single piece of artwork.">MP4TagArtwork</a>* art = tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#b2efac6fa5136010a3f0078c0abe7c6a">artwork</a>;
-    <span class="keywordflow">for</span>( i = 0; i &lt; tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#058fa3f96afaa3b8841a8bebdab2cb4c">artworkCount</a>; i++, art++ )
-        printf( <span class="stringliteral">"art[%d]: type=%d size=%u data=%p\n"</span>, i, art-&gt;<a class="code" href="struct_m_p4_tag_artwork__s.html#9e50a9c85c9964542948d3e63f8ba516" title="data type">type</a>, art-&gt;<a class="code" href="struct_m_p4_tag_artwork__s.html#1d5bd30cbd0754d1023404e5b41c2587" title="data size in bytes">size</a>, art-&gt;<a class="code" href="struct_m_p4_tag_artwork__s.html#6bdc006f66a1461906295266a29e7d67" title="raw picture data">data</a> );
-
-    <span class="comment">/* set a new name */</span>
-    MP4TagsSetName( tags, <span class="stringliteral">"This is our new name"</span> );
-
-    <span class="comment">/* remove tag artist */</span>
-    MP4TagsSetArtist( tags, NULL );
-
-    <span class="comment">/* remove first artwork */</span>
-    MP4TagsRemoveArtwork( tags, 0 );
-
-    <span class="comment">/* show tag name if present */</span>
-    <span class="keywordflow">if</span>( tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#82d3121df47542c33e69814d31439c9e">name</a> )
-        printf( <span class="stringliteral">"name: %s\n"</span>, tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#82d3121df47542c33e69814d31439c9e">name</a> );
-
-    <span class="comment">/* show tag artist if present */</span>
-    <span class="keywordflow">if</span>( tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#de57556dc74b0ff5d7de26b890a7221a">artist</a> )
-        printf( <span class="stringliteral">"artist: %s\n"</span>, tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#de57556dc74b0ff5d7de26b890a7221a">artist</a> );
-
-    <span class="comment">/* push data from structure to MP4 file */</span>
-    <a class="code" href="group__mp4__meta.html#g14d7b2b74478294cdc0084a01eb37783" title="Store data to mp4 file from structure.">MP4TagsStore</a>( tags, file );
-
-    <span class="comment">/* free memory associated with structure and close */</span>
-    <a class="code" href="group__mp4__meta.html#gd5b9e876efc7d50673e05f6100af4d68" title="Free tags convenience structure.">MP4TagsFree</a>( tags );
-    <a class="code" href="group__mp4__file.html#g5123d9288961860eeb9100ac10927ff2" title="Close an mp4 file.">MP4Close</a>( file );
-
-    <span class="keywordflow">return</span> 0;
-}
-</pre></div> </div>
+<p>
+<a class="el" href="example_2itmf_2tags_8c-example.html#_a3">example/itmf/tags.c</a>.</dl></div>
 <div class="footer">
     <div>
-        generated on Fri May 15 21:39:46 2009 for <b>MP4v2 (2.0-20090515)</b>
+        generated on Mon May 18 11:20:38 2009 for <b>MP4v2 (2.0-r306)</b>
         by&nbsp;<a href="http://www.doxygen.org">Doxygen</a> 1.5.8
     </div>
 </div>
