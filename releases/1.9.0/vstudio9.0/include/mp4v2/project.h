@@ -20,10 +20,10 @@
 #define MP4V2_PROJECT_repo_url        "https://mp4v2.googlecode.com/svn/releases/1.9.0"
 #define MP4V2_PROJECT_repo_root       "https://mp4v2.googlecode.com/svn"
 #define MP4V2_PROJECT_repo_uuid       "6e6572fa-98a6-11dd-ad9f-f77439c74b79"
-#define MP4V2_PROJECT_repo_rev        328
-#define MP4V2_PROJECT_repo_date       "2009-05-20 22:47:44 -0400 (Wed, 20 May 2009)"
+#define MP4V2_PROJECT_repo_rev        332
+#define MP4V2_PROJECT_repo_date       "2009-05-21 14:39:25 -0400 (Thu, 21 May 2009)"
 #define MP4V2_PROJECT_repo_type       "stable"
-#define MP4V2_PROJECT_build           "Wed May 20 22:54:53 EDT 2009"
+#define MP4V2_PROJECT_build           "Thu May 21 14:41:21 EDT 2009"
 
 /*****************************************************************************/
 
