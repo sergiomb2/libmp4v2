@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <title>MP4v2 2.0-r306 PROJECT_name: src/itmf/generic.h Source File</title>
+    <title>MP4v2 2.0-r322 PROJECT_name: src/itmf/generic.h Source File</title>
     <link href="project.css" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -66,24 +66,43 @@
 <a name="l00027"></a>00027 <span class="keyword">namespace </span>mp4v2 { <span class="keyword">namespace </span>impl { <span class="keyword">namespace </span>itmf {
 <a name="l00028"></a>00028 
 <a name="l00030"></a>00030 
-<a name="l00031"></a>00031 <a class="code" href="struct_m_p4_itmf_item__s.html" title="Item structure.">MP4ItmfItem</a>* genericItemAlloc( <span class="keyword">const</span> <span class="keywordtype">char</span>* code, uint32_t numData );
-<a name="l00032"></a>00032 <span class="keywordtype">void</span> genericItemFree( <a class="code" href="struct_m_p4_itmf_item__s.html" title="Item structure.">MP4ItmfItem</a>* item );
-<a name="l00033"></a>00033 <span class="keywordtype">void</span> genericItemListFree( <a class="code" href="struct_m_p4_itmf_item_list__s.html" title="List of items.">MP4ItmfItemList</a>* list );
-<a name="l00034"></a>00034 <a class="code" href="struct_m_p4_itmf_item_list__s.html" title="List of items.">MP4ItmfItemList</a>* genericGetItems( MP4File&amp; file );
-<a name="l00035"></a>00035 <a class="code" href="struct_m_p4_itmf_item_list__s.html" title="List of items.">MP4ItmfItemList</a>* genericGetItemsByCode( MP4File&amp; file, <span class="keyword">const</span> <span class="keywordtype">char</span>* code );
-<a name="l00036"></a>00036 <a class="code" href="struct_m_p4_itmf_item_list__s.html" title="List of items.">MP4ItmfItemList</a>* genericGetItemsByMeaning( MP4File&amp; file, <span class="keyword">const</span> <span class="keywordtype">char</span>* meaning, <span class="keyword">const</span> <span class="keywordtype">char</span>* name );
-<a name="l00037"></a>00037 <span class="keywordtype">bool</span> genericAddItem( MP4File&amp; file, <span class="keyword">const</span> <a class="code" href="struct_m_p4_itmf_item__s.html" title="Item structure.">MP4ItmfItem</a>* item );
-<a name="l00038"></a>00038 <span class="keywordtype">bool</span> genericSetItem( MP4File&amp; file, <span class="keyword">const</span> <a class="code" href="struct_m_p4_itmf_item__s.html" title="Item structure.">MP4ItmfItem</a>* item );
-<a name="l00039"></a>00039 <span class="keywordtype">bool</span> genericRemoveItem( MP4File&amp; file, <span class="keyword">const</span> <a class="code" href="struct_m_p4_itmf_item__s.html" title="Item structure.">MP4ItmfItem</a>* item );
-<a name="l00040"></a>00040 
-<a name="l00042"></a>00042 
-<a name="l00043"></a>00043 }}} <span class="comment">// namespace mp4v2::impl::itmf</span>
+<a name="l00031"></a>00031 <a class="code" href="struct_m_p4_itmf_item__s.html" title="Item structure.">MP4ItmfItem</a>*
+<a name="l00032"></a>00032 genericItemAlloc( <span class="keyword">const</span> <span class="keywordtype">string</span>&amp; code, uint32_t numData );
+<a name="l00033"></a>00033 
+<a name="l00034"></a>00034 <span class="keywordtype">void</span>
+<a name="l00035"></a>00035 genericItemFree( <a class="code" href="struct_m_p4_itmf_item__s.html" title="Item structure.">MP4ItmfItem</a>* item );
+<a name="l00036"></a>00036 
+<a name="l00037"></a>00037 <span class="keywordtype">void</span>
+<a name="l00038"></a>00038 genericItemListFree( <a class="code" href="struct_m_p4_itmf_item_list__s.html" title="List of items.">MP4ItmfItemList</a>* list );
+<a name="l00039"></a>00039 
+<a name="l00041"></a>00041 
+<a name="l00042"></a>00042 <a class="code" href="struct_m_p4_itmf_item_list__s.html" title="List of items.">MP4ItmfItemList</a>*
+<a name="l00043"></a>00043 genericGetItems( MP4File&amp; file );
 <a name="l00044"></a>00044 
-<a name="l00045"></a>00045 <span class="preprocessor">#endif // MP4V2_IMPL_ITMF_GENERIC_H</span>
+<a name="l00045"></a>00045 <a class="code" href="struct_m_p4_itmf_item_list__s.html" title="List of items.">MP4ItmfItemList</a>*
+<a name="l00046"></a>00046 genericGetItemsByCode( MP4File&amp; file, <span class="keyword">const</span> <span class="keywordtype">string</span>&amp; code );
+<a name="l00047"></a>00047 
+<a name="l00048"></a>00048 <a class="code" href="struct_m_p4_itmf_item_list__s.html" title="List of items.">MP4ItmfItemList</a>*
+<a name="l00049"></a>00049 genericGetItemsByMeaning( MP4File&amp; file, <span class="keyword">const</span> <span class="keywordtype">string</span>&amp; meaning, <span class="keyword">const</span> <span class="keywordtype">string</span>&amp; name );
+<a name="l00050"></a>00050 
+<a name="l00052"></a>00052 
+<a name="l00053"></a>00053 <span class="keywordtype">bool</span>
+<a name="l00054"></a>00054 genericAddItem( MP4File&amp; file, <span class="keyword">const</span> <a class="code" href="struct_m_p4_itmf_item__s.html" title="Item structure.">MP4ItmfItem</a>* item );
+<a name="l00055"></a>00055 
+<a name="l00056"></a>00056 <span class="keywordtype">bool</span>
+<a name="l00057"></a>00057 genericSetItem( MP4File&amp; file, <span class="keyword">const</span> <a class="code" href="struct_m_p4_itmf_item__s.html" title="Item structure.">MP4ItmfItem</a>* item );
+<a name="l00058"></a>00058 
+<a name="l00059"></a>00059 <span class="keywordtype">bool</span>
+<a name="l00060"></a>00060 genericRemoveItem( MP4File&amp; file, <span class="keyword">const</span> <a class="code" href="struct_m_p4_itmf_item__s.html" title="Item structure.">MP4ItmfItem</a>* item );
+<a name="l00061"></a>00061 
+<a name="l00063"></a>00063 
+<a name="l00064"></a>00064 }}} <span class="comment">// namespace mp4v2::impl::itmf</span>
+<a name="l00065"></a>00065 
+<a name="l00066"></a>00066 <span class="preprocessor">#endif // MP4V2_IMPL_ITMF_GENERIC_H</span>
 </pre></div></div>
 <div class="footer">
     <div>
-        generated on Mon May 18 11:20:38 2009 for <b>MP4v2 (2.0-r306)</b>
+        generated on Wed May 20 21:39:30 2009 for <b>MP4v2 (2.0-r322)</b>
         by&nbsp;<a href="http://www.doxygen.org">Doxygen</a> 1.5.8
     </div>
 </div>

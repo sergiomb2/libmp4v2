@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <title>MP4v2 2.0-r306 PROJECT_name: example/itmf/tags.c</title>
+    <title>MP4v2 2.0-r322 PROJECT_name: example/itmf/tags.c</title>
     <link href="project.css" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -36,15 +36,13 @@
 </div>
 <div class="contents">
 <h1>example/itmf/tags.c</h1><div class="fragment"><pre class="fragment"><span class="comment">/* This is an example of iTMF Tags convenience API.</span>
-<span class="comment"> * WARNING: this program will change/destroy certain tags in an mp4 file.</span>
+<span class="comment"> * WARNING: this program will change/destroy many tags in an mp4 file.</span>
 <span class="comment"> */</span>
 
 <span class="preprocessor">#include &lt;mp4v2/mp4v2.h&gt;</span>
 
 <span class="keywordtype">int</span> main( <span class="keywordtype">int</span> argc, <span class="keywordtype">char</span>** argv )
 {
-    <span class="keywordtype">int</span> i;
-
     <span class="keywordflow">if</span>( argc != 2 ) {
         printf( <span class="stringliteral">"usage: %s file.mp4\n"</span>, argv[0] );
         <span class="keywordflow">return</span> 1;
@@ -57,58 +55,261 @@
         <span class="keywordflow">return</span> 1;
     }
 
-    <span class="comment">/* allocate structure */</span>
+    <span class="comment">/* allocate */</span>
     <span class="keyword">const</span> <a name="_a3"></a><a class="code" href="struct_m_p4_tags__s.html" title="Tags convenience structure.">MP4Tags</a>* tags = <a name="a4"></a><a class="code" href="group__mp4__itmf__tags.html#g1a6fbc40c9fa9ae70d8eba4cd5d0e8fb" title="Allocate tags convenience structure for reading and settings tags.">MP4TagsAlloc</a>();
 
     <span class="comment">/* fetch data from MP4 file and populate structure */</span>
     <a name="a5"></a><a class="code" href="group__mp4__itmf__tags.html#g71f371b895fe494922900a48383a6a4f" title="Fetch data from mp4 file and populate structure.">MP4TagsFetch</a>( tags, file );
 
-    <span class="comment">/* show tag name if present */</span>
+    <span class="comment">/***************************************************************************</span>
+<span class="comment">     * print various tag values</span>
+<span class="comment">     */</span>
+
     <span class="keywordflow">if</span>( tags-&gt;<a name="a6"></a><a class="code" href="struct_m_p4_tags__s.html#82d3121df47542c33e69814d31439c9e">name</a> )
         printf( <span class="stringliteral">"name: %s\n"</span>, tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#82d3121df47542c33e69814d31439c9e">name</a> );
 
-    <span class="comment">/* show tag artist if present */</span>
     <span class="keywordflow">if</span>( tags-&gt;<a name="a7"></a><a class="code" href="struct_m_p4_tags__s.html#de57556dc74b0ff5d7de26b890a7221a">artist</a> )
         printf( <span class="stringliteral">"artist: %s\n"</span>, tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#de57556dc74b0ff5d7de26b890a7221a">artist</a> );
 
-    <span class="comment">/* show artwork if present */</span>
-    printf( <span class="stringliteral">"artwork: %u items\n"</span>, tags-&gt;<a name="a8"></a><a class="code" href="struct_m_p4_tags__s.html#058fa3f96afaa3b8841a8bebdab2cb4c">artworkCount</a> );
+    <span class="keywordflow">if</span>( tags-&gt;<a name="a8"></a><a class="code" href="struct_m_p4_tags__s.html#9e36fc2b11ac5e59c00dff91c2b5874f">albumArtist</a> )
+        printf( <span class="stringliteral">"albumArtist: %s\n"</span>, tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#9e36fc2b11ac5e59c00dff91c2b5874f">albumArtist</a> );
 
-    <span class="comment">/* NOTE: artwork != NULL when artworkCount &gt; 0 */</span>
-    <span class="keyword">const</span> <a name="_a9"></a><a class="code" href="struct_m_p4_tag_artwork__s.html" title="Data object representing a single piece of artwork.">MP4TagArtwork</a>* art = tags-&gt;<a name="a10"></a><a class="code" href="struct_m_p4_tags__s.html#b2efac6fa5136010a3f0078c0abe7c6a">artwork</a>;
-    <span class="keywordflow">for</span>( i = 0; i &lt; tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#058fa3f96afaa3b8841a8bebdab2cb4c">artworkCount</a>; i++, art++ )
-        printf( <span class="stringliteral">"art[%d]: type=%d size=%u data=%p\n"</span>, i, art-&gt;<a name="a11"></a><a class="code" href="struct_m_p4_tag_artwork__s.html#9e50a9c85c9964542948d3e63f8ba516" title="data type">type</a>, art-&gt;<a name="a12"></a><a class="code" href="struct_m_p4_tag_artwork__s.html#1d5bd30cbd0754d1023404e5b41c2587" title="data size in bytes">size</a>, art-&gt;<a name="a13"></a><a class="code" href="struct_m_p4_tag_artwork__s.html#6bdc006f66a1461906295266a29e7d67" title="raw picture data">data</a> );
+    <span class="keywordflow">if</span>( tags-&gt;<a name="a9"></a><a class="code" href="struct_m_p4_tags__s.html#33dfafe2e6ad985ca05bd41bc7af5547">album</a> )
+        printf( <span class="stringliteral">"album: %s\n"</span>, tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#33dfafe2e6ad985ca05bd41bc7af5547">album</a> );
 
-    <span class="comment">/* set a new name */</span>
-    MP4TagsSetName( tags, <span class="stringliteral">"This is our new name"</span> );
+    <span class="keywordflow">if</span>( tags-&gt;<a name="a10"></a><a class="code" href="struct_m_p4_tags__s.html#32b1f36f21396eaabf2a59aec8b66274">grouping</a> )
+        printf( <span class="stringliteral">"grouping: %s\n"</span>, tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#32b1f36f21396eaabf2a59aec8b66274">grouping</a> );
 
-    <span class="comment">/* remove tag artist */</span>
-    MP4TagsSetArtist( tags, NULL );
+    <span class="keywordflow">if</span>( tags-&gt;<a name="a11"></a><a class="code" href="struct_m_p4_tags__s.html#f262bfa8fd2b0a769f0e5445e16fd6f2">composer</a> )
+        printf( <span class="stringliteral">"composer: %s\n"</span>, tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#f262bfa8fd2b0a769f0e5445e16fd6f2">composer</a> );
 
-    <span class="comment">/* remove first artwork */</span>
-    MP4TagsRemoveArtwork( tags, 0 );
+    <span class="keywordflow">if</span>( tags-&gt;<a name="a12"></a><a class="code" href="struct_m_p4_tags__s.html#6e532f8553edb7c4d28d8b760197639f">comments</a> )
+        printf( <span class="stringliteral">"comments: %s\n"</span>, tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#6e532f8553edb7c4d28d8b760197639f">comments</a> );
 
-    <span class="comment">/* show tag name if present */</span>
-    <span class="keywordflow">if</span>( tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#82d3121df47542c33e69814d31439c9e">name</a> )
-        printf( <span class="stringliteral">"name: %s\n"</span>, tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#82d3121df47542c33e69814d31439c9e">name</a> );
+    <span class="keywordflow">if</span>( tags-&gt;<a name="a13"></a><a class="code" href="struct_m_p4_tags__s.html#b9d46b041569d573fc15ab4a07438a5c">genre</a> )
+        printf( <span class="stringliteral">"genre: %s\n"</span>, tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#b9d46b041569d573fc15ab4a07438a5c">genre</a> );
 
-    <span class="comment">/* show tag artist if present */</span>
-    <span class="keywordflow">if</span>( tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#de57556dc74b0ff5d7de26b890a7221a">artist</a> )
-        printf( <span class="stringliteral">"artist: %s\n"</span>, tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#de57556dc74b0ff5d7de26b890a7221a">artist</a> );
+    <span class="keywordflow">if</span>( tags-&gt;<a name="a14"></a><a class="code" href="struct_m_p4_tags__s.html#7c01997b03abf94f1f583b9e6f0c57ee">genreType</a> )
+        printf( <span class="stringliteral">"genreType: %u\n"</span>, *tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#7c01997b03abf94f1f583b9e6f0c57ee">genreType</a> );
 
-    <span class="comment">/* push data from structure to MP4 file */</span>
-    <a name="a14"></a><a class="code" href="group__mp4__itmf__tags.html#g14d7b2b74478294cdc0084a01eb37783" title="Store data to mp4 file from structure.">MP4TagsStore</a>( tags, file );
+    <span class="keywordflow">if</span>( tags-&gt;<a name="a15"></a><a class="code" href="struct_m_p4_tags__s.html#9375fd458b2b773e8ce19a8b6374c780">releaseDate</a> )
+        printf( <span class="stringliteral">"releaseDate: %s\n"</span>, tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#9375fd458b2b773e8ce19a8b6374c780">releaseDate</a> );
+
+    <span class="keywordflow">if</span>( tags-&gt;<a name="a16"></a><a class="code" href="struct_m_p4_tags__s.html#5ce80f687c55b74f47d75276e24e9a17">track</a> )
+        printf( <span class="stringliteral">"track: index=%u total=%u\n"</span>, tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#5ce80f687c55b74f47d75276e24e9a17">track</a>-&gt;index, tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#5ce80f687c55b74f47d75276e24e9a17">track</a>-&gt;total );
+
+    <span class="keywordflow">if</span>( tags-&gt;<a name="a17"></a><a class="code" href="struct_m_p4_tags__s.html#0afb79494c0e1ab7a866bde7a8b3864b">disk</a> )
+        printf( <span class="stringliteral">"disk: index=%u total=%u\n"</span>, tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#0afb79494c0e1ab7a866bde7a8b3864b">disk</a>-&gt;index, tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#0afb79494c0e1ab7a866bde7a8b3864b">disk</a>-&gt;total );
+
+    <span class="keywordflow">if</span>( tags-&gt;<a name="a18"></a><a class="code" href="struct_m_p4_tags__s.html#dd6bcc5f7bc5b9a9c8556ab742ca0ad8">tempo</a> )
+        printf( <span class="stringliteral">"tempo: %u\n"</span>, *tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#dd6bcc5f7bc5b9a9c8556ab742ca0ad8">tempo</a> );
+
+    <span class="keywordflow">if</span>( tags-&gt;<a name="a19"></a><a class="code" href="struct_m_p4_tags__s.html#721261683cebf3960a83354a1b722de6">compilation</a> )
+        printf( <span class="stringliteral">"compilation: %u\n"</span>, *tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#721261683cebf3960a83354a1b722de6">compilation</a> );
+
+    <span class="keywordflow">if</span>( tags-&gt;<a name="a20"></a><a class="code" href="struct_m_p4_tags__s.html#47f349a620b3f4b62012186ae5fed709">tvShow</a> )
+        printf( <span class="stringliteral">"tvShow: %s\n"</span>, tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#47f349a620b3f4b62012186ae5fed709">tvShow</a> );
+
+    <span class="keywordflow">if</span>( tags-&gt;<a name="a21"></a><a class="code" href="struct_m_p4_tags__s.html#6ef665adfe179fbe16c24c3333cb650b">tvNetwork</a> )
+        printf( <span class="stringliteral">"tvNetwork: %s\n"</span>, tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#6ef665adfe179fbe16c24c3333cb650b">tvNetwork</a> );
+
+    <span class="keywordflow">if</span>( tags-&gt;<a name="a22"></a><a class="code" href="struct_m_p4_tags__s.html#f5e3cad6e0c2321b8db9ac502a864083">tvEpisodeID</a> )
+        printf( <span class="stringliteral">"tvEpisodeID: %s\n"</span>, tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#f5e3cad6e0c2321b8db9ac502a864083">tvEpisodeID</a> );
+
+    <span class="keywordflow">if</span>( tags-&gt;<a name="a23"></a><a class="code" href="struct_m_p4_tags__s.html#5f8f67480f8bbba407f74001b453f141">tvSeason</a> )
+        printf( <span class="stringliteral">"tvSeason: %u\n"</span>, *tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#5f8f67480f8bbba407f74001b453f141">tvSeason</a> );
+
+    <span class="keywordflow">if</span>( tags-&gt;<a name="a24"></a><a class="code" href="struct_m_p4_tags__s.html#1e779964963d69645b228f11f9474a97">tvEpisode</a> )
+        printf( <span class="stringliteral">"tvEpisode: %u\n"</span>, *tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#1e779964963d69645b228f11f9474a97">tvEpisode</a> );
+
+    <span class="keywordflow">if</span>( tags-&gt;<a name="a25"></a><a class="code" href="struct_m_p4_tags__s.html#1ff68214b0e8b54d98632ba103986c29">description</a> )
+        printf( <span class="stringliteral">"description: %s\n"</span>, tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#1ff68214b0e8b54d98632ba103986c29">description</a> );
+
+    <span class="keywordflow">if</span>( tags-&gt;<a name="a26"></a><a class="code" href="struct_m_p4_tags__s.html#590d3c6d9cc13b407bed262d5216754f">longDescription</a> )
+        printf( <span class="stringliteral">"longDescription: %s\n"</span>, tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#590d3c6d9cc13b407bed262d5216754f">longDescription</a> );
+
+    <span class="keywordflow">if</span>( tags-&gt;<a name="a27"></a><a class="code" href="struct_m_p4_tags__s.html#30763f0dda88221a5b92d102d97df693">lyrics</a> )
+        printf( <span class="stringliteral">"lyrics: %s\n"</span>, tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#30763f0dda88221a5b92d102d97df693">lyrics</a> );
+
+    <span class="keywordflow">if</span>( tags-&gt;<a name="a28"></a><a class="code" href="struct_m_p4_tags__s.html#277b4357c9670c2fba9da042a7f77edb">sortName</a> )
+        printf( <span class="stringliteral">"sortName: %s\n"</span>, tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#277b4357c9670c2fba9da042a7f77edb">sortName</a> );
+
+    <span class="keywordflow">if</span>( tags-&gt;<a name="a29"></a><a class="code" href="struct_m_p4_tags__s.html#816313de88c62140a62f3182e4f612a8">sortArtist</a> )
+        printf( <span class="stringliteral">"sortArtist: %s\n"</span>, tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#816313de88c62140a62f3182e4f612a8">sortArtist</a> );
+
+    <span class="keywordflow">if</span>( tags-&gt;<a name="a30"></a><a class="code" href="struct_m_p4_tags__s.html#3c25ac62983d0e5c5efef57636c359c2">sortAlbumArtist</a> )
+        printf( <span class="stringliteral">"sortAlbumArtist: %s\n"</span>, tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#3c25ac62983d0e5c5efef57636c359c2">sortAlbumArtist</a> );
+
+    <span class="keywordflow">if</span>( tags-&gt;<a name="a31"></a><a class="code" href="struct_m_p4_tags__s.html#8d559f3bed372929d9a84ec9a7a2e4e0">sortAlbum</a> )
+        printf( <span class="stringliteral">"sortAlbum: %s\n"</span>, tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#8d559f3bed372929d9a84ec9a7a2e4e0">sortAlbum</a> );
+
+    <span class="keywordflow">if</span>( tags-&gt;<a name="a32"></a><a class="code" href="struct_m_p4_tags__s.html#660f8d5cdee9a0b3818889d4d446e3b3">sortComposer</a> )
+        printf( <span class="stringliteral">"sortComposer: %s\n"</span>, tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#660f8d5cdee9a0b3818889d4d446e3b3">sortComposer</a> );
+
+    <span class="keywordflow">if</span>( tags-&gt;<a name="a33"></a><a class="code" href="struct_m_p4_tags__s.html#358947bd6e3720d009231385bef95715">sortTVShow</a> )
+        printf( <span class="stringliteral">"sortTVShow: %s\n"</span>, tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#358947bd6e3720d009231385bef95715">sortTVShow</a> );
+
+    <span class="keywordflow">if</span>( tags-&gt;<a name="a34"></a><a class="code" href="struct_m_p4_tags__s.html#058fa3f96afaa3b8841a8bebdab2cb4c">artworkCount</a> ) {
+        <span class="keyword">const</span> <a name="_a35"></a><a class="code" href="struct_m_p4_tag_artwork__s.html" title="Data object representing a single piece of artwork.">MP4TagArtwork</a>* art = tags-&gt;<a name="a36"></a><a class="code" href="struct_m_p4_tags__s.html#b2efac6fa5136010a3f0078c0abe7c6a">artwork</a>; <span class="comment">/* artwork != NULL when artworkCount &gt; 0 */</span>
+        uint32_t i;
+        <span class="keywordflow">for</span>( i = 0; i &lt; tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#058fa3f96afaa3b8841a8bebdab2cb4c">artworkCount</a>; i++, art++ )
+            printf( <span class="stringliteral">"art[%d]: type=%d size=%u data=%p\n"</span>, i, art-&gt;<a name="a37"></a><a class="code" href="struct_m_p4_tag_artwork__s.html#9e50a9c85c9964542948d3e63f8ba516" title="data type">type</a>, art-&gt;<a name="a38"></a><a class="code" href="struct_m_p4_tag_artwork__s.html#1d5bd30cbd0754d1023404e5b41c2587" title="data size in bytes">size</a>, art-&gt;<a name="a39"></a><a class="code" href="struct_m_p4_tag_artwork__s.html#6bdc006f66a1461906295266a29e7d67" title="raw picture data">data</a> );
+    }
+
+    <span class="keywordflow">if</span>( tags-&gt;<a name="a40"></a><a class="code" href="struct_m_p4_tags__s.html#a783fd8ae705557a43cd92c221e70224">copyright</a> )
+        printf( <span class="stringliteral">"copyright: %s\n"</span>, tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#a783fd8ae705557a43cd92c221e70224">copyright</a> );
+
+    <span class="keywordflow">if</span>( tags-&gt;<a name="a41"></a><a class="code" href="struct_m_p4_tags__s.html#62e128a5b47997bfc2ee7c1cf859a02a">encodingTool</a> )
+        printf( <span class="stringliteral">"encodingTool: %s\n"</span>, tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#62e128a5b47997bfc2ee7c1cf859a02a">encodingTool</a> );
+
+    <span class="keywordflow">if</span>( tags-&gt;<a name="a42"></a><a class="code" href="struct_m_p4_tags__s.html#8edcfe28212f0574689a1db76ecd971f">encodedBy</a> )
+        printf( <span class="stringliteral">"encodedBy: %s\n"</span>, tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#8edcfe28212f0574689a1db76ecd971f">encodedBy</a> );
+
+    <span class="keywordflow">if</span>( tags-&gt;<a name="a43"></a><a class="code" href="struct_m_p4_tags__s.html#d95985757401bc6f390885db5e696fe6">purchaseDate</a> )
+        printf( <span class="stringliteral">"purchaseDate: %s\n"</span>, tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#d95985757401bc6f390885db5e696fe6">purchaseDate</a> );
+
+    <span class="keywordflow">if</span>( tags-&gt;<a name="a44"></a><a class="code" href="struct_m_p4_tags__s.html#ad5c63bfcbe46045133ae8425335d95b">podcast</a> )
+        printf( <span class="stringliteral">"podcast: %u\n"</span>, *tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#ad5c63bfcbe46045133ae8425335d95b">podcast</a> );
+
+    <span class="keywordflow">if</span>( tags-&gt;<a name="a45"></a><a class="code" href="struct_m_p4_tags__s.html#2ac3a3feae7d693e2d2647e208585422">keywords</a> )
+        printf( <span class="stringliteral">"keywords: %s\n"</span>, tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#2ac3a3feae7d693e2d2647e208585422">keywords</a> );
+
+    <span class="keywordflow">if</span>( tags-&gt;<a name="a46"></a><a class="code" href="struct_m_p4_tags__s.html#9d21b57546b8671e38237abf2cec6dd5">category</a> )
+        printf( <span class="stringliteral">"category: %s\n"</span>, tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#9d21b57546b8671e38237abf2cec6dd5">category</a> );
+
+    <span class="keywordflow">if</span>( tags-&gt;<a name="a47"></a><a class="code" href="struct_m_p4_tags__s.html#dd9a783e07ee4cd3c8369da6217f1fc8">hdVideo</a> )
+        printf( <span class="stringliteral">"hdVideo: %u\n"</span>, *tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#dd9a783e07ee4cd3c8369da6217f1fc8">hdVideo</a> );
+
+    <span class="keywordflow">if</span>( tags-&gt;<a name="a48"></a><a class="code" href="struct_m_p4_tags__s.html#c6b4bfb682fb8d8e1773d76a322bb6bb">mediaType</a> )
+        printf( <span class="stringliteral">"mediaType: %u\n"</span>, *tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#c6b4bfb682fb8d8e1773d76a322bb6bb">mediaType</a> );
+
+    <span class="keywordflow">if</span>( tags-&gt;<a name="a49"></a><a class="code" href="struct_m_p4_tags__s.html#9953e8c087285f22b13bd974def91e5f">contentRating</a> )
+        printf( <span class="stringliteral">"contentRating: %u\n"</span>, *tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#9953e8c087285f22b13bd974def91e5f">contentRating</a> );
+
+    <span class="keywordflow">if</span>( tags-&gt;<a name="a50"></a><a class="code" href="struct_m_p4_tags__s.html#f155023869039f8ea5328b348c5a38e9">gapless</a> )
+        printf( <span class="stringliteral">"gapless: %u\n"</span>, *tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#f155023869039f8ea5328b348c5a38e9">gapless</a> );
+
+    <span class="keywordflow">if</span>( tags-&gt;<a name="a51"></a><a class="code" href="struct_m_p4_tags__s.html#f8decc0bd1e8f563dcfd1e21a133366a">iTunesAccount</a> )
+        printf( <span class="stringliteral">"iTunesAccount: %s\n"</span>, tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#f8decc0bd1e8f563dcfd1e21a133366a">iTunesAccount</a> );
+
+    <span class="keywordflow">if</span>( tags-&gt;<a name="a52"></a><a class="code" href="struct_m_p4_tags__s.html#2a4816a187ca567ddbda2dbbb83d069b">iTunesAccountType</a> )
+        printf( <span class="stringliteral">"iTunesAccountType: %u\n"</span>, *tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#2a4816a187ca567ddbda2dbbb83d069b">iTunesAccountType</a> );
+
+    <span class="keywordflow">if</span>( tags-&gt;<a name="a53"></a><a class="code" href="struct_m_p4_tags__s.html#ebac3f9ddc5649acdd8a47736b10e833">iTunesCountry</a> )
+        printf( <span class="stringliteral">"iTunesCountry: %u\n"</span>, *tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#ebac3f9ddc5649acdd8a47736b10e833">iTunesCountry</a> );
+
+    <span class="keywordflow">if</span>( tags-&gt;<a name="a54"></a><a class="code" href="struct_m_p4_tags__s.html#e6768ccd15d5a9ee1e781f97e1ee9c7c">cnID</a> )
+        printf( <span class="stringliteral">"cnID: %u\n"</span>, *tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#e6768ccd15d5a9ee1e781f97e1ee9c7c">cnID</a> );
+
+    <span class="keywordflow">if</span>( tags-&gt;<a name="a55"></a><a class="code" href="struct_m_p4_tags__s.html#82ffa1abeaf4e05ce2423e2763dfcd54">atID</a> )
+        printf( <span class="stringliteral">"atID: %u\n"</span>, *tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#82ffa1abeaf4e05ce2423e2763dfcd54">atID</a> );
+
+    <span class="keywordflow">if</span>( tags-&gt;<a name="a56"></a><a class="code" href="struct_m_p4_tags__s.html#3254fed792ffb9f3bbb35c500b80dc9c">plID</a> )
+        printf( <span class="stringliteral">"plID: %llu\n"</span>, *tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#3254fed792ffb9f3bbb35c500b80dc9c">plID</a> );
+
+    <span class="keywordflow">if</span>( tags-&gt;<a name="a57"></a><a class="code" href="struct_m_p4_tags__s.html#8268b22d7963a18108a8cccb31b3c359">geID</a> )
+        printf( <span class="stringliteral">"geID: %u\n"</span>, *tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#8268b22d7963a18108a8cccb31b3c359">geID</a> );
+
+    <span class="comment">/**************************************************************************</span>
+<span class="comment">     * modify various tags values</span>
+<span class="comment">     */</span>
+
+    uint8_t  n8;
+    uint16_t n16;
+    uint32_t n32;
+    uint64_t n64;
+
+    MP4TagTrack dtrack;
+    dtrack.index = 1;
+    dtrack.total = 1;
+
+    MP4TagDisk ddisk;
+    ddisk.index = 1;
+    ddisk.total = 1;
+
+    MP4TagsSetName              ( tags, <span class="stringliteral">"my name"</span> );
+    MP4TagsSetArtist            ( tags, <span class="stringliteral">"my artist"</span> );
+    MP4TagsSetAlbumArtist       ( tags, <span class="stringliteral">"my albumArtist"</span> );
+    MP4TagsSetAlbum             ( tags, <span class="stringliteral">"my album"</span> );
+    MP4TagsSetGrouping          ( tags, <span class="stringliteral">"my grouping"</span> );
+    MP4TagsSetComposer          ( tags, <span class="stringliteral">"my composer"</span> );
+    MP4TagsSetComments          ( tags, <span class="stringliteral">"my comments"</span> );
+    MP4TagsSetGenre             ( tags, <span class="stringliteral">"my genre"</span> );
+    n16 = 5; <span class="comment">/* disco */</span>
+    MP4TagsSetGenreType         ( tags, &amp;n16 );
+    MP4TagsSetReleaseDate       ( tags, <span class="stringliteral">"my releaseDate"</span> );
+    MP4TagsSetTrack             ( tags, &amp;dtrack );
+    MP4TagsSetDisk              ( tags, &amp;ddisk );
+    n16 = 60; <span class="comment">/* bpm */</span>
+    MP4TagsSetTempo             ( tags, &amp;n16 );
+    n8 = 0; <span class="comment">/* false */</span>
+    MP4TagsSetCompilation       ( tags, &amp;n8 );
+
+    MP4TagsSetTVShow            ( tags, <span class="stringliteral">"my tvShow"</span> );
+    MP4TagsSetTVNetwork         ( tags, <span class="stringliteral">"my tvNetwork"</span> );
+    MP4TagsSetTVEpisodeID       ( tags, <span class="stringliteral">"my tvEpisodeID"</span> );
+    n32 = 0;
+    MP4TagsSetTVSeason          ( tags, &amp;n32 );
+    n32 = 0;
+    MP4TagsSetTVEpisode         ( tags, &amp;n32 );
+
+    MP4TagsSetDescription       ( tags, <span class="stringliteral">"my description"</span> );
+    MP4TagsSetLongDescription   ( tags, <span class="stringliteral">"my longDescription"</span> );
+    MP4TagsSetLyrics            ( tags, <span class="stringliteral">"my lyrics"</span> );
+
+    MP4TagsSetSortName          ( tags, <span class="stringliteral">"my sortName"</span> );
+    MP4TagsSetSortArtist        ( tags, <span class="stringliteral">"my sortArtist"</span> );
+    MP4TagsSetSortAlbumArtist   ( tags, <span class="stringliteral">"my sortAlbumArtist"</span> );
+    MP4TagsSetSortAlbum         ( tags, <span class="stringliteral">"my sortAlbum"</span> );
+    MP4TagsSetSortComposer      ( tags, <span class="stringliteral">"my sortComposer"</span> );
+    MP4TagsSetSortTVShow        ( tags, <span class="stringliteral">"my sortTVShow"</span> );
+
+    MP4TagsSetCopyright         ( tags, <span class="stringliteral">"my copyright"</span> );
+    MP4TagsSetEncodingTool      ( tags, <span class="stringliteral">"my encodingTool"</span> );
+    MP4TagsSetEncodedBy         ( tags, <span class="stringliteral">"my encodedBy"</span> );
+    MP4TagsSetPurchaseDate      ( tags, <span class="stringliteral">"my purchaseDate"</span> );
+
+    n8 = 0; <span class="comment">/* false */</span>
+    MP4TagsSetPodcast           ( tags, &amp;n8 );
+    MP4TagsSetKeywords          ( tags, <span class="stringliteral">"my keywords"</span> );
+    MP4TagsSetCategory          ( tags, <span class="stringliteral">"my category"</span> );
+
+    n8 = 0; <span class="comment">/* false */</span>
+    MP4TagsSetHDVideo           ( tags, &amp;n8 ); <span class="comment">// false</span>
+    n8 = 9; <span class="comment">/* movie */</span>
+    MP4TagsSetMediaType         ( tags, &amp;n8 ); <span class="comment">// movie</span>
+    n8 = 0; <span class="comment">/* none */</span>
+    MP4TagsSetContentRating     ( tags, &amp;n8 ); <span class="comment">// none</span>
+    n8 = 0; <span class="comment">/* false */</span>
+    MP4TagsSetGapless           ( tags, &amp;n8 ); <span class="comment">// false</span>
+
+    MP4TagsSetITunesAccount     ( tags, <span class="stringliteral">"my iTunesAccount"</span> );
+    n8 = 0; <span class="comment">/* iTunes */</span>
+    MP4TagsSetITunesAccountType ( tags, &amp;n8 );
+    n32 = 143441; <span class="comment">/* USA */</span>
+    MP4TagsSetITunesCountry     ( tags, &amp;n32 );
+    n32 = 0;
+    MP4TagsSetCNID              ( tags, &amp;n32 );
+    n32 = 0;
+    MP4TagsSetATID              ( tags, &amp;n32 );
+    n64 = 0;
+    MP4TagsSetPLID              ( tags, &amp;n64 );
+    n32 = 0;
+    MP4TagsSetGEID              ( tags, &amp;n32 );
+
+    <span class="comment">/* push data to mp4 file */</span>
+    <a name="a58"></a><a class="code" href="group__mp4__itmf__tags.html#g14d7b2b74478294cdc0084a01eb37783" title="Store data to mp4 file from structure.">MP4TagsStore</a>( tags, file );
 
     <span class="comment">/* free memory associated with structure and close */</span>
-    <a name="a15"></a><a class="code" href="group__mp4__itmf__tags.html#gd5b9e876efc7d50673e05f6100af4d68" title="Free tags convenience structure.">MP4TagsFree</a>( tags );
-    <a name="a16"></a><a class="code" href="group__mp4__file.html#g5123d9288961860eeb9100ac10927ff2" title="Close an mp4 file.">MP4Close</a>( file );
+    <a name="a59"></a><a class="code" href="group__mp4__itmf__tags.html#gd5b9e876efc7d50673e05f6100af4d68" title="Free tags convenience structure.">MP4TagsFree</a>( tags );
+    <a name="a60"></a><a class="code" href="group__mp4__file.html#g5123d9288961860eeb9100ac10927ff2" title="Close an mp4 file.">MP4Close</a>( file );
 
     <span class="keywordflow">return</span> 0;
 }
 </pre></div> </div>
 <div class="footer">
     <div>
-        generated on Mon May 18 11:20:38 2009 for <b>MP4v2 (2.0-r306)</b>
+        generated on Wed May 20 21:39:30 2009 for <b>MP4v2 (2.0-r322)</b>
         by&nbsp;<a href="http://www.doxygen.org">Doxygen</a> 1.5.8
     </div>
 </div>
