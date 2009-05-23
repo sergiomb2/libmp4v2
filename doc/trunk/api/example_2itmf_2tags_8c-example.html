@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <title>MP4v2 2.0-r336 PROJECT_name: example/itmf/tags.c</title>
+    <title>MP4v2 trunk-r346 PROJECT_name: example/itmf/tags.c</title>
     <link href="project.css" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -25,7 +25,6 @@
   <div class="tabs">
     <ul>
       <li><a href="index.html"><span>Main&nbsp;Page</span></a></li>
-      <li><a href="pages.html"><span>Related&nbsp;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
@@ -153,7 +152,7 @@
         <span class="keyword">const</span> <a name="_a35"></a><a class="code" href="struct_m_p4_tag_artwork__s.html" title="Data object representing a single piece of artwork.">MP4TagArtwork</a>* art = tags-&gt;<a name="a36"></a><a class="code" href="struct_m_p4_tags__s.html#b2efac6fa5136010a3f0078c0abe7c6a">artwork</a>; <span class="comment">/* artwork != NULL when artworkCount &gt; 0 */</span>
         uint32_t i;
         <span class="keywordflow">for</span>( i = 0; i &lt; tags-&gt;<a class="code" href="struct_m_p4_tags__s.html#058fa3f96afaa3b8841a8bebdab2cb4c">artworkCount</a>; i++, art++ )
-            printf( <span class="stringliteral">"art[%d]: type=%d size=%u data=%p\n"</span>, i, art-&gt;<a name="a37"></a><a class="code" href="struct_m_p4_tag_artwork__s.html#9e50a9c85c9964542948d3e63f8ba516" title="data type">type</a>, art-&gt;<a name="a38"></a><a class="code" href="struct_m_p4_tag_artwork__s.html#1d5bd30cbd0754d1023404e5b41c2587" title="data size in bytes">size</a>, art-&gt;<a name="a39"></a><a class="code" href="struct_m_p4_tag_artwork__s.html#6bdc006f66a1461906295266a29e7d67" title="raw picture data">data</a> );
+            printf( <span class="stringliteral">"art[%d]: type=%d size=%u data=%p\n"</span>, i, art-&gt;<a name="a37"></a><a class="code" href="struct_m_p4_tag_artwork__s.html#9e50a9c85c9964542948d3e63f8ba516" title="data type">type</a>, art-&gt;<a name="a38"></a><a class="code" href="struct_m_p4_tag_artwork__s.html#1d5bd30cbd0754d1023404e5b41c2587" title="data size in bytes">size</a>, art-&gt;<a name="a39"></a><a class="code" href="struct_m_p4_tag_artwork__s.html#ae4eaf86fb5561eade5237532474465b" title="raw picture data">data</a> );
     }
 
     <span class="keywordflow">if</span>( tags-&gt;<a name="a40"></a><a class="code" href="struct_m_p4_tags__s.html#a783fd8ae705557a43cd92c221e70224">copyright</a> )
@@ -309,7 +308,7 @@
 </pre></div> </div>
 <div class="footer">
     <div>
-        generated on Thu May 21 16:19:18 2009 for <b>MP4v2 (2.0-r336)</b>
+        generated on Sat May 23 08:25:50 2009 for <b>MP4v2 (trunk-r346)</b>
         by&nbsp;<a href="http://www.doxygen.org">Doxygen</a> 1.5.8
     </div>
 </div>

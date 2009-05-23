@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <title>MP4v2 2.0-r336 PROJECT_name: MP4v2 File I/O</title>
+    <title>MP4v2 trunk-r346 PROJECT_name: MP4v2 File I/O</title>
     <link href="project.css" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -25,7 +25,6 @@
   <div class="tabs">
     <ul>
       <li><a href="index.html"><span>Main&nbsp;Page</span></a></li>
-      <li><a href="pages.html"><span>Related&nbsp;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
@@ -81,12 +80,6 @@
 <tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__file.html#gc5d3ff6b04ffa9a2f7ffe36196fb96f7">MP4_CREATE_64BIT_TIME</a>&nbsp;&nbsp;&nbsp;0x02</td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Bit: enable 64-bit time-atoms.  <a href="#gc5d3ff6b04ffa9a2f7ffe36196fb96f7"></a><br></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__file.html#g9c22e05d768507a5d6b0499cb948bd63">MP4_CREATE_64BIT</a>&nbsp;&nbsp;&nbsp;(MP4_CREATE_64BIT_DATA | MP4_CREATE_64BIT_TIME)</td></tr>
-
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Bitmask: convenience for both data and time atoms.  <a href="#g9c22e05d768507a5d6b0499cb948bd63"></a><br></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__file.html#gdc86739f870c6a66b19498c1f2811f7d">MP4_CREATE_EXTENSIBLE_FORMAT</a>&nbsp;&nbsp;&nbsp;0x04</td></tr>
-
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Not used.  <a href="#gdc86739f870c6a66b19498c1f2811f7d"></a><br></td></tr>
 <tr><td colspan="2"><br><h2>Typedefs</h2></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">typedef enum <a class="el" href="group__mp4__file.html#gd409ae4e64c51d2e831968b5adcb3711">MP4FileMode_e</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mp4__file.html#gfdb6cfe7fa59c5317846ffc56f42e81c">MP4FileMode</a></td></tr>
 
@@ -144,24 +137,6 @@
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Read an existing mp4 file.  <a href="#ga14314f7f04899ddf0b2dc05a0ab5177"></a><br></td></tr>
 </table>
 <hr><h2>Define Documentation</h2>
-<a class="anchor" name="g9c22e05d768507a5d6b0499cb948bd63"></a><!-- doxytag: member="file.h::MP4_CREATE_64BIT" ref="g9c22e05d768507a5d6b0499cb948bd63" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MP4_CREATE_64BIT&nbsp;&nbsp;&nbsp;(MP4_CREATE_64BIT_DATA | MP4_CREATE_64BIT_TIME)          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-Bitmask: convenience for both data and time atoms. 
-<p>
-<dl compact><dt><b><a class="el" href="deprecated.html#_deprecated000001">Deprecated:</a></b></dt><dd>scheduled for removal </dd></dl>
-
-</div>
-</div><p>
 <a class="anchor" name="g548b75af24607211fc865f13989feb5a"></a><!-- doxytag: member="file.h::MP4_CREATE_64BIT_DATA" ref="g548b75af24607211fc865f13989feb5a" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -194,24 +169,6 @@ Bit: enable 64-bit data-atoms.
 Bit: enable 64-bit time-atoms. 
 <p>
 <dl class="note" compact><dt><b>Note:</b></dt><dd>Incompatible with QuickTime. </dd></dl>
-
-</div>
-</div><p>
-<a class="anchor" name="gdc86739f870c6a66b19498c1f2811f7d"></a><!-- doxytag: member="file.h::MP4_CREATE_EXTENSIBLE_FORMAT" ref="gdc86739f870c6a66b19498c1f2811f7d" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MP4_CREATE_EXTENSIBLE_FORMAT&nbsp;&nbsp;&nbsp;0x04          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-Not used. 
-<p>
-<dl compact><dt><b><a class="el" href="deprecated.html#_deprecated000002">Deprecated:</a></b></dt><dd>scheduled for removal </dd></dl>
 
 </div>
 </div><p>
@@ -1066,7 +1023,7 @@ MP4SetVerbosity allows control over the level of diagnostic information printed 
 </div>
 <div class="footer">
     <div>
-        generated on Thu May 21 16:19:18 2009 for <b>MP4v2 (2.0-r336)</b>
+        generated on Sat May 23 08:25:50 2009 for <b>MP4v2 (trunk-r346)</b>
         by&nbsp;<a href="http://www.doxygen.org">Doxygen</a> 1.5.8
     </div>
 </div>
