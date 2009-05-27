@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <title>MP4v2 trunk-r346 PROJECT_name: MP4v2 iTMF (iTunes Metadata Format) Generic</title>
+    <title>MP4v2 trunk-r352 PROJECT_name: MP4v2 iTMF (iTunes Metadata Format) Generic</title>
     <link href="project.css" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -34,7 +34,10 @@
   </div>
 </div>
 <div class="contents">
-<h1>MP4v2 iTMF (iTunes Metadata Format) Generic</h1><table border="0" cellpadding="0" cellspacing="0">
+<h1>MP4v2 iTMF (iTunes Metadata Format) Generic</h1>This is a low-level API used to manage iTMF metadata.  
+<a href="#_details">More...</a>
+<p>
+<table border="0" cellpadding="0" cellspacing="0">
 <tr><td></td></tr>
 <tr><td colspan="2"><br><h2>Classes</h2></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">struct &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_m_p4_itmf_data__s.html">MP4ItmfData_s</a></td></tr>
@@ -127,6 +130,36 @@
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Remove an existing item from file.  <a href="#g5a667650af849343c7142fa49110f1a0"></a><br></td></tr>
 </table>
+<hr><a name="_details"></a><h2>Detailed Description</h2>
+This is a low-level API used to manage iTMF metadata. 
+<p>
+It provides support for virtually any kind of iTMF metadata item, including meaning atoms, sometimes referred to as reverse-DNS meanings. Structures are directly modified; ie: there are no fuctions which modify values for you. There is little type-safety, logic checks, or specifications compliance checks. For these reasons it is recommended to use iTMF Tags API when possible.<p>
+At the heart of this API is an <a class="el" href="group__mp4__itmf__generic.html#gc6b96e4b0c32f3c37f88d47f1e4a8c08" title="Item structure.">MP4ItmfItem</a> which corresponds to an iTMF metadata item atom. The item, and any recursive data structures contained within require <b>manual</b> memory management. The general rule to follow is that you must always check/free a ptr if you intend to resize data. In cases where you know the existing data size is exactly what is needed, you may overwrite the buffer contents.<p>
+Each item always has at least 1 data elements which corresponds to a data atom. Additionally, each item has optional <b>mean</b> and <b>name</b> values which correspond to mean and name atoms.<p>
+Each <a class="el" href="group__mp4__itmf__generic.html#gc6b96e4b0c32f3c37f88d47f1e4a8c08" title="Item structure.">MP4ItmfItem</a> has a list of <a class="el" href="group__mp4__itmf__generic.html#g9ed54bdae7fcc39f674753073112c77e" title="Data structure.">MP4ItmfData</a>. Similarily, care must be taken to manage memory with one key difference; these structures also have a valueSize field. If value is NULL then set valueSize=0. Otherwise, set valueSize to the size (in bytes) of value buffer.<p>
+In rare cases where the number of data elements in a single item is &gt; 1, the user must manually free/alloc/copy the <b>elements</b> buffer and update <b>size</b> accordingly.<p>
+The mp4 file structure is modified only when MP4AddItem(), MP4SetItem() and MP4RemoveItem() are used. Simply free'ing the item list does not modify the mp4 file.<p>
+<b>iTMF Generic read workflow:</b><p>
+<ul>
+<li><a class="el" href="group__mp4__itmf__generic.html#g9cb2fdd99184179245b406cadc1e9e1b" title="Get list of all items from file.">MP4ItmfGetItems()</a> </li>
+<li>inspect each item... </li>
+<li><a class="el" href="group__mp4__itmf__generic.html#gc54f69419ab19490c8f2a97c3d172c12" title="Free an item list (deep free).">MP4ItmfItemListFree()</a></li>
+</ul>
+<b>iTMF Generic read/modify/remove workflow:</b><p>
+<ul>
+<li><a class="el" href="group__mp4__itmf__generic.html#g9cb2fdd99184179245b406cadc1e9e1b" title="Get list of all items from file.">MP4ItmfGetItems()</a> </li>
+<li>inspect/modify item... </li>
+<li><a class="el" href="group__mp4__itmf__generic.html#ga2022f374473cb453f2fa85b9642998e" title="Overwrite an existing item in file.">MP4ItmfSetItem()</a> each modified item... </li>
+<li><a class="el" href="group__mp4__itmf__generic.html#g5a667650af849343c7142fa49110f1a0" title="Remove an existing item from file.">MP4ItmfRemoveItem()</a>... </li>
+<li><a class="el" href="group__mp4__itmf__generic.html#gc54f69419ab19490c8f2a97c3d172c12" title="Free an item list (deep free).">MP4ItmfItemListFree()</a></li>
+</ul>
+<b>iTMF Generic add workflow:</b><p>
+<ul>
+<li><a class="el" href="group__mp4__itmf__generic.html#g93bb2f5a0bc2e09c1bb8a430139daff4" title="Allocate an item on the heap.">MP4ItmfItemAlloc()</a> </li>
+<li><a class="el" href="group__mp4__itmf__generic.html#g492e7fc053bdb4f11325b273d20be04a" title="Add an item to file.">MP4ItmfAddItem()</a> </li>
+<li><a class="el" href="group__mp4__itmf__generic.html#g110dbe8d373b13a98f6bb3de705dba6e" title="Free an item (deep free).">MP4ItmfItemFree()</a></li>
+</ul>
+<dl class="user" compact><dt><b>Warning:</b></dt><dd>Care must be taken when using multiple mechanisms to modify an open mp4 file as it is not thread-safe, nor does it permit overlapping different API workflows which have a begin/end to their workflow. That is to say do not interleave an iTMF Generic workflow with an iTMF Tags workflow. </dd></dl>
 <hr><h2>Typedef Documentation</h2>
 <a class="anchor" name="g00ad4dfd177faa7c03e431b44ce725ce"></a><!-- doxytag: member="itmf_generic.h::MP4ItmfBasicType" ref="g00ad4dfd177faa7c03e431b44ce725ce" args="" -->
 <div class="memitem">
@@ -603,7 +636,7 @@ Overwrite an existing item in file.
 </div>
 <div class="footer">
     <div>
-        generated on Sat May 23 08:25:50 2009 for <b>MP4v2 (trunk-r346)</b>
+        generated on Wed May 27 10:36:05 2009 for <b>MP4v2 (trunk-r352)</b>
         by&nbsp;<a href="http://www.doxygen.org">Doxygen</a> 1.5.8
     </div>
 </div>

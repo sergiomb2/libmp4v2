@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <title>MP4v2 trunk-r346 PROJECT_name: MP4ItmfItem_s Struct Reference</title>
+    <title>MP4v2 trunk-r352 PROJECT_name: MP4ItmfItem_s Struct Reference</title>
     <link href="project.css" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -52,9 +52,9 @@
 <a href="struct_m_p4_itmf_item__s-members.html">List of all members.</a><table border="0" cellpadding="0" cellspacing="0">
 <tr><td></td></tr>
 <tr><td colspan="2"><br><h2>Public Attributes</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">int32_t&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_m_p4_itmf_item__s.html#1159dbce4dcfff67d68787f242fe6d57">index</a></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_m_p4_itmf_item__s.html#f3c6dddeb67bb57d9bb730c33e301334">__handle</a></td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">0-based index of item in ilst container.  <a href="#1159dbce4dcfff67d68787f242fe6d57"></a><br></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">internal use only.  <a href="#f3c6dddeb67bb57d9bb730c33e301334"></a><br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_m_p4_itmf_item__s.html#2fc3716df0a9c6629809a02b59e00a2c">code</a></td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">four-char code identifing atom type.  <a href="#2fc3716df0a9c6629809a02b59e00a2c"></a><br></td></tr>
@@ -75,6 +75,23 @@ Models an iTMF metadata item atom contained in an ilst atom. <dl compact><dt><b>
 
 <p>
 <a class="el" href="example_2itmf_2generic_8c-example.html#_a6">example/itmf/generic.c</a>.</dl><hr><h2>Member Data Documentation</h2>
+<a class="anchor" name="f3c6dddeb67bb57d9bb730c33e301334"></a><!-- doxytag: member="MP4ItmfItem_s::__handle" ref="f3c6dddeb67bb57d9bb730c33e301334" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void* <a class="el" href="struct_m_p4_itmf_item__s.html#f3c6dddeb67bb57d9bb730c33e301334">MP4ItmfItem_s::__handle</a>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+internal use only. 
+<p>
+
+</div>
+</div><p>
 <a class="anchor" name="2fc3716df0a9c6629809a02b59e00a2c"></a><!-- doxytag: member="MP4ItmfItem_s::code" ref="2fc3716df0a9c6629809a02b59e00a2c" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -109,23 +126,6 @@ list of data.
 <p>
 size is always &gt;= 1. <dl compact><dt><b>Examples: </b></dt><dd>
 <a class="el" href="example_2itmf_2generic_8c-example.html#a11">example/itmf/generic.c</a>.</dl>
-</div>
-</div><p>
-<a class="anchor" name="1159dbce4dcfff67d68787f242fe6d57"></a><!-- doxytag: member="MP4ItmfItem_s::index" ref="1159dbce4dcfff67d68787f242fe6d57" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int32_t <a class="el" href="struct_m_p4_itmf_item__s.html#1159dbce4dcfff67d68787f242fe6d57">MP4ItmfItem_s::index</a>          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-0-based index of item in ilst container. 
-<p>
--1 if undefined. 
 </div>
 </div><p>
 <a class="anchor" name="9e14edc34ad73af1fa351a82f55ceb45"></a><!-- doxytag: member="MP4ItmfItem_s::mean" ref="9e14edc34ad73af1fa351a82f55ceb45" args="" -->
@@ -167,7 +167,7 @@ UTF-8 name. NULL-terminated. <dl compact><dt><b>Examples: </b></dt><dd>
 </div>
 <div class="footer">
     <div>
-        generated on Sat May 23 08:25:51 2009 for <b>MP4v2 (trunk-r346)</b>
+        generated on Wed May 27 10:36:05 2009 for <b>MP4v2 (trunk-r352)</b>
         by&nbsp;<a href="http://www.doxygen.org">Doxygen</a> 1.5.8
     </div>
 </div>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <title>MP4v2 trunk-r346 PROJECT_name: MP4v2 iTMF (iTunes Metadata Format) Tags</title>
+    <title>MP4v2 trunk-r352 PROJECT_name: MP4v2 iTMF (iTunes Metadata Format) Tags</title>
     <link href="project.css" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -34,7 +34,10 @@
   </div>
 </div>
 <div class="contents">
-<h1>MP4v2 iTMF (iTunes Metadata Format) Tags</h1><table border="0" cellpadding="0" cellspacing="0">
+<h1>MP4v2 iTMF (iTunes Metadata Format) Tags</h1>This is a high-level API used to manage iTMF metadata.  
+<a href="#_details">More...</a>
+<p>
+<table border="0" cellpadding="0" cellspacing="0">
 <tr><td></td></tr>
 <tr><td colspan="2"><br><h2>Classes</h2></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">struct &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_m_p4_tag_artwork__s.html">MP4TagArtwork_s</a></td></tr>
@@ -236,6 +239,31 @@ void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4TagsSetPLID</b> (c
 void&nbsp;</td><td class="memItemRight" valign="bottom"><b>MP4TagsSetGEID</b> (const <a class="el" href="struct_m_p4_tags__s.html">MP4Tags</a> *, const uint32_t *)</td></tr>
 
 </table>
+<hr><a name="_details"></a><h2>Detailed Description</h2>
+This is a high-level API used to manage iTMF metadata. 
+<p>
+It provides more type-safety and simplified memory management as compared to iTMF Generic API.<p>
+At the heart of this API is a read-only structure that holds all known items and their current values. The value is always a pointer which if NULL indicates its corresponding atom does not exist. Thus, one must always check if the pointer is non-NULL before attempting to extract its value.<p>
+The structure may not be directly modified. Instead, <b>set</b> functions corresponding to each item are used to modify the backing-store of the read-only structure. Setting the value ptr to NULL will effectively remove it. Setting the value ptr to real data will immediately make a copy of the value in the backing-store and the read-only structure will correctly reflect the change.<p>
+The hidden data cache memory is automatically managed. Thus the user need only guarantee the data is available during the lifetime of the set-function call.<p>
+<b>iTMF Tags read workflow:</b><p>
+<ul>
+<li><a class="el" href="group__mp4__itmf__tags.html#g1a6fbc40c9fa9ae70d8eba4cd5d0e8fb" title="Allocate tags convenience structure for reading and settings tags.">MP4TagsAlloc()</a> </li>
+<li><a class="el" href="group__mp4__itmf__tags.html#g71f371b895fe494922900a48383a6a4f" title="Fetch data from mp4 file and populate structure.">MP4TagsFetch()</a> </li>
+<li>inspect each tag of interest... </li>
+<li><a class="el" href="group__mp4__itmf__tags.html#g14d7b2b74478294cdc0084a01eb37783" title="Store data to mp4 file from structure.">MP4TagsStore()</a> (if modified) </li>
+<li><a class="el" href="group__mp4__itmf__tags.html#gd5b9e876efc7d50673e05f6100af4d68" title="Free tags convenience structure.">MP4TagsFree()</a></li>
+</ul>
+<b>iTMF Tags read/modify/add/remove workflow:</b><p>
+<ul>
+<li><a class="el" href="group__mp4__itmf__tags.html#g1a6fbc40c9fa9ae70d8eba4cd5d0e8fb" title="Allocate tags convenience structure for reading and settings tags.">MP4TagsAlloc()</a> </li>
+<li><a class="el" href="group__mp4__itmf__tags.html#g71f371b895fe494922900a48383a6a4f" title="Fetch data from mp4 file and populate structure.">MP4TagsFetch()</a> </li>
+<li>inspect each tag of interest... </li>
+<li>MP4TagsSetName(), MP4TagsSetArtist()... </li>
+<li><a class="el" href="group__mp4__itmf__tags.html#g14d7b2b74478294cdc0084a01eb37783" title="Store data to mp4 file from structure.">MP4TagsStore()</a> </li>
+<li><a class="el" href="group__mp4__itmf__tags.html#gd5b9e876efc7d50673e05f6100af4d68" title="Free tags convenience structure.">MP4TagsFree()</a></li>
+</ul>
+<dl class="user" compact><dt><b>Warning:</b></dt><dd>Care must be taken when using multiple mechanisms to modify an open mp4 file as it is not thread-safe, nor does it permit overlapping different API workflows which have a begin/end to their workflow. That is to say do not interleave an iTMF Generic workflow with an iTMF Tags workflow. </dd></dl>
 <hr><h2>Typedef Documentation</h2>
 <a class="anchor" name="g0cd34d658f4d9bef613a6bb85de76a64"></a><!-- doxytag: member="itmf_tags.h::MP4TagArtwork" ref="g0cd34d658f4d9bef613a6bb85de76a64" args="" -->
 <div class="memitem">
@@ -442,7 +470,7 @@ The tags structure is pushed out to the mp4 file, adding tags if needed, removin
 </div>
 <div class="footer">
     <div>
-        generated on Sat May 23 08:25:50 2009 for <b>MP4v2 (trunk-r346)</b>
+        generated on Wed May 27 10:36:05 2009 for <b>MP4v2 (trunk-r352)</b>
         by&nbsp;<a href="http://www.doxygen.org">Doxygen</a> 1.5.8
     </div>
 </div>
