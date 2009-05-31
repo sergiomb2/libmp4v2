@@ -73,9 +73,37 @@ MP4ItemAtom::MP4ItemAtom( const char* type )
 
 ///////////////////////////////////////////////////////////////////////////////
 
+MP4ItmfHdlrAtom::MP4ItmfHdlrAtom()
+    : MP4FullAtom ( "hdlr" )
+    , reserved1   ( *new MP4Integer32Property( "reserved1" ))
+    , handlerType ( *new MP4BytesProperty( "handlerType", 4 ))
+    , reserved2   ( *new MP4BytesProperty( "reserved2", 12 ))
+    , name        ( *new MP4BytesProperty( "name", 1 ))
+{
+    AddProperty( &reserved1 );
+    AddProperty( &handlerType );
+    AddProperty( &reserved2 );
+    AddProperty( &name );
+
+    const uint8_t htData[] = { 'm', 'd', 'i', 'r' };
+    handlerType.SetValue( htData, sizeof( htData ));
+
+    const uint8_t nameData[] = { 0 };
+    name.SetValue( nameData, sizeof( nameData ));
+}
+
+void
+MP4ItmfHdlrAtom::Read()
+{
+    name.SetValueSize( m_size - 24 );
+    MP4FullAtom::Read();
+}
+
+///////////////////////////////////////////////////////////////////////////////
+
 MP4MeanAtom::MP4MeanAtom()
     : MP4FullAtom ( "mean" )
-    , value       ( *new MP4StringProperty( "value" ))
+    , value       ( *new MP4BytesProperty( "value" ))
 {
     AddProperty( &value );
 }
@@ -83,16 +111,15 @@ MP4MeanAtom::MP4MeanAtom()
 void
 MP4MeanAtom::Read()
 {
-    // calculate size of the metadata from the atom size
-    value.SetFixedLength( m_size - 4 );
+    value.SetValueSize( m_size - 4 );
     MP4Atom::Read();
 }
 
 ///////////////////////////////////////////////////////////////////////////////
 
 MP4NameAtom::MP4NameAtom()
-    : MP4FullAtom( "name" )
-    , value       ( *new MP4StringProperty( "value" ))
+    : MP4FullAtom ( "name" )
+    , value       ( *new MP4BytesProperty( "value" ))
 {
     AddProperty( &value );
 }
@@ -100,9 +127,8 @@ MP4NameAtom::MP4NameAtom()
 void
 MP4NameAtom::Read()
 {
-    // calculate size of the metadata from the atom size
-    value.SetFixedLength( m_size - 4 );
-    MP4Atom::Read();
+    value.SetValueSize( m_size - 4 );
+    MP4FullAtom::Read();
 }
 
 ///////////////////////////////////////////////////////////////////////////////

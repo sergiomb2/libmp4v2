@@ -21,25 +21,27 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-#ifndef MP4V2_IMPL_ITMF_ITMF_H
-#define MP4V2_IMPL_ITMF_ITMF_H
+#include "src/impl.h"
 
-/// @namespace mp4v2::impl::itmf (private) iTunes Metadata Format.
-/// <b>WARNING: THIS IS A PRIVATE NAMESPACE. NOT FOR PUBLIC CONSUMPTION.</b>
-///
-/// This namespace implements some features that are specified by the
-/// iTunes Metadata Format Specification, revision 2008-04-16.
-///
-namespace mp4v2 { namespace impl { namespace itmf {
-    ;
-}}}
+namespace mp4v2 { namespace impl {
 
 ///////////////////////////////////////////////////////////////////////////////
 
-#include "CoverArtBox.h"
-#include "Tags.h"
-#include "generic.h"
+MP4SdtpAtom::MP4SdtpAtom()
+    : MP4FullAtom ( "sdtp" )
+    , data        ( *new MP4BytesProperty( "data" ))
+{
+    AddProperty( &data );
+}
 
 ///////////////////////////////////////////////////////////////////////////////
 
-#endif // MP4V2_IMPL_ITMF_ITMF_H
+void MP4SdtpAtom::Read()
+{
+    data.SetValueSize( m_size - 4 );
+    MP4FullAtom::Read();
+}
+
+///////////////////////////////////////////////////////////////////////////////
+
+}} // namespace mp4v2::impl

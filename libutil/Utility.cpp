@@ -308,28 +308,14 @@ Utility::job( string arg )
 
     // close file handle flagged with job
     if( job.fileHandle != MP4_INVALID_FILE_HANDLE ) {
-        if( result == SUCCESS && job.fileWasModified ) {
-            string tfile = job.file;
-            tfile += ".tmp";
+        verbose2f( "closing %s\n", job.file.c_str() );
+        MP4Close( job.fileHandle );
 
-            verbose2f( "writing %s\n", tfile.c_str() );
-            if( !MP4CopyClose( job.fileHandle, tfile.c_str() ))
-                hwarnf( "write failed: %s\n", job.file.c_str() );
-
-            verbose2f( "renaming %s -> %s\n", tfile.c_str(), job.file.c_str() );
-            if( io::FileSystem::rename( tfile, job.file ))
-                hwarnf( "rename failed: %s -> %s\n", tfile.c_str(), job.file.c_str() );
-        }
-        else {
-            verbose2f( "closing %s\n", job.file.c_str() );
-            MP4Close( job.fileHandle );
-
-            // invoke optimize if flagged
-            if( _optimize && job.optimizeApplicable ) {
-                verbose1f( "optimizing %s\n", job.file.c_str() );
-                if( !MP4Optimize( job.file.c_str(), NULL ))
-                    hwarnf( "optimize failed: %s\n", job.file.c_str() );    
-            }
+        // invoke optimize if flagged
+        if( _optimize && job.optimizeApplicable ) {
+            verbose1f( "optimizing %s\n", job.file.c_str() );
+            if( !MP4Optimize( job.file.c_str(), NULL ))
+                hwarnf( "optimize failed: %s\n", job.file.c_str() );
         }
     }
 
@@ -593,16 +579,13 @@ Utility::process_impl()
 ///////////////////////////////////////////////////////////////////////////////
 
 bool
-Utility::openFileForWriting( io::StdioFile& file )
+Utility::openFileForWriting( io::File& file )
 {
-    static const char* const mode = "wb";
-
     // simple case is file does not exist
     if( !io::FileSystem::exists( file.name )) {
-        if( !file.open( mode ))
-            return SUCCESS;
-
-        return herrf( "unable to open %s for write: %s\n", file.name.c_str(), sys::getLastErrorStr() );
+        if( file.open() )
+            return herrf( "unable to open %s for write: %s\n", file.name.c_str(), sys::getLastErrorStr() );
+        return SUCCESS;
     }
 
     // fail if overwrite is not enabled
@@ -614,7 +597,7 @@ Utility::openFileForWriting( io::StdioFile& file )
         return herrf( "cannot overwrite non-file: %s\n", file.name.c_str() );
 
     // first attemp to re-open/truncate so as to keep any file perms
-    if( !file.open( mode ))
+    if( !file.open() )
         return SUCCESS;
 
     // fail if force is not enabled
@@ -622,7 +605,7 @@ Utility::openFileForWriting( io::StdioFile& file )
         return herrf( "unable to overwrite file: %s\n", file.name.c_str() );
 
     // first attempt to open, truncating file
-    if( !file.open( mode ))
+    if( !file.open() )
         return SUCCESS;
 
     // nuke file
@@ -630,7 +613,7 @@ Utility::openFileForWriting( io::StdioFile& file )
         return herrf( "unable to remove %s: %s\n", file.name.c_str(), sys::getLastErrorStr() );
 
     // final effort
-    if( !file.open( mode ))
+    if( !file.open() )
         return SUCCESS;
 
     return herrf( "unable to open %s for write: %s\n", file.name.c_str(), sys::getLastErrorStr() );
@@ -772,7 +755,6 @@ Utility::Option::Option(
 Utility::JobContext::JobContext( string file_ )
     : file               ( file_ )
     , fileHandle         ( MP4_INVALID_FILE_HANDLE )
-    , fileWasModified    ( false )
     , optimizeApplicable ( false )
 {
 }

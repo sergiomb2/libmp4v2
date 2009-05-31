@@ -8,6 +8,22 @@
  *
  *****************************************************************************/
 
+/** Sample dependency types.
+ *
+ *  Bit combinations 0x03, 0x30, 0xc0 are reserved.
+ */
+typedef enum MP4SampleDependencyType_e {
+    MP4_SDT_UNKNOWN                       = 0x00, /**< unknown */
+    MP4_SDT_HAS_REDUNDANT_CODING          = 0x01, /**< contains redundant coding */
+    MP4_SDT_HAS_NO_REDUNDANT_CODING       = 0x02, /**< does not contain redundant coding */
+    MP4_SDT_HAS_DEPENDENTS                = 0x04, /**< referenced by other samples */
+    MP4_SDT_HAS_NO_DEPENDENTS             = 0x08, /**< not referenced by other samples */
+    MP4_SDT_IS_DEPENDENT                  = 0x10, /**< references other samples */
+    MP4_SDT_IS_INDEPENDENT                = 0x20, /**< does not reference other samples */
+    MP4_SDT_EARLIER_DISPLAY_TIMES_ALLOWED = 0x40, /**< subequent samples in GOP may display earlier */
+    _MP4_SDT_RESERVED                     = 0x80, /**< reserved */
+} MP4SampleDependencyType;
+
 /** Read a track sample.
  *
  *  MP4ReadSample reads the specified sample from the specified track.
@@ -207,6 +223,55 @@ bool MP4WriteSample(
     MP4Duration    duration DEFAULT(MP4_INVALID_DURATION),
     MP4Duration    renderingOffset DEFAULT(0),
     bool           isSyncSample DEFAULT(true) );
+
+/** Write a track sample and supply dependency information.
+ *
+ *  MP4WriteSampleDependency writes the given sample at the end of the specified track.
+ *  Currently the library does not support random insertion of samples into
+ *  the track timeline. Note that with mp4 there cannot be any holes or
+ *  overlapping samples in the track timeline. The last three arguments give
+ *  optional sample information.
+ *
+ *  The value of duration can be given as #MP4_INVALID_DURATION if all samples
+ *  in the track have the same duration. This can be specified with
+ *  MP4AddTrack() and related functions.
+ *
+ *  When this method is used instead of MP4WriteSample() it enables <b>sdtp</b>
+ *  atom to be written out. This atom may be used by advanced players to
+ *  optimize trick-operations such as fast-fwd, reverse or scrubbing.
+ *
+ *  An <b>sdtp</b> atom will always be written out if this method is used.
+ *  To avoid writing the atom, use MP4WriteSample() instead.
+ *
+ *  Intermixing use of MP4WriteSampleDependency() and MP4WriteSample() on the
+ *  same track is not permitted.
+ *
+ *  @param hFile handle of file for operation.
+ *  @param trackId id of track for operation.
+ *  @param pBytes pointer to sample data.
+ *  @param numBytes length of sample data in bytes.
+ *  @param duration sample duration. Caveat: should be in track timescale.
+ *  @param renderingOffset the rendering offset for this sample.
+ *      Currently the only media type that needs this feature is MPEG
+ *      video. Caveat: The offset should be in the track timescale.
+ *  @param isSyncSample the sync/random access flag for this sample.
+ *  @param dependencyFlags bitmask specifying sample dependency characteristics.
+ *      See #MP4SampleDependencyType for bit constants.
+ *
+ *  @return <b>true</b> on success, <b>false</b> on failure.
+ *
+ *  @see MP4AddTrack().
+ */
+MP4V2_EXPORT
+bool MP4WriteSampleDependency(
+    MP4FileHandle  hFile,
+    MP4TrackId     trackId,
+    const uint8_t* pBytes,
+    uint32_t       numBytes,
+    MP4Duration    duration,
+    MP4Duration    renderingOffset,
+    bool           isSyncSample,
+    uint32_t       dependencyFlags );
 
 /** Make a copy of a sample.
  *

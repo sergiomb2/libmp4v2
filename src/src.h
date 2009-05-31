@@ -10,6 +10,8 @@
 
 namespace mp4v2 { namespace impl {
     using namespace mp4v2::platform;
+    using io::File;
+    using io::FileSystem;
 }} // namspace mp4v2::impl
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -45,7 +47,6 @@ namespace mp4v2 { namespace impl {
 #include "qosqualifiers.h"
 #include "odcommands.h"
 #include "rtphint.h"
-#include "virtual_io.h"
 
 ///////////////////////////////////////////////////////////////////////////////
 

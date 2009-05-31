@@ -34,6 +34,19 @@ namespace mp4v2 { namespace impl {
 
 ///////////////////////////////////////////////////////////////////////////////
 
+class MP4FtypAtom;
+class MP4FreeAtom;
+
+/// ISO base media full-atom.
+class MP4FullAtom : public MP4Atom
+{
+public:
+    MP4FullAtom( const char* type );
+
+    MP4Integer8Property&  version;
+    MP4Integer24Property& flags;
+};
+
 // declare all the atom subclasses
 // i.e. spare us atom_xxxx.h for all the atoms
 //
@@ -41,7 +54,8 @@ namespace mp4v2 { namespace impl {
 // Some atoms have a few special needs
 // A small minority of atoms need lots of special handling
 
-class MP4RootAtom : public MP4Atom {
+class MP4RootAtom : public MP4Atom
+{
 public:
     MP4RootAtom();
     void BeginWrite(bool use64 = false);
@@ -54,6 +68,12 @@ public:
 protected:
     uint32_t GetLastMdatIndex();
     void WriteAtomType(const char* type, bool onlyOne);
+
+private:
+    MP4FtypAtom* m_rewrite_ftyp;
+    uint64_t     m_rewrite_ftypPosition;
+    MP4FreeAtom* m_rewrite_free;
+    uint64_t     m_rewrite_freePosition;
 };
 
 /***********************************************************************
@@ -215,6 +235,10 @@ public:
     MP4FtypAtom();
     void Generate();
     void Read();
+
+    MP4StringProperty&    majorBrand;
+    MP4Integer32Property& minorVersion;
+    MP4StringProperty&    compatibleBrands;
 };
 
 class MP4GminAtom : public MP4Atom {
@@ -301,6 +325,17 @@ public:
     void Write();
 };
 
+// sdtp - Independent and Disposable Samples Atom.
+class MP4SdtpAtom : public MP4FullAtom {
+public:
+    MP4SdtpAtom();
+    void Read();
+
+    // raw bytes; one byte for each sample.
+    // number of bytes == stsz.sampleCount.
+    MP4BytesProperty& data;
+};
+
 class MP4SmiAtom : public MP4Atom {
 public:
     MP4SmiAtom(void);
@@ -360,6 +395,7 @@ protected:
 class MP4Tx3gAtom : public MP4Atom {
 public:
     MP4Tx3gAtom();
+    void Generate();
 };
 
 class MP4FtabAtom : public MP4Atom {
@@ -465,14 +501,17 @@ public:
 
 ///////////////////////////////////////////////////////////////////////////////
 
-/// ISO base media full-atom.
-class MP4FullAtom : public MP4Atom
+/// iTMF hdlr-atom.
+class MP4ItmfHdlrAtom : public MP4FullAtom
 {
 public:
-    MP4FullAtom( const char* type );
+    MP4ItmfHdlrAtom();
+    void Read();
 
-    MP4Integer8Property&  version;
-    MP4Integer24Property& flags;
+    MP4Integer32Property& reserved1;
+    MP4BytesProperty&     handlerType;
+    MP4BytesProperty&     reserved2;
+    MP4BytesProperty&     name;
 };
 
 /// iTMF item-atom.
@@ -489,7 +528,7 @@ public:
     MP4MeanAtom();
     void Read();
 
-    MP4StringProperty& value;
+    MP4BytesProperty& value;
 };
 
 /// iTMF name-atom.
@@ -499,7 +538,7 @@ public:
     MP4NameAtom();
     void Read();
 
-    MP4StringProperty& value;
+    MP4BytesProperty& value;
 };
 
 /// iTMF data-atom.

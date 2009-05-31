@@ -797,6 +797,10 @@ MP4Atom::factory( MP4Atom* parent, const char* type )
                     return new MP4NameAtom();
             }
         }
+        else if( ATOMID( ptype ) == ATOMID( "meta" )) {
+            if( ATOMID( type ) == ATOMID( "hdlr" ))
+                return new MP4ItmfHdlrAtom();
+        }
         else if( ATOMID( ptype ) == ATOMID( "udta" )) {
             for( const char* const* p = UDTA_ELEMENTS; *p; p++ )
                 if( !strcmp( type, *p ))
@@ -946,6 +950,8 @@ MP4Atom::factory( MP4Atom* parent, const char* type )
                 return new MP4AmrAtom( type );
             if( ATOMID(type) == ATOMID("sawb") )
                 return new MP4AmrAtom( type );
+            if( ATOMID(type) == ATOMID("sdtp") )
+                return new MP4SdtpAtom();
             if( ATOMID(type) == ATOMID("stbl") )
                 return new MP4StblAtom();
             if( ATOMID(type) == ATOMID("stsd") )

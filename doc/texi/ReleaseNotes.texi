@@ -13,24 +13,44 @@
 @contents
 
 @chapter What's New?
-Welcome! This is the inaugural release of @value{PROJECT.name}.
-
-This project's goal is to continue development of a C-library named @file{libmp4v2} which was once a part of the (now defunct) MPEG4IP project. That library, and some related command-line utilities were branched from MPEG4IP version 1.6.1 to seed this project, @value{PROJECT.name}.
+[TODO]
 
 @chapter Breaking Changes
-@section Top-level header file
-This release is @b{nearly} 100% API compatible with MPEG4IP, however there are some differences. Dependents of this library @b{must} now include the top-level public header file as follows. @b{This is the only supported mechanism to include the library}. We do not support attempts to include any sub-level header files; such files are private implementation details and their naming must not be relied upon.
+@section Removed deprecated metadata/free-form API.
+The following functions have been removed and replaced with iTMF Generic and Tags API. Detailed documentation can be found under API modules section.
 
-@example
-#include <mp4v2/mp4v2.h>
-@end example
+DeleteMetadataAtom(),
+DeleteMetadataFreeForm(),
+DeleteMetadataGenre(),
+GetMetadataByIndex(),
+GetMetadataCoverArt(),
+GetMetadataCoverArtCount(),
+GetMetadataDisk(),
+GetMetadataFreeForm(),
+GetMetadataGenre(),
+GetMetadataString(),
+GetMetadataTrack(),
+GetMetadataUint16(),
+GetMetadataUint8(),
+MetadataDelete(),
+SetMetadataCoverArt(),
+SetMetadataDisk(),
+SetMetadataFreeForm(),
+SetMetadataGenre(),
+SetMetadataString(),
+SetMetadataTrack(),
+SetMetadataUint16(),
+SetMetadataUint8().
 
-@section Command-line utilities
-The command-line utilities have been totally rewritten and enhanced. Help usage has been made more consistent and enhanced, please invoke the appropriate utility in this fashion for more details:
+@appendix Changelog
+@appendixsection Version 2.0
+@include changelog/version-2.0.texi
 
-@example
-@i{command} --help
-@end example
+@appendixsection Version 1.9
+@include changelog/version-1.9.texi
+
+@appendixsection Version 1.6
+@include changelog/version-1.6.texi
 
 @appendix SCM repository details
 @example
@@ -41,10 +61,3 @@ rev:  @value{PROJECT.repo.rev}
 date: @value{PROJECT.repo.date}
 type: @value{PROJECT.repo.type}
 @end example
-
-@appendix Changelog
-@appendixsection Version 2.0
-@include changelog/version-2.0.texi
-
-@appendixsection Version 1.6
-@include changelog/version-1.6.texi

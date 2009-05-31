@@ -40,12 +40,14 @@ class MP4File;
 class MP4Atom;
 class MP4Property;
 class MP4IntegerProperty;
+class MP4Integer8Property;
 class MP4Integer16Property;
 class MP4Integer32Property;
 class MP4Integer64Property;
 class MP4StringProperty;
 
-class MP4Track {
+class MP4Track
+{
 public:
     MP4Track(MP4File* pFile, MP4Atom* pTrakAtom);
 
@@ -71,12 +73,14 @@ public:
         // input parameters
         MP4SampleId sampleId,
         // output parameters
-        uint8_t** ppBytes,
-        uint32_t* pNumBytes,
+        uint8_t**     ppBytes,
+        uint32_t*     pNumBytes,
         MP4Timestamp* pStartTime = NULL,
-        MP4Duration* pDuration = NULL,
-        MP4Duration* pRenderingOffset = NULL,
-        bool* pIsSyncSample = NULL);
+        MP4Duration*  pDuration = NULL,
+        MP4Duration*  pRenderingOffset = NULL,
+        bool*         pIsSyncSample = NULL,
+        bool*         hasDependencyFlags = NULL,
+        uint32_t*     dependencyFlags = NULL );
 
     void WriteSample(
         const uint8_t* pBytes,
@@ -84,6 +88,14 @@ public:
         MP4Duration duration = 0,
         MP4Duration renderingOffset = 0,
         bool isSyncSample = true);
+
+    void WriteSampleDependency(
+        const uint8_t* pBytes,
+        uint32_t       numBytes,
+        MP4Duration    duration,
+        MP4Duration    renderingOffset,
+        bool           isSyncSample,
+        uint32_t       dependencyFlags );
 
     virtual void FinishWrite();
 
@@ -148,10 +160,13 @@ public:
     void RewriteChunk(MP4ChunkId chunkId,
                       uint8_t* pChunk, uint32_t chunkSize);
 
+    MP4Duration GetDurationPerChunk();
+    void        SetDurationPerChunk( MP4Duration );
+
 protected:
     bool        InitEditListProperties();
 
-    FILE*       GetSampleFile(MP4SampleId sampleId);
+    File*       GetSampleFile( MP4SampleId sampleId );
     uint64_t    GetSampleFileOffset(MP4SampleId sampleId);
     uint32_t    GetSampleStscIndex(MP4SampleId sampleId);
     uint32_t    GetChunkStscIndex(MP4ChunkId chunkId);
@@ -182,14 +197,17 @@ protected:
     void WriteChunkBuffer();
 
     void CalculateBytesPerSample();
+
+    void FinishSdtp();
+
 protected:
     MP4File*    m_pFile;
     MP4Atom*    m_pTrakAtom;        // moov.trak[]
     MP4TrackId  m_trackId;          // moov.trak[].tkhd.trackId
     MP4StringProperty* m_pTypeProperty; // moov.trak[].mdia.hdlr.handlerType
 
-    uint32_t    m_lastStsdIndex;
-    FILE*       m_lastSampleFile;
+    uint32_t m_lastStsdIndex;
+    File*    m_lastSampleFile;
 
     // for efficient construction of hint track packets
     MP4SampleId m_cachedReadSampleId;
@@ -259,6 +277,8 @@ protected:
     MP4IntegerProperty*   m_pElstDurationProperty;      // 32 or 64 bits
     MP4Integer16Property* m_pElstRateProperty;
     MP4Integer16Property* m_pElstReservedProperty;
+
+    string m_sdtpLog; // records frame types for H264 samples
 };
 
 MP4ARRAY_DECL(MP4Track, MP4Track*);
