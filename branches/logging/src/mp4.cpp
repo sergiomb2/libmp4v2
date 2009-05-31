@@ -47,41 +47,39 @@ extern "C" {
 
 ///////////////////////////////////////////////////////////////////////////////
 
-    /* file operations */
-    MP4FileHandle MP4ReadEx (const char* fileName,
-                             void *user,
-                             struct Virtual_IO *virtual_IO,
-                             uint32_t verbosity)
-    {
-        MP4File* pFile = NULL;
-        try {
-            pFile = new MP4File(verbosity);
-
-            pFile->ReadEx(fileName, user, virtual_IO);
-            return (MP4FileHandle)pFile;
-        } catch (MP4Error* e) {
-            VERBOSE_ERROR(verbosity, e->Print());
-            delete e;
-            delete pFile;
-            return MP4_INVALID_FILE_HANDLE;
-        }
+MP4FileHandle MP4Read( const char* fileName, uint32_t verbosity )
+{
+    MP4File* pFile = NULL;
+    try {
+        pFile = new MP4File( verbosity );
+        pFile->Read( fileName, NULL );
+        return (MP4FileHandle)pFile;
     }
-
-    MP4FileHandle MP4Read(const char* fileName, uint32_t verbosity)
-    {
-        MP4File* pFile = NULL;
-        try {
-            pFile = new MP4File(verbosity);
-            pFile->Read(fileName);
-            return (MP4FileHandle)pFile;
-        }
-        catch (MP4Error* e) {
-            VERBOSE_ERROR(verbosity, e->Print());
-            delete e;
-            delete pFile;
-            return MP4_INVALID_FILE_HANDLE;
-        }
+    catch ( MP4Error* e ) {
+        VERBOSE_ERROR( verbosity, e->Print() );
+        delete e;
+        delete pFile;
+        return MP4_INVALID_FILE_HANDLE;
     }
+}
+
+MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const MP4FileProvider* fileProvider )
+{
+    MP4File* pFile = NULL;
+    try {
+        pFile = new MP4File( verbosity );
+        pFile->Read( fileName, fileProvider );
+        return (MP4FileHandle)pFile;
+    }
+    catch ( MP4Error* e ) {
+        VERBOSE_ERROR( verbosity, e->Print() );
+        delete e;
+        delete pFile;
+        return MP4_INVALID_FILE_HANDLE;
+    }
+}
+
+///////////////////////////////////////////////////////////////////////////////
 
     MP4FileHandle MP4Create (const char* fileName,
                              uint32_t verbosity,
@@ -1159,12 +1157,14 @@ extern "C" {
         return MP4_INVALID_TRACK_ID;
     }
 
-    MP4TrackId MP4AddSubtitleTrack(
-        MP4FileHandle hFile, MP4TrackId refTrackId)
+    MP4TrackId MP4AddSubtitleTrack(MP4FileHandle hFile,
+                                   uint32_t timescale,
+                                   uint16_t width,
+                                   uint16_t height)
     {
         if (MP4_IS_VALID_FILE_HANDLE(hFile)) {
             try {
-                return ((MP4File*)hFile)->AddSubtitleTrack(refTrackId);
+                return ((MP4File*)hFile)->AddSubtitleTrack(timescale, width, height);
             }
             catch (MP4Error* e) {
                 PRINT_ERROR(e);
@@ -2547,15 +2547,15 @@ extern "C" {
     }
 
     bool MP4WriteSample(
-        MP4FileHandle hFile,
-        MP4TrackId trackId,
+        MP4FileHandle  hFile,
+        MP4TrackId     trackId,
         const uint8_t* pBytes,
-        uint32_t numBytes,
-        MP4Duration duration,
-        MP4Duration renderingOffset,
-        bool isSyncSample)
+        uint32_t       numBytes,
+        MP4Duration    duration,
+        MP4Duration    renderingOffset,
+        bool           isSyncSample )
     {
-        if (MP4_IS_VALID_FILE_HANDLE(hFile)) {
+        if( MP4_IS_VALID_FILE_HANDLE( hFile )) {
             try {
                 ((MP4File*)hFile)->WriteSample(
                     trackId,
@@ -2563,11 +2563,41 @@ extern "C" {
                     numBytes,
                     duration,
                     renderingOffset,
-                    isSyncSample);
+                    isSyncSample );
                 return true;
             }
-            catch (MP4Error* e) {
-                PRINT_ERROR(e);
+            catch( MP4Error* e ) {
+                PRINT_ERROR( e );
+                delete e;
+            }
+        }
+        return false;
+    }
+
+    bool MP4WriteSampleDependency(
+        MP4FileHandle  hFile,
+        MP4TrackId     trackId,
+        const uint8_t* pBytes,
+        uint32_t       numBytes,
+        MP4Duration    duration,
+        MP4Duration    renderingOffset,
+        bool           isSyncSample,
+        uint32_t       dependencyFlags )
+    {
+        if( MP4_IS_VALID_FILE_HANDLE( hFile )) {
+            try {
+                ((MP4File*)hFile)->WriteSampleDependency(
+                    trackId,
+                    pBytes,
+                    numBytes,
+                    duration,
+                    renderingOffset,
+                    isSyncSample,
+                    dependencyFlags );
+                return true;
+            }
+            catch( MP4Error* e ) {
+                PRINT_ERROR( e );
                 delete e;
             }
         }
@@ -2576,137 +2606,64 @@ extern "C" {
 
     bool MP4CopySample(
         MP4FileHandle srcFile,
-        MP4TrackId srcTrackId,
-        MP4SampleId srcSampleId,
+        MP4TrackId    srcTrackId,
+        MP4SampleId   srcSampleId,
         MP4FileHandle dstFile,
-        MP4TrackId dstTrackId,
-        MP4Duration dstSampleDuration)
+        MP4TrackId    dstTrackId,
+        MP4Duration   dstSampleDuration )
     {
-        bool rc;
-        uint8_t* pBytes = NULL;
-        uint32_t numBytes = 0;
-        MP4Duration sampleDuration;
-        MP4Duration renderingOffset;
-        bool isSyncSample;
-
-        // Note: we leave it up to the caller to ensure that the
-        // source and destination tracks are compatible.
-        // i.e. copying audio samples into a video track
-        // is unlikely to do anything useful
-
-        rc = MP4ReadSample(
-                 srcFile,
-                 srcTrackId,
-                 srcSampleId,
-                 &pBytes,
-                 &numBytes,
-                 NULL,
-                 &sampleDuration,
-                 &renderingOffset,
-                 &isSyncSample);
-
-        if (!rc) {
+        if( !MP4_IS_VALID_FILE_HANDLE( srcFile ))
             return false;
+
+        try {
+            MP4File::CopySample(
+                (MP4File*)srcFile,
+                srcTrackId,
+                srcSampleId,
+                (MP4File*)dstFile,
+                dstTrackId,
+                dstSampleDuration );
+            return true;
+        }
+        catch( MP4Error* e ) {
+            ((MP4File*)srcFile)->verbosity, e->Print();
+            delete e;
         }
 
-        if (dstFile == MP4_INVALID_FILE_HANDLE) {
-            dstFile = srcFile;
-        }
-        if (dstTrackId == MP4_INVALID_TRACK_ID) {
-            dstTrackId = srcTrackId;
-        }
-        if (dstSampleDuration != MP4_INVALID_DURATION) {
-            sampleDuration = dstSampleDuration;
-        }
-
-        rc = MP4WriteSample(
-                 dstFile,
-                 dstTrackId,
-                 pBytes,
-                 numBytes,
-                 sampleDuration,
-                 renderingOffset,
-                 isSyncSample);
-
-        free(pBytes);
-
-        return rc;
+        return false;
     }
 
     bool MP4EncAndCopySample(
         MP4FileHandle srcFile,
-        MP4TrackId srcTrackId,
-        MP4SampleId srcSampleId,
+        MP4TrackId    srcTrackId,
+        MP4SampleId   srcSampleId,
         encryptFunc_t encfcnp,
-        uint32_t encfcnparam1,
+        uint32_t      encfcnparam1,
         MP4FileHandle dstFile,
-        MP4TrackId dstTrackId,
-        MP4Duration dstSampleDuration)
+        MP4TrackId    dstTrackId,
+        MP4Duration   dstSampleDuration)
     {
-        bool rc;
-        uint8_t* pBytes = NULL;
-        uint32_t numBytes = 0;
-        uint8_t* encSampleData = NULL;
-        uint32_t encSampleLength = 0;
-        MP4Duration sampleDuration;
-        MP4Duration renderingOffset;
-        bool isSyncSample;
-
-        // Note: we leave it up to the caller to ensure that the
-        // source and destination tracks are compatible.
-        // i.e. copying audio samples into a video track
-        // is unlikely to do anything useful
-
-        rc = MP4ReadSample(
-                 srcFile,
-                 srcTrackId,
-                 srcSampleId,
-                 &pBytes,
-                 &numBytes,
-                 NULL,
-                 &sampleDuration,
-                 &renderingOffset,
-                 &isSyncSample);
-
-        if (!rc) {
+        if( !MP4_IS_VALID_FILE_HANDLE( srcFile ))
             return false;
+
+        try {
+            MP4File::EncAndCopySample(
+                (MP4File*)srcFile,
+                srcTrackId,
+                srcSampleId,
+                encfcnp,
+                encfcnparam1,
+                (MP4File*)dstFile,
+                dstTrackId,
+                dstSampleDuration );
+            return true;
+        }
+        catch( MP4Error* e ) {
+            ((MP4File*)srcFile)->verbosity, e->Print();
+            delete e;
         }
 
-        if (dstFile == MP4_INVALID_FILE_HANDLE) {
-            dstFile = srcFile;
-        }
-        if (dstTrackId == MP4_INVALID_TRACK_ID) {
-            dstTrackId = srcTrackId;
-        }
-        if (dstSampleDuration != MP4_INVALID_DURATION) {
-            sampleDuration = dstSampleDuration;
-        }
-
-        //if (ismacrypEncryptSampleAddHeader(ismaCryptSId, numBytes, pBytes,
-        //                        &encSampleLength, &encSampleData) != 0) {
-        if (encfcnp(encfcnparam1, numBytes, pBytes,
-                    &encSampleLength, &encSampleData) != 0) {
-            fprintf(stderr,
-                    "Can't encrypt the sample and add its header %u\n",
-                    srcSampleId);
-        }
-
-        rc = MP4WriteSample(
-                 dstFile,
-                 dstTrackId,
-                 encSampleData,
-                 encSampleLength,
-                 sampleDuration,
-                 renderingOffset,
-                 isSyncSample);
-
-        free(pBytes);
-
-        if (encSampleData != NULL) {
-            free(encSampleData);
-        }
-
-        return rc;
+        return false;
     }
 
     bool MP4ReferenceSample(
@@ -3826,6 +3783,92 @@ bool MP4SetTrackLanguage(
         PRINT_ERROR( e );
         delete e;
     }   
+
+    return false;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+
+bool MP4GetTrackName(
+    MP4FileHandle hFile,
+    MP4TrackId    trackId,
+    char**        name )
+{
+    if( !MP4_IS_VALID_FILE_HANDLE( hFile ))
+        return false;
+
+    try {
+        return ((MP4File*)hFile)->GetTrackName( trackId, name );
+    }
+    catch( MP4Error* e ) {
+        PRINT_ERROR( e );
+        delete e;
+    }
+
+    return false;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+
+bool MP4SetTrackName(
+    MP4FileHandle hFile,
+    MP4TrackId    trackId,
+    const char*   code )
+{
+    if( !MP4_IS_VALID_FILE_HANDLE( hFile ))
+        return false;
+
+    try {
+        return ((MP4File*)hFile)->SetTrackName( trackId, code );
+    }
+    catch( MP4Error* e ) {
+        PRINT_ERROR( e );
+        delete e;
+    }
+
+    return false;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+
+bool MP4GetTrackDurationPerChunk(
+    MP4FileHandle hFile,
+    MP4TrackId    trackId, 
+    MP4Duration*  duration )
+{
+    if( !MP4_IS_VALID_FILE_HANDLE( hFile ))
+        return false;
+
+    try {
+        *duration = ((MP4File*)hFile)->GetTrackDurationPerChunk( trackId );
+        return true;
+    }
+    catch( MP4Error* e ) {
+        PRINT_ERROR( e );
+        delete e;
+    }
+
+    return false;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+
+bool MP4SetTrackDurationPerChunk(
+    MP4FileHandle hFile,
+    MP4TrackId    trackId,
+    MP4Duration   duration )
+{
+    if( !MP4_IS_VALID_FILE_HANDLE( hFile ))
+        return false;
+
+    try {
+        ((MP4File*)hFile)->SetTrackDurationPerChunk( trackId, duration );
+        return true;
+    }
+    catch( MP4Error* e ) {
+        PRINT_ERROR( e );
+        delete e;
+    }
 
     return false;
 }

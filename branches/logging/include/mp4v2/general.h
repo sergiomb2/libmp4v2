@@ -16,25 +16,6 @@ typedef uint64_t    MP4Timestamp;
 typedef uint64_t    MP4Duration;
 typedef uint32_t    MP4EditId;
 
-typedef uint64_t (*VIRTUALIO_GETFILELENGTH)(void *user); // return file length in bytes
-typedef int (*VIRTUALIO_SETPOSITION)(void *user, uint64_t position); // return 0 on success
-typedef int (*VIRTUALIO_GETPOSITION)(void *user, uint64_t *position); // fill position, return 0 on success
-typedef size_t (*VIRTUALIO_READ)(void *user, void *buffer, size_t size); // return number of bytes actually read
-typedef size_t (*VIRTUALIO_WRITE)(void *user, void *buffer, size_t size); // return number of bytes actually written
-typedef int (*VIRTUALIO_ENDOFFILE)(void *user); // return 1 if file hit EOF
-typedef int (*VIRTUALIO_CLOSE)(void *user); // return 0 on success
-
-typedef struct Virtual_IO
-{
-    VIRTUALIO_GETFILELENGTH GetFileLength;
-    VIRTUALIO_SETPOSITION SetPosition;
-    VIRTUALIO_GETPOSITION GetPosition;
-    VIRTUALIO_READ Read;
-    VIRTUALIO_WRITE Write;
-    VIRTUALIO_ENDOFFILE EndOfFile;
-    VIRTUALIO_CLOSE Close;
-} Virtual_IO_t;
-
 typedef enum {
     MP4_LOG_NONE = 0,
     MP4_LOG_ERROR = 1,
@@ -109,6 +90,7 @@ typedef uint32_t (*encryptFunc_t)( uint32_t, uint32_t, uint8_t*, uint32_t*, uint
 #define MP4_HINT_TRACK_TYPE     "hint"  /**< Constant: hint track. */
 #define MP4_CNTL_TRACK_TYPE     "cntl"  /**< Constant: control track. */
 #define MP4_TEXT_TRACK_TYPE     "text"  /**< Constant: text track. */
+#define MP4_SUBTITLE_TRACK_TYPE "sbtl"  /**< Constant: subtitle track. */
 /*
  * This second set of track types should be created
  * via MP4AddSystemsTrack(type)

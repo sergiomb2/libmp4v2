@@ -319,16 +319,21 @@ void MP4Float32Property::Dump(FILE* pFile, uint8_t indent,
 
 // MP4StringProperty
 
-MP4StringProperty::MP4StringProperty(const char* name,
-                                     bool useCountedFormat, bool useUnicode)
-        : MP4Property(name)
+MP4StringProperty::MP4StringProperty(
+    const char* name,
+    bool        useCountedFormat,
+    bool        useUnicode,
+    bool        arrayMode )
+
+    : MP4Property( name )
+    , m_arrayMode        ( arrayMode )
+    , m_useCountedFormat ( useCountedFormat )
+    , m_useExpandedCount ( false )
+    , m_useUnicode       ( useUnicode )
+    , m_fixedLength      ( 0 )
 {
-    SetCount(1);
+    SetCount( 1 );
     m_values[0] = NULL;
-    m_useCountedFormat = useCountedFormat;
-    m_useExpandedCount = false;
-    m_useUnicode = useUnicode;
-    m_fixedLength = 0;  // length not fixed
 }
 
 MP4StringProperty::~MP4StringProperty()
@@ -372,60 +377,107 @@ void MP4StringProperty::SetValue(const char* value, uint32_t index)
     }
 }
 
-void MP4StringProperty::Read(MP4File* pFile, uint32_t index)
+void MP4StringProperty::Read( MP4File* pFile, uint32_t index )
 {
-    if (m_implicit) {
+    if( m_implicit )
         return;
+
+    uint32_t begin = index;
+    uint32_t max   = index + 1;
+
+    if( m_arrayMode ) {
+        begin = 0;
+        max   = GetCount();
     }
-    if (m_useCountedFormat) {
-        m_values[index] = pFile->ReadCountedString(
-                              (m_useUnicode ? 2 : 1),
-                              m_useExpandedCount,
-                              m_fixedLength);
-    } else if (m_fixedLength) {
-        MP4Free(m_values[index]);
-        m_values[index] = (char*)MP4Calloc(m_fixedLength + 1);
-        pFile->ReadBytes((uint8_t*)m_values[index], m_fixedLength);
-    } else {
-        m_values[index] = pFile->ReadString();
+
+    for( uint32_t i = begin; i < max; i++ ) {
+        char*& value = m_values[i];
+
+        if( m_useCountedFormat ) {
+            value = pFile->ReadCountedString( (m_useUnicode ? 2 : 1), m_useExpandedCount, m_fixedLength );
+        }
+        else if( m_fixedLength ) {
+            MP4Free( value );
+            value = (char*)MP4Calloc( m_fixedLength + 1 );
+            pFile->ReadBytes( (uint8_t*)value, m_fixedLength );
+        }
+        else {
+            value = pFile->ReadString();
+        }
     }
 }
 
-void MP4StringProperty::Write(MP4File* pFile, uint32_t index)
+void MP4StringProperty::Write( MP4File* pFile, uint32_t index )
 {
-    if (m_implicit) {
+    if( m_implicit )
         return;
+
+    uint32_t begin = index;
+    uint32_t max   = index + 1;
+
+    if( m_arrayMode ) {
+        begin = 0;
+        max   = GetCount();
     }
-    if (m_useCountedFormat) {
-        pFile->WriteCountedString(m_values[index],
-                                  (m_useUnicode ? 2 : 1),
-                                  m_useExpandedCount,
-                                  m_fixedLength);
-    } else if (m_fixedLength) {
-        pFile->WriteBytes((uint8_t*)m_values[index], m_fixedLength);
-    } else {
-        pFile->WriteString(m_values[index]);
+
+    for( uint32_t i = begin; i < max; i++ ) {
+        char*& value = m_values[i];
+
+        if( m_useCountedFormat ) {
+            pFile->WriteCountedString( value, (m_useUnicode ? 2 : 1), m_useExpandedCount, m_fixedLength );
+        }
+        else if( m_fixedLength ) {
+            pFile->WriteBytes( (uint8_t*)value, m_fixedLength );
+        }
+        else {
+            pFile->WriteString( value );
+        }
     }
 }
 
-void MP4StringProperty::Dump(FILE* pFile, uint8_t indent,
-                             bool dumpImplicits, uint32_t index)
+void MP4StringProperty::Dump( FILE* pFile, uint8_t indent, bool dumpImplicits, uint32_t index )
 {
-    if (m_implicit && !dumpImplicits) {
+    if( m_implicit && !dumpImplicits )
         return;
-    }
-    Indent(pFile, indent);
-    char indexd[32];
-    if (index != 0) {
-        snprintf(indexd, 32, "[%u]", index);
-    } else indexd[0] = '\0';
 
-    if (m_useUnicode) {
-        fprintf(pFile, "%s%s = %ls\n", m_name, indexd, (wchar_t*)m_values[index]);
-    } else {
-        fprintf(pFile, "%s%s = %s\n", m_name, indexd, m_values[index]);
+    if( !m_arrayMode ) {
+        char indexd[32];
+        if( index != 0 )
+            snprintf( indexd, 32, "[%u]", index );
+        else
+            indexd[0] = '\0';
+
+        Indent( pFile, indent );
+        if( m_useUnicode )
+            fprintf( pFile, "%s%s = %ls\n", m_name, indexd, (wchar_t*)m_values[index] );
+        else
+            fprintf( pFile, "%s%s = %s\n", m_name, indexd, m_values[index] );
     }
-    fflush(pFile);
+    else if( !m_pParentAtom ||
+             !m_pParentAtom->GetFile() ||
+             (m_pParentAtom->GetFile()->verbosity >= MP4_LOG_VERBOSE2) )
+    {
+        const uint32_t max = GetCount();
+
+        Indent( pFile, indent );
+        fprintf( pFile, "%s (size=%u)\n", m_name, max );
+
+        for( uint32_t i = 0; i < max; i++ ) {
+            char*& value = m_values[i];
+
+            Indent( pFile, indent );
+            if( m_useUnicode )
+                fprintf( pFile, "%s[%u] = %ls\n", m_name, i, (wchar_t*)value );
+            else
+                fprintf( pFile, "%s[%u] = %s\n", m_name, i, value );
+        }
+    }
+    else {
+        Indent( pFile, indent );
+        fprintf( pFile, "<table entries suppressed>\n" );
+    }
+
+    fflush( pFile );
 }
 
 // MP4BytesProperty
@@ -433,12 +485,12 @@ void MP4StringProperty::Dump(FILE* pFile, uint8_t indent,
 MP4BytesProperty::MP4BytesProperty(const char* name, uint32_t valueSize,
                                    uint32_t defaultValueSize)
         : MP4Property(name)
+        , m_fixedValueSize(0)
+        , m_defaultValueSize(defaultValueSize)
 {
     SetCount(1);
     m_values[0] = (uint8_t*)MP4Calloc(valueSize);
     m_valueSizes[0] = valueSize;
-    m_fixedValueSize = 0;
-    m_defaultValueSize = defaultValueSize;
 }
 
 MP4BytesProperty::~MP4BytesProperty()
@@ -573,11 +625,43 @@ void MP4BytesProperty::Dump(FILE* pFile, uint8_t indent,
         return;
     }
 
+    // specialization for ilst item data always show all bytes except for covr
+    bool showall = false;
+    if( m_pParentAtom ) {
+        MP4Atom* const datac = m_pParentAtom->GetParentAtom(); // data container
+        if( datac ) {
+            MP4Atom* const datacc = datac->GetParentAtom();
+            if( datacc &&
+                ATOMID( datacc->GetType() ) == ATOMID( "ilst" ) &&
+                ATOMID( datac->GetType() ) != ATOMID( "covr" ) )
+            {
+                showall = true;
+            }
+        }
+    }
+
+    uint32_t adjsize;
+    bool supressed;
+
+    if( showall ||
+        size < 128 ||
+        !m_pParentAtom ||
+        !m_pParentAtom->GetFile() ||
+        (m_pParentAtom->GetFile()->verbosity >= MP4_LOG_VERBOSE2) )
+    {
+        adjsize = size;
+        supressed = false;
+    }
+    else {
+        adjsize = 128;
+        supressed = true;
+    }
+
     ostringstream oss;
     ostringstream text;
 
     string s;
-    for( uint32_t i = 0; i < size; i++ ) {
+    for( uint32_t i = 0; i < adjsize; i++ ) {
         if( i % 16 == 0 ) {
             // not safe to use format because bytes may contain format specifies
             s = oss.str();
@@ -619,6 +703,11 @@ void MP4BytesProperty::Dump(FILE* pFile, uint8_t indent,
     }
 
     oss << "\n";
+
+    if( supressed ) {
+        oss << setw(indent) << setfill(' ') << ""
+            << "<remaining bytes supressed>\n";
+    }
 
     // not safe to use format because bytes may contain format specifies
     s = oss.str();

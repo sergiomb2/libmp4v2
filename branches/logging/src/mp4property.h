@@ -287,7 +287,7 @@ protected:
 class MP4StringProperty : public MP4Property {
 public:
     MP4StringProperty(const char* name,
-                      bool useCountedFormat = false, bool useUnicode = false);
+                      bool useCountedFormat = false, bool useUnicode = false, bool arrayMode = false);
 
     ~MP4StringProperty();
 
@@ -351,6 +351,7 @@ public:
               bool dumpImplicits, uint32_t index = 0);
 
 protected:
+    bool m_arrayMode; // during read/write ignore index and read/write full array
     bool m_useCountedFormat;
     bool m_useExpandedCount;
     bool m_useUnicode;
@@ -384,6 +385,17 @@ public:
         *pValueSize = m_valueSizes[index];
     }
 
+    char* GetValueStringAlloc( uint32_t index = 0 ) {
+        char* buf = (char*)MP4Malloc( m_valueSizes[index] + 1 );
+        memcpy( buf, m_values[index], m_valueSizes[index] );
+        buf[m_valueSizes[index]] = '\0';
+        return buf;
+    }
+
+    bool CompareToString( const string& s, uint32_t index = 0 ) {
+        return string( (const char*)m_values[index], m_valueSizes[index] ) != s;
+    }
+
     void CopyValue(uint8_t* pValue, uint32_t index = 0) {
         // N.B. caller takes responsbility for valid pointer
         // and sufficient memory at the destination
@@ -399,7 +411,7 @@ public:
         SetValue(pValue, valueSize, count);
     }
 
-    uint32_t GetValueSize(uint32_t valueSize, uint32_t index = 0) {
+    uint32_t GetValueSize( uint32_t index = 0 ) {
         return m_valueSizes[index];
     }
 

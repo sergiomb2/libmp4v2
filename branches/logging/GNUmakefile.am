@@ -6,6 +6,10 @@ check_PROGRAMS =
 
 ###############################################################################
 
+libmp4v2_la_LDFLAGS = \
+    $(AM_LDFLAGS) \
+    -version-number $(PROJECT_version_major):$(PROJECT_version_minor):$(PROJECT_version_point) $(X_libmp4v2_la_LDFLAGS)
+
 libmp4v2_la_SOURCES = \
     src/3gp.cpp                          \
     src/atom_ac3.cpp                     \
@@ -42,6 +46,7 @@ libmp4v2_la_SOURCES = \
     src/atom_rtp.cpp                     \
     src/atom_s263.cpp                    \
     src/atom_sdp.cpp                     \
+    src/atom_sdtp.cpp                    \
     src/atom_smi.cpp                     \
     src/atom_sound.cpp                   \
     src/atom_standard.cpp                \
@@ -88,7 +93,6 @@ libmp4v2_la_SOURCES = \
     src/mp4file.h                        \
     src/mp4file_io.cpp                   \
     src/mp4info.cpp                      \
-    src/mp4meta.cpp                      \
     src/mp4property.cpp                  \
     src/mp4property.h                    \
     src/mp4track.cpp                     \
@@ -106,9 +110,7 @@ libmp4v2_la_SOURCES = \
     src/src.h                            \
     src/text.cpp                         \
     src/text.h                           \
-    src/util.h                           \
-    src/virtual_io.cpp                   \
-    src/virtual_io.h
+    src/util.h
 
 libmp4v2_la_SOURCES += \
     src/bmff/bmff.h    \
@@ -121,6 +123,8 @@ libmp4v2_la_SOURCES += \
     src/itmf/CoverArtBox.h    \
     src/itmf/Tags.cpp         \
     src/itmf/Tags.h           \
+    src/itmf/generic.cpp      \
+    src/itmf/generic.h        \
     src/itmf/impl.h           \
     src/itmf/itmf.h           \
     src/itmf/type.cpp         \
@@ -197,7 +201,6 @@ if ADD_UTIL
     bin_PROGRAMS += mp4file
     bin_PROGRAMS += mp4info
     bin_PROGRAMS += mp4subtitle
-    bin_PROGRAMS += mp4syncfiles
     bin_PROGRAMS += mp4tags
     bin_PROGRAMS += mp4track
     bin_PROGRAMS += mp4trackdump
@@ -209,7 +212,6 @@ mp4extract_SOURCES   = util/impl.h util/mp4extract.cpp
 mp4file_SOURCES      = util/impl.h util/mp4file.cpp
 mp4info_SOURCES      = util/impl.h util/mp4info.cpp
 mp4subtitle_SOURCES  = util/impl.h util/mp4subtitle.cpp
-mp4syncfiles_SOURCES = util/impl.h util/mp4syncfiles.cpp
 mp4tags_SOURCES      = util/impl.h util/mp4tags.cpp
 mp4track_SOURCES     = util/impl.h util/mp4track.cpp
 mp4trackdump_SOURCES = util/impl.h util/mp4trackdump.cpp
@@ -220,7 +222,6 @@ mp4extract_LDADD   = libmp4v2.la $(X_LDFLAGS)
 mp4file_LDADD      = libmp4v2.la $(X_LDFLAGS)
 mp4info_LDADD      = libmp4v2.la $(X_LDFLAGS)
 mp4subtitle_LDADD  = libmp4v2.la $(X_LDFLAGS)
-mp4syncfiles_LDADD = libmp4v2.la $(X_LDFLAGS)
 mp4tags_LDADD      = libmp4v2.la $(X_LDFLAGS)
 mp4track_LDADD     = libmp4v2.la $(X_LDFLAGS)
 mp4trackdump_LDADD = libmp4v2.la $(X_LDFLAGS)
@@ -245,7 +246,8 @@ mp4v2inc_HEADERS = \
     include/mp4v2/file_prop.h                   \
     include/mp4v2/general.h                     \
     include/mp4v2/isma.h                        \
-    include/mp4v2/meta.h                        \
+    include/mp4v2/itmf_generic.h                \
+    include/mp4v2/itmf_tags.h                   \
     include/mp4v2/mp4v2.h                       \
     include/mp4v2/platform.h                    \
     include/mp4v2/sample.h                      \

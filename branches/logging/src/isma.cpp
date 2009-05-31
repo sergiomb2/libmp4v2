@@ -83,8 +83,8 @@ void MP4File::MakeIsmaCompliant(bool addIsmaComplianceSdp)
         video_media_data_name = MP4GetTrackMediaDataName(this, videoTrackId);
         if (!(ATOMID(video_media_data_name) == ATOMID("mp4v") ||
                 ATOMID(video_media_data_name) == ATOMID("encv"))) {
-            errorf("%s: %s: can't make ISMA compliant when file contains an %s track", __FUNCTION__, 
-                   m_fileName ? m_fileName : "(null)", video_media_data_name);
+            errorf("%s: can't make ISMA compliant when file contains an %s track", __FUNCTION__, 
+                   video_media_data_name);
             return;
         }
         uint32_t verb = this->getVerbosity();

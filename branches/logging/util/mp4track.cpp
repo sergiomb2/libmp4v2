@@ -154,6 +154,7 @@ TrackUtility::TrackUtility( int argc, char** argv )
     , _sampleId    ( MP4_INVALID_SAMPLE_ID )
 {
     // add standard options which make sense for this utility
+    _group.add( STD_OPTIMIZE );
     _group.add( STD_DRYRUN );
     _group.add( STD_KEEPGOING );
     _group.add( STD_OVERWRITE );
@@ -239,7 +240,7 @@ TrackUtility::actionColorParameterAdd( JobContext& job )
     if( dryrunAbort() )
         return SUCCESS;
 
-    job.fileHandle = MP4ReadCopy( job.file.c_str(), _debugVerbosity );
+    job.fileHandle = MP4Modify( job.file.c_str(), _debugVerbosity );
     if( job.fileHandle == MP4_INVALID_FILE_HANDLE )
         return herrf( "unable to open for write: %s\n", job.file.c_str() );
 
@@ -256,7 +257,6 @@ TrackUtility::actionColorParameterAdd( JobContext& job )
             break;
     }
 
-    job.fileWasModified = true;
     return SUCCESS;
 }
 
@@ -265,7 +265,7 @@ TrackUtility::actionColorParameterAdd( JobContext& job )
 bool
 TrackUtility::actionColorParameterList( JobContext& job )
 {
-    job.fileHandle = MP4ReadCopy( job.file.c_str(), _debugVerbosity );
+    job.fileHandle = MP4Read( job.file.c_str(), _debugVerbosity );
     if( job.fileHandle == MP4_INVALID_FILE_HANDLE )
         return herrf( "unable to open for read: %s\n", job.file.c_str() );
 
@@ -348,7 +348,7 @@ TrackUtility::actionColorParameterRemove( JobContext& job )
     if( dryrunAbort() )
         return SUCCESS;
 
-    job.fileHandle = MP4ReadCopy( job.file.c_str(), _debugVerbosity );
+    job.fileHandle = MP4Modify( job.file.c_str(), _debugVerbosity );
     if( job.fileHandle == MP4_INVALID_FILE_HANDLE )
         return herrf( "unable to open for write: %s\n", job.file.c_str() );
 
@@ -381,7 +381,6 @@ TrackUtility::actionColorParameterRemove( JobContext& job )
         }
     }
 
-    job.fileWasModified = true;
     return SUCCESS;
 }
 
@@ -411,7 +410,7 @@ TrackUtility::actionColorParameterSet( JobContext& job )
     if( dryrunAbort() )
         return SUCCESS;
 
-    job.fileHandle = MP4ReadCopy( job.file.c_str(), _debugVerbosity );
+    job.fileHandle = MP4Modify( job.file.c_str(), _debugVerbosity );
     if( job.fileHandle == MP4_INVALID_FILE_HANDLE )
         return herrf( "unable to open for write: %s\n", job.file.c_str() );
 
@@ -428,7 +427,6 @@ TrackUtility::actionColorParameterSet( JobContext& job )
             break;
     }
 
-    job.fileWasModified = true;
     return SUCCESS;
 }
 
@@ -442,7 +440,7 @@ TrackUtility::actionList( JobContext& job )
 
     ostringstream report;
 
-    job.fileHandle = MP4ReadCopy( job.file.c_str(), _debugVerbosity );
+    job.fileHandle = MP4Read( job.file.c_str(), _debugVerbosity );
     if( job.fileHandle == MP4_INVALID_FILE_HANDLE )
         return herrf( "unable to open for read: %s\n", job.file.c_str() );
 
@@ -507,7 +505,7 @@ TrackUtility::actionPictureAspectRatioAdd( JobContext& job )
     if( dryrunAbort() )
         return SUCCESS;
 
-    job.fileHandle = MP4ReadCopy( job.file.c_str(), _debugVerbosity );
+    job.fileHandle = MP4Modify( job.file.c_str(), _debugVerbosity );
     if( job.fileHandle == MP4_INVALID_FILE_HANDLE )
         return herrf( "unable to open for write: %s\n", job.file.c_str() );
 
@@ -524,7 +522,6 @@ TrackUtility::actionPictureAspectRatioAdd( JobContext& job )
             break;
     }
 
-    job.fileWasModified = true;
     return SUCCESS;
 }
 
@@ -533,7 +530,7 @@ TrackUtility::actionPictureAspectRatioAdd( JobContext& job )
 bool
 TrackUtility::actionPictureAspectRatioList( JobContext& job )
 {
-    job.fileHandle = MP4ReadCopy( job.file.c_str(), _debugVerbosity );
+    job.fileHandle = MP4Read( job.file.c_str(), _debugVerbosity );
     if( job.fileHandle == MP4_INVALID_FILE_HANDLE )
         return herrf( "unable to open for read: %s\n", job.file.c_str() );
 
@@ -611,7 +608,7 @@ TrackUtility::actionPictureAspectRatioRemove( JobContext& job )
     if( dryrunAbort() )
         return SUCCESS;
 
-    job.fileHandle = MP4ReadCopy( job.file.c_str(), _debugVerbosity );
+    job.fileHandle = MP4Modify( job.file.c_str(), _debugVerbosity );
     if( job.fileHandle == MP4_INVALID_FILE_HANDLE )
         return herrf( "unable to open for write: %s\n", job.file.c_str() );
 
@@ -644,7 +641,6 @@ TrackUtility::actionPictureAspectRatioRemove( JobContext& job )
         }
     }
 
-    job.fileWasModified = true;
     return SUCCESS;
 }
 
@@ -674,7 +670,7 @@ TrackUtility::actionPictureAspectRatioSet( JobContext& job )
     if( dryrunAbort() )
         return SUCCESS;
 
-    job.fileHandle = MP4ReadCopy( job.file.c_str(), _debugVerbosity );
+    job.fileHandle = MP4Modify( job.file.c_str(), _debugVerbosity );
     if( job.fileHandle == MP4_INVALID_FILE_HANDLE )
         return herrf( "unable to open for write: %s\n", job.file.c_str() );
 
@@ -691,7 +687,6 @@ TrackUtility::actionPictureAspectRatioSet( JobContext& job )
             break;
     }
 
-    job.fileWasModified = true;
     return SUCCESS;
 }
 
@@ -721,7 +716,7 @@ TrackUtility::actionTrackModifierRemove( JobContext& job )
     if( dryrunAbort() )
         return SUCCESS;
 
-    job.fileHandle = MP4ReadCopy( job.file.c_str(), _debugVerbosity );
+    job.fileHandle = MP4Modify( job.file.c_str(), _debugVerbosity );
     if( job.fileHandle == MP4_INVALID_FILE_HANDLE )
         return herrf( "unable to open for write: %s\n", job.file.c_str() );
 
@@ -731,7 +726,6 @@ TrackUtility::actionTrackModifierRemove( JobContext& job )
     TrackModifier tm( job.fileHandle, _trackIndex );
     (tm.*_actionTrackModifierRemove_function)();
 
-    job.fileWasModified = true;
     return SUCCESS;
 }
 
@@ -761,7 +755,7 @@ TrackUtility::actionTrackModifierSet( JobContext& job )
     if( dryrunAbort() )
         return SUCCESS;
 
-    job.fileHandle = MP4ReadCopy( job.file.c_str(), _debugVerbosity );
+    job.fileHandle = MP4Modify( job.file.c_str(), _debugVerbosity );
     if( job.fileHandle == MP4_INVALID_FILE_HANDLE )
         return herrf( "unable to open for write: %s\n", job.file.c_str() );
 
@@ -771,7 +765,6 @@ TrackUtility::actionTrackModifierSet( JobContext& job )
     TrackModifier tm( job.fileHandle, _trackIndex );
     (tm.*_actionTrackModifierSet_function)( _actionTrackModifierSet_value );
 
-    job.fileWasModified = true;
     return SUCCESS;
 }
 

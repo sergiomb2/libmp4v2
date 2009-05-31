@@ -89,6 +89,68 @@
 			/>
 		</Configuration>
 		<Configuration
+			Name="Debug Static|Win32"
+			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
+			ConfigurationType="4"
+			CharacterSet="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="&quot;$(SolutionDir)\..\include&quot;;&quot;$(SolutionDir)\include&quot;;&quot;$(SolutionDir)\..&quot;"
+				PreprocessorDefinitions="_CRT_SECURE_NO_WARNINGS"
+				MinimalRebuild="true"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="1"
+				UsePrecompiledHeader="0"
+				WarningLevel="3"
+				DebugInformationFormat="4"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
 			Name="Release|Win32"
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
@@ -163,6 +225,69 @@
 				Name="VCPostBuildEventTool"
 			/>
 		</Configuration>
+		<Configuration
+			Name="Release Static|Win32"
+			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
+			ConfigurationType="4"
+			CharacterSet="1"
+			WholeProgramOptimization="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="2"
+				EnableIntrinsicFunctions="true"
+				AdditionalIncludeDirectories="&quot;$(SolutionDir)\..\include&quot;;&quot;$(SolutionDir)\include&quot;;&quot;$(SolutionDir)\..&quot;"
+				PreprocessorDefinitions="_CRT_SECURE_NO_WARNINGS"
+				RuntimeLibrary="0"
+				EnableFunctionLevelLinking="true"
+				UsePrecompiledHeader="0"
+				WarningLevel="3"
+				DebugInformationFormat="3"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
 	</Configurations>
 	<References>
 	</References>
@@ -191,7 +316,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\mp4v2\meta.h"
+				RelativePath="..\..\include\mp4v2\itmf_generic.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\include\mp4v2\itmf_tags.h"
 				>
 			</File>
 			<File
@@ -364,6 +493,10 @@
 			</File>
 			<File
 				RelativePath="..\..\src\atom_sdp.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\atom_sdtp.cpp"
 				>
 			</File>
 			<File
@@ -543,10 +676,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\mp4meta.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\src\mp4property.cpp"
 				>
 			</File>
@@ -618,14 +747,6 @@
 				RelativePath="..\..\src\util.h"
 				>
 			</File>
-			<File
-				RelativePath="..\..\src\virtual_io.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\virtual_io.h"
-				>
-			</File>
 			<Filter
 				Name="bmff"
 				>
@@ -655,6 +776,14 @@
 				</File>
 				<File
 					RelativePath="..\..\src\itmf\CoverArtBox.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\itmf\generic.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\itmf\generic.h"
 					>
 				</File>
 				<File
@@ -876,6 +1005,14 @@
 			</File>
 			<File
 				RelativePath="..\..\libutil\Timecode.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\libutil\TrackModifier.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\libutil\TrackModifier.h"
 				>
 			</File>
 			<File

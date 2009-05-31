@@ -1,35 +1,105 @@
 #include "libplatform/impl.h"
-#include <io.h>
 
 namespace mp4v2 { namespace platform { namespace io {
 
 ///////////////////////////////////////////////////////////////////////////////
 
-bool
-StdioFile::getPosition( Size& pos_ )
+class StandardFileProvider : public FileProvider
 {
-    pos_ = _ftelli64( _handle );
-    return pos_ == -1;
-}
+public:
+    StandardFileProvider();
+
+    bool open( std::string name, Mode mode );
+    bool seek( Size pos );
+    bool read( void* buffer, Size size, Size& nin, Size maxChunkSize );
+    bool write( const void* buffer, Size size, Size& nout, Size maxChunkSize );
+    bool close();
+
+private:
+    HANDLE _handle;
+};
 
 ///////////////////////////////////////////////////////////////////////////////
 
+StandardFileProvider::StandardFileProvider()
+    : _handle( INVALID_HANDLE_VALUE )
+{
+}
+
 bool
-StdioFile::getSize( Size& size_ )
+StandardFileProvider::open( std::string name, Mode mode )
+{
+    DWORD access = 0;
+    DWORD share  = 0;
+    DWORD crdisp = 0;
+    DWORD flags  = FILE_ATTRIBUTE_NORMAL;
+
+    switch( mode ) {
+        case MODE_UNDEFINED:
+        case MODE_READ:
+        default:
+            access |= GENERIC_READ;
+            share  |= FILE_SHARE_READ;
+            crdisp |= OPEN_EXISTING;
+            break;
+
+        case MODE_MODIFY:
+            access |= GENERIC_READ | GENERIC_WRITE;
+            share  |= FILE_SHARE_READ;
+            crdisp |= OPEN_EXISTING;
+            break;
+
+        case MODE_CREATE:
+            access |= GENERIC_READ | GENERIC_WRITE;
+            share  |= FILE_SHARE_READ;
+            crdisp |= CREATE_ALWAYS;
+            break;
+    }
+
+    _handle = CreateFileA( name.c_str(), access, share, NULL, crdisp, flags, NULL );
+    return _handle == INVALID_HANDLE_VALUE;
+}
+
+bool
+StandardFileProvider::seek( Size pos )
 {
     LARGE_INTEGER n;
-    if( !GetFileSizeEx( (HANDLE)_get_osfhandle( _fileno( _handle )), &n ))
+    n.QuadPart = pos;
+    return SetFilePointerEx( _handle, n, NULL, FILE_BEGIN ) == 0;
+}
+
+bool
+StandardFileProvider::read( void* buffer, Size size, Size& nin, Size maxChunkSize )
+{
+    DWORD nread = 0;
+    if( ReadFile( _handle, buffer, (DWORD)size, &nread, NULL ) == 0 )
         return true;
-    size_ = n.QuadPart;
+    nin = nread;
     return false;
 }
 
-///////////////////////////////////////////////////////////////////////////////
+bool
+StandardFileProvider::write( const void* buffer, Size size, Size& nout, Size maxChunkSize )
+{
+    DWORD nwrote = 0;
+    if( WriteFile( _handle, buffer, (DWORD)size, &nwrote, NULL ) == 0 )
+        return true;
+    nout = nwrote;
+    return false;
+}
 
 bool
-StdioFile::setPosition( Size pos_ )
+StandardFileProvider::close()
 {
-    return _fseeki64( _handle, pos_, SEEK_SET ) != 0;
+    return CloseHandle( _handle ) == 0;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+
+FileProvider&
+FileProvider::standard()
+{
+    return *new StandardFileProvider();
 }
 
 ///////////////////////////////////////////////////////////////////////////////

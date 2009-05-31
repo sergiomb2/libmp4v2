@@ -68,17 +68,16 @@ fileFetchSummaryInfo( MP4FileHandle file, FileSummaryInfo& info )
     if( !root )
         return true;
 
-    MP4Atom* ftyp = root->FindAtom( "ftyp" );
+    MP4FtypAtom* ftyp = (MP4FtypAtom*)root->FindAtom( "ftyp" );
     if( !ftyp )
         return true;
 
-    info.major_brand   = ((MP4StringProperty*)ftyp->GetProperty( 0 ))->GetValue();
-    info.minor_version = ((MP4Integer32Property*)ftyp->GetProperty( 1 ))->GetValue();
+    info.major_brand   = ftyp->majorBrand.GetValue();
+    info.minor_version = ftyp->minorVersion.GetValue();
 
-    uint32_t max = ((MP4Integer32Property*)ftyp->GetProperty( 2 ))->GetValue();
-    MP4TableProperty* table = (MP4TableProperty*)ftyp->GetProperty( 3 );
-    for( uint32_t i = 0; i < max; i++ ) {
-        string s = ((MP4StringProperty*)table->GetProperty( 0 ))->GetValue( i );
+    const uint32_t cbmax = ftyp->compatibleBrands.GetCount();
+    for( uint32_t i = 0; i < cbmax; i++ ) {
+        string s = ftyp->compatibleBrands.GetValue( i );
 
         // remove spaces so brand set is presentable
         string stripped;
@@ -100,51 +99,6 @@ fileFetchSummaryInfo( MP4FileHandle file, FileSummaryInfo& info )
     searchFor64bit( *root, info );
 
     return false;
-}
-
-///////////////////////////////////////////////////////////////////////////////
-
-bool
-MP4CopyClose( MP4FileHandle hFile, const string& tmpFileName )
-{
-    if( !MP4_IS_VALID_FILE_HANDLE( hFile ))
-        return false;
-
-    bool success = false;
-    MP4File& f = *(MP4File*)hFile;
-    try {
-        success = f.CopyClose( tmpFileName.c_str() );
-    }
-    catch( MP4Error* e ) {
-        e->Print( stdout );
-        delete e;
-    }
-
-    if( !success )
-        return false;
-
-    delete &f;
-    return true;
-}
-
-///////////////////////////////////////////////////////////////////////////////
-
-MP4FileHandle
-MP4ReadCopy( const string& fileName, uint32_t verbosity )
-{
-    MP4File* file = NULL;
-    try {
-            file = new MP4File( verbosity );
-            file->SetDisableWriteProtection( true );
-            file->Read( fileName.c_str() );
-            return static_cast<MP4FileHandle>(file);
-    }
-    catch( MP4Error* e) {
-        e->Print( stdout );
-        delete e;
-        delete file;
-        return MP4_INVALID_FILE_HANDLE;
-    }
 }
 
 ///////////////////////////////////////////////////////////////////////////////

@@ -106,7 +106,6 @@ protected:
 
         const string  file;               //!< file job is working on
         MP4FileHandle fileHandle;         //!< handle of file, if applicable to job
-        bool          fileWasModified;    //!< indicate file was modified
         bool          optimizeApplicable; //!< indicate file optimization is applicable
         list<void*>   tofree;             //!< memory to free at end of job
     };
@@ -137,7 +136,7 @@ protected:
     bool job   ( string ); //!< process next argument
 
     //! open file in consideration of overwrite/force options
-    bool openFileForWriting( io::StdioFile& );
+    bool openFileForWriting( io::File& );
 
     bool dryrunAbort();
 

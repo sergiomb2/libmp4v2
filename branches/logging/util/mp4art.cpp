@@ -85,6 +85,7 @@ ArtUtility::ArtUtility( int argc, char** argv )
     , _artFilter   ( numeric_limits<uint32_t>::max() )
 {
     // add standard options which make sense for this utility
+    _group.add( STD_OPTIMIZE );
     _group.add( STD_DRYRUN );
     _group.add( STD_KEEPGOING );
     _group.add( STD_OVERWRITE );
@@ -120,24 +121,20 @@ ArtUtility::ArtUtility( int argc, char** argv )
 bool
 ArtUtility::actionAdd( JobContext& job )
 {
-    io::StdioFile in( _artImageFile );
-    if( in.open( "rb" ))
+    File in( _artImageFile, File::MODE_READ );
+    if( in.open() )
         return herrf( "unable to open %s for read: %s\n", _artImageFile.c_str(), sys::getLastErrorStr() );
 
-    io::File::Size size;
-    if( in.getSize( size ))
-        return herrf( "unable to get %s size: %s\n", _artImageFile.c_str(), sys::getLastErrorStr() );
-
     const uint32_t max = numeric_limits<uint32_t>::max();
-    if( size > max )
+    if( in.size > max )
         return herrf( "file too large: %s (exceeds %u bytes)\n", _artImageFile.c_str(), max );
 
     CoverArtBox::Item item;
-    item.size     = static_cast<uint32_t>( size );
+    item.size     = static_cast<uint32_t>( in.size );
     item.buffer   = static_cast<uint8_t*>( malloc( item.size ));
     item.autofree = true;
 
-    io::File::Size nin;
+    File::Size nin;
     if( in.read( item.buffer, item.size, nin ))
         return herrf( "read failed: %s\n", _artImageFile.c_str() );
 
@@ -147,14 +144,13 @@ ArtUtility::actionAdd( JobContext& job )
     if( dryrunAbort() )
         return SUCCESS;
 
-    job.fileHandle = MP4ReadCopy( job.file.c_str(), _debugVerbosity );
+    job.fileHandle = MP4Modify( job.file.c_str(), _debugVerbosity );
     if( job.fileHandle == MP4_INVALID_FILE_HANDLE )
         return herrf( "unable to open for write: %s\n", job.file.c_str() );
 
     if( CoverArtBox::add( job.fileHandle, item ))
         return herrf( "unable to add covr-box\n" );
 
-    job.fileWasModified = true;
     return SUCCESS;
 }
 
@@ -163,7 +159,7 @@ ArtUtility::actionAdd( JobContext& job )
 bool
 ArtUtility::actionExtract( JobContext& job )
 {
-    job.fileHandle = MP4ReadCopy( job.file.c_str(), _debugVerbosity );
+    job.fileHandle = MP4Read( job.file.c_str(), _debugVerbosity );
     if( job.fileHandle == MP4_INVALID_FILE_HANDLE )
         return herrf( "unable to open for read: %s\n", job.file.c_str() );
 
@@ -217,7 +213,7 @@ ArtUtility::actionList( JobContext& job )
         report << setfill('-') << setw(70) << "" << setfill(' ') << '\n';
     }
 
-    job.fileHandle = MP4ReadCopy( job.file.c_str(), _debugVerbosity );
+    job.fileHandle = MP4Read( job.file.c_str(), _debugVerbosity );
     if( job.fileHandle == MP4_INVALID_FILE_HANDLE )
         return herrf( "unable to open for read: %s\n", job.file.c_str() );
 
@@ -254,7 +250,7 @@ ArtUtility::actionList( JobContext& job )
 bool
 ArtUtility::actionRemove( JobContext& job )
 {
-    job.fileHandle = MP4ReadCopy( job.file.c_str(), _debugVerbosity );
+    job.fileHandle = MP4Modify( job.file.c_str(), _debugVerbosity );
     if( job.fileHandle == MP4_INVALID_FILE_HANDLE )
         return herrf( "unable to open for write: %s\n", job.file.c_str() );
 
@@ -269,7 +265,6 @@ ArtUtility::actionRemove( JobContext& job )
     if( CoverArtBox::remove( job.fileHandle, _artFilter ))
         return herrf( "remove failed\n" );
 
-    job.fileWasModified = true;
     return SUCCESS;
 }
 
@@ -278,24 +273,20 @@ ArtUtility::actionRemove( JobContext& job )
 bool
 ArtUtility::actionReplace( JobContext& job )
 {
-    io::StdioFile in( _artImageFile );
-    if( in.open( "rb" ))
+    File in( _artImageFile, File::MODE_READ );
+    if( in.open() )
         return herrf( "unable to open %s for read: %s\n", _artImageFile.c_str(), sys::getLastErrorStr() );
 
-    io::File::Size size;
-    if( in.getSize( size ))
-        return herrf( "unable to get %s size: %s\n", _artImageFile.c_str(), sys::getLastErrorStr() );
-
     const uint32_t max = numeric_limits<uint32_t>::max();
-    if( size > max )
+    if( in.size > max )
         return herrf( "file too large: %s (exceeds %u bytes)\n", _artImageFile.c_str(), max );
 
     CoverArtBox::Item item;
-    item.size     = static_cast<uint32_t>( size );
+    item.size     = static_cast<uint32_t>( in.size );
     item.buffer   = static_cast<uint8_t*>( malloc( item.size ));
     item.autofree = true;
 
-    io::File::Size nin;
+    File::Size nin;
     if( in.read( item.buffer, item.size, nin ))
         return herrf( "read failed: %s\n", _artImageFile.c_str() );
 
@@ -309,14 +300,13 @@ ArtUtility::actionReplace( JobContext& job )
     if( dryrunAbort() )
         return SUCCESS;
 
-    job.fileHandle = MP4ReadCopy( job.file.c_str(), _debugVerbosity );
+    job.fileHandle = MP4Modify( job.file.c_str(), _debugVerbosity );
     if( job.fileHandle == MP4_INVALID_FILE_HANDLE )
         return herrf( "unable to open for write: %s\n", job.file.c_str() );
 
     if( CoverArtBox::set( job.fileHandle, item, _artFilter ))
         return herrf( "unable to add covr-box: %s\n", job.file.c_str() );
 
-    job.fileWasModified = true;
     return SUCCESS;
 }
 
@@ -327,7 +317,7 @@ ArtUtility::extractSingle( JobContext& job, const CoverArtBox::Item& item, uint3
 {
     // compute out filename
     string out_name = job.file;
-    io::FileSystem::pathnameStripExtension( out_name );
+    FileSystem::pathnameStripExtension( out_name );
 
     ostringstream oss;
     oss << out_name << ".art[" << index << ']';
@@ -354,11 +344,11 @@ ArtUtility::extractSingle( JobContext& job, const CoverArtBox::Item& item, uint3
     if( dryrunAbort() )
         return SUCCESS;
 
-    io::StdioFile out( out_name );
+    File out( out_name, File::MODE_CREATE );
     if( openFileForWriting( out ))
         return FAILURE;
 
-    io::File::Size nout;
+    File::Size nout;
     if( out.write( item.buffer, item.size, nout ))
         return herrf( "write failed: %s\n", out_name.c_str() );
 

@@ -1,31 +1,34 @@
-/*
- * The contents of this file are subject to the Mozilla Public
- * License Version 1.1 (the "License"); you may not use this file
- * except in compliance with the License. You may obtain a copy of
- * the License at http://www.mozilla.org/MPL/
- *
- * Software distributed under the License is distributed on an "AS
- * IS" basis, WITHOUT WARRANTY OF ANY KIND, either express or
- * implied. See the License for the specific language governing
- * rights and limitations under the License.
- *
- * The Original Code is MPEG4IP.
- *
- * The Initial Developer of the Original Code is Cisco Systems Inc.
- * Portions created by Cisco Systems Inc. are
- * Copyright (C) Cisco Systems Inc. 2001 - 2005.  All Rights Reserved.
- *
- * 3GPP features implementation is based on 3GPP's TS26.234-v5.60,
- * and was contributed by Ximpo Group Ltd.
- *
- * Portions created by Ximpo Group Ltd. are
- * Copyright (C) Ximpo Group Ltd. 2003, 2004.  All Rights Reserved.
- *
- * Contributor(s):
- *      Dave Mackie         dmackie@cisco.com
- *      Alix Marchandise-Franquet   alix@cisco.com
- *              Ximpo Group Ltd.                mp4v2@ximpo.com
- */
+///////////////////////////////////////////////////////////////////////////////
+//
+//  The contents of this file are subject to the Mozilla Public License
+//  Version 1.1 (the "License"); you may not use this file except in
+//  compliance with the License. You may obtain a copy of the License at
+//  http://www.mozilla.org/MPL/
+//
+//  Software distributed under the License is distributed on an "AS IS"
+//  basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+//  License for the specific language governing rights and limitations
+//  under the License.
+//
+//  The Original Code is MPEG4IP.
+//
+//  The Initial Developer of the Original Code is Cisco Systems Inc.
+//  Portions created by Cisco Systems Inc. are
+//  Copyright (C) Cisco Systems Inc. 2001 - 2005.  All Rights Reserved.
+//
+//  3GPP features implementation is based on 3GPP's TS26.234-v5.60,
+//  and was contributed by Ximpo Group Ltd.
+//
+//  Portions created by Ximpo Group Ltd. are
+//  Copyright (C) Ximpo Group Ltd. 2003, 2004.  All Rights Reserved.
+//
+//  Contributors:
+//      Dave Mackie, dmackie@cisco.com
+//      Alix Marchandise-Franquet, alix@cisco.com
+//      Ximpo Group Ltd., mp4v2@ximpo.com
+//      Kona Blend, kona8lend@@gmail.com
+//
+///////////////////////////////////////////////////////////////////////////////
 
 #ifndef MP4V2_IMPL_MP4FILE_H
 #define MP4V2_IMPL_MP4FILE_H
@@ -34,7 +37,6 @@ namespace mp4v2 { namespace impl {
 
 ///////////////////////////////////////////////////////////////////////////////
 
-// forward declarations
 class MP4Atom;
 class MP4Property;
 class MP4Float32Property;
@@ -43,25 +45,50 @@ class MP4BytesProperty;
 class MP4Descriptor;
 class MP4DescriptorProperty;
 
-class MP4File : public Log {
-public: /* equivalent to MP4 library API */
-    MP4File(uint32_t verbosity = 0);
+class MP4File : public Log
+{
+public:
+    static void CopySample(
+        MP4File*    srcFile,
+        MP4TrackId  srcTrackId,
+        MP4SampleId srcSampleId,
+        MP4File*    dstFile,
+        MP4TrackId  dstTrackId,
+        MP4Duration dstSampleDuration );
+
+    static void EncAndCopySample(
+        MP4File*      srcFile,
+        MP4TrackId    srcTrackId,
+        MP4SampleId   srcSampleId,
+        encryptFunc_t encfcnp,
+        uint32_t      encfcnparam1,
+        MP4File*      dstFile,
+        MP4TrackId    dstTrackId,
+        MP4Duration   dstSampleDuration );
+
+public:
+    MP4File( uint32_t verbosity = 0 );
     MP4File(MP4LogLevel verbosity);
     ~MP4File();
 
-    /* file operations */
-    void Read(const char* fileName);
-    void ReadEx(const char *fileName, void *user, Virtual_IO *virtual_IO); //benski>
-    void Create(const char* fileName, uint32_t flags,
-                int add_ftyp = 1, int add_iods = 1,
-                char* majorBrand = NULL,
-                uint32_t minorVersion = 0, char** supportedBrands = NULL,
-                uint32_t supportedBrandsCount = 0);
-    bool Modify(const char* fileName);
-    void Optimize(const char* orgFileName,
-                  const char* newFileName = NULL);
-    void Dump(FILE* pDumpFile = NULL, bool dumpImplicits = false);
+    ///////////////////////////////////////////////////////////////////////////
+    // file ops
+    ///////////////////////////////////////////////////////////////////////////
+
+    void Create( const char* fileName,
+                 uint32_t    flags,
+                 int         add_ftyp = 1,
+                 int         add_iods = 1,
+                 char*       majorBrand = NULL,
+                 uint32_t    minorVersion = 0,
+                 char**      supportedBrands = NULL,
+                 uint32_t    supportedBrandsCount = 0 );
+
+    void Read( const char* name, const MP4FileProvider* provider );
+    bool Modify( const char* fileName );
+    void Optimize( const char* srcFileName, const char* dstFileName = NULL );
     bool CopyClose( const string& copyFileName );
+    void Dump( FILE* fout = NULL, bool dumpImplicits = false );
     void Close();
 
     bool Use64Bits(const char *atomName);
@@ -144,6 +171,8 @@ public: /* equivalent to MP4 library API */
 
     bool GetTrackLanguage( MP4TrackId, char* );
     bool SetTrackLanguage( MP4TrackId, const char* );
+    bool GetTrackName( MP4TrackId trackId, char** name );
+    bool SetTrackName( MP4TrackId trackId, const char* name);
 
     /* sample operations */
 
@@ -171,25 +200,39 @@ public: /* equivalent to MP4 library API */
         MP4TrackId trackId,
         MP4SampleId sampleId,
         // output parameters
-        uint8_t** ppBytes,
-        uint32_t* pNumBytes,
+        uint8_t**     ppBytes,
+        uint32_t*     pNumBytes,
         MP4Timestamp* pStartTime = NULL,
-        MP4Duration* pDuration = NULL,
-        MP4Duration* pRenderingOffset = NULL,
-        bool* pIsSyncSample = NULL);
+        MP4Duration*  pDuration = NULL,
+        MP4Duration*  pRenderingOffset = NULL,
+        bool*         pIsSyncSample = NULL,
+        bool*         hasDependencyFlags = NULL,
+        uint32_t*     dependencyFlags = NULL );
 
     void WriteSample(
-        MP4TrackId trackId,
+        MP4TrackId     trackId,
         const uint8_t* pBytes,
-        uint32_t numBytes,
-        MP4Duration duration = 0,
-        MP4Duration renderingOffset = 0,
-        bool isSyncSample = true);
+        uint32_t       numBytes,
+        MP4Duration    duration = 0,
+        MP4Duration    renderingOffset = 0,
+        bool           isSyncSample = true );
+
+    void WriteSampleDependency(
+        MP4TrackId     trackId,
+        const uint8_t* pBytes,
+        uint32_t       numBytes,
+        MP4Duration    duration,
+        MP4Duration    renderingOffset,
+        bool           isSyncSample,
+        uint32_t       dependencyFlags );
 
     void SetSampleRenderingOffset(
-        MP4TrackId trackId,
+        MP4TrackId  trackId,
         MP4SampleId sampleId,
-        MP4Duration renderingOffset);
+        MP4Duration renderingOffset );
+
+    MP4Duration GetTrackDurationPerChunk( MP4TrackId );
+    void        SetTrackDurationPerChunk( MP4TrackId, MP4Duration );
 
     /* track level convenience functions */
 
@@ -333,7 +376,9 @@ public: /* equivalent to MP4 library API */
         MP4TrackId refTrackId,
         uint32_t   timescale = 0 );
 
-    MP4TrackId AddSubtitleTrack(MP4TrackId refTrackId);
+    MP4TrackId AddSubtitleTrack(uint32_t timescale,
+                                uint16_t width,
+                                uint16_t height);
 
     MP4TrackId AddPixelAspectRatio(MP4TrackId trackId, uint32_t hSpacing, uint32_t vSpacing);
     MP4TrackId AddColr(MP4TrackId trackId, uint16_t pri, uint16_t tran, uint16_t mat);
@@ -504,11 +549,13 @@ public: /* equivalent to MP4 library API */
     void SetHintTrackSdp(MP4TrackId hintTrackId, const char* sdpString);
     void AppendHintTrackSdp(MP4TrackId hintTrackId, const char* sdpString);
 
+    void MakeFtypAtom(
+        char*    majorBrand,
+        uint32_t minorVersion,
+        char**   compatibleBrands,
+        uint32_t compatibleBrandsCount );
+
     // 3GPP specific functions
-    void MakeFtypAtom(char* majorBrand,
-                      uint32_t minorVersion,
-                      char** supportedBrands,
-                      uint32_t supportedBrandsCount);
     void Make3GPCompliant(const char* fileName,
                           char* majorBrand,
                           uint32_t minorVersion,
@@ -704,67 +751,15 @@ public: /* equivalent to MP4 library API */
         MP4Timestamp* pStartTime = NULL,
         MP4Duration* pDuration = NULL);
 
-    /* iTunes metadata handling */
-protected:
-    bool CreateMetadataAtom(const char* name, itmf::BasicType typeCode);
-public:
-    // these are public to remove a lot of unnecessary routines
-    bool DeleteMetadataAtom(const char* name, bool try_udta = false);
-    bool GetMetadataString(const char *atom, char **value, bool try_udta = false);
-    bool SetMetadataString(const char *atom, const char *value);
-    bool MetadataDelete(void);
-
-    bool SetMetadataUint8(const char *atom, uint8_t value);
-    bool GetMetadataUint8(const char *atom, uint8_t* retvalue);
-
-    bool SetMetadataUint16(const char *atom, uint16_t value);
-    bool GetMetadataUint16(const char *atom, uint16_t* retvalue);
-
-    bool SetMetadataUint32(const char *atom, uint32_t value);
-	bool GetMetadataUint32(const char *atom, uint32_t* retvalue);
-	
-    /* set metadata */
-    bool SetMetadataTrack(uint16_t track, uint16_t totalTracks);
-    bool SetMetadataDisk(uint16_t disk, uint16_t totalDisks);
-    bool SetMetadataGenre(const char *value);
-    bool SetMetadataCoverArt(uint8_t *coverArt, uint32_t size);
-    bool SetMetadataFreeForm(const char *name,
-                             const uint8_t* pValue,
-                             uint32_t valueSize,
-                             const char *owner = NULL);
-
-    /* get metadata */
-    bool GetMetadataByIndex(uint32_t index,
-                            char** ppName, // free memory when done
-                            uint8_t** ppValue,  // free memory when done
-                            uint32_t* pValueSize);
-    bool GetMetadataTrack(uint16_t* track, uint16_t* totalTracks);
-    bool GetMetadataDisk(uint16_t* disk, uint16_t* totalDisks);
-    bool GetMetadataGenre(char **value);
-    
-    bool GetMetadataCoverArt(uint8_t **coverArt, uint32_t* size,
-                             uint32_t index = 0);
-    uint32_t GetMetadataCoverArtCount(void);
-    bool GetMetadataFreeForm(const char *name,
-                             uint8_t** pValue,
-                             uint32_t* valueSize,
-                             const char *owner = NULL);
-
-    /* delete metadata */
-    bool DeleteMetadataGenre();
-    bool DeleteMetadataFreeForm(const char *name, const char *owner = NULL);
-
-    /* end of MP4 API */
-
     /* "protected" interface to be used only by friends in library */
 
-    uint64_t GetPosition(FILE* pFile = NULL);
-    void SetPosition(uint64_t pos, FILE* pFile = NULL);
+    uint64_t GetPosition( File* file = NULL );
+    void SetPosition( uint64_t pos, File* file = NULL );
+    uint64_t GetSize( File* file = NULL );
 
-    uint64_t GetSize();
+    void ReadBytes( uint8_t* buf, uint32_t bufsiz, File* file = NULL );
+    void PeekBytes( uint8_t* buf, uint32_t bufsiz, File* file = NULL );
 
-    void ReadBytes(
-        uint8_t* pBytes, uint32_t numBytes, FILE* pFile = NULL);
     uint64_t ReadUInt(uint8_t size);
     uint8_t ReadUInt8();
     uint16_t ReadUInt16();
@@ -781,10 +776,8 @@ public:
     void FlushReadBits();
     uint32_t ReadMpegLength();
 
-    void PeekBytes(
-        uint8_t* pBytes, uint32_t numBytes, FILE* pFile = NULL);
 
-    void WriteBytes(uint8_t* pBytes, uint32_t numBytes, FILE* pFile = NULL);
+    void WriteBytes( uint8_t* buf, uint32_t bufsiz, File* file = NULL );
     void WriteUInt8(uint8_t value);
     void WriteUInt16(uint16_t value);
     void WriteUInt24(uint32_t value);
@@ -808,9 +801,7 @@ public:
     void DisableMemoryBuffer(
         uint8_t** ppBytes = NULL, uint64_t* pNumBytes = NULL);
 
-    char GetMode() {
-        return m_mode;
-    }
+    bool IsWriteMode();
 
     MP4Track* GetTrack(MP4TrackId trackId);
 
@@ -844,21 +835,17 @@ public:
         MP4Atom* pAncestorAtom,
         const char* childName);
 
-    void SetDisableWriteProtection( bool );
-
 protected:
     void Init();
-    void Open(const char* fmode);
+    void Open( const char* name, File::Mode mode, const MP4FileProvider* provider );
     void ReadFromFile();
     void GenerateTracks();
     void BeginWrite();
     void FinishWrite();
     void CacheProperties();
-    void RewriteMdat(void* pReadFile, void* pWriteFile,
-                     Virtual_IO *readIO, Virtual_IO *writeIO);
+    void RewriteMdat( File& src, File& dst );
     bool ShallHaveIods();
 
-    const char* TempFileName();
     void Rename(const char* existingFileName, const char* newFileName);
 
     void ProtectWriteOperation(const char* where);
@@ -953,19 +940,15 @@ protected:
         uint64_t* pNumBytes);
 
 protected:
-    char*           m_fileName;
-    void*           m_pFile;
-    Virtual_IO*     m_virtual_IO;
-    uint64_t        m_orgFileSize;
-    uint64_t        m_fileSize;
-    MP4Atom*        m_pRootAtom;
+    File*    m_file;
+    uint64_t m_fileOriginalSize;
+    uint32_t m_createFlags;
+
+    MP4Atom*          m_pRootAtom;
     MP4Integer32Array m_trakIds;
-    MP4TrackArray   m_pTracks;
-    MP4TrackId      m_odTrackId;
-    char            m_mode;
-    bool            m_disableWriteProtection;
-    uint32_t        m_createFlags;
-    bool            m_useIsma;
+    MP4TrackArray     m_pTracks;
+    MP4TrackId        m_odTrackId;
+    bool              m_useIsma;
 
     // cached properties
     MP4IntegerProperty*     m_pModificationProperty;

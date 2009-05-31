@@ -34,31 +34,20 @@ namespace mp4v2 { namespace impl {
 
 ///////////////////////////////////////////////////////////////////////////////
 
-MP4File::MP4File(uint32_t verbosity /* = 0 */) : Log(verbosity)
+MP4File::MP4File( uint32_t verbosity /* = 0 */ ) : Log(verbosity)
+    , m_file             ( NULL )
+    , m_fileOriginalSize ( 0 )
+    , m_createFlags      ( 0 )
 {
     this->Init();
 }
 
-MP4File::MP4File(MP4LogLevel verbosity) : Log(verbosity)
+MP4File::MP4File( MP4LogLevel verbosity ) : Log(verbosity)
+    , m_file             ( NULL )
+    , m_fileOriginalSize ( 0 )
+    , m_createFlags      ( 0 )
 {
     this->Init();
-}
-
-MP4File::~MP4File()
-{
-    MP4Free(m_fileName);
-    if (m_pFile != NULL) {
-        // not closed ?
-        m_virtual_IO->Close(m_pFile);
-        m_pFile = NULL;
-    }
-    delete m_pRootAtom;
-    for (uint32_t i = 0; i < m_pTracks.Size(); i++) {
-        delete m_pTracks[i];
-    }
-    MP4Free(m_memoryBuffer);    // just in case
-    CHECK_AND_FREE(m_editName);
-
 }
 
 /**
@@ -66,17 +55,9 @@ MP4File::~MP4File()
  */
 void MP4File::Init()
 {
-    m_fileName = NULL;
-    m_pFile = NULL;
-    m_virtual_IO = NULL;
-    m_orgFileSize = 0;
-    m_fileSize = 0;
     m_pRootAtom = NULL;
     m_odTrackId = MP4_INVALID_TRACK_ID;
 
-    m_mode = 0;
-    m_disableWriteProtection = false;
-    m_createFlags = 0;
     m_useIsma = false;
 
     m_pModificationProperty = NULL;
@@ -96,48 +77,34 @@ void MP4File::Init()
     m_trakName[0] = '\0';
 }
 
-void MP4File::Read(const char* fileName)
+MP4File::~MP4File()
 {
-    m_fileName = MP4Stralloc(fileName);
-    m_mode = 'r';
+    delete m_pRootAtom;
+    for( uint32_t i = 0; i < m_pTracks.Size(); i++ )
+        delete m_pTracks[i];
+    MP4Free( m_memoryBuffer ); // just in case
+    CHECK_AND_FREE( m_editName );
+    delete m_file;
+}
 
-    Open("rb");
-
+void MP4File::Read( const char* name, const MP4FileProvider* provider )
+{
+    Open( name, File::MODE_READ, provider );
     ReadFromFile();
-
     CacheProperties();
 }
 
-// benski>
-void MP4File::ReadEx(const char *fileName, void *user, Virtual_IO *virtual_IO)
+void MP4File::Create( const char* fileName,
+                      uint32_t    flags,
+                      int         add_ftyp,
+                      int         add_iods,
+                      char*       majorBrand,
+                      uint32_t    minorVersion,
+                      char**      supportedBrands,
+                      uint32_t    supportedBrandsCount )
 {
-    m_fileName = MP4Stralloc(fileName);
-    m_mode = 'r';
-
-    m_pFile = user;
-    m_virtual_IO = virtual_IO;
-
-    ASSERT(m_pFile);
-    ASSERT(m_virtual_IO)
-
-    m_orgFileSize = m_fileSize = m_virtual_IO->GetFileLength(m_pFile);
-
-    ReadFromFile();
-
-    CacheProperties();
-}
-
-
-void MP4File::Create(const char* fileName, uint32_t flags,
-                     int add_ftyp, int add_iods,
-                     char* majorBrand, uint32_t minorVersion,
-                     char** supportedBrands, uint32_t supportedBrandsCount)
-{
-    m_fileName = MP4Stralloc(fileName);
-    m_mode = 'w';
     m_createFlags = flags;
-
-    Open("wb+");
+    Open( fileName, File::MODE_CREATE, NULL );
 
     // generate a skeletal atom tree
     m_pRootAtom = MP4Atom::CreateAtom(NULL, NULL);
@@ -190,15 +157,10 @@ void MP4File::Check64BitStatus (const char *atomName)
 }
 
 
-bool MP4File::Modify(const char* fileName)
+bool MP4File::Modify( const char* fileName )
 {
-    m_fileName = MP4Stralloc(fileName);
-    m_mode = 'r';
-
-    Open("rb+");
+    Open( fileName, File::MODE_MODIFY, NULL );
     ReadFromFile();
-
-    m_mode = 'w';
 
     // find the moov atom
     MP4Atom* pMoovAtom = m_pRootAtom->FindAtom("moov");
@@ -284,59 +246,48 @@ bool MP4File::Modify(const char* fileName)
     return true;
 }
 
-void MP4File::Optimize(const char* orgFileName, const char* newFileName)
+void MP4File::Optimize( const char* srcFileName, const char* dstFileName )
 {
-    m_fileName = MP4Stralloc(orgFileName);
-    m_mode = 'r';
-
     // first load meta-info into memory
-    Open("rb");
+    Open( srcFileName, File::MODE_READ, NULL );
     ReadFromFile();
+    CacheProperties(); // of moov atom
 
-    CacheProperties();  // of moov atom
+    File* const src = m_file;
+    m_file = NULL;
 
-    // now switch over to writing the new file
-    MP4Free(m_fileName);
+    // compute destination filename
+    string dname;
+    if( dstFileName )
+        dname = dstFileName;
+    else
+        FileSystem::pathnameTemp( dname, ".", "tmp", ".mp4" );
 
-    // create a temporary file if necessary
-    if (newFileName == NULL) {
-        m_fileName = MP4Stralloc(TempFileName());
-    } else {
-        m_fileName = MP4Stralloc(newFileName);
-    }
+    Open( dname.c_str(), File::MODE_CREATE, NULL );
+    File* const dst = m_file;
 
-    void* pReadFile = m_pFile;
-    Virtual_IO *pReadIO = m_virtual_IO;
-    m_pFile = NULL;
-    m_mode = 'w';
-
-    Open("wb");
-
-    SetIntegerProperty("moov.mvhd.modificationTime",
-                       MP4GetAbsTimestamp());
+    SetIntegerProperty( "moov.mvhd.modificationTime", MP4GetAbsTimestamp() );
 
     // writing meta info in the optimal order
     ((MP4RootAtom*)m_pRootAtom)->BeginOptimalWrite();
 
     // write data in optimal order
-    RewriteMdat(pReadFile, m_pFile, pReadIO, m_virtual_IO);
+    RewriteMdat( *src, *dst );
 
     // finish writing
     ((MP4RootAtom*)m_pRootAtom)->FinishOptimalWrite();
 
     // cleanup
-    m_virtual_IO->Close(m_pFile);
-    m_pFile = NULL;
-    pReadIO->Close(pReadFile);
+    delete dst;
+    delete src;
+    m_file = NULL;
 
     // move temporary file into place
-    if (newFileName == NULL) {
-        Rename(m_fileName, orgFileName);
-    }
+    if( !dstFileName )
+        Rename( dname.c_str(), srcFileName );
 }
 
-void MP4File::RewriteMdat(void* pReadFile, void* pWriteFile,
-                          Virtual_IO *readIO, Virtual_IO *writeIO)
+void MP4File::RewriteMdat( File& src, File& dst )
 {
     uint32_t numTracks = m_pTracks.Size();
 
@@ -344,69 +295,53 @@ void MP4File::RewriteMdat(void* pReadFile, void* pWriteFile,
     MP4ChunkId* maxChunkIds = new MP4ChunkId[numTracks];
     MP4Timestamp* nextChunkTimes = new MP4Timestamp[numTracks];
 
-    for (uint32_t i = 0; i < numTracks; i++) {
+    for( uint32_t i = 0; i < numTracks; i++ ) {
         chunkIds[i] = 1;
         maxChunkIds[i] = m_pTracks[i]->GetNumberOfChunks();
         nextChunkTimes[i] = MP4_INVALID_TIMESTAMP;
     }
 
-    while (true) {
+    for( ;; ) {
         uint32_t nextTrackIndex = (uint32_t)-1;
         MP4Timestamp nextTime = MP4_INVALID_TIMESTAMP;
 
-        for (uint32_t i = 0; i < numTracks; i++) {
-            if (chunkIds[i] > maxChunkIds[i]) {
+        for( uint32_t i = 0; i < numTracks; i++ ) {
+            if( chunkIds[i] > maxChunkIds[i] )
                 continue;
-            }
 
-            if (nextChunkTimes[i] == MP4_INVALID_TIMESTAMP) {
-                MP4Timestamp chunkTime =
-                    m_pTracks[i]->GetChunkTime(chunkIds[i]);
-
-                nextChunkTimes[i] = MP4ConvertTime(chunkTime,
-                                                   m_pTracks[i]->GetTimeScale(), GetTimeScale());
+            if( nextChunkTimes[i] == MP4_INVALID_TIMESTAMP ) {
+                MP4Timestamp chunkTime = m_pTracks[i]->GetChunkTime( chunkIds[i] );
+                nextChunkTimes[i] = MP4ConvertTime( chunkTime, m_pTracks[i]->GetTimeScale(), GetTimeScale() );
             }
 
             // time is not earliest so far
-            if (nextChunkTimes[i] > nextTime) {
+            if( nextChunkTimes[i] > nextTime )
                 continue;
-            }
 
             // prefer hint tracks to media tracks if times are equal
-            if (nextChunkTimes[i] == nextTime
-                    && strcmp(m_pTracks[i]->GetType(), MP4_HINT_TRACK_TYPE)) {
+            if( nextChunkTimes[i] == nextTime && strcmp( m_pTracks[i]->GetType(), MP4_HINT_TRACK_TYPE ))
                 continue;
-            }
 
             // this is our current choice of tracks
             nextTime = nextChunkTimes[i];
             nextTrackIndex = i;
         }
 
-        if (nextTrackIndex == (uint32_t)-1) {
+        if( nextTrackIndex == (uint32_t)-1 )
             break;
-        }
-
-        // point into original mp4 file for read chunk call
-        m_pFile = pReadFile;
-        m_virtual_IO = readIO;
-        m_mode = 'r';
 
         uint8_t* pChunk;
         uint32_t chunkSize;
 
-        m_pTracks[nextTrackIndex]->
-        ReadChunk(chunkIds[nextTrackIndex], &pChunk, &chunkSize);
+        // point into original mp4 file for read chunk call
+        m_file = &src;
+        m_pTracks[nextTrackIndex]->ReadChunk( chunkIds[nextTrackIndex], &pChunk, &chunkSize );
 
         // point back at the new mp4 file for write chunk
-        m_pFile = pWriteFile;
-        m_virtual_IO = writeIO;
-        m_mode = 'w';
+        m_file = &dst;
+        m_pTracks[nextTrackIndex]->RewriteChunk( chunkIds[nextTrackIndex], pChunk, chunkSize );
 
-        m_pTracks[nextTrackIndex]->
-        RewriteChunk(chunkIds[nextTrackIndex], pChunk, chunkSize);
-
-        MP4Free(pChunk);
+        MP4Free( pChunk );
 
         chunkIds[nextTrackIndex]++;
         nextChunkTimes[nextTrackIndex] = MP4_INVALID_TIMESTAMP;
@@ -417,48 +352,24 @@ void MP4File::RewriteMdat(void* pReadFile, void* pWriteFile,
     delete [] nextChunkTimes;
 }
 
-void MP4File::Open(const char* fmode)
+void MP4File::Open( const char* name, File::Mode mode, const MP4FileProvider* provider )
 {
-    ASSERT(m_pFile == NULL);
-    FILE *openFile = NULL;
+    ASSERT( !m_file );
 
-#ifdef O_LARGEFILE
-    // UGH! fopen doesn't open a file in 64-bit mode, period.
-    // So we need to use open() and then fdopen()
-    int fd;
-    int flags = O_LARGEFILE;
+    m_file = new File( name, mode, provider ? new io::CustomFileProvider( *provider ) : NULL );
+    if( m_file->open() )
+        throw new MP4Error( errno, "failed", "MP4Open" );
 
-    if (strchr(fmode, '+')) {
-        flags |= O_CREAT | O_RDWR;
-        if (fmode[0] == 'w') {
-            flags |= O_TRUNC;
-        }
-    } else {
-        if (fmode[0] == 'w') {
-            flags |= O_CREAT | O_TRUNC | O_WRONLY;
-        } else {
-            flags |= O_RDONLY;
-        }
-    }
-    fd = open(m_fileName, flags, 0666);
+    switch( mode ) {
+        case File::MODE_READ:
+        case File::MODE_MODIFY:
+            m_fileOriginalSize = m_file->size;
+            break;
 
-    if (fd >= 0) {
-        openFile = fdopen(fd, fmode);
-    }
-#else
-    openFile = fopen(m_fileName, fmode);
-#endif
-    m_pFile = openFile;
-
-    if (m_pFile == NULL) {
-        throw new MP4Error(errno, "failed", "MP4Open");
-    }
-
-    m_virtual_IO = &FILE_virtual_IO;
-    if (m_mode == 'r') {
-        m_orgFileSize = m_fileSize = m_virtual_IO->GetFileLength(m_pFile); // benski
-    } else {
-        m_orgFileSize = m_fileSize = 0;
+        case File::MODE_CREATE:
+        default:
+            m_fileOriginalSize = 0;
+            break;
     }
 }
 
@@ -566,26 +477,72 @@ void MP4File::BeginWrite()
 
 void MP4File::FinishWrite()
 {
+    // remove empty moov.udta.meta.ilst
+    {
+        MP4Atom* ilst = FindAtom( "moov.udta.meta.ilst" );
+        if( ilst ) {
+            if( ilst->GetNumberOfChildAtoms() == 0 ) {
+                ilst->GetParentAtom()->DeleteChildAtom( ilst );
+                delete ilst;
+            }
+        }
+    }
+
+    // remove empty moov.udta.meta
+    {
+        MP4Atom* meta = FindAtom( "moov.udta.meta" );
+        if( meta ) {
+            if( meta->GetNumberOfChildAtoms() == 0 ) {
+                meta->GetParentAtom()->DeleteChildAtom( meta );
+                delete meta;
+            }
+            else if( meta->GetNumberOfChildAtoms() == 1 ) {
+                if( ATOMID( meta->GetChildAtom( 0 )->GetType() ) == ATOMID( "hdlr" )) {
+                    meta->GetParentAtom()->DeleteChildAtom( meta );
+                    delete meta;
+                }
+            }
+        }
+    }
+
+    // remove empty moov.udta
+    {
+        MP4Atom* udta = FindAtom( "moov.udta" );
+        if( udta ) {
+            if( udta->GetNumberOfChildAtoms() == 0 ) {
+                udta->GetParentAtom()->DeleteChildAtom( udta );
+                delete udta;
+            }
+        }
+    }
+
     // for all tracks, flush chunking buffers
-    for (uint32_t i = 0; i < m_pTracks.Size(); i++) {
-        ASSERT(m_pTracks[i]);
+    for( uint32_t i = 0; i < m_pTracks.Size(); i++ ) {
+        ASSERT( m_pTracks[i] );
         m_pTracks[i]->FinishWrite();
     }
+
     // ask root atom to write
     m_pRootAtom->FinishWrite();
 
-    // check if file shrunk, e.g. we deleted a track
-    if (GetSize() < m_orgFileSize) {
-        // just use a free atom to mark unused space
-        // MP4Optimize() should be used to clean up this space
-        MP4Atom* pFreeAtom = MP4Atom::CreateAtom(NULL, "free");
-        ASSERT(pFreeAtom);
-        pFreeAtom->SetFile(this);
-        int64_t size = m_orgFileSize - (m_fileSize + 8);
-        if (size < 0) size = 0;
-        pFreeAtom->SetSize(size);
-        pFreeAtom->Write();
-        delete pFreeAtom;
+    // finished all writes, if position < size then file has shrunk and
+    // we mark remaining bytes as free atom; otherwise trailing garbage remains.
+    if( GetPosition() < GetSize() ) {
+        MP4RootAtom* root = (MP4RootAtom*)FindAtom( "" );
+        ASSERT( root );
+
+        // compute size of free atom; always has 8 bytes of overhead
+        uint64_t size = GetSize() - GetPosition();
+        if( size < 8 )
+            size = 0;
+        else
+            size -= 8;
+
+        MP4FreeAtom* freeAtom = (MP4FreeAtom*)MP4Atom::CreateAtom( NULL, "free" );
+        ASSERT( freeAtom );
+        freeAtom->SetSize( size );
+        root->AddChildAtom( freeAtom );
+        freeAtom->Write();
     }
 }
 
@@ -597,113 +554,36 @@ void MP4File::UpdateDuration(MP4Duration duration)
     }
 }
 
-void MP4File::Dump(FILE* pDumpFile, bool dumpImplicits)
+void MP4File::Dump( FILE* fout, bool dumpImplicits )
 {
-    if (pDumpFile == NULL) {
-        pDumpFile = stdout;
-    }
+    if( !fout )
+        fout = stdout;
 
-    fprintf(pDumpFile, "Dumping %s meta-information...\n", m_fileName);
-    m_pRootAtom->Dump(pDumpFile, 0, dumpImplicits);
+    fprintf( fout, "Dumping %s meta-information...\n", m_file->name.c_str() );
+    m_pRootAtom->Dump( fout, 0, dumpImplicits);
 }
 
 void MP4File::Close()
 {
-    if (m_mode == 'w') {
-        SetIntegerProperty("moov.mvhd.modificationTime",
-                           MP4GetAbsTimestamp());
-
+    if( IsWriteMode() ) {
+        SetIntegerProperty( "moov.mvhd.modificationTime", MP4GetAbsTimestamp() );
         FinishWrite();
     }
 
-    m_virtual_IO->Close(m_pFile);
-    m_pFile = NULL;
-}
-
-// Implementation notes (author KB).
-//
-// this is useful when doing file modfication and not caring about
-// re-write performance. it greatly simplies things to mimic behavior
-// of Optimize() for all writes, and then caller may rename file
-// to overwrite original. the key difference is in sequencing,
-// optimize permits one to read/copy/overwrite in a single operation.
-// however this function is useful for a workflow such as:
-//
-//      1. caller opens file with MP4Read().
-//      2. caller modifies atom tree.
-//      3. caller invokes CopyClose() which writes atoms out
-//         to a new file (optimized) and closes both original
-//         file from step #1 and new file.
-//      4. caller optionally renames origfile -> newfile if desired
-//
-// This method was made to resolve an indeterminate issue with MP4Modify()
-// which corrupted files after atoms (such as COLR and PASP) were added or
-// removed from the hierarchy. Upon closing the file, it became invalid
-// and could no longer be parsed; part of MOOV tree was corrupted.
-// Several possibilities exist, and the existence of this function rules
-// none of them out. Is MP4Modify() really the issue? Or is the author's
-// method of atom addition/removal at fault?
-//
-// If this is issue is revisited, the original troublesome workflow
-// used by the author was:
-//
-//      1. caller opens file with MP4Modify().
-//      2. caller modifies atom tree.
-//      3. caller invokes MP4Close().
-//      4. caller optionally invokes MP4Optimize().
-//
-bool MP4File::CopyClose( const string& copyFileName )
-{
-    const string oldFileName = m_fileName;
-    MP4Free( m_fileName );
-    m_fileName = MP4Stralloc( copyFileName.c_str() );
-
-    void* pReadFile = m_pFile;
-    Virtual_IO* pReadIO = m_virtual_IO;
-    m_pFile = NULL;
-    m_mode = 'w';
-
-    Open("wb");
-
-    SetIntegerProperty( "moov.mvhd.modificationTime", MP4GetAbsTimestamp() );
-
-    // writing meta info in the optimal order
-    ((MP4RootAtom*)m_pRootAtom)->BeginOptimalWrite();
-
-    // write data in optimal order
-    RewriteMdat( pReadFile, m_pFile, pReadIO, m_virtual_IO );
-
-    // finish writing
-    ((MP4RootAtom*)m_pRootAtom)->FinishOptimalWrite();
-
-    // cleanup
-    m_virtual_IO->Close( m_pFile );
-    m_pFile = NULL;
-    pReadIO->Close( pReadFile );
-
-    return true;
-}
-
-const char* MP4File::TempFileName()
-{
-    string s;
-    io::FileSystem::pathnameTemp( s, ".", "tmp", ".mp4" );
-    return strncpy( m_tempFileName, s.c_str(), sizeof(m_tempFileName) );
+    delete m_file;
+    m_file = NULL;
 }
 
 void MP4File::Rename(const char* oldFileName, const char* newFileName)
 {
-    if( io::FileSystem::rename( oldFileName, newFileName ))
+    if( FileSystem::rename( oldFileName, newFileName ))
         throw new MP4Error( sys::getLastError(), sys::getLastErrorStr(), "MP4Rename" );
 }
 
 void MP4File::ProtectWriteOperation(const char* where)
 {
-    if( m_disableWriteProtection )
-        return;
-
-    if( m_mode == 'r' )
-        throw new MP4Error("operation not permitted in read mode", where);
+    if( !IsWriteMode() )
+        throw new MP4Error( "operation not permitted in read mode", where );
 }
 
 MP4Track* MP4File::GetTrack(MP4TrackId trackId)
@@ -801,10 +681,8 @@ MP4Atom* MP4File::AddDescendantAtoms(
 bool MP4File::FindProperty(const char* name,
                            MP4Property** ppProperty, uint32_t* pIndex)
 {
-    if (pIndex) {
-        *pIndex = 0;    // set the default answer for index
-    }
-
+    if( pIndex )
+        *pIndex = 0; // set the default answer for index
     return m_pRootAtom->FindProperty(name, ppProperty, pIndex);
 }
 
@@ -1264,52 +1142,32 @@ MP4TrackId MP4File::AddSceneTrack()
     return trackId;
 }
 
-// NULL terminated list of brands which require the IODS atom
-const char* brandsWithIods[] = {
-    "mp42",
-    "isom",
-    NULL
-};
-
 bool MP4File::ShallHaveIods()
 {
-    uint32_t compatibleBrandsCount;
-    MP4StringProperty *pMajorBrandProperty;
+    // NULL terminated list of brands which require the IODS atom
+    const char* brandsWithIods[] = {
+        "mp42",
+        "isom",
+        NULL
+    };
 
-    MP4Atom* ftypAtom = m_pRootAtom->FindAtom("ftyp");
-    if (ftypAtom == NULL) return false;
+    MP4FtypAtom* ftyp = (MP4FtypAtom*)m_pRootAtom->FindAtom( "ftyp" );
+    if( !ftyp )
+        return false;
 
-    // Check the major brand
-    (void)ftypAtom->FindProperty(
-        "ftyp.majorBrand",
-        (MP4Property**)&pMajorBrandProperty);
-    ASSERT(pMajorBrandProperty);
-    for (uint32_t j = 0 ; brandsWithIods[j] != NULL ; j++) {
-        if (!strcasecmp( ((MP4StringProperty*)pMajorBrandProperty)->GetValue(),
-                         brandsWithIods[j]))
+    // check major brand
+    const char* brand = ftyp->majorBrand.GetValue();
+    for( uint32_t i = 0; brandsWithIods[i] != NULL; i++ ) {
+        if( !strcasecmp( brandsWithIods[i], brand ))
             return true;
     }
 
-    // Check the compatible brands
-    MP4Integer32Property* pCompatibleBrandsCountProperty;
-    (void)ftypAtom->FindProperty(
-        "ftyp.compatibleBrandsCount",
-        (MP4Property**)&pCompatibleBrandsCountProperty);
-    ASSERT(pCompatibleBrandsCountProperty);
-
-    compatibleBrandsCount  = pCompatibleBrandsCountProperty->GetValue();
-
-    MP4TableProperty* pCompatibleBrandsProperty;
-    (void)ftypAtom->FindProperty(
-        "ftyp.compatibleBrands",
-        (MP4Property**)&pCompatibleBrandsProperty);
-
-    MP4StringProperty* pBrandProperty = (MP4StringProperty*)pCompatibleBrandsProperty->GetProperty(0);
-    ASSERT(pBrandProperty);
-
-    for (uint32_t i = 0 ; i < compatibleBrandsCount ; i++) {
-        for (uint32_t j = 0 ; brandsWithIods[j] != NULL ; j++) {
-            if (!strcasecmp(pBrandProperty->GetValue(i), brandsWithIods[j]))
+    // check compatible brands
+    uint32_t max = ftyp->compatibleBrands.GetCount();
+    for( uint32_t i = 0; i < max; i++ ) {
+        brand = ftyp->compatibleBrands.GetValue( i );
+        for( uint32_t j = 0; brandsWithIods[j] != NULL ; j++) {
+            if( !strcasecmp( brandsWithIods[j], brand ))
                 return true;
         }
     }
@@ -1892,14 +1750,6 @@ MP4TrackId MP4File::AddH264VideoTrack(
     SetTrackIntegerProperty(trackId,
                             "mdia.minf.stbl.stsd.avc1.height", height);
 
-    //FIXME - check this
-    // shouldn't need this
-#if 0
-    AddChildAtom(MakeTrackName(trackId,
-                               "mdia.minf.stbl.stsd.avc1"),
-                 "avcC");
-#endif
-
     SetTrackIntegerProperty(trackId,
                             "mdia.minf.stbl.stsd.avc1.avcC.AVCProfileIndication",
                             AVCProfileIndication);
@@ -1912,7 +1762,6 @@ MP4TrackId MP4File::AddH264VideoTrack(
     SetTrackIntegerProperty(trackId,
                             "mdia.minf.stbl.stsd.avc1.avcC.lengthSizeMinusOne",
                             sampleLenFieldSizeMinusOne);
-
 
     return trackId;
 }
@@ -2218,22 +2067,19 @@ MP4TrackId MP4File::AddTextTrack(MP4TrackId refTrackId)
     return trackId;
 }
 
-MP4TrackId MP4File::AddSubtitleTrack(MP4TrackId refTrackId)
+MP4TrackId MP4File::AddSubtitleTrack(uint32_t timescale,
+                                     uint16_t width,
+                                     uint16_t height)
 {
-    // validate reference track id
-    FindTrackIndex(refTrackId);
-
     MP4TrackId trackId =
-        AddTrack(MP4_TEXT_TRACK_TYPE, GetTrackTimeScale(refTrackId));
+        AddTrack(MP4_SUBTITLE_TRACK_TYPE, timescale);
 
     InsertChildAtom(MakeTrackName(trackId, "mdia.minf"), "nmhd", 0);
 
     AddChildAtom(MakeTrackName(trackId, "mdia.minf.stbl.stsd"), "tx3g");
 
-    MP4StringProperty* pHandlerTypeProperty;
-    FindStringProperty(MakeTrackName(trackId, "mdia.hdlr.handlerType"),
-                       (MP4Property**)&pHandlerTypeProperty);
-    pHandlerTypeProperty->SetValue("sbtl");
+    SetTrackFloatProperty(trackId, "tkhd.width", width);
+    SetTrackFloatProperty(trackId, "tkhd.height", height);
 
     // Hardcoded crap... add the ftab atom and add one font entry
     MP4Atom* pFtabAtom = AddChildAtom(MakeTrackName(trackId, "mdia.minf.stbl.stsd.tx3g"), "ftab");
@@ -2246,16 +2092,15 @@ MP4TrackId MP4File::AddSubtitleTrack(MP4TrackId refTrackId)
     MP4StringProperty* pName = (MP4StringProperty*)((MP4TableProperty*)pFtabAtom->GetProperty(1))->GetProperty(1);
     pName->AddValue("Arial");
 
+    SetTrackIntegerProperty(trackId, "mdia.minf.stbl.stsd.tx3g.fontID", 1);
+
     // stsd is a unique beast in that it has a count of the number
-    // of child atoms that needs to be incremented after we add the text atom
+    // of child atoms that needs to be incremented after we add the tx3g atom
     MP4Integer32Property* pStsdCountProperty;
     FindIntegerProperty(
         MakeTrackName(trackId, "mdia.minf.stbl.stsd.entryCount"),
         (MP4Property**)&pStsdCountProperty);
     pStsdCountProperty->IncrementValue();
-
-    /* add the magic "text" atom to the generic media header */
-//  AddChildAtom(MakeTrackName(trackId, "mdia.minf.gmhd"), "text");
 
     return trackId;
 }
@@ -2824,7 +2669,6 @@ void MP4File::ChangeMovieTimeScale(uint32_t timescale)
     }
 }
 
-
 void MP4File::DeleteTrack(MP4TrackId trackId)
 {
     ProtectWriteOperation("MP4DeleteTrack");
@@ -3035,26 +2879,57 @@ bool MP4File::GetSampleSync(MP4TrackId trackId, MP4SampleId sampleId)
     return m_pTracks[FindTrackIndex(trackId)]->IsSyncSample(sampleId);
 }
 
-void MP4File::ReadSample(MP4TrackId trackId, MP4SampleId sampleId,
-                         uint8_t** ppBytes, uint32_t* pNumBytes,
-                         MP4Timestamp* pStartTime, MP4Duration* pDuration,
-                         MP4Duration* pRenderingOffset, bool* pIsSyncSample)
+void MP4File::ReadSample(
+    MP4TrackId    trackId,
+    MP4SampleId   sampleId,
+    uint8_t**     ppBytes,
+    uint32_t*     pNumBytes,
+    MP4Timestamp* pStartTime,
+    MP4Duration*  pDuration,
+    MP4Duration*  pRenderingOffset,
+    bool*         pIsSyncSample,
+    bool*         hasDependencyFlags,
+    uint32_t*     dependencyFlags )
 {
-    m_pTracks[FindTrackIndex(trackId)]->
-    ReadSample(sampleId, ppBytes, pNumBytes,
-               pStartTime, pDuration, pRenderingOffset, pIsSyncSample);
+    m_pTracks[FindTrackIndex(trackId)]->ReadSample(
+        sampleId,
+        ppBytes,
+        pNumBytes,
+        pStartTime,
+        pDuration,
+        pRenderingOffset,
+        pIsSyncSample,
+        hasDependencyFlags,
+        dependencyFlags );
 }
 
-void MP4File::WriteSample(MP4TrackId trackId,
-                          const uint8_t* pBytes, uint32_t numBytes,
-                          MP4Duration duration, MP4Duration renderingOffset, bool isSyncSample)
+void MP4File::WriteSample(
+    MP4TrackId     trackId,
+    const uint8_t* pBytes,
+    uint32_t       numBytes,
+    MP4Duration    duration,
+    MP4Duration    renderingOffset,
+    bool           isSyncSample )
 {
-    ProtectWriteOperation("MP4WriteSample");
+    ProtectWriteOperation( "MP4WriteSample" );
+    m_pTracks[FindTrackIndex(trackId)]->WriteSample(
+        pBytes, numBytes, duration, renderingOffset, isSyncSample );
+    m_pModificationProperty->SetValue( MP4GetAbsTimestamp() );
+}
 
-    m_pTracks[FindTrackIndex(trackId)]->
-    WriteSample(pBytes, numBytes, duration, renderingOffset, isSyncSample);
-
-    m_pModificationProperty->SetValue(MP4GetAbsTimestamp());
+void MP4File::WriteSampleDependency(
+    MP4TrackId     trackId,
+    const uint8_t* pBytes, 
+    uint32_t       numBytes,
+    MP4Duration    duration,
+    MP4Duration    renderingOffset,
+    bool           isSyncSample,
+    uint32_t       dependencyFlags )
+{
+    ProtectWriteOperation( "MP4WriteH264Sample" );
+    m_pTracks[FindTrackIndex(trackId)]->WriteSampleDependency(
+        pBytes, numBytes, duration, renderingOffset, isSyncSample, dependencyFlags );
+    m_pModificationProperty->SetValue( MP4GetAbsTimestamp() );
 }
 
 void MP4File::SetSampleRenderingOffset(MP4TrackId trackId,
@@ -3066,6 +2941,28 @@ void MP4File::SetSampleRenderingOffset(MP4TrackId trackId,
     SetSampleRenderingOffset(sampleId, renderingOffset);
 
     m_pModificationProperty->SetValue(MP4GetAbsTimestamp());
+}
+
+void MP4File::MakeFtypAtom(
+    char*    majorBrand,
+    uint32_t minorVersion,
+    char**   compatibleBrands,
+    uint32_t compatibleBrandsCount)
+{
+    MP4FtypAtom* ftyp = (MP4FtypAtom*)m_pRootAtom->FindAtom( "ftyp" );
+    if (ftyp == NULL)
+        ftyp = (MP4FtypAtom*)InsertChildAtom( m_pRootAtom, "ftyp", 0 );
+
+    // bail if majorbrand is not specified; defaults suffice.
+    if (majorBrand == NULL)
+        return;
+
+    ftyp->majorBrand.SetValue( majorBrand );
+    ftyp->minorVersion.SetValue( minorVersion );
+
+    ftyp->compatibleBrands.SetCount( compatibleBrandsCount );
+    for( uint32_t i = 0; i < compatibleBrandsCount; i++ )
+        ftyp->compatibleBrands.SetValue( compatibleBrands[i] );
 }
 
 char* MP4File::MakeTrackName(MP4TrackId trackId, const char* name)
@@ -3174,6 +3071,63 @@ bool MP4File::SetTrackLanguage( MP4TrackId trackId, const char* code )
 
     MP4LanguageCodeProperty& lang = *static_cast<MP4LanguageCodeProperty*>(prop);
     lang.SetValue( bmff::enumLanguageCode.toType( code ));
+
+    return true;
+}
+
+    
+bool MP4File::GetTrackName( MP4TrackId trackId, char** name )
+{
+    unsigned char *val = NULL;
+    uint32_t valSize = 0;
+    MP4Atom *pMetaAtom;
+
+    pMetaAtom = m_pRootAtom->FindAtom(MakeTrackName(trackId,"udta.name"));
+
+    if (pMetaAtom)
+    {
+        GetBytesProperty(MakeTrackName(trackId,"udta.name.value"), (uint8_t**)&val, &valSize);
+    }
+    if (valSize > 0)
+    {
+        *name = (char*)malloc((valSize+1)*sizeof(char));
+        if (*name == NULL) {
+            free(val);
+            return false;
+        }
+        memcpy(*name, val, valSize*sizeof(unsigned char));
+        free(val);
+        (*name)[valSize] = '\0';
+        return true;
+    }
+
+    return false;
+}
+
+bool MP4File::SetTrackName( MP4TrackId trackId, const char* name )
+{
+    ProtectWriteOperation( "SetTrackName" );
+    char atomstring[40];
+    MP4Atom *pMetaAtom;
+    MP4BytesProperty *pMetadataProperty = NULL;
+    snprintf(atomstring, 40, "%s", MakeTrackName(trackId,"udta.name"));
+
+    pMetaAtom = m_pRootAtom->FindAtom(atomstring);
+
+    if (!pMetaAtom)
+    {
+        if (!AddDescendantAtoms(MakeTrackName(trackId, NULL), "udta.name"))
+            return false;
+        
+        pMetaAtom = m_pRootAtom->FindAtom(atomstring);
+        if (pMetaAtom == NULL) return false;
+    }
+
+    ASSERT(pMetaAtom->FindProperty("name.value",
+                                   (MP4Property**)&pMetadataProperty));
+    ASSERT(pMetadataProperty);
+
+    pMetadataProperty->SetValue((uint8_t*)name, strlen(name));
 
     return true;
 }
@@ -3454,6 +3408,23 @@ bool MP4File::IsIsmaCrypMediaTrack(MP4TrackId trackId)
     return false;
 }
 
+bool MP4File::IsWriteMode()
+{
+    if( !m_file )
+        return false;
+
+    switch( m_file->mode ) {
+        case File::MODE_READ:
+            return false;
+
+        case File::MODE_MODIFY:
+        case File::MODE_CREATE:
+        default:
+            break;
+    }
+
+    return true;
+}
 
 void MP4File::GetTrackESConfiguration(MP4TrackId trackId,
                                       uint8_t** ppConfig, uint32_t* pConfigSize)
@@ -4113,9 +4084,155 @@ MP4SampleId MP4File::GetSampleIdFromEditTime(
                when, pStartTime, pDuration);
 }
 
-void MP4File::SetDisableWriteProtection( bool disable )
+MP4Duration MP4File::GetTrackDurationPerChunk( MP4TrackId trackId )
 {
-    m_disableWriteProtection = disable;
+    return m_pTracks[FindTrackIndex(trackId)]->GetDurationPerChunk();
+}
+
+void MP4File::SetTrackDurationPerChunk( MP4TrackId trackId, MP4Duration duration )
+{
+    m_pTracks[FindTrackIndex(trackId)]->SetDurationPerChunk( duration );
+}
+
+void MP4File::CopySample(
+    MP4File*    srcFile,
+    MP4TrackId  srcTrackId,
+    MP4SampleId srcSampleId,
+    MP4File*    dstFile,
+    MP4TrackId  dstTrackId,
+    MP4Duration dstSampleDuration )
+{
+    // Note: we leave it up to the caller to ensure that the
+    // source and destination tracks are compatible.
+    // i.e. copying audio samples into a video track
+    // is unlikely to do anything useful
+
+    uint8_t* pBytes = NULL;
+    uint32_t numBytes = 0;
+    MP4Duration sampleDuration;
+    MP4Duration renderingOffset;
+    bool isSyncSample;
+    bool hasDependencyFlags;
+    uint32_t dependencyFlags;
+
+    srcFile->ReadSample(
+         srcTrackId,
+         srcSampleId,
+         &pBytes,
+         &numBytes,
+         NULL,
+         &sampleDuration,
+         &renderingOffset,
+         &isSyncSample,
+         &hasDependencyFlags,
+         &dependencyFlags );
+
+    if( !dstFile )
+        dstFile = srcFile;
+
+    if( dstTrackId == MP4_INVALID_TRACK_ID )
+        dstTrackId = srcTrackId;
+
+    if( dstSampleDuration != MP4_INVALID_DURATION )
+        sampleDuration = dstSampleDuration;
+
+    if( hasDependencyFlags ) {
+        dstFile->WriteSampleDependency(
+            dstTrackId,
+            pBytes,
+            numBytes,
+            sampleDuration,
+            renderingOffset,
+            isSyncSample,
+            dependencyFlags );
+    }
+    else {
+        dstFile->WriteSample(
+            dstTrackId,
+            pBytes,
+            numBytes,
+            sampleDuration,
+            renderingOffset,
+            isSyncSample );
+    }
+
+    free( pBytes );
+}
+
+void MP4File::EncAndCopySample(
+    MP4File*      srcFile,
+    MP4TrackId    srcTrackId,
+    MP4SampleId   srcSampleId,
+    encryptFunc_t encfcnp,
+    uint32_t      encfcnparam1,
+    MP4File*      dstFile,
+    MP4TrackId    dstTrackId,
+    MP4Duration   dstSampleDuration )
+{
+    // Note: we leave it up to the caller to ensure that the
+    // source and destination tracks are compatible.
+    // i.e. copying audio samples into a video track
+    // is unlikely to do anything useful
+
+    uint8_t* pBytes = NULL;
+    uint32_t numBytes = 0;
+    uint8_t* encSampleData = NULL;
+    uint32_t encSampleLength = 0;
+    MP4Duration sampleDuration;
+    MP4Duration renderingOffset;
+    bool isSyncSample;
+    bool hasDependencyFlags;
+    uint32_t dependencyFlags;
+
+    srcFile->ReadSample(
+         srcTrackId,
+         srcSampleId,
+         &pBytes,
+         &numBytes,
+         NULL,
+         &sampleDuration,
+         &renderingOffset,
+         &isSyncSample,
+         &hasDependencyFlags,
+         &dependencyFlags );
+
+    if( !dstFile )
+        dstFile = srcFile;
+
+    if( dstTrackId == MP4_INVALID_TRACK_ID )
+        dstTrackId = srcTrackId;
+
+    if( dstSampleDuration != MP4_INVALID_DURATION )
+        sampleDuration = dstSampleDuration;
+
+    //if( ismacrypEncryptSampleAddHeader( ismaCryptSId, numBytes, pBytes, &encSampleLength, &encSampleData ) != 0)
+    if( encfcnp( encfcnparam1, numBytes, pBytes, &encSampleLength, &encSampleData ) != 0 )
+        fprintf( stderr, "Can't encrypt the sample and add its header %u\n", srcSampleId );
+
+    if( hasDependencyFlags ) {
+        dstFile->WriteSampleDependency(
+            dstTrackId,
+            pBytes,
+            numBytes,
+            sampleDuration,
+            renderingOffset,
+            isSyncSample,
+            dependencyFlags );
+    }
+    else {
+        dstFile->WriteSample(
+            dstTrackId,
+            encSampleData,
+            encSampleLength,
+            sampleDuration,
+            renderingOffset,
+            isSyncSample );
+    }
+
+    free( pBytes );
+
+    if( encSampleData != NULL )
+        free( encSampleData );
 }
 
 ///////////////////////////////////////////////////////////////////////////////
