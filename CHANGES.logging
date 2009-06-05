@@ -7,6 +7,8 @@ $Date: 2009-01-30 17:25:34 -0800 (Fri, 30 Jan 2009) $
 
 (5-jun-09, dbyron)
 
+- remove MP4Exception, replace with Exception
+
 - change MP4File::ProtectWriteOperation to take file, line,
 function instead of one "where" string.
 

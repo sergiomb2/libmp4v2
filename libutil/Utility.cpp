@@ -112,11 +112,6 @@ Utility::batch( int argi )
             delete x;
         }
  
-        catch( MP4Exception* x ) {
-            herrf( "%s\n", x->what.c_str() );
-            delete x;
-        }
-
         if( !_keepgoing && subResult == FAILURE )
             return FAILURE;
     }
@@ -302,10 +297,6 @@ Utility::job( string arg )
         mp4v2::impl::log.errorf(*x);
         delete x;
     }
-    catch( MP4Exception* x ) {
-        herrf( "%s\n", x->what.c_str() );
-        delete x;
-    }
 
     // close file handle flagged with job
     if( job.fileHandle != MP4_INVALID_FILE_HANDLE ) {
@@ -458,10 +449,9 @@ Utility::process()
     try {
         rv = process_impl();
     }
-    catch( MP4Exception* x ) {
-        // rare usage of herrf, make sure its not a warning header.
+    catch( Exception* x ) {
         _keepgoing = false;
-        herrf( "%s\n", x->what.c_str() );
+        mp4v2::impl::log.errorf(*x);
         delete x;
     }
 
