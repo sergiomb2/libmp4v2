@@ -138,8 +138,7 @@ void MP4Descriptor::ReadProperties(MP4File* pFile,
             } else {
                 pFile->errorf("Overran descriptor, tag %u data size %u property %u",
                               m_tag, m_size, i);
-                throw new MP4Error("overran descriptor",
-                                   "MP4Descriptor::ReadProperties");
+                throw new Exception("overran descriptor",__FILE__, __LINE__, __FUNCTION__);
             }
         }
     }

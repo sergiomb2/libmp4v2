@@ -18,6 +18,7 @@
 //
 //  Contributors:
 //      Kona Blend, kona8lend@@gmail.com
+//      David Byron, dbyron0@gmail.com
 //
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -40,6 +41,40 @@ public:
     explicit MP4Exception( const string& what );
     explicit MP4Exception( const ostringstream& what );
     ~MP4Exception();
+};
+
+class MP4V2_EXPORT Exception
+{
+public:
+    explicit Exception( const string&   what_,
+                        const char      *file_,
+                        int             line_,
+                        const char      *function_ );
+    virtual ~Exception();
+
+    virtual string      msg() const;
+
+public:
+    const string        what;
+    const string        file;
+    const int           line;
+    const string        function;
+};
+
+class MP4V2_EXPORT PlatformException : public Exception
+{
+public:
+    explicit PlatformException( const string&   what_,
+                                int             errno_,
+                                const char      *file_,
+                                int             line_,
+                                const char      *function_ );
+    virtual ~PlatformException();
+
+    virtual string      msg() const;
+
+public:
+    const int   m_errno;
 };
 
 ///////////////////////////////////////////////////////////////////////////////

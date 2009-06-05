@@ -231,7 +231,7 @@ MP4Track::MP4Track(MP4File* pFile, MP4Atom* pTrakAtom)
 
     // was everything found?
     if (!success) {
-        throw new MP4Error("invalid track", "MP4Track::MP4Track");
+        throw new Exception("invalid track", __FILE__, __LINE__, __FUNCTION__ );
     }
     CalculateBytesPerSample();
 
@@ -275,7 +275,7 @@ void MP4Track::ReadSample(
     uint32_t*     dependencyFlags )
 {
     if( sampleId == MP4_INVALID_SAMPLE_ID )
-        throw new MP4Error( "sample id can't be zero", "MP4Track::ReadSample" );
+        throw new Exception( "sample id can't be zero", __FILE__, __LINE__, __FUNCTION__ );
 
     if( hasDependencyFlags )
         *hasDependencyFlags = !m_sdtpLog.empty();
@@ -286,7 +286,7 @@ void MP4Track::ReadSample(
         }
         else {
             if( sampleId > m_sdtpLog.size() )
-                throw new MP4Error( "sample id > sdtp logsize", "MP4Track::ReadSample" );
+                throw new Exception( "sample id > sdtp logsize", __FILE__, __LINE__, __FUNCTION__ );
             *dependencyFlags = m_sdtpLog[sampleId-1]; // sampleId is 1-based
         }
     }
@@ -299,14 +299,14 @@ void MP4Track::ReadSample(
 
     File* fin = GetSampleFile( sampleId );
     if( fin == (File*)-1 )
-        throw new MP4Error( "sample is located in an inaccessible file", "MP4Track::ReadSample" );
+        throw new Exception( "sample is located in an inaccessible file", __FILE__, __LINE__, __FUNCTION__ );
 
     uint64_t fileOffset = GetSampleFileOffset(sampleId);
 
     uint32_t sampleSize = GetSampleSize(sampleId);
     if (*ppBytes != NULL && *pNumBytes < sampleSize) {
-        throw new MP4Error("sample buffer is too small",
-                           "MP4Track::ReadSample");
+        throw new Exception("sample buffer is too small",
+                            __FILE__, __LINE__, __FUNCTION__ );
     }
     *pNumBytes = sampleSize;
 
@@ -344,7 +344,7 @@ void MP4Track::ReadSample(
         }
     }
 
-    catch (MP4Error* e) {
+    catch (Exception* x) {
         if( bufferMalloc ) {
             MP4Free( *ppBytes );
             *ppBytes = NULL;
@@ -353,7 +353,7 @@ void MP4Track::ReadSample(
         if( m_pFile->IsWriteMode() )
             m_pFile->SetPosition( oldPos, fin );
 
-        throw e;
+        throw x;
     }
 
     if( m_pFile->IsWriteMode() )
@@ -367,8 +367,8 @@ void MP4Track::ReadSampleFragment(
     uint8_t* pDest)
 {
     if (sampleId == MP4_INVALID_SAMPLE_ID) {
-        throw new MP4Error("invalid sample id",
-                           "MP4Track::ReadSampleFragment");
+        throw new Exception("invalid sample id",
+                            __FILE__, __LINE__, __FUNCTION__ );
     }
 
     if (sampleId != m_cachedReadSampleId) {
@@ -386,8 +386,8 @@ void MP4Track::ReadSampleFragment(
     }
 
     if (sampleOffset + sampleLength > m_cachedReadSampleSize) {
-        throw new MP4Error("offset and/or length are too large",
-                           "MP4Track::ReadSampleFragment");
+        throw new Exception("offset and/or length are too large",
+                            __FILE__, __LINE__, __FUNCTION__ );
     }
 
     memcpy(pDest, &m_pCachedReadSample[sampleOffset], sampleLength);
@@ -407,7 +407,7 @@ void MP4Track::WriteSample(
                        m_trackId, m_writeSampleId, numBytes, numBytes);
 
     if (pBytes == NULL && numBytes > 0) {
-        throw new MP4Error("no sample data", "MP4WriteSample");
+        throw new Exception("no sample data", __FILE__, __LINE__, __FUNCTION__ );
     }
 
     if (m_isAmr == AMR_UNINITIALIZED ) {
@@ -842,7 +842,7 @@ uint32_t MP4Track::GetSampleStscIndex(MP4SampleId sampleId)
     uint32_t numStscs = m_pStscCountProperty->GetValue();
 
     if (numStscs == 0) {
-        throw new MP4Error("No data chunks exist", "GetSampleStscIndex");
+        throw new Exception("No data chunks exist", __FILE__, __LINE__, __FUNCTION__ );
     }
 
     for (stscIndex = 0; stscIndex < numStscs; stscIndex++) {
@@ -879,7 +879,7 @@ File* MP4Track::GetSampleFile( MP4SampleId sampleId )
     if( !pStsdEntryAtom->FindProperty( "*.dataReferenceIndex", (MP4Property**)&pDrefIndexProperty ) ||
         pDrefIndexProperty == NULL )
     {
-        throw new MP4Error( "invalid stsd entry", "GetSampleFile" );
+        throw new Exception( "invalid stsd entry", __FILE__, __LINE__, __FUNCTION__ );
     }
 
     uint32_t drefIndex = pDrefIndexProperty->GetValue();
@@ -1072,8 +1072,8 @@ void MP4Track::GetSampleTimes(MP4SampleId sampleId,
         elapsed += sampleCount * sampleDelta;
     }
 
-    throw new MP4Error("sample id out of range",
-                       "MP4Track::GetSampleTimes");
+    throw new Exception("sample id out of range",
+                        __FILE__, __LINE__, __FUNCTION__ );
 }
 
 MP4SampleId MP4Track::GetSampleIdFromTime(
@@ -1114,8 +1114,8 @@ MP4SampleId MP4Track::GetSampleIdFromTime(
         elapsed += sampleCount * sampleDelta;
     }
 
-    throw new MP4Error("time out of range",
-                       "MP4Track::GetSampleIdFromTime");
+    throw new Exception("time out of range",
+                        __FILE__, __LINE__, __FUNCTION__);
 
     return 0; // satisfy MS compiler
 }
@@ -1158,8 +1158,8 @@ uint32_t MP4Track::GetSampleCttsIndex(MP4SampleId sampleId,
         sid += sampleCount;
     }
 
-    throw new MP4Error("sample id out of range",
-                       "MP4Track::GetSampleCttsIndex");
+    throw new Exception("sample id out of range",
+                        __FILE__, __LINE__, __FUNCTION__ );
     return 0; // satisfy MS compiler
 }
 
@@ -1559,14 +1559,14 @@ void MP4Track::ReadChunk(MP4ChunkId chunkId,
         m_pFile->SetPosition( chunkOffset );
         m_pFile->ReadBytes( *ppChunk, *pChunkSize );
     }
-    catch( MP4Error* e ) {
+    catch( Exception* x ) {
         MP4Free( *ppChunk );
         *ppChunk = NULL;
 
         if( m_pFile->IsWriteMode() )
             m_pFile->SetPosition( oldPos );
 
-        throw e;
+        throw x;
     }
 
     if( m_pFile->IsWriteMode() )
@@ -1654,14 +1654,14 @@ MP4EditId MP4Track::AddEdit(MP4EditId editId)
 void MP4Track::DeleteEdit(MP4EditId editId)
 {
     if (editId == MP4_INVALID_EDIT_ID) {
-        throw new MP4Error("edit id can't be zero",
-                           "MP4Track::DeleteEdit");
+        throw new Exception("edit id can't be zero",
+                            __FILE__, __LINE__, __FUNCTION__ );
     }
 
     if (!m_pElstCountProperty
             || m_pElstCountProperty->GetValue() == 0) {
-        throw new MP4Error("no edits exist",
-                           "MP4Track::DeleteEdit");
+        throw new Exception("no edits exist",
+                            __FILE__, __LINE__, __FUNCTION__ );
     }
 
     m_pElstMediaTimeProperty->DeleteValue(editId - 1);
@@ -1829,8 +1829,8 @@ MP4SampleId MP4Track::GetSampleIdFromEditTime(
             return sampleId;
         }
 
-        throw new MP4Error("time out of range",
-                           "MP4Track::GetSampleIdFromEditTime");
+        throw new Exception("time out of range",
+                            __FILE__, __LINE__, __FUNCTION__ );
 
     } else { // no edit list
         sampleId = GetSampleIdFromTime(editWhen, false);

@@ -624,6 +624,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\log.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\log.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\mp4.cpp"
 				>
 			</File>
@@ -653,10 +661,6 @@
 			</File>
 			<File
 				RelativePath="..\..\src\mp4descriptor.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\mp4error.h"
 				>
 			</File>
 			<File

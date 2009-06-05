@@ -420,7 +420,7 @@ Log::vprintf( MP4LogLevel       verbosity_,
 
     if (Log::_cb_func)
     {
-        Log::_cb_func(this->_verbosity,format,ap);
+        Log::_cb_func(verbosity_,format,ap);
         return;
     }
 
@@ -524,11 +524,24 @@ Log::hexDump( MP4LogLevel       verbosity_,
         // Log::printf.  It's going to double-check the
         // verbosity and the callback function pointer, but
         // that seems OK (13-feb-09, dbyron)
-        this->printf(this->_verbosity,"%s",oneLine.str());
+        this->printf(verbosity_,"%s",oneLine.str());
     }
 
     MP4Free(desc);
     desc = NULL;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+ * Log an Exception as an error
+ *
+ * @param x the exception to log
+ */
+void
+Log::errorf ( const Exception&      x )
+{
+    this->printf(MP4_LOG_ERROR,"%s",x.msg().c_str());
 }
 
 ///////////////////////////////////////////////////////////////////////////////

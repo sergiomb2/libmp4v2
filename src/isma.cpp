@@ -40,7 +40,7 @@ static const uint8_t BifsV2Config[3] = {
 
 void MP4File::MakeIsmaCompliant(bool addIsmaComplianceSdp)
 {
-    ProtectWriteOperation("MP4MakeIsmaCompliant");
+    ProtectWriteOperation(__FILE__, __LINE__, __FUNCTION__);
 
     if (m_useIsma) {
         // already done
@@ -53,16 +53,17 @@ void MP4File::MakeIsmaCompliant(bool addIsmaComplianceSdp)
     try {
         audioTrackId = FindTrackId(0, MP4_AUDIO_TRACK_TYPE);
     }
-    catch (MP4Error* e) {
-        delete e;
+    catch ( Exception *x ) {
+        log.errorf(*x);
+        delete x;
     }
-
     MP4TrackId videoTrackId = MP4_INVALID_TRACK_ID;
     try {
         videoTrackId = FindTrackId(0, MP4_VIDEO_TRACK_TYPE);
     }
-    catch (MP4Error* e) {
-        delete e;
+    catch (Exception* x) {
+        log.errorf(*x);
+        delete x;
     }
     if (audioTrackId == MP4_INVALID_TRACK_ID &&
             videoTrackId == MP4_INVALID_TRACK_ID) return;
@@ -124,8 +125,9 @@ void MP4File::MakeIsmaCompliant(bool addIsmaComplianceSdp)
     try {
         sceneTrackId = FindTrackId(0, MP4_SCENE_TRACK_TYPE);
     }
-    catch (MP4Error *e) {
-        delete e;
+    catch (Exception *x) {
+        log.errorf(*x);
+        delete x;
     }
     if (sceneTrackId != MP4_INVALID_TRACK_ID) {
         DeleteTrack(sceneTrackId);

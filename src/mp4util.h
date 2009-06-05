@@ -33,9 +33,19 @@ namespace mp4v2 { namespace impl {
 #ifndef ASSERT
 #   define ASSERT(expr) \
         if (!(expr)) { \
-            throw new MP4Error("assert failure", LIBMPV42_STRINGIFY((expr))); \
+            throw new Exception("assert failure: "LIBMPV42_STRINGIFY((expr)), __FILE__, __LINE__, __FUNCTION__ ); \
         }
 #endif
+
+#ifdef C_ASSERT
+#undef C_ASSERT
+#endif
+
+#define C_ASSERT(expr) \
+        if (!(expr)) { \
+            printf("assert failure, file '%s' line %d", __FILE__, __LINE__); \
+            abort(); \
+        }
 
 #define WARNING(logobj,expr) \
     ASSERT(logobj); \
@@ -43,12 +53,6 @@ namespace mp4v2 { namespace impl {
         (logobj)->errorf("Warning (%s) in %s at line %u", \
                          LIBMPV42_STRINGIFY(expr), __FILE__, __LINE__); \
     }
-
-#define VERBOSE(exprverbosity, verbosity, expr) \
-    if (((exprverbosity) & (verbosity)) == (exprverbosity)) { expr; }
-
-#define VERBOSE_ERROR(verbosity, expr)      \
-    VERBOSE(MP4_DETAILS_ERROR, verbosity, expr)
 
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -81,7 +85,7 @@ inline void* MP4Malloc(size_t size) {
     if (size == 0) return NULL;
     void* p = malloc(size);
     if (p == NULL && size > 0) {
-        throw new MP4Error(errno);
+        throw new PlatformException("malloc failed",errno,__FILE__,__LINE__,__FUNCTION__);
     }
     return p;
 }
@@ -104,7 +108,7 @@ inline void* MP4Realloc(void* p, uint32_t newSize) {
     }
     p = realloc(p, newSize);
     if (p == NULL && newSize > 0) {
-        throw new MP4Error(errno);
+        throw new PlatformException("malloc failed",errno,__FILE__,__LINE__,__FUNCTION__);
     }
     return p;
 }
