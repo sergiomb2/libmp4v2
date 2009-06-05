@@ -29,28 +29,6 @@ namespace mp4v2 { namespace impl {
 
 ///////////////////////////////////////////////////////////////////////////////
 
-MP4Exception::MP4Exception( const string& what_ )
-    : _what ( what_ )
-    , what  ( _what )
-{
-}
-
-///////////////////////////////////////////////////////////////////////////////
-
-MP4Exception::MP4Exception( const ostringstream& what_ )
-    : _what ( what_.str() )
-    , what  ( _what )
-{
-}
-
-///////////////////////////////////////////////////////////////////////////////
-
-MP4Exception::~MP4Exception()
-{
-}
-
-///////////////////////////////////////////////////////////////////////////////
-
 Exception::Exception( const string&     what_,
                       const char        *file_,
                       int               line_,

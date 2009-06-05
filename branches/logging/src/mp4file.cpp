@@ -694,7 +694,7 @@ void MP4File::FindIntegerProperty(const char* name,
     if (!FindProperty(name, ppProperty, pIndex)) {
         ostringstream msg;
         msg << "no such property - " << name;
-        throw new Exception(msg.str().c_str(), __FILE__, __LINE__, __FUNCTION__);
+        throw new Exception(msg.str(), __FILE__, __LINE__, __FUNCTION__);
     }
 
     switch ((*ppProperty)->GetType()) {
@@ -707,7 +707,7 @@ void MP4File::FindIntegerProperty(const char* name,
     default:
         ostringstream msg;
         msg << "type mismatch - property " << name << " type " << (*ppProperty)->GetType();
-        throw new Exception(msg.str().c_str(), __FILE__, __LINE__, __FUNCTION__);
+        throw new Exception(msg.str(), __FILE__, __LINE__, __FUNCTION__);
     }
 }
 
@@ -739,12 +739,12 @@ void MP4File::FindFloatProperty(const char* name,
     if (!FindProperty(name, ppProperty, pIndex)) {
         ostringstream msg;
         msg << "no such property - " << name;
-        throw new Exception(msg.str().c_str(), __FILE__, __LINE__, __FUNCTION__);
+        throw new Exception(msg.str(), __FILE__, __LINE__, __FUNCTION__);
     }
     if ((*ppProperty)->GetType() != Float32Property) {
         ostringstream msg;
         msg << "type mismatch - property " << name << " type " << (*ppProperty)->GetType();
-        throw new Exception(msg.str().c_str(), __FILE__, __LINE__, __FUNCTION__);
+        throw new Exception(msg.str(), __FILE__, __LINE__, __FUNCTION__);
     }
 }
 
@@ -776,12 +776,12 @@ void MP4File::FindStringProperty(const char* name,
     if (!FindProperty(name, ppProperty, pIndex)) {
         ostringstream msg;
         msg << "no such property - " << name;
-        throw new Exception(msg.str().c_str(), __FILE__, __LINE__, __FUNCTION__);
+        throw new Exception(msg.str(), __FILE__, __LINE__, __FUNCTION__);
     }
     if ((*ppProperty)->GetType() != StringProperty) {
         ostringstream msg;
         msg << "type mismatch - property " << name << " type " << (*ppProperty)->GetType();
-        throw new Exception(msg.str().c_str(), __FILE__, __LINE__, __FUNCTION__);
+        throw new Exception(msg.str(), __FILE__, __LINE__, __FUNCTION__);
     }
 }
 
@@ -813,12 +813,12 @@ void MP4File::FindBytesProperty(const char* name,
     if (!FindProperty(name, ppProperty, pIndex)) {
         ostringstream msg;
         msg << "no such property " << name;
-        throw new Exception(msg.str().c_str(), __FILE__, __LINE__, __FUNCTION__);
+        throw new Exception(msg.str(), __FILE__, __LINE__, __FUNCTION__);
     }
     if ((*ppProperty)->GetType() != BytesProperty) {
         ostringstream msg;
         msg << "type mismatch - property " << name << " - type " <<  (*ppProperty)->GetType();
-        throw new Exception(msg.str().c_str(), __FILE__, __LINE__, __FUNCTION__);
+        throw new Exception(msg.str(), __FILE__, __LINE__, __FUNCTION__);
     }
 }
 
@@ -2814,7 +2814,7 @@ MP4TrackId MP4File::FindTrackId(uint16_t trackIndex,
 
     ostringstream msg;
     msg << "Track index doesn't exist - track " << trackIndex << " type " << type;
-    throw new Exception(msg.str().c_str(),__FILE__, __LINE__, __FUNCTION__);
+    throw new Exception(msg.str(),__FILE__, __LINE__, __FUNCTION__);
     return MP4_INVALID_TRACK_ID; // satisfy MS compiler
 }
 
@@ -2828,7 +2828,7 @@ uint16_t MP4File::FindTrackIndex(MP4TrackId trackId)
 
     ostringstream msg;
     msg << "Track id " << trackId << " doesn't exist";
-    throw new Exception(msg.str().c_str(),__FILE__, __LINE__, __FUNCTION__);
+    throw new Exception(msg.str(),__FILE__, __LINE__, __FUNCTION__);
     return (uint16_t)-1; // satisfy MS compiler
 }
 
@@ -2844,7 +2844,7 @@ uint16_t MP4File::FindTrakAtomIndex(MP4TrackId trackId)
 
     ostringstream msg;
     msg << "Track id " << trackId << " doesn't exist";
-    throw new Exception(msg.str().c_str(),__FILE__, __LINE__, __FUNCTION__);
+    throw new Exception(msg.str(),__FILE__, __LINE__, __FUNCTION__);
     return (uint16_t)-1; // satisfy MS compiler
 }
 

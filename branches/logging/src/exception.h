@@ -29,20 +29,6 @@ namespace mp4v2 { namespace impl {
 
 ///////////////////////////////////////////////////////////////////////////////
 
-class MP4V2_EXPORT MP4Exception
-{
-protected:
-    string _what;
-
-public:
-    const string& what;
-
-public:
-    explicit MP4Exception( const string& what );
-    explicit MP4Exception( const ostringstream& what );
-    ~MP4Exception();
-};
-
 class MP4V2_EXPORT Exception
 {
 public:
