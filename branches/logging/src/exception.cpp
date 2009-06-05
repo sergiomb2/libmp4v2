@@ -55,7 +55,7 @@ Exception::msg() const
 {
     ostringstream retval;
 
-    retval << function << ": " << what << " (" << file << "," << line << " )";
+    retval << function << ": " << what << " (" << file << "," << line << ")";
 
     return retval.str();
 }

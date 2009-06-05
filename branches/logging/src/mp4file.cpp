@@ -357,8 +357,11 @@ void MP4File::Open( const char* name, File::Mode mode, const MP4FileProvider* pr
     ASSERT( !m_file );
 
     m_file = new File( name, mode, provider ? new io::CustomFileProvider( *provider ) : NULL );
-    if( m_file->open() )
-        throw new PlatformException( "failed", errno, __FILE__, __LINE__, __FUNCTION__);
+    if( m_file->open() ) {
+        ostringstream msg;
+        msg << "open(" << name << ") failed";
+        throw new Exception( msg.str(), __FILE__, __LINE__, __FUNCTION__);
+    }
 
     switch( mode ) {
         case File::MODE_READ:
