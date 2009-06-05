@@ -14,17 +14,17 @@
 // 
 //  The Initial Developer of the Original Code is Kona Blend.
 //  Portions created by Kona Blend are Copyright (C) 2008.
+//  Portions created by David Byron are Copyright (C) 2009.
 //  All Rights Reserved.
 //
 //  Contributors:
 //      Kona Blend, kona8lend@@gmail.com
 //      Rouven Wessling, mp4v2@rouvenwessling.de
+//      David Byron, dbyron0@gmail.com
 //
 ///////////////////////////////////////////////////////////////////////////////
 
 #include "src/impl.h"
-
-#define PRINT_ERROR(e) VERBOSE_ERROR(((MP4File*)hFile)->verbosity, e->Print());
 
 using namespace mp4v2::impl;
 
@@ -76,9 +76,9 @@ MP4TagsFetch( const MP4Tags* tags, MP4FileHandle hFile )
     try {
         cpp->c_fetch( c, hFile );
     }
-    catch( MP4Error* e ) {
-        VERBOSE_ERROR( static_cast<MP4File*>(hFile)->verbosity, e->Print() );
-        delete e;
+    catch( Exception* x ) {
+        static_cast<MP4File*>(hFile)->errorf(*x);
+        delete x;
     }
 }
 
@@ -113,9 +113,9 @@ MP4TagsStore( const MP4Tags* tags, MP4FileHandle hFile )
     try {
         cpp->c_store( c, hFile );
     }
-    catch( MP4Error* e ) {
-        VERBOSE_ERROR( static_cast<MP4File*>(hFile)->verbosity, e->Print() );
-        delete e;
+    catch( Exception* x ) {
+        static_cast<MP4File*>(hFile)->errorf(*x);
+        delete x;
     }
 }
 
@@ -524,9 +524,9 @@ MP4ItmfGetItems( MP4FileHandle hFile )
     try {
         return itmf::genericGetItems( *(MP4File*)hFile );
     }
-    catch( MP4Error* e ) {
-        PRINT_ERROR( e );
-        delete e;
+    catch( Exception* x ) {
+        static_cast<MP4File*>(hFile)->errorf(*x);
+        delete x;
     }
 
     return NULL;
@@ -543,9 +543,9 @@ MP4ItmfGetItemsByCode( MP4FileHandle hFile, const char* code )
     try {
         return itmf::genericGetItemsByCode( *(MP4File*)hFile, code );
     }   
-    catch( MP4Error* e ) {
-        PRINT_ERROR( e );
-        delete e;
+    catch( Exception* x ) {
+        static_cast<MP4File*>(hFile)->errorf(*x);
+        delete x;
     }
 
     return NULL;
@@ -562,9 +562,9 @@ MP4ItmfGetItemsByMeaning( MP4FileHandle hFile, const char* meaning, const char* 
     try {
         return itmf::genericGetItemsByMeaning( *(MP4File*)hFile, meaning, name ? name : "" );
     }
-    catch( MP4Error* e ) {
-        PRINT_ERROR( e );
-        delete e;
+    catch( Exception* x ) {
+        static_cast<MP4File*>(hFile)->errorf(*x);
+        delete x;
     }
 
     return NULL;
@@ -581,9 +581,9 @@ MP4ItmfAddItem( MP4FileHandle hFile, const MP4ItmfItem* item )
     try {
         return itmf::genericAddItem( *(MP4File*)hFile, item );
     }
-    catch( MP4Error* e ) {
-        PRINT_ERROR( e );
-        delete e;
+    catch( Exception* x) {
+        static_cast<MP4File*>(hFile)->errorf(*x);
+        delete x;
     }
 
     return false;
@@ -600,9 +600,9 @@ MP4ItmfSetItem( MP4FileHandle hFile, const MP4ItmfItem* item )
     try {
         return itmf::genericSetItem( *(MP4File*)hFile, item );
     }
-    catch( MP4Error* e ) {
-        PRINT_ERROR( e );
-        delete e;
+    catch( Exception* x ) {
+        static_cast<MP4File*>(hFile)->errorf(*x);
+        delete x;
     }
 
     return false;
@@ -619,9 +619,9 @@ MP4ItmfRemoveItem( MP4FileHandle hFile, const MP4ItmfItem* item )
     try {
         return itmf::genericRemoveItem( *(MP4File*)hFile, item );
     }
-    catch( MP4Error* e ) {
-        PRINT_ERROR( e );
-        delete e;
+    catch( Exception* x ) {
+        static_cast<MP4File*>(hFile)->errorf(*x);
+        delete x;
     }
 
     return false;

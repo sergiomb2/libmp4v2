@@ -5,6 +5,20 @@ $Date: 2009-01-30 17:25:34 -0800 (Fri, 30 Jan 2009) $
 
 -------------------
 
+(5-jun-09, dbyron)
+
+- change MP4File::ProtectWriteOperation to take file, line,
+function instead of one "where" string.
+
+- change exception catching code to call Log::errorf();
+
+- remove VERBOSE, VERBOSE_ERROR from mp4util.h
+
+- remove MP4Error, replace with Exception, PlatformException
+as appropriate
+
+- add Exception class and Log::errorf( const Exception &x );
+
 (16-feb-09, dbyron)
 
 - First pass of actually using the Log class:

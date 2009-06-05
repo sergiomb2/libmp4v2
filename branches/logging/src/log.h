@@ -69,6 +69,8 @@ public:
                    uint32_t     numBytes,
                    const char*  format, ... ) MP4V2_WFORMAT_PRINTF(5,6);
 
+    void errorf ( const Exception&      x );
+
 private:
     static MP4LogLevel detailsToLevel ( uint32_t );
 };

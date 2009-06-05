@@ -848,7 +848,7 @@ protected:
 
     void Rename(const char* existingFileName, const char* newFileName);
 
-    void ProtectWriteOperation(const char* where);
+    void ProtectWriteOperation(const char* file, int line, const char *func);
 
     void FindIntegerProperty(const char* name,
                              MP4Property** ppProperty, uint32_t* pIndex = NULL);

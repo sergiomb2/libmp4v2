@@ -147,7 +147,9 @@ public:
         \
         void SetValue(uint##isize##_t value, uint32_t index = 0) { \
             if (m_readOnly) { \
-                throw new MP4Error(EACCES, "property is read-only", m_name); \
+                ostringstream msg; \
+                msg << "property is read-only: " << m_name; \
+                throw new PlatformException(msg.str().c_str(), EACCES, __FILE__, __LINE__, __FUNCTION__); \
             } \
             m_values[index] = value; \
         } \
@@ -244,7 +246,9 @@ public:
 
     void SetValue(float value, uint32_t index = 0) {
         if (m_readOnly) {
-            throw new MP4Error(EACCES, "property is read-only", m_name);
+            ostringstream msg;
+            msg << "property is read-only: " << m_name;
+            throw new PlatformException(msg.str().c_str(), EACCES, __FILE__, __LINE__, __FUNCTION__);
         }
         m_values[index] = value;
     }

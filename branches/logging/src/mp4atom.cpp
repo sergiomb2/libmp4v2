@@ -161,7 +161,7 @@ MP4Atom* MP4Atom::ReadAtom(MP4File* pFile, MP4Atom* pParentAtom)
                          dataSize,
                          pos + hdrSize + dataSize);
 #if 0
-        throw new MP4Error("invalid atom size", "ReadAtom");
+        throw new Exception("invalid atom size", __FILE__, __LINE__, __FUNCTION__);
 #else
         // skip to end of atom
         dataSize = pParentAtom->GetEnd() - pos - hdrSize;
@@ -372,7 +372,7 @@ void MP4Atom::ReadProperties(uint32_t startIndex, uint32_t count)
 
             ostringstream oss;
             oss << "atom '" << GetType() << "' is too small; overrun at property: " << m_pProperties[i]->GetName();
-            throw new MP4Error( oss.str().c_str(), "Atom ReadProperties" );
+            throw new Exception( oss.str().c_str(), __FILE__, __LINE__, __FUNCTION__ );
         }
 
         MP4LogLevel thisVerbosity =

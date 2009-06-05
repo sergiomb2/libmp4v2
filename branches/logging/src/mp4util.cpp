@@ -32,112 +32,6 @@ namespace {
 
 ///////////////////////////////////////////////////////////////////////////////
 
-enum LogLevel {
-    _LOGLEVEL_UNDEFINED = -1,
-
-    LOGLEVEL_EMERG,
-    LOGLEVEL_ALERT,
-    LOGLEVEL_CRIT,
-    LOGLEVEL_ERR,
-    LOGLEVEL_WARNING,
-    LOGLEVEL_NOTICE,
-    LOGLEVEL_INFO,
-    LOGLEVEL_DEBUG,
-
-    _LOGLEVEL_MAX,
-};
-
-///////////////////////////////////////////////////////////////////////////////
-
-MP4Error::MP4Error()
-    : m_errno     ( 0 )
-    , m_errstring ( NULL )
-    , m_where     ( NULL )
-    , m_free      ( false )
-{
-}
-
-MP4Error::MP4Error( int err, const char* where )
-    : m_errno     ( err )
-    , m_errstring ( NULL )
-    , m_where     ( where )
-    , m_free      ( false )
-{
-}
-
-MP4Error::MP4Error(const char *format, const char *where, ...)
-    : m_errno     ( 0 )
-    , m_errstring ( format )
-    , m_where     ( where )
-    , m_free      ( false )
-{
-    char* text = (char*)malloc( 512 );
-    if( !text )
-        return;
-
-    va_list ap;
-    va_start( ap, where );
-    vsnprintf( text, 512, format, ap );
-    va_end( ap );
-    m_errstring = text;
-    m_free = true;
-}
-
-MP4Error::MP4Error( int err, const char* format, const char* where, ... )
-    : m_errno     ( err )
-    , m_errstring ( format )
-    , m_where     ( where )
-    , m_free      ( false )
-{
-    char* text = (char*)malloc( 512 );
-    if( !text )
-        return;
-
-    va_list ap;
-    va_start( ap, where );
-    vsnprintf( text, 512, format, ap );
-    va_end( ap );
-    m_errstring = text;
-    m_free = true;
-}
-
-MP4Error::~MP4Error()
-{
-    if( m_free && m_errstring )
-        free( (void*)m_errstring );
-}
-
-void
-MP4Error::Print( FILE* pFile )
-{
-    if (libfunc != NULL) {
-        (libfunc)(LOGLEVEL_ERR, "MP4ERROR", "%s:%s:%s",
-                  m_where == NULL ? "" : m_where,
-                  m_errstring == NULL ? "" : m_errstring,
-                  m_errno ? strerror(m_errno) : "");
-        return;
-    }
-    fprintf(pFile, "MP4ERROR: ");
-    if (m_where) {
-        fprintf(pFile, "%s", m_where);
-    }
-    if (m_errstring) {
-        if (m_where) {
-            fprintf(pFile, ": ");
-        }
-        fprintf(pFile, "%s", m_errstring);
-    }
-    if (m_errno) {
-        if (m_where || m_errstring) {
-            fprintf(pFile, ": ");
-        }
-        fprintf(pFile, "%s", strerror(m_errno));
-    }
-    fprintf(pFile, "\n");
-}
-
-///////////////////////////////////////////////////////////////////////////////
-
 void MP4HexDump(
     uint8_t* pBytes, uint32_t numBytes,
     FILE* pFile, uint8_t indent)
@@ -383,7 +277,7 @@ uint64_t MP4ConvertTime(uint64_t t,
 {
     // avoid float point exception
     if (oldTimeScale == 0) {
-        throw new MP4Error("division by zero", "MP4ConvertTime");
+        throw new Exception("division by zero", __FILE__, __LINE__, __FUNCTION__ );
     }
 
     if (oldTimeScale == newTimeScale) return t;

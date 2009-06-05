@@ -107,10 +107,11 @@ Utility::batch( int argi )
                 subResult = SUCCESS;
             }
         }
-        catch( mp4v2::impl::MP4Error* x ) {
-            x->Print( stderr );
+        catch( Exception* x ) {
+            mp4v2::impl::log.errorf(*x);
             delete x;
         }
+ 
         catch( MP4Exception* x ) {
             herrf( "%s\n", x->what.c_str() );
             delete x;
@@ -297,8 +298,8 @@ Utility::job( string arg )
     try {
         result = utility_job( job );
     }
-    catch( mp4v2::impl::MP4Error* x ) {
-        x->Print( stderr );
+    catch( Exception* x ) {
+        mp4v2::impl::log.errorf(*x);
         delete x;
     }
     catch( MP4Exception* x ) {
