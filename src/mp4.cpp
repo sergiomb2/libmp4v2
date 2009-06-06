@@ -46,6 +46,9 @@ extern "C" {
 
 MP4FileHandle MP4Read( const char* fileName, uint32_t verbosity )
 {
+    if (!fileName)
+        return MP4_INVALID_FILE_HANDLE;
+
     MP4File* pFile = NULL;
     try {
         pFile = new MP4File( verbosity );
@@ -55,15 +58,17 @@ MP4FileHandle MP4Read( const char* fileName, uint32_t verbosity )
     catch( std::bad_alloc ) {
         C_ASSERT(pFile == NULL);
         mp4v2::impl::log.errorf("%s: unable to allocate MP4File",__FUNCTION__);
-        return MP4_INVALID_FILE_HANDLE;
     }
     catch( Exception* x ) {
-        C_ASSERT(pFile);
-        pFile->errorf(*x);
+        if (pFile) {
+            pFile->errorf(*x);
+            delete pFile;
+        } else {
+            mp4v2::impl::log.errorf(*x);
+        }
         delete x;
-        delete pFile;
-        return MP4_INVALID_FILE_HANDLE;
     }
+    return MP4_INVALID_FILE_HANDLE;
 }
 
 MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const MP4FileProvider* fileProvider )
