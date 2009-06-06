@@ -7,6 +7,86 @@ $Date: 2009-01-30 17:25:34 -0800 (Fri, 30 Jan 2009) $
 
 (5-jun-09, dbyron)
 
+- change return value of MP4DeleteTrack,
+MP4SetTrackTimeScale, MP4GetTrackH264SeqPictHeaders from
+void to bool
+
+- change MP4AddIPodUUID to return bool, check for valid
+hFile and catch exceptions
+
+- check for NULL existingFileName, newFileName in
+MP4Optimize
+
+- check for NULL fileName in MP4ReadProvider, MP4CreateEx,
+MP4Modify, MP4Make3GPCompliant, MP4MakeIsmaCompliant
+
+- properly handle NULL pFile when catching Exception
+
+- check for NULL parameters in genericAddItem,
+genericSetItem, genericRemoveItem
+
+- change signature of C wrappers to return bool and check
+for NULL parameters:
+  - MP4TagsAddArtwork
+  - MP4TagsFetch
+  - MP4TagsRemoveArtwork
+  - MP4TagsSetArtwork
+  - MP4TagsStore
+  - MP4TagsSetName
+  - MP4TagsSetArtist
+  - MP4TagsSetAlbumArtist
+  - MP4TagsSetAlbum
+  - MP4TagsSetGrouping
+  - MP4TagsSetComposer(
+  - MP4TagsSetComments
+  - MP4TagsSetGenre
+  - MP4TagsSetGenreType
+  - MP4TagsSetReleaseDate
+  - MP4TagsSetTrack
+  - MP4TagsSetDisk
+  - MP4TagsSetTempo
+  - MP4TagsSetCompilation
+  - MP4TagsSetTVShow
+  - MP4TagsSetTVNetwork
+  - MP4TagsSetTVEpisodeID
+  - MP4TagsSetTVSeason
+  - MP4TagsSetTVEpisode
+  - MP4TagsSetSortName
+  - MP4TagsSetSortArtist
+  - MP4TagsSetSortAlbumArtist
+  - MP4TagsSetSortAlbum
+  - MP4TagsSetSortComposer
+  - MP4TagsSetSortTVShow
+  - MP4TagsSetDescription
+  - MP4TagsSetLongDescription
+  - MP4TagsSetLyrics
+  - MP4TagsSetCopyright
+  - MP4TagsSetEncodingTool
+  - MP4TagsSetEncodedBy
+  - MP4TagsSetPurchaseDate
+  - MP4TagsSetPodcast
+  - MP4TagsSetKeywords
+  - MP4TagsSetCategory
+  - MP4TagsSetHDVideo
+  - MP4TagsSetMediaType
+  - MP4TagsSetContentRating
+  - MP4TagsSetGapless
+  - MP4TagsSetITunesAccount
+  - MP4TagsSetITunesAccountType
+  - MP4TagsSetITunesCountry
+  - MP4TagsSetCNID
+  - MP4TagsSetATID
+  - MP4TagsSetPLID
+  - MP4TagsSetGEID
+
+- add catch( ... ) blocks to C wrapper functions
+
+- add static void errorf ( Log            *olog,
+                           const char     *format,
+                           ... ) MP4V2_WFORMAT_PRINTF(3,4);
+
+- add static void errorf ( Log                    *olog,
+                           const Exception        &x );
 - remove MP4Exception, replace with Exception
 
 - change MP4File::ProtectWriteOperation to take file, line,

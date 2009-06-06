@@ -251,14 +251,17 @@ __itemModelToAtom( const MP4ItmfItem& model, MP4ItemAtom& atom )
 MP4ItmfItem*
 genericItemAlloc( const string& code, uint32_t numData )
 {
-    MP4ItmfItem& item = *(MP4ItmfItem*)malloc( sizeof( MP4ItmfItem ));
-    __itemInit( item );
-    item.code = strdup( code.c_str() );
+    MP4ItmfItem* item = (MP4ItmfItem*)malloc( sizeof( MP4ItmfItem ));
+    if( !item )
+        return NULL;
+
+    __itemInit( *item );
+    item->code = strdup( code.c_str() );
 
     // always create array size of 1
-    __dataListResize( item.dataList, numData );
+    __dataListResize( item->dataList, numData );
 
-    return &item;
+    return item;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -398,6 +401,9 @@ genericGetItemsByMeaning( MP4File& file, const string& meaning, const string& na
 bool
 genericAddItem( MP4File& file, const MP4ItmfItem* item )
 {
+    if( !item )
+        return false;
+
     MP4Atom* ilst = file.FindAtom( "moov.udta.meta.ilst" );
     if( !ilst ) {
         file.AddDescendantAtoms( "moov", "udta.meta.ilst" );
@@ -416,7 +422,7 @@ genericAddItem( MP4File& file, const MP4ItmfItem* item )
 bool
 genericSetItem( MP4File& file, const MP4ItmfItem* item )
 {
-    if( !item->__handle )
+    if( !item || !item->__handle )
         return false;
 
     MP4Atom* ilst = file.FindAtom( "moov.udta.meta.ilst" );
@@ -451,7 +457,7 @@ genericSetItem( MP4File& file, const MP4ItmfItem* item )
 bool
 genericRemoveItem( MP4File& file, const MP4ItmfItem* item )
 {
-    if( !item->__handle )
+    if( !item || !item->__handle )
         return false;
 
     MP4Atom* ilst = file.FindAtom( "moov.udta.meta.ilst" );

@@ -546,6 +546,50 @@ Log::errorf ( const Exception&      x )
 
 ///////////////////////////////////////////////////////////////////////////////
 
+/**
+ * Log an error message
+ *
+ * @param olog the log object to use (or the global log
+ * object if NULL)
+ *
+ * @param format the format string to use to process the
+ * remaining arguments.  @p format should not contain a
+ * newline.
+ */
+void
+Log::errorf( Log*               olog,
+             const char*        format,
+             ... )
+{
+    va_list     ap;
+    Log&        o = olog ? *olog : log;
+
+    va_start(ap,format);
+    o.vprintf(MP4_LOG_ERROR,format,ap);
+    va_end(ap);
+}
+
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+ * Log an Exception as an error
+ *
+ * @param olog the log object to use (or the global log
+ * object if NULL)
+ *
+ * @param x the exception to log
+ */
+void
+Log::errorf( Log*               olog,
+             const Exception&   x )
+{
+    Log& o = olog ? *olog : log;
+
+    o.errorf(x);
+}
+
+///////////////////////////////////////////////////////////////////////////////
+
 }} // namespace mp4v2::impl
 
 using namespace mp4v2::impl;
