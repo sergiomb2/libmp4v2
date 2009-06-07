@@ -5,6 +5,10 @@ $Date: 2009-01-30 17:25:34 -0800 (Fri, 30 Jan 2009) $
 
 -------------------
 
+(7-jun-09, dbyron)
+
+- add MP4LogGetLevel, MP4LogSetLevel
+
 (5-jun-09, dbyron)
 
 - change return value of MP4DeleteTrack,
