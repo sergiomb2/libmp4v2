@@ -285,6 +285,32 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
         return;
     }
 
+    MP4LogLevel MP4LogGetLevel( MP4FileHandle hFile )
+    {
+        Log &olog = MP4_IS_VALID_FILE_HANDLE(hFile) ? *((MP4File*)hFile) :
+            mp4v2::impl::log;
+
+        return olog.verbosity;
+    }
+
+    void MP4LogSetLevel( MP4FileHandle hFile, MP4LogLevel verbosity )
+    {
+        Log &olog = MP4_IS_VALID_FILE_HANDLE(hFile) ? *((MP4File*)hFile) :
+            mp4v2::impl::log;
+
+        try
+        {
+            olog.setVerbosity(verbosity);
+        }
+        catch( Exception* x ) {
+            olog.errorf(*x);
+            delete x;
+        }
+        catch( ... ) {
+            olog.errorf( "%s: failed", __FUNCTION__ );
+        }
+    }
+
     MP4Duration MP4GetDuration(MP4FileHandle hFile)
     {
         if (MP4_IS_VALID_FILE_HANDLE(hFile)) {

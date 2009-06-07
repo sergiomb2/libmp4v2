@@ -89,6 +89,33 @@ uint32_t MP4GetVerbosity( MP4FileHandle hFile );
 MP4V2_EXPORT
 void MP4SetVerbosity( MP4FileHandle hFile, uint32_t verbosity );
 
+/**
+ * Accessor for the maximum level for diagnostic information
+ * for a file handle
+ *
+ * @param hFile the file handle to query (or the global log
+ * level if NULL)
+ *
+ * @return the maximum level for diagnostic information for
+ * @p hFile
+ *
+ * @see MP4LogSetLevel() for further details.
+ */
+MP4V2_EXPORT
+MP4LogLevel MP4LogGetLevel( MP4FileHandle hFile );
+
+/**
+ * Set the maximum level for diagnostic information for a
+ * file handle
+ *
+ * @param hFile the file handle to set (or set the global
+ * log level if NULL)
+ *
+ * @param verbosity the level to set
+ */
+MP4V2_EXPORT
+void MP4LogSetLevel( MP4FileHandle hFile, MP4LogLevel verbosity );
+
 /** Close an mp4 file.
  *  MP4Close closes a previously opened mp4 file. If the file was opened
  *  writable with MP4Create() or MP4Modify(), then MP4Close() will write
