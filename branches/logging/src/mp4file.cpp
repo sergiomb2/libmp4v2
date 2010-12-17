@@ -259,9 +259,26 @@ void MP4File::Optimize( const char* srcFileName, const char* dstFileName )
     // compute destination filename
     string dname;
     if( dstFileName )
+    {
         dname = dstFileName;
-    else
-        FileSystem::pathnameTemp( dname, ".", "tmp", ".mp4" );
+    } else {
+        // No destination given, so let's kludge together a temporary file.
+        // We'll try to create it in the same directory as the srcFileName, since
+        // it's more likely that directory is writable.  In the absence of that,
+        // we'll create it in "./", which is the default pathnameTemp() provides.
+        string s(srcFileName);
+        size_t pos = s.find_last_of("\\/");
+        const char *d;
+        if (pos == string::npos)
+        {
+            d = ".";
+        } else {
+            s = s.substr(0, pos);
+            d = s.c_str();
+        }
+        FileSystem::pathnameTemp( dname, d, "tmp", ".mp4" );
+    }
+
 
     Open( dname.c_str(), File::MODE_CREATE, NULL );
     File* const dst = m_file;
@@ -504,6 +521,20 @@ void MP4File::FinishWrite()
                     meta->GetParentAtom()->DeleteChildAtom( meta );
                     delete meta;
                 }
+            }
+        }
+    }
+
+    // remove empty moov.udta.name
+    {
+        MP4Atom* name = FindAtom( "moov.udta.name" );
+        if( name ) {
+            unsigned char *val = NULL;
+            uint32_t valSize = 0;
+            GetBytesProperty("moov.udta.name.value", (uint8_t**)&val, &valSize);
+            if( valSize == 0 ) {
+                name->GetParentAtom()->DeleteChildAtom( name );
+                delete name;
             }
         }
     }
@@ -1087,13 +1118,13 @@ void MP4File::AddDataReference(MP4TrackId trackId, const char* url)
     }
 }
 
-MP4TrackId MP4File::AddSystemsTrack(const char* type)
+MP4TrackId MP4File::AddSystemsTrack(const char* type, uint32_t timeScale)
 {
     const char* normType = MP4NormalizeTrackType(type, verbosity);
 
     // TBD if user type, fix name to four chars, and warn
 
-    MP4TrackId trackId = AddTrack(type, MP4_MSECS_TIME_SCALE);
+    MP4TrackId trackId = AddTrack(type, timeScale);
 
     (void)InsertChildAtom(MakeTrackName(trackId, "mdia.minf"), "nmhd", 0);
 
@@ -1301,7 +1332,7 @@ MP4TrackId MP4File::AddAudioTrack(
     pStsdCountProperty->IncrementValue();
 
     SetTrackIntegerProperty(trackId,
-                            "mdia.minf.stbl.stsd.mp4a.timeScale", timeScale);
+                            "mdia.minf.stbl.stsd.mp4a.timeScale", timeScale << 16);
 
     SetTrackIntegerProperty(trackId,
                             "mdia.minf.stbl.stsd.mp4a.esds.ESID",
@@ -2121,6 +2152,50 @@ MP4TrackId MP4File::AddSubtitleTrack(uint32_t timescale,
     return trackId;
 }
 
+MP4TrackId MP4File::AddSubpicTrack(uint32_t timescale,
+                                     uint16_t width,
+                                     uint16_t height)
+{
+    MP4TrackId trackId =
+        AddTrack(MP4_SUBPIC_TRACK_TYPE, timescale);
+
+    InsertChildAtom(MakeTrackName(trackId, "mdia.minf"), "nmhd", 0);
+
+    (void)AddChildAtom(MakeTrackName(trackId, "mdia.minf.stbl.stsd"), "mp4s");
+
+    SetTrackFloatProperty(trackId, "tkhd.width", width);
+    SetTrackFloatProperty(trackId, "tkhd.height", height);
+    SetTrackIntegerProperty(trackId, "tkhd.layer", 0);
+
+    // stsd is a unique beast in that it has a count of the number
+    // of child atoms that needs to be incremented after we add the mp4s atom
+    MP4Integer32Property* pStsdCountProperty;
+    FindIntegerProperty(
+        MakeTrackName(trackId, "mdia.minf.stbl.stsd.entryCount"),
+        (MP4Property**)&pStsdCountProperty);
+    pStsdCountProperty->IncrementValue();
+
+    SetTrackIntegerProperty(trackId,
+                            "mdia.minf.stbl.stsd.mp4s.esds.ESID",
+#if 0
+                            // note - for a file, these values need to
+                            // be 0 - wmay - 04/16/2003
+                            trackId
+#else
+                            0
+#endif
+                           );
+
+    SetTrackIntegerProperty(trackId,
+                            "mdia.minf.stbl.stsd.mp4s.esds.decConfigDescr.objectTypeId",
+                            MP4SubpicObjectType);
+
+    SetTrackIntegerProperty(trackId,
+                            "mdia.minf.stbl.stsd.mp4s.esds.decConfigDescr.streamType",
+                            MP4NeroSubpicStreamType);
+    return trackId;
+}
+
 MP4TrackId MP4File::AddChapterTextTrack(MP4TrackId refTrackId, uint32_t timescale)
 {
     // validate reference track id
@@ -2243,7 +2318,7 @@ void MP4File::AddChapter(MP4TrackId chapterTrackId, MP4Duration chapterDuration,
     {
         MP4Track * pChapterTrack = GetTrack(chapterTrackId);
         snprintf( text, 1023, "Chapter %03d", pChapterTrack->GetNumberOfSamples() + 1 );
-        textLen = strlen(text);
+        textLen = (uint32_t)strlen(text);
     }
 
     sampleLength = textLen + 2 + 12; // Account for text length code and other marker
@@ -2980,7 +3055,7 @@ void MP4File::MakeFtypAtom(
 
     ftyp->compatibleBrands.SetCount( compatibleBrandsCount );
     for( uint32_t i = 0; i < compatibleBrandsCount; i++ )
-        ftyp->compatibleBrands.SetValue( compatibleBrands[i] );
+        ftyp->compatibleBrands.SetValue( compatibleBrands[i], i );
 }
 
 char* MP4File::MakeTrackName(MP4TrackId trackId, const char* name)
@@ -3145,7 +3220,7 @@ bool MP4File::SetTrackName( MP4TrackId trackId, const char* name )
                                    (MP4Property**)&pMetadataProperty));
     ASSERT(pMetadataProperty);
 
-    pMetadataProperty->SetValue((uint8_t*)name, strlen(name));
+    pMetadataProperty->SetValue((uint8_t*)name, (uint32_t)strlen(name));
 
     return true;
 }

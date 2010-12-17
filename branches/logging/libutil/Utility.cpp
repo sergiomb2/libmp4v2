@@ -195,9 +195,9 @@ Utility::formatGroups()
             if( option.hidden )
                 continue;
 
-            int len = option.lname.length();
+            int len = (int)option.lname.length();
             if( option.lhasarg )
-                len += 1 + option.argname.length();
+                len += 1 + (int)option.argname.length();
             if( len > longMax )
                 longMax = len;
         }
