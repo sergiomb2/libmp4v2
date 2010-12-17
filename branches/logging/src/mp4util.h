@@ -37,16 +37,6 @@ namespace mp4v2 { namespace impl {
         }
 #endif
 
-#ifdef C_ASSERT
-#undef C_ASSERT
-#endif
-
-#define C_ASSERT(expr) \
-        if (!(expr)) { \
-            printf("assert failure, file '%s' line %d", __FILE__, __LINE__); \
-            abort(); \
-        }
-
 #define WARNING(logobj,expr) \
     ASSERT(logobj); \
     if (expr) { \
