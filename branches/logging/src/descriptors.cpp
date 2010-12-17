@@ -70,7 +70,7 @@ MP4BaseDescriptor::MP4BaseDescriptor (uint8_t tag) : MP4Descriptor(tag)
             new MP4Integer8Property("MPEGJProfileLevelIndication"));
         break;
     default:
-        MP4Printf("error in base descriptor - tag %u", tag);
+        log.errorf("error in base descriptor - tag %u", tag);
         break;
 
     }
@@ -110,7 +110,7 @@ MP4BytesDescriptor::MP4BytesDescriptor (uint8_t tag) : MP4Descriptor(tag)
             m_bytes_index = 1;
             break;
         default:
-            MP4Printf("error in bytes descriptor - tag %u", tag);
+            log.errorf("error in bytes descriptor - tag %u", tag);
             break;
         }
     }
