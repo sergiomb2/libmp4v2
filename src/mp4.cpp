@@ -742,11 +742,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
     /* track operations */
 
     MP4TrackId MP4AddTrack(
-        MP4FileHandle hFile, const char* type)
+        MP4FileHandle hFile, const char* type,uint32_t timeScale)
     {
         if (MP4_IS_VALID_FILE_HANDLE(hFile)) {
             try {
-                return ((MP4File*)hFile)->AddSystemsTrack(type);
+                return ((MP4File*)hFile)->AddSystemsTrack(type, timeScale);
             }
             catch( Exception* x ) {
                 ((MP4File*)hFile)->errorf(*x);
@@ -1405,6 +1405,26 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
         if (MP4_IS_VALID_FILE_HANDLE(hFile)) {
             try {
                 return ((MP4File*)hFile)->AddSubtitleTrack(timescale, width, height);
+            }
+            catch( Exception* x ) {
+                ((MP4File*)hFile)->errorf(*x);
+                delete x;
+            }
+            catch( ... ) {
+                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+            }
+        }
+        return MP4_INVALID_TRACK_ID;
+    }
+
+    MP4TrackId MP4AddSubpicTrack(MP4FileHandle hFile,
+                                   uint32_t timescale,
+                                   uint16_t width,
+                                   uint16_t height)
+    {
+        if (MP4_IS_VALID_FILE_HANDLE(hFile)) {
+            try {
+                return ((MP4File*)hFile)->AddSubpicTrack(timescale, width, height);
             }
             catch( Exception* x ) {
                 ((MP4File*)hFile)->errorf(*x);

@@ -1236,7 +1236,7 @@ MP4TagsSetITunesCountry( const MP4Tags* m, const uint32_t* value )
 }
 
 bool
-MP4TagsSetCNID( const MP4Tags* m, const uint32_t* value )
+MP4TagsSetContentID( const MP4Tags* m, const uint32_t* value )
 {
     if( !m || !m->__handle )
         return false;
@@ -1245,7 +1245,7 @@ MP4TagsSetCNID( const MP4Tags* m, const uint32_t* value )
     MP4Tags& c = *const_cast<MP4Tags*>(m);
     
     try {
-        cpp.c_setInteger( value, cpp.cnID, c.cnID );
+        cpp.c_setInteger( value, cpp.contentID, c.contentID );
         return true;
     }
     catch( Exception* x ) {
@@ -1260,7 +1260,7 @@ MP4TagsSetCNID( const MP4Tags* m, const uint32_t* value )
 }
 
 bool
-MP4TagsSetATID( const MP4Tags* m, const uint32_t* value )
+MP4TagsSetArtistID( const MP4Tags* m, const uint32_t* value )
 {
     if( !m || !m->__handle )
         return false;
@@ -1269,7 +1269,7 @@ MP4TagsSetATID( const MP4Tags* m, const uint32_t* value )
     MP4Tags& c = *const_cast<MP4Tags*>(m);
     
     try {
-        cpp.c_setInteger( value, cpp.atID, c.atID );
+        cpp.c_setInteger( value, cpp.artistID, c.artistID );
         return true;
     }
     catch( Exception* x ) {
@@ -1284,7 +1284,7 @@ MP4TagsSetATID( const MP4Tags* m, const uint32_t* value )
 }
 
 bool
-MP4TagsSetPLID( const MP4Tags* m, const uint64_t* value )
+MP4TagsSetPlaylistID( const MP4Tags* m, const uint64_t* value )
 {
     if( !m || !m->__handle )
         return false;
@@ -1293,7 +1293,7 @@ MP4TagsSetPLID( const MP4Tags* m, const uint64_t* value )
     MP4Tags& c = *const_cast<MP4Tags*>(m);
     
     try {
-        cpp.c_setInteger( value, cpp.plID, c.plID );
+        cpp.c_setInteger( value, cpp.playlistID, c.playlistID );
         return true;
     }
     catch( Exception* x ) {
@@ -1308,7 +1308,55 @@ MP4TagsSetPLID( const MP4Tags* m, const uint64_t* value )
 }
 
 bool
-MP4TagsSetGEID( const MP4Tags* m, const uint32_t* value )
+MP4TagsSetGenreID( const MP4Tags* m, const uint32_t* value )
+{
+    if( !m || !m->__handle )
+        return false;
+
+    itmf::Tags& cpp = *static_cast<itmf::Tags*>(m->__handle);
+    MP4Tags& c = *const_cast<MP4Tags*>(m);
+
+    try {
+        cpp.c_setInteger( value, cpp.genreID, c.genreID );
+        return true;
+    }
+    catch( Exception* x ) {
+        mp4v2::impl::log.errorf(*x);
+        delete x;
+    }
+    catch( ... ) {
+        mp4v2::impl::log.errorf("%s: failed",__FUNCTION__);
+    }
+
+    return false;
+}
+
+bool
+MP4TagsSetComposerID( const MP4Tags* m, const uint32_t* value )
+{
+    if( !m || !m->__handle )
+        return false;
+
+    itmf::Tags& cpp = *static_cast<itmf::Tags*>(m->__handle);
+    MP4Tags& c = *const_cast<MP4Tags*>(m);
+
+    try {
+        cpp.c_setInteger( value, cpp.composerID, c.composerID );
+        return true;
+    }
+    catch( Exception* x ) {
+        mp4v2::impl::log.errorf(*x);
+        delete x;
+    }
+    catch( ... ) {
+        mp4v2::impl::log.errorf("%s: failed",__FUNCTION__);
+    }
+
+    return false;
+}
+
+bool
+MP4TagsSetXID( const MP4Tags* m, const char* value )
 {
     if( !m || !m->__handle )
         return false;
@@ -1317,7 +1365,7 @@ MP4TagsSetGEID( const MP4Tags* m, const uint32_t* value )
     MP4Tags& c = *const_cast<MP4Tags*>(m);
     
     try {
-        cpp.c_setInteger( value, cpp.geID, c.geID );
+        cpp.c_setString( value, cpp.xid, c.xid );
         return true;
     }
     catch( Exception* x ) {
@@ -1430,7 +1478,7 @@ bool
 MP4ItmfAddItem( MP4FileHandle hFile, const MP4ItmfItem* item )
 {
     if( !MP4_IS_VALID_FILE_HANDLE( hFile ))
-        return NULL;
+        return false;
 
     try {
         return itmf::genericAddItem( *(MP4File*)hFile, item );
@@ -1452,7 +1500,7 @@ bool
 MP4ItmfSetItem( MP4FileHandle hFile, const MP4ItmfItem* item )
 {
     if( !MP4_IS_VALID_FILE_HANDLE( hFile ))
-        return NULL;
+        return false;
 
     try {
         return itmf::genericSetItem( *(MP4File*)hFile, item );
@@ -1474,7 +1522,7 @@ bool
 MP4ItmfRemoveItem( MP4FileHandle hFile, const MP4ItmfItem* item )
 {
     if( !MP4_IS_VALID_FILE_HANDLE( hFile ))
-        return NULL;
+        return false;
 
     try {
         return itmf::genericRemoveItem( *(MP4File*)hFile, item );

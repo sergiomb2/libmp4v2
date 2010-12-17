@@ -546,6 +546,24 @@ void MP4Track::FinishWrite()
                 (MP4Property**)&pBitrateProperty)) {
         pBitrateProperty->SetValue(GetAvgBitrate());
     }
+
+    // cleaup trak.udta
+    MP4BytesProperty* nameProperty = NULL;
+    m_pTrakAtom->FindProperty("trak.udta.name.value", (MP4Property**) &nameProperty);
+    if( nameProperty != NULL && nameProperty->GetValueSize() == 0 ){
+        // Zero length name value--delete name, and then udta if no child atoms
+        MP4Atom* name = m_pTrakAtom->FindChildAtom("udta.name");
+        if( name ) {
+            MP4Atom* udta = name->GetParentAtom();
+            udta->DeleteChildAtom( name );
+            delete name;
+
+            if( udta->GetNumberOfChildAtoms() == 0 ) {
+                udta->GetParentAtom()->DeleteChildAtom( udta );
+                delete udta;
+            }
+        }
+    }
 }
 
 // Process sdtp log and add sdtp atom.
@@ -564,7 +582,7 @@ void MP4Track::FinishSdtp()
     MP4SdtpAtom* sdtp = (MP4SdtpAtom*)m_pTrakAtom->FindAtom( "trak.mdia.minf.stbl.sdtp" );
     if( !sdtp )
         sdtp = (MP4SdtpAtom*)AddAtom( "trak.mdia.minf.stbl", "sdtp" );
-    sdtp->data.SetValue( (const uint8_t*)m_sdtpLog.data(), m_sdtpLog.size() );
+    sdtp->data.SetValue( (const uint8_t*)m_sdtpLog.data(), (uint32_t)m_sdtpLog.size() );
 
     // add avc1 compatibility indicator if not present
     MP4FtypAtom* ftyp = (MP4FtypAtom*)m_pFile->FindAtom( "ftyp" );
@@ -892,7 +910,9 @@ File* MP4Track::GetSampleFile( MP4SampleId sampleId )
 
     File* file;
 
-    if( pUrlAtom->GetFlags() & 1 ) {
+    // make sure this is actually a url atom (somtimes it's "cios", like in iTunes videos)
+    if( strcmp(pUrlAtom->GetType(), "url ") ||
+        pUrlAtom->GetFlags() & 1 ) {
         file = NULL; // self-contained
     }
     else {

@@ -298,26 +298,22 @@ ChapterUtility::actionEvery( JobContext& job )
 
     Timecode chapterDuration( _ChaptersEvery * 1000, CHAPTERTIMESCALE );
     chapterDuration.setFormat( Timecode::DECIMAL );
-    Timecode durationSum( 0, CHAPTERTIMESCALE );
-    durationSum.setFormat( Timecode::DECIMAL );
     vector<MP4Chapter_t> chapters;
 
-    while( durationSum + chapterDuration < refTrackDuration )
+    do
     {
         MP4Chapter_t chap;
-        chap.duration = chapterDuration.duration;
-        sprintf(chap.title, "Chapter %lu", chapters.size()+1);
+        chap.duration = refTrackDuration.duration > chapterDuration.duration ? chapterDuration.duration : refTrackDuration.duration;
+        sprintf(chap.title, "Chapter %u", chapters.size()+1);
 
         chapters.push_back( chap );
-
-        durationSum += chapterDuration;
+        refTrackDuration -= chapterDuration;
     }
+    while( refTrackDuration.duration > 0 );
 
     if( 0 < chapters.size() )
     {
-        chapters.back().duration = (refTrackDuration - (durationSum - chapterDuration)).duration;
-
-        MP4SetChapters(job.fileHandle, &chapters[0], chapters.size(), _ChapterType);
+        MP4SetChapters(job.fileHandle, &chapters[0], (uint32_t)chapters.size(), _ChapterType);
     }
 
     fixQtScale( job.fileHandle );
@@ -531,13 +527,13 @@ ChapterUtility::actionImport( JobContext& job )
     }
 
     // convert start time into duration
-    uint64_t framerate = CHAPTERTIMESCALE;
+	uint32_t framerate = static_cast<uint32_t>( CHAPTERTIMESCALE );
     if( Timecode::FRAME == format )
     {
         // get the framerate
         MP4SampleId sampleCount = MP4GetTrackNumberOfSamples( job.fileHandle, refTrackId );
         Timecode tmpcd( refTrackDuration.svalue, CHAPTERTIMESCALE );
-        framerate = std::ceil( ((double)sampleCount / (double)tmpcd.duration) * CHAPTERTIMESCALE );
+		framerate = static_cast<uint32_t>( std::ceil( ((double)sampleCount / (double)tmpcd.duration) * CHAPTERTIMESCALE ) );
     }
 
     for( vector<MP4Chapter_t>::iterator it = chapters.begin(); it != chapters.end(); ++it )
@@ -560,7 +556,7 @@ ChapterUtility::actionImport( JobContext& job )
     }
 
     // now set the chapters
-    MP4SetChapters( job.fileHandle, &chapters[0], chapters.size(), _ChapterType );
+    MP4SetChapters( job.fileHandle, &chapters[0], (uint32_t)chapters.size(), _ChapterType );
 
     fixQtScale( job.fileHandle );
     job.optimizeApplicable = true;
@@ -989,7 +985,7 @@ ChapterUtility::parseChapterFile( const string filename, vector<MP4Chapter_t>& c
                     titleStart++;
                 }
 
-                titleLen = strlen( titleStart );
+                titleLen = (uint32_t)strlen( titleStart );
 
                 // advance to the end of the line
                 pos = titleStart + 1 + titleLen;
@@ -1048,7 +1044,7 @@ ChapterUtility::parseChapterFile( const string filename, vector<MP4Chapter_t>& c
                                                                  : FMT_STATE_TITLE_LINE;
 
                 titleStart = equalsPos + 1;
-                titleLen = strlen( titleStart );
+                titleLen = (uint32_t)strlen( titleStart );
 
                 // advance to the end of the line
                 pos = titleStart + titleLen;

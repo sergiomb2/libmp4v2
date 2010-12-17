@@ -60,7 +60,7 @@ typedef enum MP4TagArtworkType_e
     MP4_ART_BMP       = 1,
     MP4_ART_GIF       = 2,
     MP4_ART_JPEG      = 3,
-    MP4_ART_PNG       = 4,
+    MP4_ART_PNG       = 4
 } MP4TagArtworkType;
 
 /** Data object representing a single piece of artwork. */
@@ -151,10 +151,12 @@ typedef struct MP4Tags_s
     const char*     iTunesAccount;
     const uint8_t*  iTunesAccountType;
     const uint32_t* iTunesCountry;
-    const uint32_t* cnID;
-    const uint32_t* atID;
-    const uint64_t* plID;
-    const uint32_t* geID;
+    const uint32_t* contentID;
+    const uint32_t* artistID;
+    const uint64_t* playlistID;
+    const uint32_t* genreID;
+    const uint32_t* composerID;
+    const char*     xid;
 } MP4Tags;
 
 /** Allocate tags convenience structure for reading and settings tags.
@@ -258,10 +260,12 @@ MP4V2_EXPORT bool MP4TagsSetGapless         ( const MP4Tags*, const uint8_t* );
 MP4V2_EXPORT bool MP4TagsSetITunesAccount     ( const MP4Tags*, const char* );
 MP4V2_EXPORT bool MP4TagsSetITunesAccountType ( const MP4Tags*, const uint8_t* );
 MP4V2_EXPORT bool MP4TagsSetITunesCountry     ( const MP4Tags*, const uint32_t* );
-MP4V2_EXPORT bool MP4TagsSetCNID              ( const MP4Tags*, const uint32_t* );
-MP4V2_EXPORT bool MP4TagsSetATID              ( const MP4Tags*, const uint32_t* );
-MP4V2_EXPORT bool MP4TagsSetPLID              ( const MP4Tags*, const uint64_t* );
-MP4V2_EXPORT bool MP4TagsSetGEID              ( const MP4Tags*, const uint32_t* );
+MP4V2_EXPORT bool MP4TagsSetContentID         ( const MP4Tags*, const uint32_t* );
+MP4V2_EXPORT bool MP4TagsSetArtistID          ( const MP4Tags*, const uint32_t* );
+MP4V2_EXPORT bool MP4TagsSetPlaylistID        ( const MP4Tags*, const uint64_t* );
+MP4V2_EXPORT bool MP4TagsSetGenreID           ( const MP4Tags*, const uint32_t* );
+MP4V2_EXPORT bool MP4TagsSetComposerID        ( const MP4Tags*, const uint32_t* );
+MP4V2_EXPORT bool MP4TagsSetXID               ( const MP4Tags*, const char* );
 
 /** @} ***********************************************************************/
 

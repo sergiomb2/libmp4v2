@@ -236,7 +236,7 @@ public:
 
     /* track level convenience functions */
 
-    MP4TrackId AddSystemsTrack(const char* type);
+    MP4TrackId AddSystemsTrack(const char* type, uint32_t timeScale = 1000 );
 
     MP4TrackId AddODTrack();
 
@@ -377,6 +377,10 @@ public:
         uint32_t   timescale = 0 );
 
     MP4TrackId AddSubtitleTrack(uint32_t timescale,
+                                uint16_t width,
+                                uint16_t height);
+
+    MP4TrackId AddSubpicTrack(uint32_t timescale,
                                 uint16_t width,
                                 uint16_t height);
 

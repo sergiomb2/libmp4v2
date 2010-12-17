@@ -16,10 +16,11 @@
  *  The string should be exactly four characters in length, e.g. "MINE".
  *
  *  Note this should not be used to add any of the known track types defined
- *  in the MP4 standard (ISO/IEC 14496−1:2001).
+ *  in the MP4 standard (ISO/IEC 14496-1:2001).
  *
  *  @param hFile handle of file for operation.
  *  @param type specifies the type of track to be added.
+ *  @param timeScale the time scale in ticks per second of the track.  Default is 1000.
  *
  *  @return On success, the track-id of new track.
  *      On failure, #MP4_INVALID_TRACK_ID.
@@ -27,14 +28,15 @@
 MP4V2_EXPORT
 MP4TrackId MP4AddTrack(
     MP4FileHandle hFile,
-    const char*   type );
+    const char*   type,
+    uint32_t      timeScale DEFAULT(MP4_MSECS_TIME_SCALE) );
 
-/** Add an MPEG−4 systems track.
+/** Add an MPEG-4 systems track.
  *
- *  MP4AddSystemsTrack adds an MPEG−4 Systems track to the mp4 file. Note
+ *  MP4AddSystemsTrack adds an MPEG-4 Systems track to the mp4 file. Note
  *  this should not be used to add OD or scene tracks, MP4AddODTrack() and
  *  MP4AddSceneTrack() should be used for those purposes. Other known
- *  MPEG−4 System track types are:
+ *  MPEG-4 System track types are:
  *      @li #MP4_CLOCK_TRACK_TYPE
  *      @li #MP4_MPEG7_TRACK_TYPE
  *      @li #MP4_OCI_TRACK_TYPE
@@ -304,6 +306,13 @@ MP4TrackId MP4AddTextTrack(
 
 MP4V2_EXPORT
 MP4TrackId MP4AddSubtitleTrack(
+    MP4FileHandle hFile,
+    uint32_t      timescale,
+    uint16_t      width,
+    uint16_t      height );
+
+MP4V2_EXPORT
+MP4TrackId MP4AddSubpicTrack(
     MP4FileHandle hFile,
     uint32_t      timescale,
     uint16_t      width,

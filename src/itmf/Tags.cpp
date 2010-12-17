@@ -44,7 +44,7 @@ void
 Tags::c_addArtwork( MP4Tags*& tags, MP4TagArtwork& c_artwork )
 {
     artwork.resize( artwork.size() + 1 );
-    c_setArtwork( tags, artwork.size() - 1, c_artwork );
+    c_setArtwork( tags, (uint32_t)artwork.size() - 1, c_artwork );
     updateArtworkShadow( tags );
 }
 
@@ -130,10 +130,12 @@ Tags::c_fetch( MP4Tags*& tags, MP4FileHandle hFile )
     fetchInteger( cim, CODE_ITUNESACCOUNTTYPE, iTunesAccountType, c.iTunesAccountType );
     fetchInteger( cim, CODE_ITUNESCOUNTRY,     iTunesCountry,     c.iTunesCountry );
 
-    fetchInteger( cim, CODE_CNID,              cnID,              c.cnID );
-    fetchInteger( cim, CODE_ATID,              atID,              c.atID );
-    fetchInteger( cim, CODE_PLID,              plID,              c.plID );
-    fetchInteger( cim, CODE_GEID,              geID,              c.geID );
+    fetchInteger( cim, CODE_CONTENTID,         contentID,         c.contentID );
+    fetchInteger( cim, CODE_ARTISTID,          artistID,          c.artistID );
+    fetchInteger( cim, CODE_PLAYLISTID,        playlistID,        c.playlistID );
+    fetchInteger( cim, CODE_GENREID,           genreID,           c.genreID );
+    fetchInteger( cim, CODE_COMPOSERID,        composerID,        c.composerID );
+    fetchString(  cim, CODE_XID,               xid,               c.xid );
 
     genericItemListFree( itemList ); // free
 
@@ -384,10 +386,12 @@ Tags::c_store( MP4Tags*& tags, MP4FileHandle hFile )
     storeInteger( file, CODE_ITUNESACCOUNTTYPE, iTunesAccountType, c.iTunesAccountType );
     storeInteger( file, CODE_ITUNESCOUNTRY,     iTunesCountry,     c.iTunesCountry );
 
-    storeInteger( file, CODE_CNID,              cnID,              c.cnID );
-    storeInteger( file, CODE_ATID,              atID,              c.atID );
-    storeInteger( file, CODE_PLID,              plID,              c.plID );
-    storeInteger( file, CODE_GEID,              geID,              c.geID );
+    storeInteger( file, CODE_CONTENTID,         contentID,         c.contentID );
+    storeInteger( file, CODE_ARTISTID,          artistID,          c.artistID );
+    storeInteger( file, CODE_PLAYLISTID,        playlistID,        c.playlistID );
+    storeInteger( file, CODE_GENREID,           genreID,           c.genreID );
+    storeInteger( file, CODE_COMPOSERID,        composerID,        c.composerID );
+    storeString(  file, CODE_XID,               xid,               c.xid );
 
     // destroy all cover-art then add each
     {
@@ -742,7 +746,7 @@ void
 Tags::storeString( MP4File& file, const string& code, const string& cpp, const char* c )
 {
     if( c )
-        store( file, code, MP4_ITMF_BT_UTF8, cpp.c_str(), cpp.size() );
+        store( file, code, MP4_ITMF_BT_UTF8, cpp.c_str(), (uint32_t)cpp.size() );
     else
         remove( file, code );
 }
@@ -762,7 +766,7 @@ Tags::updateArtworkShadow( MP4Tags*& tags )
         return;
 
     MP4TagArtwork* const cartwork = new MP4TagArtwork[ artwork.size() ];
-    uint32_t max = artwork.size();
+    uint32_t max = (uint32_t)artwork.size();
 
     for( uint32_t i = 0; i < max; i++ ) {
         MP4TagArtwork& a = cartwork[i];
@@ -849,10 +853,12 @@ const string Tags::CODE_GAPLESS           = "pgap";
 const string Tags::CODE_ITUNESACCOUNT     = "apID";
 const string Tags::CODE_ITUNESACCOUNTTYPE = "akID";
 const string Tags::CODE_ITUNESCOUNTRY     = "sfID";
-const string Tags::CODE_CNID              = "cnID";
-const string Tags::CODE_ATID              = "atID";
-const string Tags::CODE_PLID              = "plID";
-const string Tags::CODE_GEID              = "geID";
+const string Tags::CODE_CONTENTID         = "cnID";
+const string Tags::CODE_ARTISTID          = "atID";
+const string Tags::CODE_PLAYLISTID        = "plID";
+const string Tags::CODE_GENREID           = "geID";
+const string Tags::CODE_COMPOSERID        = "cmID";
+const string Tags::CODE_XID               = "xid ";
 
 ///////////////////////////////////////////////////////////////////////////////
 
