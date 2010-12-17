@@ -7,6 +7,8 @@ $Date: 2009-01-30 17:25:34 -0800 (Fri, 30 Jan 2009) $
 
 (17-dec-10, dbyron)
 
+- remove C_ASSERT from mp4util.h since it's not used
+
 - remove MP4Printf to keep from writing to stdout when
 logging
 
