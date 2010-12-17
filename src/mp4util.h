@@ -66,17 +66,6 @@ inline void Indent(FILE* pFile, uint8_t depth) {
     fprintf(pFile, "%*c", depth, ' ');
 }
 
-static inline void MP4Printf(const char* fmt, ...) MP4V2_WFORMAT_PRINTF(1,2);
-
-static inline void MP4Printf(const char* fmt, ...)
-{
-    va_list ap;
-    va_start(ap, fmt);
-    // TBD API call to set error_msg_func instead of just printf
-    vprintf(fmt, ap);
-    va_end(ap);
-}
-
 void MP4HexDump(
     uint8_t* pBytes, uint32_t numBytes,
     FILE* pFile = stdout, uint8_t indent = 0);
