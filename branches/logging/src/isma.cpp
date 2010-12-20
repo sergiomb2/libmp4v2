@@ -88,8 +88,8 @@ void MP4File::MakeIsmaCompliant(bool addIsmaComplianceSdp)
                    video_media_data_name);
             return;
         }
-        uint32_t verb = log.getVerbosity();
-        log.setVerbosity(verb & ~MP4_DETAILS_ERROR);
+        MP4LogLevel verb = log.verbosity;
+        log.setVerbosity(MP4_LOG_NONE);
         videoProfile = MP4GetVideoProfileLevel(this, videoTrackId);
         log.setVerbosity(verb);
     }

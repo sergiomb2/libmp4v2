@@ -42,14 +42,11 @@ public:
 
 public:
     Log( MP4LogLevel = MP4_LOG_NONE );
-    Log( uint32_t );
     virtual ~Log();
 
     static void setLogCallback ( MP4LogCallback );
 
-    uint32_t getVerbosity() const;
     void setVerbosity   ( MP4LogLevel );
-    void setVerbosity   ( uint32_t );
 
     void errorf ( const char* format, ... ) MP4V2_WFORMAT_PRINTF(2,3);
     void warningf ( const char* format, ... ) MP4V2_WFORMAT_PRINTF(2,3);
@@ -79,7 +76,6 @@ public:
     void errorf ( const Exception&      x );
 
 private:
-    static MP4LogLevel detailsToLevel ( uint32_t );
 };
 
 /**

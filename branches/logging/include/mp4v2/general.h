@@ -72,11 +72,6 @@ typedef uint32_t (*encryptFunc_t)( uint32_t, uint32_t, uint8_t*, uint32_t*, uint
 #define MP4_IS_VALID_DURATION(x)    ((x) != MP4_INVALID_DURATION)
 #define MP4_IS_VALID_EDIT_ID(x)     ((x) != MP4_INVALID_EDIT_ID)
 
-#define MP4_DETAILS_READ_ALL        \
-    (MP4_DETAILS_READ | MP4_DETAILS_TABLE | MP4_DETAILS_SAMPLE)
-#define MP4_DETAILS_WRITE_ALL       \
-    (MP4_DETAILS_WRITE | MP4_DETAILS_TABLE | MP4_DETAILS_SAMPLE)
-
 /*
  * MP4 Known track type names - e.g. MP4GetNumberOfTracks(type)
  *
