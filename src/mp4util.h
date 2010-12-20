@@ -37,10 +37,9 @@ namespace mp4v2 { namespace impl {
         }
 #endif
 
-#define WARNING(logobj,expr) \
-    ASSERT(logobj); \
+#define WARNING(expr) \
     if (expr) { \
-        (logobj)->errorf("Warning (%s) in %s at line %u", \
+        log.errorf("Warning (%s) in %s at line %u", \
                          LIBMPV42_STRINGIFY(expr), __FILE__, __LINE__); \
     }
 
@@ -114,8 +113,7 @@ char* MP4ToBase16(const uint8_t* pData, uint32_t dataSize);
 
 char* MP4ToBase64(const uint8_t* pData, uint32_t dataSize);
 
-const char* MP4NormalizeTrackType(const char* type,
-                                  MP4LogLevel verbosity);
+const char* MP4NormalizeTrackType(const char* type);
 
 ///////////////////////////////////////////////////////////////////////////////
 

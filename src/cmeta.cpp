@@ -14,7 +14,7 @@
 // 
 //  The Initial Developer of the Original Code is Kona Blend.
 //  Portions created by Kona Blend are Copyright (C) 2008.
-//  Portions created by David Byron are Copyright (C) 2009.
+//  Portions created by David Byron are Copyright (C) 2009, 2010.
 //  All Rights Reserved.
 //
 //  Contributors:
@@ -134,11 +134,11 @@ MP4TagsFetch( const MP4Tags* tags, MP4FileHandle hFile )
         return true;
     }
     catch( Exception* x ) {
-        static_cast<MP4File*>(hFile)->errorf(*x);
+        mp4v2::impl::log.errorf(*x);
         delete x;
     }
     catch( ... ) {
-        static_cast<MP4File*>(hFile)->errorf("%s: failed",__FUNCTION__);
+        mp4v2::impl::log.errorf("%s: failed",__FUNCTION__);
     }
 
     return false;
@@ -215,11 +215,11 @@ MP4TagsStore( const MP4Tags* tags, MP4FileHandle hFile )
         return true;
     }
     catch( Exception* x ) {
-        static_cast<MP4File*>(hFile)->errorf(*x);
+        mp4v2::impl::log.errorf(*x);
         delete x;
     }
     catch( ... ) {
-        static_cast<MP4File*>(hFile)->errorf("%s: failed", __FUNCTION__ );
+        mp4v2::impl::log.errorf("%s: failed", __FUNCTION__ );
     }
 
     return false;
@@ -1415,11 +1415,11 @@ MP4ItmfGetItems( MP4FileHandle hFile )
         return itmf::genericGetItems( *(MP4File*)hFile );
     }
     catch( Exception* x ) {
-        static_cast<MP4File*>(hFile)->errorf(*x);
+        mp4v2::impl::log.errorf(*x);
         delete x;
     }
     catch( ... ) {
-        static_cast<MP4File*>(hFile)->errorf("%s: failed",__FUNCTION__);
+        mp4v2::impl::log.errorf("%s: failed",__FUNCTION__);
     }
 
     return NULL;
@@ -1437,11 +1437,11 @@ MP4ItmfGetItemsByCode( MP4FileHandle hFile, const char* code )
         return itmf::genericGetItemsByCode( *(MP4File*)hFile, code );
     }   
     catch( Exception* x ) {
-        static_cast<MP4File*>(hFile)->errorf(*x);
+        mp4v2::impl::log.errorf(*x);
         delete x;
     }
     catch( ... ) {
-        static_cast<MP4File*>(hFile)->errorf("%s: failed",__FUNCTION__);
+        mp4v2::impl::log.errorf("%s: failed",__FUNCTION__);
     }
 
     return NULL;
@@ -1462,11 +1462,11 @@ MP4ItmfGetItemsByMeaning( MP4FileHandle hFile, const char* meaning, const char* 
         return itmf::genericGetItemsByMeaning( *(MP4File*)hFile, meaning, name ? name : "" );
     }
     catch( Exception* x ) {
-        static_cast<MP4File*>(hFile)->errorf(*x);
+        mp4v2::impl::log.errorf(*x);
         delete x;
     }
     catch( ... ) {
-        static_cast<MP4File*>(hFile)->errorf("%s: failed", __FUNCTION__ );
+        mp4v2::impl::log.errorf("%s: failed", __FUNCTION__ );
     }
 
     return NULL;
@@ -1484,11 +1484,11 @@ MP4ItmfAddItem( MP4FileHandle hFile, const MP4ItmfItem* item )
         return itmf::genericAddItem( *(MP4File*)hFile, item );
     }
     catch( Exception* x) {
-        static_cast<MP4File*>(hFile)->errorf(*x);
+        mp4v2::impl::log.errorf(*x);
         delete x;
     }
     catch( ... ) {
-        static_cast<MP4File*>(hFile)->errorf("%s: failed", __FUNCTION__ );
+        mp4v2::impl::log.errorf("%s: failed", __FUNCTION__ );
     }
 
     return false;
@@ -1506,11 +1506,11 @@ MP4ItmfSetItem( MP4FileHandle hFile, const MP4ItmfItem* item )
         return itmf::genericSetItem( *(MP4File*)hFile, item );
     }
     catch( Exception* x ) {
-        static_cast<MP4File*>(hFile)->errorf(*x);
+        mp4v2::impl::log.errorf(*x);
         delete x;
     }
     catch( ... ) {
-        static_cast<MP4File*>(hFile)->errorf("%s: failed", __FUNCTION__ );
+        mp4v2::impl::log.errorf("%s: failed", __FUNCTION__ );
     }
 
     return false;
@@ -1528,11 +1528,11 @@ MP4ItmfRemoveItem( MP4FileHandle hFile, const MP4ItmfItem* item )
         return itmf::genericRemoveItem( *(MP4File*)hFile, item );
     }
     catch( Exception* x ) {
-        static_cast<MP4File*>(hFile)->errorf(*x);
+        mp4v2::impl::log.errorf(*x);
         delete x;
     }
     catch( ... ) {
-        static_cast<MP4File*>(hFile)->errorf("%s: failed", __FUNCTION__ );
+        mp4v2::impl::log.errorf("%s: failed", __FUNCTION__ );
     }
 
     return false;

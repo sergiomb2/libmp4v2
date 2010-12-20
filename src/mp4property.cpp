@@ -42,12 +42,7 @@ bool MP4Property::FindProperty(const char* name,
     }
 
     if (!strcasecmp(m_name, name)) {
-        if (m_pParentAtom) {
-            ASSERT(m_pParentAtom->GetFile());
-            m_pParentAtom->GetFile()->verbose1f("FindProperty: matched %s",
-                                                name);
-        }
-
+        log.verbose1f("FindProperty: matched %s",name);
         *ppProperty = this;
         return true;
     }
@@ -619,10 +614,7 @@ void MP4BytesProperty::Dump(uint8_t indent,
     bool supressed;
 
     if( showall ||
-        size < 128 ||
-        !m_pParentAtom ||
-        !m_pParentAtom->GetFile() ||
-        (m_pParentAtom->GetFile()->verbosity & MP4_DETAILS_TABLE) )
+        size < 128 || log.verbosity >= MP4_LOG_VERBOSE2 )
     {
         adjsize = size;
         supressed = false;
@@ -734,9 +726,7 @@ bool MP4TableProperty::FindProperty(const char *name,
         }
     }
     
-    ASSERT(m_pParentAtom);
-    ASSERT(m_pParentAtom->GetFile());
-    m_pParentAtom->GetFile()->verbose1f("FindProperty: matched %s", name);
+    log.verbose1f("FindProperty: matched %s", name);
 
     // get name of table property
     const char *tablePropName = MP4NameAfterFirst(name);
@@ -776,7 +766,7 @@ void MP4TableProperty::Read(MP4File* pFile, uint32_t index)
     uint32_t numProperties = m_pProperties.Size();
 
     if (numProperties == 0) {
-        WARNING(pFile,numProperties == 0);
+        WARNING(numProperties == 0);
         return;
     }
 
@@ -810,7 +800,7 @@ void MP4TableProperty::Write(MP4File* pFile, uint32_t index)
     uint32_t numProperties = m_pProperties.Size();
 
     if (numProperties == 0) {
-        WARNING(pFile,numProperties == 0);
+        WARNING(numProperties == 0);
         return;
     }
 
@@ -850,8 +840,7 @@ void MP4TableProperty::Dump(uint8_t indent,
     uint32_t numProperties = m_pProperties.Size();
 
     if (numProperties == 0) {
-        // Note: using the global log object here
-        WARNING(&log,numProperties == 0);
+        WARNING(numProperties == 0);
         return;
     }
 
@@ -942,11 +931,7 @@ bool MP4DescriptorProperty::FindProperty(const char *name,
         return false;
     }
 
-    if (m_pParentAtom) {
-        ASSERT(m_pParentAtom->GetFile());
-        m_pParentAtom->GetFile()->verbose1f("FindProperty: matched %s",
-                                            name);
-    }
+    log.verbose1f("FindProperty: matched %s",name);
 
     // get name of descriptor property
     name = MP4NameAfterFirst(name);
@@ -1022,11 +1007,11 @@ void MP4DescriptorProperty::Read(MP4File* pFile, uint32_t index)
 
     // warnings
     if (m_mandatory && m_pDescriptors.Size() == 0) {
-        pFile->verbose1f("Warning: Mandatory descriptor 0x%02x missing",
-                         m_tagsStart);
+        log.verbose1f("Warning: Mandatory descriptor 0x%02x missing",
+                      m_tagsStart);
     } else if (m_onlyOne && m_pDescriptors.Size() > 1) {
-        pFile->verbose1f("Warning: Descriptor 0x%02x has more than one instance",
-                         m_tagsStart);
+        log.verbose1f("Warning: Descriptor 0x%02x has more than one instance",
+                      m_tagsStart);
     }
 }
 

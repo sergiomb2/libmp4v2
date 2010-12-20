@@ -281,7 +281,6 @@ typedef uint32_t (*encryptFunc_t)( uint32_t, uint32_t, uint8_t*, uint32_t*, uint
 MP4V2_EXPORT
 bool MP4Make3GPCompliant(
     const char* fileName,
-    uint32_t    verbosity DEFAULT(0),
     char*       majorBrand DEFAULT(0),
     uint32_t    minorVersion DEFAULT(0),
     char**      supportedBrands DEFAULT(NULL),
@@ -495,5 +494,23 @@ MP4V2_EXPORT
 void MP4SetLogCallback(
     MP4LogCallback cb_func );
 /** @} ***********************************************************************/
+
+/**
+ * Accessor for the maximum level for diagnostic information
+ *
+ * @return the maximum level for diagnostic information
+ *
+ * @see MP4LogSetLevel() for further details.
+ */
+MP4V2_EXPORT
+MP4LogLevel MP4LogGetLevel( void );
+
+/**
+ * Set the maximum level for diagnostic information
+ *
+ * @param verbosity the level to set
+ */
+MP4V2_EXPORT
+void MP4LogSetLevel( MP4LogLevel verbosity );
 
 #endif /* MP4V2_GENERAL_H */

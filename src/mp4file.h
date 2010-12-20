@@ -45,7 +45,7 @@ class MP4BytesProperty;
 class MP4Descriptor;
 class MP4DescriptorProperty;
 
-class MP4File : public Log
+class MP4File
 {
 public:
     static void CopySample(
@@ -67,8 +67,7 @@ public:
         MP4Duration   dstSampleDuration );
 
 public:
-    MP4File( uint32_t verbosity = 0 );
-    MP4File(MP4LogLevel verbosity);
+    MP4File();
     ~MP4File();
 
     ///////////////////////////////////////////////////////////////////////////

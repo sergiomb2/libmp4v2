@@ -7,6 +7,37 @@ $Date$
 
 (20-dec-10, dbyron)
 
+- change command line programs to map debug levels as
+follows:
+  0: MP4_LOG_NONE
+  1: MP4_LOG_ERROR
+  2, 3: MP4_LOG_VERBOSE2
+  4: MP4_LOG_VERBOSE4
+
+- change MP4NormalizeTrackType (an internal function) to
+always use MP4_LOG_VERBOSE1.
+
+- another fix to Log::hexDump so that it now actually dumps
+all the bytes it was asked to dump
+
+- MP4File is no longer a child of Log.  Use the global log
+object everywhere.
+
+- remove the verbosity argument to MP4Read, MP4ReadProvider,
+MP4Create and MP4CreateEx, MP4Modify, MP4Optimize,
+MP4MakeIsmaCompliant, MP4MakeIsmaSdpIod, MP4Make3GPCompliant
+and MP4NormalizeTrackType.  Remove MP4GetVerbosity,
+MP4SetVerbosity and MP4Atom::GetVerbosity.  Use
+MP4LogSetLevel to change the global log level instead.
+There is no more file-specific verbosity since it is more
+complicated than one global log level and it's not clear
+anyone needs the added complexity.
+
+- remove the MP4FileHandle argument to MP4LogSetLevel and
+MP4LogGetLevel and move them to general.h/log.cpp since
+they're no longer file-specific.  The default log level is
+MP4_LOG_WARNING without any call to MP4LogSetLevel.
+
 - change MP4BytesProperty::Dump to use Log::hexDump for
 large (> 16) byte hex output
 

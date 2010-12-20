@@ -40,7 +40,6 @@ Utility::Utility( string name_, int argc_, char** argv_ )
     , _debug            ( 0 )
     , _verbosity        ( 1 )
     , _jobCount         ( 0 )
-    , _debugVerbosity   ( 0 )
     , _debugImplicits   ( false )
     , _group            ( "OPTIONS" )
 
@@ -124,36 +123,40 @@ Utility::batch( int argi )
 void
 Utility::debugUpdate( uint32_t debug )
 {
+    MP4LogLevel level;
+
     _debug = debug;
     verbose2f( "debug level: %u\n", _debug );
 
     switch( _debug ) {
         case 0:
-            _debugVerbosity = 0;
+            level = MP4_LOG_NONE;
             _debugImplicits = false;
             break;
 
         case 1:
-            _debugVerbosity = MP4_DETAILS_ERROR;
+            level = MP4_LOG_ERROR;
             _debugImplicits = false;
             break;
 
         case 2:
-            _debugVerbosity = MP4_DETAILS_ERROR | MP4_DETAILS_TABLE;
+            level = MP4_LOG_VERBOSE2;
             _debugImplicits = false;
             break;
 
         case 3:
-            _debugVerbosity = MP4_DETAILS_ERROR | MP4_DETAILS_TABLE;
+            level = MP4_LOG_VERBOSE2;
             _debugImplicits = true;
             break;
 
         case 4:
         default:
-            _debugVerbosity = MP4_DETAILS_ALL;
+            level = MP4_LOG_VERBOSE4;
             _debugImplicits = true;
             break;
     }
+
+    MP4LogSetLevel(level);
 }
 
 ///////////////////////////////////////////////////////////////////////////////

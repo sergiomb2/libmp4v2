@@ -75,7 +75,7 @@ void MP4TextAtom::AddPropertiesGmhdType()
 
 void MP4TextAtom::Generate()
 {
-
+    ASSERT(m_pParentAtom);
     if (ATOMID(m_pParentAtom->GetType()) == ATOMID("stsd")) {
         AddPropertiesStsdType();
         GenerateStsdType();
@@ -83,8 +83,7 @@ void MP4TextAtom::Generate()
         AddPropertiesGmhdType();
         GenerateGmhdType();
     } else {
-        ASSERT(m_pFile);
-        m_pFile->warningf("%s text atom in unexpected context, can not generate", __FUNCTION__);
+        log.warningf("%s text atom in unexpected context, can not generate", __FUNCTION__);
     }
 
 }
