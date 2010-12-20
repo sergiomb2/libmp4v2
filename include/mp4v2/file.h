@@ -201,7 +201,8 @@ MP4FileHandle MP4CreateEx(
     char**      compatibleBrands DEFAULT(0),
     uint32_t    compatibleBrandsCount DEFAULT(0) );
 
-/** Dump mp4 file contents as ASCII.
+/** Dump mp4 file contents as ASCII either to stdout or the
+ *  log callback (@p see MP4SetLogCallback)
  *
  *  Dump is an invaluable debugging tool in that in can reveal all the details
  *  of the mp4 control structures. However, the output will not make much sense
@@ -214,7 +215,6 @@ MP4FileHandle MP4CreateEx(
  *  See MP4SetVerbosity() for how to set this flag.
  *
  *  @param hFile handle of file to dump.
- *  @param pDumpFile dump destination. If NULL stdout will be used.
  *  @param dumpImplicits prints properties which would not actually be
  *      written to the mp4 file, but still exist in mp4 control structures.
  *      ie. they are implicit given the current values of other controlling
@@ -227,7 +227,6 @@ MP4FileHandle MP4CreateEx(
 MP4V2_EXPORT
 bool MP4Dump(
     MP4FileHandle hFile,
-    FILE*         pDumpFile DEFAULT(NULL),
     bool          dumpImplicits DEFAULT(0) );
 
 /** Return a textual summary of an mp4 file.

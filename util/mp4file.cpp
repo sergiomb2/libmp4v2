@@ -94,7 +94,7 @@ FileUtility::actionDump( JobContext& job )
     if( job.fileHandle == MP4_INVALID_FILE_HANDLE )
         return herrf( "unable to open for read: %s\n", job.file.c_str() );
 
-    if( !MP4Dump( job.fileHandle, stdout, _debugImplicits ))
+    if( !MP4Dump( job.fileHandle, _debugImplicits ))
         return herrf( "dump failed: %s\n", job.file.c_str() );
 
     return SUCCESS;

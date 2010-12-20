@@ -88,7 +88,7 @@ public:
     bool Modify( const char* fileName );
     void Optimize( const char* srcFileName, const char* dstFileName = NULL );
     bool CopyClose( const string& copyFileName );
-    void Dump( FILE* fout = NULL, bool dumpImplicits = false );
+    void Dump( bool dumpImplicits = false );
     void Close();
 
     bool Use64Bits(const char *atomName);

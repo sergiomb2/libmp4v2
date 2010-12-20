@@ -174,7 +174,7 @@ public:
 
     void WriteEmbeddedData(MP4File* pFile, uint64_t startPos);
 
-    void Dump(FILE* pFile, uint8_t indent, bool dumpImplicits);
+    void Dump(uint8_t indent, bool dumpImplicits);
 
 protected:
     MP4RtpHint*         m_pHint;
@@ -228,7 +228,7 @@ public:
 
     void Write(MP4File* pFile);
 
-    void Dump(FILE* pFile, uint8_t indent, bool dumpImplicits);
+    void Dump(uint8_t indent, bool dumpImplicits);
 
 protected:
     MP4RtpHintTrack*    m_pTrack;

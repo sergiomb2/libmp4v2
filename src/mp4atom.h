@@ -196,7 +196,7 @@ public:
     virtual void Write();
     virtual void Rewrite();
     virtual void FinishWrite(bool use64 = false);
-    virtual void Dump(FILE* pFile, uint8_t indent, bool dumpImplicits);
+    virtual void Dump(uint8_t indent, bool dumpImplicits);
 
     bool GetLargesizeMode();
 

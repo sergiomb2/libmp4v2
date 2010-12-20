@@ -5,6 +5,23 @@ $Date$
 
 -------------------
 
+(20-dec-10, dbyron)
+
+- change MP4BytesProperty::Dump to use Log::hexDump for
+large (> 16) byte hex output
+
+- remove the FILE* argument from MP4Dump, the internal Dump
+methods (e.g. MP4File::Dump, MP4Atom::Dump,
+MP4Property::Dump, etc.).  Use Log::dump instead.
+
+- remove Indent from mp4util since it may pollute
+stdout/stderr
+
+- add Log::dump, Log::vdump to support dumping with a
+particular indent
+
+- fix Log::hexDump to print the correct ascii-hex info
+
 (17-dec-10, dbyron)
 
 - remove C_ASSERT from mp4util.h since it's not used

@@ -255,7 +255,7 @@ void MP4RtpHintTrack::ReadPacket(
     }
 
     ASSERT(m_pFile);
-    m_pFile->hexDump(MP4_LOG_VERBOSE1, *ppBytes, *pNumBytes,
+    m_pFile->hexDump(0, MP4_LOG_VERBOSE1, *ppBytes, *pNumBytes,
                      "ReadPacket: %u ", packetIndex);
 }
 
@@ -754,7 +754,7 @@ void MP4RtpHint::Read(MP4File* pFile)
     ASSERT(pFile);
     if (pFile->verbosity >= MP4_LOG_VERBOSE1) {
         pFile->verbose1f("ReadHint:");
-        Dump(stdout, 10, false);
+        Dump(10, false);
     }
 }
 
@@ -791,17 +791,16 @@ void MP4RtpHint::Write(MP4File* pFile)
 
     pFile->SetPosition(endPos);
 
-    pFile->verbose1f("WriteRtpHint:"); Dump(stdout, 14, false);
+    pFile->verbose1f("WriteRtpHint:"); Dump(14, false);
 }
 
-void MP4RtpHint::Dump(FILE* pFile, uint8_t indent, bool dumpImplicits)
+void MP4RtpHint::Dump(uint8_t indent, bool dumpImplicits)
 {
-    MP4Container::Dump(pFile, indent, dumpImplicits);
+    MP4Container::Dump(indent, dumpImplicits);
 
     for (uint32_t i = 0; i < m_rtpPackets.Size(); i++) {
-        Indent(pFile, indent);
-        fprintf(pFile, "RtpPacket: %u\n", i);
-        m_rtpPackets[i]->Dump(pFile, indent + 1, dumpImplicits);
+        log.dump(indent, MP4_LOG_VERBOSE1,"RtpPacket: %u", i);
+        m_rtpPackets[i]->Dump(indent + 1, dumpImplicits);
     }
 }
 
@@ -1058,14 +1057,13 @@ void MP4RtpPacket::WriteEmbeddedData(MP4File* pFile, uint64_t startPos)
     }
 }
 
-void MP4RtpPacket::Dump(FILE* pFile, uint8_t indent, bool dumpImplicits)
+void MP4RtpPacket::Dump(uint8_t indent, bool dumpImplicits)
 {
-    MP4Container::Dump(pFile, indent, dumpImplicits);
+    MP4Container::Dump(indent, dumpImplicits);
 
     for (uint32_t i = 0; i < m_rtpData.Size(); i++) {
-        Indent(pFile, indent);
-        fprintf(pFile, "RtpData: %u\n", i);
-        m_rtpData[i]->Dump(pFile, indent + 1, dumpImplicits);
+        log.dump(indent, MP4_LOG_VERBOSE1, "RtpData: %u", i);
+        m_rtpData[i]->Dump(indent + 1, dumpImplicits);
     }
 }
 

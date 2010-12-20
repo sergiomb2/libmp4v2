@@ -278,7 +278,7 @@ void MP4File::CreateIsmaIodFromFile(
         &pBytes,
         &numBytes);
 
-    hexDump(MP4_LOG_VERBOSE1, pBytes, numBytes, "OD data");
+    hexDump(0, MP4_LOG_VERBOSE1, pBytes, numBytes, "OD data");
 
     char* odCmdBase64 = MP4ToBase64(pBytes, numBytes);
 
@@ -349,7 +349,7 @@ void MP4File::CreateIsmaIodFromFile(
         &pBytes,
         &numBytes);
 
-    hexDump(MP4_LOG_VERBOSE1, pBytes, numBytes, "Scene data");
+    hexDump(0, MP4_LOG_VERBOSE1, pBytes, numBytes, "Scene data");
 
     char *sceneCmdBase64 = MP4ToBase64(pBytes, numBytes);
 
@@ -406,7 +406,7 @@ void MP4File::CreateIsmaIodFromFile(
 
     delete pIod;
 
-    hexDump(MP4_LOG_VERBOSE1, *ppBytes, *pNumBytes, "IOD data");
+    hexDump(0, MP4_LOG_VERBOSE1, *ppBytes, *pNumBytes, "IOD data");
 }
 
 void MP4File::CreateIsmaIodFromParams(
@@ -453,7 +453,7 @@ void MP4File::CreateIsmaIodFromParams(
         &pBytes,
         &numBytes);
 
-    hexDump(MP4_LOG_VERBOSE1, pBytes, numBytes, "Scene data");
+    hexDump(0, MP4_LOG_VERBOSE1, pBytes, numBytes, "Scene data");
 
     char* sceneCmdBase64 = MP4ToBase64(pBytes, numBytes);
 
@@ -530,7 +530,7 @@ void MP4File::CreateIsmaIodFromParams(
     delete pAudioEsdProperty;
     delete pVideoEsdProperty;
 
-    hexDump(MP4_LOG_VERBOSE1,pBytes, numBytes,"OD data = %" PRIu64 " bytes",numBytes);
+    hexDump(0, MP4_LOG_VERBOSE1,pBytes, numBytes,"OD data = %" PRIu64 " bytes",numBytes);
 
     char* odCmdBase64 = MP4ToBase64(pBytes, numBytes);
 
@@ -567,7 +567,7 @@ void MP4File::CreateIsmaIodFromParams(
 
     delete pIod;
 
-    hexDump(MP4_LOG_VERBOSE1,*ppIodBytes, *pIodNumBytes,"IOD data");
+    hexDump(0, MP4_LOG_VERBOSE1, *ppIodBytes, *pIodNumBytes,"IOD data");
 }
 
 void MP4File::CreateESD(
@@ -795,7 +795,7 @@ void MP4File::CreateIsmaODUpdateCommandFromFileForStream(
 
     CreateIsmaODUpdateCommandForStream(
         pAudioEsd, pVideoEsd, ppBytes, pNumBytes);
-    hexDump(MP4_LOG_VERBOSE1, *ppBytes, *pNumBytes,
+    hexDump(0, MP4_LOG_VERBOSE1, *ppBytes, *pNumBytes,
             "After CreateImsaODUpdateCommandForStream len %" PRIu64,*pNumBytes);
 
     // return SL config values to 2 (file)
