@@ -48,145 +48,10 @@ Log::Log( MP4LogLevel verbosity_ /* = MP4_LOG_NONE */ )
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
- * Constructor for the Log class that converts from the
- * bit-flag model of verbosity to the MP4LogLevel.
- */
-Log::Log( uint32_t verbosity_ )
-    : _verbosity ( Log::detailsToLevel(verbosity_) )
-    , verbosity  ( _verbosity )
-{
-}
-
-///////////////////////////////////////////////////////////////////////////////
-
-/**
  * Log class destructor
  */
 Log::~Log()
 {
-}
-
-///////////////////////////////////////////////////////////////////////////////
-
-/**
- * Convert MP4_DETAILS_* bit-flag-based verbosity to MP4LogLevel
- *
- * @param details the bit-flag-based verbosity to convert
- *
- * @return the MP4LogLevel corresponding to @p details
- */
-MP4LogLevel
-Log::detailsToLevel ( uint32_t details )
-{
-    // Handle this special case first.  MP4_DETAILS_ALL has
-    // all bits set.
-    if (details == MP4_DETAILS_ALL)
-    {
-        return MP4_LOG_VERBOSE4;
-    }
-
-    MP4LogLevel retval = MP4_LOG_NONE;
-
-    if (details & MP4_DETAILS_ERROR)
-    {
-        retval = MP4_LOG_ERROR;
-    }
-
-    if (details & MP4_DETAILS_WARNING)
-    {
-        retval = MP4_LOG_WARNING;
-    }
-
-    // None of the MP4_DETAILS_* flags maps to MP4_LOG_INFO
-
-    if ((details & MP4_DETAILS_READ) ||
-        (details & MP4_DETAILS_WRITE) ||
-        (details & MP4_DETAILS_FIND) ||
-        (details & MP4_DETAILS_HINT) ||
-        (details & MP4_DETAILS_ISMA) ||
-        (details & MP4_DETAILS_EDIT))
-    {
-        retval = MP4_LOG_VERBOSE1;
-    }
-
-    if (details & MP4_DETAILS_TABLE)
-    {
-        retval = MP4_LOG_VERBOSE2;
-    }
-
-    if (details & MP4_DETAILS_SAMPLE)
-    {
-        retval = MP4_LOG_VERBOSE3;
-    }
-
-    // If no flags were specified, we'll have verbosity set
-    // to MP4_LOG_NONE which is valid.
-    return retval;
-}
-
-///////////////////////////////////////////////////////////////////////////////
-
-/**
- * Accessor for verbosity converted to MP4_DETAILS_* bit flags
- *
- * @return the MP4_DETAILS_* bit flag-representation of
- * this->verbosity
- */
-uint32_t
-Log::getVerbosity() const
-{
-    uint32_t retval = 0;
-
-    // Set the maximum number of bits that correspond to the
-    // log level
-
-    // Process the levels from most verbose on down so each
-    // case can fall through.
-    switch (this->verbosity) {
-    case MP4_LOG_VERBOSE4:
-        // No flags correspond to this level specifically
-        // but if someone sets this, they get everything so
-        // we may as well break out instead of falling
-        // through.
-        retval = MP4_DETAILS_ALL;
-        break;
-    case MP4_LOG_VERBOSE3:
-        retval |= MP4_DETAILS_SAMPLE;
-    case MP4_LOG_VERBOSE2:
-        retval |= MP4_DETAILS_TABLE;
-    case MP4_LOG_VERBOSE1:
-        retval |= (MP4_DETAILS_READ | MP4_DETAILS_WRITE |
-                   MP4_DETAILS_FIND | MP4_DETAILS_HINT |
-                   MP4_DETAILS_ISMA | MP4_DETAILS_EDIT);
-    case MP4_LOG_INFO:
-        // No flags correspond to MP4_LOG_INFO, but fall
-        // through to get the more serious ones
-    case MP4_LOG_WARNING:
-        retval |= MP4_DETAILS_WARNING;
-    case MP4_LOG_ERROR:
-        retval |= MP4_DETAILS_ERROR;
-    case MP4_LOG_NONE:
-        break;
-    default:
-        ASSERT(0);
-
-        // Tempting to log something here using errorf.  We
-        // can't at the moment since this is a const
-        // function but errorf isn't.  It's possible that
-        // having errorf be const makes sense, but even if
-        // it was there's a reasonable argument for not
-        // using it here.  If we get here, something is
-        // broken in the logging code.  In that case, it's
-        // reasonable to assume we don't get to use logging
-        // to help us find/fix it.  We've got the ASSERT
-        // which should be enough.  If we do use logging
-        // here we run the risk of endless recursion or some
-        // other struggle. (16-feb-09, dbyron)
-        retval = 0;
-        break;
-    }
-
-    return retval;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -213,19 +78,6 @@ void
 Log::setVerbosity( MP4LogLevel value )
 {
     _verbosity = value;
-}
-
-///////////////////////////////////////////////////////////////////////////////
-
-/**
- * Mutator for the verbosity
- *
- * @param value the verbosity to use
- */
-void
-Log::setVerbosity( uint32_t details )
-{
-    _verbosity = detailsToLevel(details);
 }
 
 ///////////////////////////////////////////////////////////////////////////////

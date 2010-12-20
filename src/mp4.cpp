@@ -1710,8 +1710,8 @@ MP4FileHandle MP4ReadProvider( const char* fileName, const MP4FileProvider* file
             // copy track ES configuration
             uint8_t* pConfig = NULL;
             uint32_t configSize = 0;
-            uint32_t verb = mp4v2::impl::log.getVerbosity();
-            mp4v2::impl::log.setVerbosity(verb & ~(MP4_DETAILS_ERROR));
+            MP4LogLevel verb = mp4v2::impl::log.verbosity;
+            mp4v2::impl::log.setVerbosity(MP4_LOG_NONE);
             bool haveEs = MP4GetTrackESConfiguration(srcFile,
                           srcTrackId,
                           &pConfig,
@@ -2629,8 +2629,8 @@ MP4FileHandle MP4ReadProvider( const char* fileName, const MP4FileProvider* file
         MP4FileHandle hFile, MP4TrackId trackId)
     {
         bool retval = false;
-        uint32_t verb = mp4v2::impl::log.getVerbosity();
-        mp4v2::impl::log.setVerbosity(verb & ~(MP4_DETAILS_ERROR));
+        MP4LogLevel verb = mp4v2::impl::log.verbosity;
+        mp4v2::impl::log.setVerbosity(MP4_LOG_NONE);
 
         if (MP4_IS_VALID_FILE_HANDLE(hFile)) {
             try {

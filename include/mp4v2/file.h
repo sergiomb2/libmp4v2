@@ -8,18 +8,6 @@
  *
  *****************************************************************************/
 
-#define MP4_DETAILS_ALL     0xFFFFFFFF  /**< Verbosity bitmask: all possible details. */
-#define MP4_DETAILS_ERROR   0x00000001  /**< Verbosity bit: reasons for errors. */
-#define MP4_DETAILS_WARNING 0x00000002  /**< Verbosity bit: warnings. */
-#define MP4_DETAILS_READ    0x00000004  /**< Verbosity bit: read operations. */
-#define MP4_DETAILS_WRITE   0x00000008  /**< Verbosity bit: write operations. */
-#define MP4_DETAILS_FIND    0x00000010  /**< Verbosity bit: find property operations. */
-#define MP4_DETAILS_TABLE   0x00000020  /**< Verbosity bit: per table entry details. */
-#define MP4_DETAILS_SAMPLE  0x00000040  /**< Verbosity bit: per sample details. */
-#define MP4_DETAILS_HINT    0x00000080  /**< Verbosity bit: per RTP hint details. */
-#define MP4_DETAILS_ISMA    0x00000100  /**< Verbosity bit: ISMA details. */
-#define MP4_DETAILS_EDIT    0x00000200  /**< Verbosity bit: edit details. */
-
 /** Bit: enable 64-bit data-atoms. */
 #define MP4_CREATE_64BIT_DATA 0x01
 /** Bit: enable 64-bit time-atoms. @note Incompatible with QuickTime. */
