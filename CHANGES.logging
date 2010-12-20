@@ -7,6 +7,9 @@ $Date$
 
 (20-dec-10, dbyron)
 
+- log more specific messages, clean up leak if there's an
+error adding the IpodUUID atom in MP4AddIPodUUID
+
 - remove MP4_DETAILS_* as it was only used in a few internal
 places where an MP4_LOG_* replacement is fine until the
 verbosity-altering code disappears.  For some reason

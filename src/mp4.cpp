@@ -4300,13 +4300,30 @@ MP4FileHandle MP4ReadProvider( const char* fileName, const MP4FileProvider* file
         if( !MP4_IS_VALID_FILE_HANDLE( hFile ))
             return false;
 
+        MP4Track* track = NULL;
+        MP4Atom* avc1 = NULL;
+
         try
         {
-            MP4Track* track = ((MP4File*)hFile)->GetTrack(trackId);
+            track = ((MP4File*)hFile)->GetTrack(trackId);
+            ASSERT(track);
+            ASSERT(track->GetTrakAtom());
             MP4Atom* avc1 = track->GetTrakAtom()->FindChildAtom("mdia.minf.stbl.stsd.avc1");
+        }
+        catch( Exception* x ) {
+            mp4v2::impl::log.errorf(*x);
+            delete x;
+            return false;
+        }
+        catch( ... ) {
+            mp4v2::impl::log.errorf("%s: failed", __FUNCTION__ );
+            return false;
+        }
 
-            avc1->AddChildAtom(new IPodUUIDAtom());
-            return true;
+        IPodUUIDAtom    *ipod_uuid = NULL;
+        try
+        {
+            ipod_uuid = new IPodUUIDAtom();
         }
         catch( std::bad_alloc ) {
             mp4v2::impl::log.errorf("%s: unable to allocate IPodUUIDAtom", __FUNCTION__);
@@ -4314,9 +4331,32 @@ MP4FileHandle MP4ReadProvider( const char* fileName, const MP4FileProvider* file
         catch( Exception* x ) {
             mp4v2::impl::log.errorf(*x);
             delete x;
+            return false;
         }
         catch( ... ) {
-            mp4v2::impl::log.errorf("%s: failed", __FUNCTION__ );
+            mp4v2::impl::log.errorf("%s: unknown exception constructing IPodUUIDAtom", __FUNCTION__ );
+            return false;
+        }
+
+        try
+        {
+            ASSERT(avc1);
+            ASSERT(ipod_uuid);
+            avc1->AddChildAtom(ipod_uuid);
+            return true;
+        }
+        catch( Exception* x ) {
+            delete ipod_uuid;
+            ipod_uuid = NULL;
+            mp4v2::impl::log.errorf(*x);
+            delete x;
+            return false;
+        }
+        catch( ... ) {
+            delete ipod_uuid;
+            ipod_uuid = NULL;
+            mp4v2::impl::log.errorf("%s: unknown exception adding IPodUUIDAtom", __FUNCTION__ );
+            return false;
         }
 
         return false;
