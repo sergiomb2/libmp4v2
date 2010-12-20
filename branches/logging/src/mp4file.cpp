@@ -588,13 +588,10 @@ void MP4File::UpdateDuration(MP4Duration duration)
     }
 }
 
-void MP4File::Dump( FILE* fout, bool dumpImplicits )
+void MP4File::Dump( bool dumpImplicits )
 {
-    if( !fout )
-        fout = stdout;
-
-    fprintf( fout, "Dumping %s meta-information...\n", m_file->name.c_str() );
-    m_pRootAtom->Dump( fout, 0, dumpImplicits);
+    log.dump(0, MP4_LOG_VERBOSE1, "Dumping %s meta-information...", m_file->name.c_str() );
+    m_pRootAtom->Dump( 0, dumpImplicits);
 }
 
 void MP4File::Close()
@@ -4296,7 +4293,7 @@ void MP4File::EncAndCopySample(
 
     //if( ismacrypEncryptSampleAddHeader( ismaCryptSId, numBytes, pBytes, &encSampleLength, &encSampleData ) != 0)
     if( encfcnp( encfcnparam1, numBytes, pBytes, &encSampleLength, &encSampleData ) != 0 )
-        fprintf( stderr, "Can't encrypt the sample and add its header %u\n", srcSampleId );
+        log.errorf("Can't encrypt the sample and add its header %u", srcSampleId );
 
     if( hasDependencyFlags ) {
         dstFile->WriteSampleDependency(

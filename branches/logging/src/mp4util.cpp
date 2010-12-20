@@ -32,8 +32,12 @@ namespace {
 
 ///////////////////////////////////////////////////////////////////////////////
 
+static inline void Indent(FILE* pFile, uint8_t depth) {
+    fprintf(pFile, "%*c", depth, ' ');
+}
+
 void MP4HexDump(
-    uint8_t* pBytes, uint32_t numBytes,
+    const uint8_t* pBytes, uint32_t numBytes,
     FILE* pFile, uint8_t indent)
 {
     if (pFile == NULL) {

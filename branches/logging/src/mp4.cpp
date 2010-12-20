@@ -228,12 +228,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
 
     bool MP4Dump(
         MP4FileHandle hFile,
-        FILE* pDumpFile,
         bool dumpImplicits)
     {
         if (MP4_IS_VALID_FILE_HANDLE(hFile)) {
             try {
-                ((MP4File*)hFile)->Dump(pDumpFile, dumpImplicits);
+                ((MP4File*)hFile)->Dump(dumpImplicits);
                 return true;
             }
             catch( Exception* x ) {

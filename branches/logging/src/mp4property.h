@@ -89,7 +89,7 @@ public:
 
     virtual void Write(MP4File* pFile, uint32_t index = 0) = 0;
 
-    virtual void Dump(FILE* pFile, uint8_t indent,
+    virtual void Dump(uint8_t indent,
                       bool dumpImplicits, uint32_t index = 0) = 0;
 
     virtual bool FindProperty(const char* name,
@@ -178,7 +178,7 @@ public:
             } \
             pFile->WriteUInt##xsize(m_values[index]); \
         } \
-        void Dump(FILE* pFile, uint8_t indent, \
+        void Dump(uint8_t indent, \
             bool dumpImplicits, uint32_t index = 0); \
     \
     protected: \
@@ -212,7 +212,7 @@ public:
 
     void Read(MP4File* pFile, uint32_t index = 0);
     void Write(MP4File* pFile, uint32_t index = 0);
-    void Dump(FILE* pFile, uint8_t indent,
+    void Dump(uint8_t indent,
               bool dumpImplicits, uint32_t index = 0);
 
 protected:
@@ -279,7 +279,7 @@ public:
 
     void Read(MP4File* pFile, uint32_t index = 0);
     void Write(MP4File* pFile, uint32_t index = 0);
-    void Dump(FILE* pFile, uint8_t indent,
+    void Dump(uint8_t indent,
               bool dumpImplicits, uint32_t index = 0);
 
 protected:
@@ -351,7 +351,7 @@ public:
 
     void Read(MP4File* pFile, uint32_t index = 0);
     void Write(MP4File* pFile, uint32_t index = 0);
-    void Dump(FILE* pFile, uint8_t indent,
+    void Dump(uint8_t indent,
               bool dumpImplicits, uint32_t index = 0);
 
 protected:
@@ -429,7 +429,7 @@ public:
 
     void Read(MP4File* pFile, uint32_t index = 0);
     void Write(MP4File* pFile, uint32_t index = 0);
-    void Dump(FILE* pFile, uint8_t indent,
+    void Dump(uint8_t indent,
               bool dumpImplicits, uint32_t index = 0);
 
 protected:
@@ -471,7 +471,7 @@ public:
 
     void Read(MP4File* pFile, uint32_t index = 0);
     void Write(MP4File* pFile, uint32_t index = 0);
-    void Dump(FILE* pFile, uint8_t indent,
+    void Dump(uint8_t indent,
               bool dumpImplicits, uint32_t index = 0);
 
     bool FindProperty(const char* name,
@@ -530,7 +530,7 @@ public:
     void Generate();
     void Read(MP4File* pFile, uint32_t index = 0);
     void Write(MP4File* pFile, uint32_t index = 0);
-    void Dump(FILE* pFile, uint8_t indent,
+    void Dump(uint8_t indent,
               bool dumpImplicits, uint32_t index = 0);
 
     bool FindProperty(const char* name,
@@ -582,7 +582,7 @@ public:
     void            SetCount( uint32_t );
     void            Read( MP4File*, uint32_t = 0 );
     void            Write( MP4File*, uint32_t = 0 );
-    void            Dump( FILE*, uint8_t, bool, uint32_t = 0 );
+    void            Dump( uint8_t, bool, uint32_t = 0 );
 
     bmff::LanguageCode GetValue();
     void               SetValue( bmff::LanguageCode );
@@ -602,7 +602,7 @@ public:
     void            SetCount( uint32_t );
     void            Read( MP4File*, uint32_t = 0 );
     void            Write( MP4File*, uint32_t = 0 );
-    void            Dump( FILE*, uint8_t, bool, uint32_t = 0 );
+    void            Dump( uint8_t, bool, uint32_t = 0 );
     itmf::BasicType GetValue();
     void            SetValue( itmf::BasicType );
 };

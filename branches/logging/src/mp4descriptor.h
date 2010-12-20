@@ -52,7 +52,7 @@ public:
     virtual void Generate();
     virtual void Read(MP4File* pFile);
     virtual void Write(MP4File* pFile);
-    virtual void Dump(FILE* pFile, uint8_t indent, bool dumpImplicits);
+    virtual void Dump(uint8_t indent, bool dumpImplicits);
 
     MP4Property* GetProperty(uint32_t index) {
         return m_pProperties[index];

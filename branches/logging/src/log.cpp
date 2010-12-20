@@ -13,7 +13,7 @@
 //  The Original Code is MP4v2.
 // 
 //  The Initial Developer of the Original Code is David Byron.
-//  Portions created by David Byron are Copyright (C) 2009.
+//  Portions created by David Byron are Copyright (C) 2009, 2010.
 //  All Rights Reserved.
 //
 //  Contributors:
@@ -367,6 +367,93 @@ Log::verbose4f( const char* format,
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
+ * Dump info to the console or a callback
+ *
+ * @param indent the number of spaces to indent the info
+ *
+ * @param verbosity the level of detail the message contains
+ *
+ * @param format the format string to use to process the
+ * remaining arguments.  @p format should not contain a
+ * newline.
+ */
+void
+Log::dump ( uint8_t       indent,
+            MP4LogLevel   verbosity_,
+            const char*   format, ... )
+{
+    va_list     ap;
+
+    va_start(ap,format);
+    this->vdump(indent,verbosity,format,ap);
+    va_end(ap);
+}
+
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+ * Dump info if it has appropriate verbosity, either to
+ * standard out (with a newline appended to @p format) or to
+ * the callback function (with no newline appended).
+ *
+ * @param indent the number of spaces to indent the info
+ *
+ * @param verbosity the level of detail the message contains
+ *
+ * @param format the format string to use to process @p ap.
+ * @p format should not contain a newline.
+ *
+ * @param ap varargs to build the message
+ */
+void
+Log::vdump( uint8_t     indent,
+            MP4LogLevel verbosity_,
+            const char* format,
+            va_list     ap )
+{
+    // Make sure nothing gets logged with MP4_LOG_NONE.
+    // That way people who ask for nothing to get logged
+    // won't get anything logged.
+    ASSERT(verbosity_ != MP4_LOG_NONE);
+    ASSERT(format);
+    ASSERT(format[0] != '\0');
+
+    if (verbosity_ > this->_verbosity)
+    {
+        // We're not set verbose enough to log this
+        return;
+    }
+
+    if (Log::_cb_func)
+    {
+        ostringstream   new_format;
+
+        if (indent > 0)
+        {
+            string      indent_str(indent,' ');
+            // new_format << setw(indent) << setfill(' ') << "" << setw(0);
+            // new_format << format;
+            new_format << indent_str << format;
+            Log::_cb_func(verbosity_,new_format.str().c_str(),ap);
+            return;
+        }
+
+        Log::_cb_func(verbosity_,format,ap);
+        return;
+    }
+
+    // No callback set so log to standard out.  
+    if (indent > 0)
+    {
+        ::fprintf(stdout,"%*c",indent,' ');
+    }
+    ::vfprintf(stdout,format,ap);
+    ::fprintf(stdout,"\n");
+}
+
+///////////////////////////////////////////////////////////////////////////////
+
+/**
  * Log a message
  *
  * @param verbosity the level of detail the message contains
@@ -434,6 +521,8 @@ Log::vprintf( MP4LogLevel       verbosity_,
 /**
  * Log a buffer as ascii-hex
  *
+ * @param indent the number of spaces to indent the buffer
+ *
  * @param verbosity the level of detail the message contains
  *
  * @param pBytes the buffer to log
@@ -449,8 +538,9 @@ Log::vprintf( MP4LogLevel       verbosity_,
  * entire string makes it to stdout.
  */
 void
-Log::hexDump( MP4LogLevel       verbosity_,
-              uint8_t           *pBytes,
+Log::hexDump( uint8_t           indent,
+              MP4LogLevel       verbosity_,
+              const uint8_t*    pBytes,
               uint32_t          numBytes,
               const char*       format,
               ... )
@@ -472,6 +562,10 @@ Log::hexDump( MP4LogLevel       verbosity_,
     va_start(ap,format);
     if (!Log::_cb_func)
     {
+        if (indent > 0)
+        {
+            ::fprintf(stdout,"%*c",indent,' ');
+        }
         vfprintf(stdout,format,ap);
         va_end(ap);
         fprintf(stdout,"\n");
@@ -489,8 +583,9 @@ Log::hexDump( MP4LogLevel       verbosity_,
     // Build the description.  Since we don't have asprintf,
     // pick an arbitrary length for the string and use
     // snprintf.
-    char *desc = (char *)MP4Malloc(256);
-    vsnprintf(desc,sizeof(desc),format,ap);
+    char *desc = (char *)MP4Calloc(256 + indent);
+    sprintf(desc,"%*c",indent,' ');
+    vsnprintf(desc + indent,sizeof(desc) - indent,format,ap);
     va_end(ap);
 
     for (uint32_t i = 0;(i < numBytes);i += 16)
@@ -524,7 +619,7 @@ Log::hexDump( MP4LogLevel       verbosity_,
         // Log::printf.  It's going to double-check the
         // verbosity and the callback function pointer, but
         // that seems OK (13-feb-09, dbyron)
-        this->printf(verbosity_,"%s",oneLine.str());
+        this->printf(verbosity_,"%s",oneLine.str().c_str());
     }
 
     MP4Free(desc);

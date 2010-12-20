@@ -132,8 +132,8 @@ void MP4Descriptor::ReadProperties(MP4File* pFile,
                     MP4_LOG_VERBOSE2 : MP4_LOG_VERBOSE1;
 
                 if (pFile->verbosity >= thisVerbosity) {
-                    pFile->printf(thisVerbosity,"Read: ");
-                    pProperty->Dump(stdout, 0, true);
+                    //                    pFile->printf(thisVerbosity,"Read: ");
+                    pProperty->Dump(0, true);
                 }
             } else {
                 pFile->errorf("Overran descriptor, tag %u data size %u property %u",
@@ -189,7 +189,7 @@ void MP4Descriptor::WriteToMemory(MP4File* pFile,
     pFile->DisableMemoryBuffer(ppBytes, pNumBytes);
 }
 
-void MP4Descriptor::Dump(FILE* pFile, uint8_t indent, bool dumpImplicits)
+void MP4Descriptor::Dump(uint8_t indent, bool dumpImplicits)
 {
     // call virtual function to adapt properties before dumping
     Mutate();
@@ -202,7 +202,7 @@ void MP4Descriptor::Dump(FILE* pFile, uint8_t indent, bool dumpImplicits)
         return;
     }
     for (uint32_t i = 0; i < numProperties; i++) {
-        m_pProperties[i]->Dump(pFile, indent, dumpImplicits);
+        m_pProperties[i]->Dump(indent, dumpImplicits);
     }
 }
 

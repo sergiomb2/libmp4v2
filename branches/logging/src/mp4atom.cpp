@@ -388,8 +388,8 @@ void MP4Atom::ReadProperties(uint32_t startIndex, uint32_t count)
             MP4_LOG_VERBOSE2 : MP4_LOG_VERBOSE1;
 
         if (m_pFile->verbosity >= thisVerbosity) {
-            m_pFile->printf(thisVerbosity,"Read: ");
-            m_pProperties[i]->Dump(stdout, 0, true);
+            //            m_pFile->printf(thisVerbosity,"Read: ");
+            m_pProperties[i]->Dump(0, true);
         }
     }
 }
@@ -563,7 +563,7 @@ void MP4Atom::WriteProperties(uint32_t startIndex, uint32_t count)
 
         if (m_pFile->verbosity >= thisVerbosity) {
             m_pFile->printf(thisVerbosity,"Write: ");
-            m_pProperties[i]->Dump(stdout, 0, false);
+            m_pProperties[i]->Dump(0, false);
         }
     }
 }
@@ -636,7 +636,7 @@ void MP4Atom::SetFlags(uint32_t flags)
     ((MP4Integer24Property*)m_pProperties[1])->SetValue(flags);
 }
 
-void MP4Atom::Dump(FILE* pFile, uint8_t indent, bool dumpImplicits)
+void MP4Atom::Dump(uint8_t indent, bool dumpImplicits)
 {
     if ( m_type[0] != '\0' ) {
         // create list of ancestors
@@ -655,9 +655,7 @@ void MP4Atom::Dump(FILE* pFile, uint8_t indent, bool dumpImplicits)
         if( can.length() )
             can.resize( can.length() - 1 );
 
-        Indent( pFile, indent );
-        fprintf( pFile, "type %s (%s)\n", m_type, can.c_str() );
-        fflush( pFile );
+        log.dump(indent, MP4_LOG_VERBOSE1, "type %s (%s)", m_type, can.c_str() );
     }
 
     uint32_t i;
@@ -669,19 +667,18 @@ void MP4Atom::Dump(FILE* pFile, uint8_t indent, bool dumpImplicits)
 
         /* skip details of tables unless we're told to be verbose */
         if (m_pProperties[i]->GetType() == TableProperty
-                && !(GetVerbosity() & MP4_DETAILS_TABLE)) {
-            Indent(pFile, indent + 1);
-            fprintf(pFile, "<table entries suppressed>\n");
+                && !(log.verbosity < MP4_LOG_VERBOSE2)) {
+            log.dump(indent + 1, MP4_LOG_VERBOSE1, "<table entries suppressed>");
             continue;
         }
 
-        m_pProperties[i]->Dump(pFile, indent + 1, dumpImplicits);
+        m_pProperties[i]->Dump(indent + 1, dumpImplicits);
     }
 
     // dump our children
     size = m_pChildAtoms.Size();
     for (i = 0; i < size; i++) {
-        m_pChildAtoms[i]->Dump(pFile, indent + 1, dumpImplicits);
+        m_pChildAtoms[i]->Dump(indent + 1, dumpImplicits);
     }
 }
 

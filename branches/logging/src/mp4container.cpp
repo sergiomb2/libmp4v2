@@ -213,12 +213,12 @@ void MP4Container::Write(MP4File* pFile)
     }
 }
 
-void MP4Container::Dump(FILE* pFile, uint8_t indent, bool dumpImplicits)
+void MP4Container::Dump(uint8_t indent, bool dumpImplicits)
 {
     uint32_t numProperties = m_pProperties.Size();
 
     for (uint32_t i = 0; i < numProperties; i++) {
-        m_pProperties[i]->Dump(pFile, indent, dumpImplicits);
+        m_pProperties[i]->Dump(indent, dumpImplicits);
     }
 }
 
