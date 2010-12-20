@@ -34,16 +34,8 @@ namespace mp4v2 { namespace impl {
 
 ///////////////////////////////////////////////////////////////////////////////
 
-MP4File::MP4File( uint32_t verbosity /* = 0 */ ) : Log(verbosity)
-    , m_file             ( NULL )
-    , m_fileOriginalSize ( 0 )
-    , m_createFlags      ( 0 )
-{
-    this->Init();
-}
-
-MP4File::MP4File( MP4LogLevel verbosity ) : Log(verbosity)
-    , m_file             ( NULL )
+MP4File::MP4File( ) :
+    m_file             ( NULL )
     , m_fileOriginalSize ( 0 )
     , m_createFlags      ( 0 )
 {
@@ -458,7 +450,7 @@ void MP4File::GenerateTracks()
                 m_pTracks.Add(pTrack);
             }
             catch( Exception* x ) {
-                errorf(*x);
+                log.errorf(*x);
                 delete x;
             }
 
@@ -467,7 +459,7 @@ void MP4File::GenerateTracks()
                 if (m_odTrackId == MP4_INVALID_TRACK_ID) {
                     m_odTrackId = pTrackIdProperty->GetValue();
                 } else {
-                    warningf("multiple OD tracks present");
+                    log.warningf("multiple OD tracks present");
                 }
             }
         } else {
@@ -900,11 +892,11 @@ MP4TrackId MP4File::AddTrack(const char* type, uint32_t timeScale)
     pInteger32Property->SetValue(trackId);
 
     // set track type
-    const char* normType = MP4NormalizeTrackType(type, verbosity);
+    const char* normType = MP4NormalizeTrackType(type);
 
     // sanity check for user defined types
     if (strlen(normType) > 4) {
-        warningf("type truncated to four characters");
+        log.warningf("type truncated to four characters");
         // StringProperty::SetValue() will do the actual truncation
     }
 
@@ -1117,7 +1109,7 @@ void MP4File::AddDataReference(MP4TrackId trackId, const char* url)
 
 MP4TrackId MP4File::AddSystemsTrack(const char* type, uint32_t timeScale)
 {
-    const char* normType = MP4NormalizeTrackType(type, verbosity);
+    const char* normType = MP4NormalizeTrackType(type);
 
     // TBD if user type, fix name to four chars, and warn
 
@@ -1904,7 +1896,7 @@ void MP4File::AddH264SequenceParameterSet (MP4TrackId trackId,
                                     (MP4Property **)&pLength) == false) ||
             (avcCAtom->FindProperty("avcC.sequenceEntries.sequenceParameterSetNALUnit",
                                     (MP4Property **)&pUnit) == false)) {
-        errorf("Could not find avcC properties");
+        log.errorf("Could not find avcC properties");
         return;
     }
     uint32_t count = pCount->GetValue();
@@ -1946,7 +1938,7 @@ void MP4File::AddH264PictureParameterSet (MP4TrackId trackId,
                                     (MP4Property **)&pLength) == false) ||
             (avcCAtom->FindProperty("avcC.pictureEntries.pictureParameterSetNALUnit",
                                     (MP4Property **)&pUnit) == false)) {
-        errorf("Could not find avcC picture table properties");
+        log.errorf("Could not find avcC picture table properties");
         return;
     }
     uint32_t count = pCount->GetValue();
@@ -1959,7 +1951,7 @@ void MP4File::AddH264PictureParameterSet (MP4TrackId trackId,
                 uint32_t seqlen;
                 pUnit->GetValue(&seq, &seqlen, index);
                 if (memcmp(seq, pPict, pictLen) == 0) {
-                    verbose1f("picture matches %d", index);
+                    log.verbose1f("picture matches %d", index);
                     free(seq);
                     return;
                 }
@@ -1970,7 +1962,7 @@ void MP4File::AddH264PictureParameterSet (MP4TrackId trackId,
     pLength->AddValue(pictLen);
     pUnit->AddValue(pPict, pictLen);
     pCount->IncrementValue();
-    verbose1f("new picture added %d", pCount->GetValue());
+    log.verbose1f("new picture added %d", pCount->GetValue());
 
     return;
 }
@@ -2557,14 +2549,14 @@ MP4ChapterType MP4File::GetChapters(MP4Chapter_t ** chapterList, uint32_t * chap
         MP4Integer32Property * pCounter = 0;
         if (!pChpl->FindProperty("chpl.chaptercount", (MP4Property **)&pCounter))
         {
-            warningf("Nero chapter count does not exist");
+            log.warningf("Nero chapter count does not exist");
             return MP4ChapterTypeNone;
         }
 
         uint32_t counter = pCounter->GetValue();
         if (0 == counter)
         {
-            warningf("No Nero chapters available");
+            log.warningf("No Nero chapters available");
             return MP4ChapterTypeNone;
         }
 
@@ -2576,18 +2568,18 @@ MP4ChapterType MP4File::GetChapters(MP4Chapter_t ** chapterList, uint32_t * chap
 
         if (!pChpl->FindProperty("chpl.chapters", (MP4Property **)&pTable))
         {
-            warningf("Nero chapter list does not exist");
+            log.warningf("Nero chapter list does not exist");
             return MP4ChapterTypeNone;
         }
 
         if (0 == (pStartTime = (MP4Integer64Property *) pTable->GetProperty(0)))
         {
-            warningf("List of Chapter starttimes does not exist");
+            log.warningf("List of Chapter starttimes does not exist");
             return MP4ChapterTypeNone;
         }
         if (0 == (pName = (MP4StringProperty *) pTable->GetProperty(1)))
         {
-            warningf("List of Chapter titles does not exist");
+            log.warningf("List of Chapter titles does not exist");
             return MP4ChapterTypeNone;
         }
 
@@ -2717,7 +2709,7 @@ MP4ChapterType MP4File::ConvertChapters(MP4ChapterType toChapterType)
     GetChapters(&chapters, &chapterCount, sourceType);
     if (0 == chapterCount)
     {
-        verbose1f("%s", errMsg);
+        log.verbose1f("%s", errMsg);
         return MP4ChapterTypeNone;
     }
 
@@ -2795,7 +2787,7 @@ uint32_t MP4File::GetNumberOfTracks(const char* type, uint8_t subType)
     }
 
     uint32_t typeSeen = 0;
-    const char* normType = MP4NormalizeTrackType(type, verbosity);
+    const char* normType = MP4NormalizeTrackType(type);
 
     for (uint32_t i = 0; i < m_pTracks.Size(); i++) {
         if (!strcmp(normType, m_pTracks[i]->GetType())) {
@@ -2862,7 +2854,7 @@ MP4TrackId MP4File::FindTrackId(uint16_t trackIndex,
     }
 
     uint32_t typeSeen = 0;
-    const char* normType = MP4NormalizeTrackType(type, verbosity);
+    const char* normType = MP4NormalizeTrackType(type);
 
     for (uint32_t i = 0; i < m_pTracks.Size(); i++) {
         if (!strcmp(normType, m_pTracks[i]->GetType())) {
@@ -3384,7 +3376,7 @@ const char *MP4File::GetTrackMediaDataName (MP4TrackId trackId)
         FindAtom(MakeTrackName(trackId,
                                "mdia.minf.stbl.stsd"));
     if (pAtom->GetNumberOfChildAtoms() != 1) {
-        errorf("track %d has more than 1 child atoms in stsd", trackId);
+        log.errorf("track %d has more than 1 child atoms in stsd", trackId);
         return NULL;
     }
     pChild = pAtom->GetChildAtom(0);
@@ -3611,7 +3603,7 @@ void MP4File::GetTrackH264SeqPictHeaders (MP4TrackId trackId,
                                     (MP4Property **)&pSeqLen) == false) ||
             (avcCAtom->FindProperty("avcC.sequenceEntries.sequenceParameterSetNALUnit",
                                     (MP4Property **)&pSeqVal) == false)) {
-        errorf("Could not find avcC properties");
+        log.errorf("Could not find avcC properties");
         return ;
     }
     uint8_t **ppSeqHeader =
@@ -3638,7 +3630,7 @@ void MP4File::GetTrackH264SeqPictHeaders (MP4TrackId trackId,
                                     (MP4Property **)&pPictLen) == false) ||
             (avcCAtom->FindProperty("avcC.pictureEntries.pictureParameterSetNALUnit",
                                     (MP4Property **)&pPictVal) == false)) {
-        errorf("Could not find avcC picture table properties");
+        log.errorf("Could not find avcC picture table properties");
         return ;
     }
     uint8_t

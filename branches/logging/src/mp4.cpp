@@ -44,14 +44,14 @@ extern "C" {
 
 ///////////////////////////////////////////////////////////////////////////////
 
-MP4FileHandle MP4Read( const char* fileName, uint32_t verbosity )
+MP4FileHandle MP4Read( const char* fileName )
 {
     if (!fileName)
         return MP4_INVALID_FILE_HANDLE;
 
     MP4File* pFile = NULL;
     try {
-        pFile = new MP4File( verbosity );
+        pFile = new MP4File();
         pFile->Read( fileName, NULL );
         return (MP4FileHandle)pFile;
     }
@@ -59,11 +59,11 @@ MP4FileHandle MP4Read( const char* fileName, uint32_t verbosity )
         mp4v2::impl::log.errorf("%s: unable to allocate MP4File", __FUNCTION__);
     }
     catch( Exception* x ) {
-        Log::errorf(pFile,*x);
+        mp4v2::impl::log.errorf(*x);
         delete x;
     }
     catch( ... ) {
-        Log::errorf(pFile, "%s: failed", __FUNCTION__ );
+        mp4v2::impl::log.errorf("%s: failed", __FUNCTION__ );
     }
 
     if (pFile)
@@ -71,14 +71,14 @@ MP4FileHandle MP4Read( const char* fileName, uint32_t verbosity )
     return MP4_INVALID_FILE_HANDLE;
 }
 
-MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const MP4FileProvider* fileProvider )
+MP4FileHandle MP4ReadProvider( const char* fileName, const MP4FileProvider* fileProvider )
 {
     if (!fileName)
         return MP4_INVALID_FILE_HANDLE;
 
     MP4File* pFile = NULL;
     try {
-        pFile = new MP4File( verbosity );
+        pFile = new MP4File();
         pFile->Read( fileName, fileProvider );
         return (MP4FileHandle)pFile;
     }
@@ -87,11 +87,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
         return MP4_INVALID_FILE_HANDLE;
     }
     catch( Exception* x ) {
-        Log::errorf(pFile,*x);
+        mp4v2::impl::log.errorf(*x);
         delete x;
     }
     catch( ... ) {
-        Log::errorf(pFile, "%s: failed", __FUNCTION__ );
+        mp4v2::impl::log.errorf("%s: failed", __FUNCTION__ );
     }
 
     if (pFile)
@@ -102,14 +102,12 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
 ///////////////////////////////////////////////////////////////////////////////
 
     MP4FileHandle MP4Create (const char* fileName,
-                             uint32_t verbosity,
                              uint32_t  flags)
     {
-        return MP4CreateEx(fileName, verbosity, flags);
+        return MP4CreateEx(fileName, flags);
     }
 
     MP4FileHandle MP4CreateEx (const char* fileName,
-                               uint32_t verbosity,
                                uint32_t  flags,
                                int add_ftyp,
                                int add_iods,
@@ -123,7 +121,7 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
 
         MP4File* pFile = NULL;
         try {
-            pFile = new MP4File(verbosity);
+            pFile = new MP4File();
             // LATER useExtensibleFormat, moov first, then mvex's
             pFile->Create(fileName, flags, add_ftyp, add_iods,
                           majorBrand, minorVersion,
@@ -134,11 +132,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
             mp4v2::impl::log.errorf("%s: unable to allocate MP4File",__FUNCTION__);
         }
         catch( Exception* x ) {
-            Log::errorf(pFile,*x);
+            mp4v2::impl::log.errorf(*x);
             delete x;
         }
         catch( ... ) {
-            Log::errorf(pFile, "%s: failed", __FUNCTION__ );
+            mp4v2::impl::log.errorf("%s: failed", __FUNCTION__ );
         }
 
     if (pFile)
@@ -148,14 +146,14 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
     }
 
     MP4FileHandle MP4Modify(const char* fileName,
-                            uint32_t verbosity, uint32_t flags)
+                            uint32_t flags)
     {
         if (!fileName)
             return MP4_INVALID_FILE_HANDLE;
 
         MP4File* pFile = NULL;
         try {
-            pFile = new MP4File(verbosity);
+            pFile = new MP4File();
             // LATER useExtensibleFormat, moov first, then mvex's
             if (pFile->Modify(fileName))
                 return (MP4FileHandle)pFile;
@@ -164,11 +162,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
             mp4v2::impl::log.errorf("%s: unable to allocate MP4File",__FUNCTION__);
         }
         catch( Exception* x ) {
-            Log::errorf(pFile,*x);
+            mp4v2::impl::log.errorf(*x);
             delete x;
         }
         catch( ... ) {
-            Log::errorf(pFile, "%s: failed", __FUNCTION__ );
+            mp4v2::impl::log.errorf("%s: failed", __FUNCTION__ );
         }
 
         if (pFile)
@@ -177,15 +175,14 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
     }
 
     bool MP4Optimize(const char* existingFileName,
-                     const char* newFileName,
-                     uint32_t verbosity)
+                     const char* newFileName)
     {
         if (!existingFileName || !newFileName)
             return false;
 
         MP4File* pFile = NULL;
         try {
-            pFile = new MP4File(verbosity);
+            pFile = new MP4File();
             pFile->Optimize(existingFileName, newFileName);
             delete pFile;
             return true;
@@ -194,11 +191,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
             mp4v2::impl::log.errorf("%s: unable to allocate MP4File",__FUNCTION__);
         }
         catch( Exception* x ) {
-            Log::errorf(pFile,*x);
+            mp4v2::impl::log.errorf(*x);
             delete x;
         }
         catch( ... ) {
-            Log::errorf(pFile, "%s: failed", __FUNCTION__ );
+            mp4v2::impl::log.errorf("%s: failed", __FUNCTION__ );
         }
 
         if (pFile)
@@ -216,11 +213,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
             f.Close();
         }
         catch( Exception* x ) {
-            f.errorf(*x);
+            mp4v2::impl::log.errorf(*x);
             delete x;
         }
         catch( ... ) {
-            f.errorf( "%s: failed", __FUNCTION__ );
+            mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
         }
 
         delete &f;
@@ -236,31 +233,32 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return true;
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return false;
     }
 
 
+#if 0
     /* specific file properties */
 
     uint32_t MP4GetVerbosity(MP4FileHandle hFile)
     {
         if (MP4_IS_VALID_FILE_HANDLE(hFile)) {
             try {
-                return ((MP4File*)hFile)->verbosity;
+                return log.verbosity;
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return 0;
@@ -270,45 +268,20 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
     {
         if (MP4_IS_VALID_FILE_HANDLE(hFile)) {
             try {
-                ((MP4File*)hFile)->setVerbosity(verbosity);
+                log.setVerbosity(verbosity);
                 return;
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return;
     }
-
-    MP4LogLevel MP4LogGetLevel( MP4FileHandle hFile )
-    {
-        Log &olog = MP4_IS_VALID_FILE_HANDLE(hFile) ? *((MP4File*)hFile) :
-            mp4v2::impl::log;
-
-        return olog.verbosity;
-    }
-
-    void MP4LogSetLevel( MP4FileHandle hFile, MP4LogLevel verbosity )
-    {
-        Log &olog = MP4_IS_VALID_FILE_HANDLE(hFile) ? *((MP4File*)hFile) :
-            mp4v2::impl::log;
-
-        try
-        {
-            olog.setVerbosity(verbosity);
-        }
-        catch( Exception* x ) {
-            olog.errorf(*x);
-            delete x;
-        }
-        catch( ... ) {
-            olog.errorf( "%s: failed", __FUNCTION__ );
-        }
-    }
+#endif
 
     MP4Duration MP4GetDuration(MP4FileHandle hFile)
     {
@@ -317,11 +290,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return ((MP4File*)hFile)->GetDuration();
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return MP4_INVALID_DURATION;
@@ -334,11 +307,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return ((MP4File*)hFile)->GetTimeScale();
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return 0;
@@ -352,11 +325,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return true;
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return false;
@@ -369,11 +342,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return ((MP4File*)hFile)->GetODProfileLevel();
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return 0;
@@ -387,11 +360,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return true;
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return false;
@@ -404,11 +377,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return ((MP4File*)hFile)->GetSceneProfileLevel();
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return 0;
@@ -422,11 +395,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return true;
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return false;
@@ -440,11 +413,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return ((MP4File*)hFile)->GetVideoProfileLevel();
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
             if (MP4_IS_VALID_TRACK_ID(trackId)) {
                 uint8_t *foo;
@@ -485,11 +458,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return ;
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return ;
@@ -502,11 +475,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return ((MP4File*)hFile)->GetAudioProfileLevel();
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return 0;
@@ -519,11 +492,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 ((MP4File*)hFile)->SetAudioProfileLevel(value);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
     }
@@ -535,11 +508,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return ((MP4File*)hFile)->GetGraphicsProfileLevel();
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return 0;
@@ -553,11 +526,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return true;
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return false;
@@ -571,11 +544,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
             try {
                 return ((MP4File *)hFile)->FindAtom(atomName) != NULL;
             } catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return false;
@@ -590,11 +563,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return true;
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return false;
@@ -609,11 +582,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return true;
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return false;
@@ -629,11 +602,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return true;
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return false;
@@ -649,11 +622,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return true;
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         *ppValue = NULL;
@@ -670,11 +643,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return true;
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return false;
@@ -689,11 +662,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return true;
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return false;
@@ -708,11 +681,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return true;
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return false;
@@ -728,11 +701,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return true;
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return false;
@@ -748,11 +721,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return ((MP4File*)hFile)->AddSystemsTrack(type, timeScale);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return MP4_INVALID_TRACK_ID;
@@ -766,11 +739,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return ((MP4File*)hFile)->AddSystemsTrack(type);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return MP4_INVALID_TRACK_ID;
@@ -783,11 +756,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return ((MP4File*)hFile)->AddODTrack();
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return MP4_INVALID_TRACK_ID;
@@ -800,11 +773,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return ((MP4File*)hFile)->AddSceneTrack();
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return MP4_INVALID_TRACK_ID;
@@ -822,11 +795,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                        AddAudioTrack(timeScale, sampleDuration, audioType);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return MP4_INVALID_TRACK_ID;
@@ -870,11 +843,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                     AddAC3AudioTrack(samplingRate, fscod, bsid, bsmod, acmod, lfeon, bit_rate_code);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return MP4_INVALID_TRACK_ID;
@@ -902,11 +875,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                                             icPp->selective_enc, icPp->kms_uri, true);
                 }
             } catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return MP4_INVALID_TRACK_ID;
@@ -925,11 +898,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                        AddAmrAudioTrack(timeScale, modeSet, modeChangePeriod, framesPerSample, isAmrWB);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return MP4_INVALID_TRACK_ID;
@@ -946,11 +919,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 SetAmrVendor(trackId, vendor);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
     }
@@ -966,11 +939,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 SetAmrDecoderVersion(trackId, decoderVersion);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
     }
@@ -986,11 +959,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 SetAmrModeSet(trackId, modeSet);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
     }
@@ -1005,11 +978,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                        GetAmrModeSet(trackId);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return 0;
@@ -1029,11 +1002,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                                            base_url);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return MP4_INVALID_TRACK_ID;
@@ -1048,11 +1021,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                         "mdia.minf.stbl.stsd.href.burl.base_url");
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return NULL;
@@ -1077,11 +1050,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                                                videoType);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return MP4_INVALID_TRACK_ID;
@@ -1114,11 +1087,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                                                oFormat);
 
             } catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return MP4_INVALID_TRACK_ID;
@@ -1132,11 +1105,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return ((MP4File*)hFile)->AddColr(refTrackId, pri, tran, mat);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return MP4_INVALID_TRACK_ID;
@@ -1167,11 +1140,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                                                 sampleLenFieldSizeMinusOne);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return MP4_INVALID_TRACK_ID;
@@ -1210,11 +1183,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                                                    icPp);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return MP4_INVALID_TRACK_ID;
@@ -1235,11 +1208,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return;
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return;
@@ -1259,11 +1232,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return;
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return;
@@ -1286,11 +1259,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                        AddH263VideoTrack(timeScale, sampleDuration, width, height, h263Level, h263Profile, avgBitrate, maxBitrate);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
 
@@ -1308,11 +1281,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 SetH263Vendor(trackId, vendor);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
     }
@@ -1329,11 +1302,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 SetH263DecoderVersion(trackId, decoderVersion);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
     }
@@ -1351,11 +1324,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 SetH263Bitrates(trackId, avgBitrate, maxBitrate);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
     }
@@ -1368,11 +1341,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return ((MP4File*)hFile)->AddHintTrack(refTrackId);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return MP4_INVALID_TRACK_ID;
@@ -1386,11 +1359,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return ((MP4File*)hFile)->AddTextTrack(refTrackId);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return MP4_INVALID_TRACK_ID;
@@ -1406,11 +1379,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return ((MP4File*)hFile)->AddSubtitleTrack(timescale, width, height);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return MP4_INVALID_TRACK_ID;
@@ -1426,11 +1399,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return ((MP4File*)hFile)->AddSubpicTrack(timescale, width, height);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return MP4_INVALID_TRACK_ID;
@@ -1444,11 +1417,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return ((MP4File*)hFile)->AddChapterTextTrack(refTrackId, timescale);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return MP4_INVALID_TRACK_ID;
@@ -1462,11 +1435,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return ((MP4File*)hFile)->AddPixelAspectRatio(refTrackId, hSpacing, vSpacing);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return MP4_INVALID_TRACK_ID;
@@ -1480,11 +1453,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 ((MP4File*)hFile)->AddChapter(chapterTrackId, chapterDuration, chapterTitle);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
     }
@@ -1497,11 +1470,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 ((MP4File*)hFile)->AddNeroChapter(chapterStart, chapterTitle);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
     }
@@ -1515,11 +1488,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return ((MP4File*)hFile)->ConvertChapters(toChapterType);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return MP4ChapterTypeNone;
@@ -1533,11 +1506,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return ((MP4File*)hFile)->DeleteChapters(fromChapterType, chapterTrackId);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return MP4ChapterTypeNone;
@@ -1551,11 +1524,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return ((MP4File*)hFile)->GetChapters(chapterList, chapterCount, fromChapterType);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return MP4ChapterTypeNone;
@@ -1569,11 +1542,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return ((MP4File*)hFile)->SetChapters(chapterList, chapterCount, toChapterType);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return MP4ChapterTypeNone;
@@ -1587,11 +1560,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 ((MP4File*)hFile)->ChangeMovieTimeScale(value);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
     }
@@ -1737,13 +1710,13 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
             // copy track ES configuration
             uint8_t* pConfig = NULL;
             uint32_t configSize = 0;
-            uint32_t verb = MP4GetVerbosity(srcFile);
-            MP4SetVerbosity(srcFile, verb & ~(MP4_DETAILS_ERROR));
+            uint32_t verb = mp4v2::impl::log.getVerbosity();
+            mp4v2::impl::log.setVerbosity(verb & ~(MP4_DETAILS_ERROR));
             bool haveEs = MP4GetTrackESConfiguration(srcFile,
                           srcTrackId,
                           &pConfig,
                           &configSize);
-            MP4SetVerbosity(srcFile, verb);
+            mp4v2::impl::log.setVerbosity(verb);
             if (haveEs &&
                     pConfig != NULL && configSize != 0) {
                 if (!MP4SetTrackESConfiguration(
@@ -2134,11 +2107,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return true;
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return false;
@@ -2154,11 +2127,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return ((MP4File*)hFile)->GetNumberOfTracks(type, subType);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return 0;
@@ -2175,11 +2148,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return ((MP4File*)hFile)->FindTrackId(index, type, subType);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return MP4_INVALID_TRACK_ID;
@@ -2193,11 +2166,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return ((MP4File*)hFile)->FindTrackIndex(trackId);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return (uint16_t)-1;
@@ -2213,11 +2186,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return ((MP4File*)hFile)->GetTrackType(trackId);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return NULL;
@@ -2230,11 +2203,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return ((MP4File*)hFile)->GetTrackMediaDataName(trackId);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return NULL;
@@ -2251,11 +2224,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                         originalFormat, buflen);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return false;
@@ -2269,11 +2242,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return ((MP4File*)hFile)->GetTrackDuration(trackId);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return MP4_INVALID_DURATION;
@@ -2287,11 +2260,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return ((MP4File*)hFile)->GetTrackTimeScale(trackId);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return 0;
@@ -2306,11 +2279,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return true;
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return false;
@@ -2324,11 +2297,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return ((MP4File*)hFile)->GetTrackAudioMpeg4Type(trackId);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return MP4_MPEG4_INVALID_AUDIO_TYPE;
@@ -2347,11 +2320,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return ((MP4File*)hFile)->GetTrackEsdsObjectTypeId(trackId);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return MP4_INVALID_AUDIO_TYPE;
@@ -2365,11 +2338,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return ((MP4File*)hFile)->GetTrackFixedSampleDuration(trackId);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return MP4_INVALID_DURATION;
@@ -2385,11 +2358,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                                                       "mdia.minf.stbl.stsd.*.esds.decConfigDescr.avgBitrate");
             }
             catch( Exception* x ) {
-                //((MP4File*)hFile)->errorf(*x);  we don't really need to print this.
+                //mp4v2::impl::log.errorf(*x);  we don't really need to print this.
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
             // if we're here, we can't get the bitrate from above -
             // lets calculate it
@@ -2408,11 +2381,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return (uint32_t)bytes;
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return 0;
@@ -2429,11 +2402,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return true;
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         *ppConfig = NULL;
@@ -2451,11 +2424,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return true;
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         *ppConfig = NULL;
@@ -2474,11 +2447,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return true;
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return false;
@@ -2501,11 +2474,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return true;
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return false;
@@ -2528,11 +2501,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return true;
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return false;
@@ -2549,11 +2522,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return true;
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return false;
@@ -2567,11 +2540,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return ((MP4File*)hFile)->GetTrackNumberOfSamples(trackId);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return 0;
@@ -2586,11 +2559,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                         "mdia.minf.stbl.stsd.*.width");
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return 0;
@@ -2605,11 +2578,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                         "mdia.minf.stbl.stsd.*.height");
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return 0;
@@ -2623,11 +2596,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return ((MP4File*)hFile)->GetTrackVideoFrameRate(trackId);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return 0.0;
@@ -2641,11 +2614,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return ((MP4File*)hFile)->GetTrackAudioChannels(trackId);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return -1;
@@ -2656,22 +2629,22 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
         MP4FileHandle hFile, MP4TrackId trackId)
     {
         bool retval = false;
-        uint32_t verb = MP4GetVerbosity(hFile);
-        MP4SetVerbosity(hFile, verb & ~(MP4_DETAILS_ERROR));
+        uint32_t verb = mp4v2::impl::log.getVerbosity();
+        mp4v2::impl::log.setVerbosity(verb & ~(MP4_DETAILS_ERROR));
 
         if (MP4_IS_VALID_FILE_HANDLE(hFile)) {
             try {
                 retval = ((MP4File*)hFile)->IsIsmaCrypMediaTrack(trackId);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
-        MP4SetVerbosity(hFile, verb);
+        mp4v2::impl::log.setVerbosity(verb);
         return retval;
     }
 
@@ -2687,11 +2660,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return ((MP4File*)hFile)->FindTrackAtom(trackId, atomName) != NULL;
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return false;
@@ -2709,11 +2682,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return true;
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return false;
@@ -2730,11 +2703,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return true;
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return false;
@@ -2751,11 +2724,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return true;
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return false;
@@ -2772,11 +2745,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return true;
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         *ppValue = NULL;
@@ -2795,11 +2768,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return true;
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return false;
@@ -2815,11 +2788,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return true;
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return false;
@@ -2835,11 +2808,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return true;
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return false;
@@ -2856,11 +2829,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return true;
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return false;
@@ -2895,11 +2868,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return true;
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         *pNumBytes = 0;
@@ -2938,11 +2911,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return true;
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         *pNumBytes = 0;
@@ -2970,11 +2943,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return true;
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return false;
@@ -3003,11 +2976,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return true;
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return false;
@@ -3035,11 +3008,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
             return true;
         }
         catch( Exception* x ) {
-            ((MP4File*)srcFile)->errorf(*x);
+            mp4v2::impl::log.errorf(*x);
             delete x;
         }
         catch( ... ) {
-            ((MP4File*)srcFile)->errorf( "%s: failed", __FUNCTION__ );
+            mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
         }
 
         return false;
@@ -3071,11 +3044,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
             return true;
         }
         catch( Exception* x ) {
-            ((MP4File*)srcFile)->errorf(*x);
+            mp4v2::impl::log.errorf(*x);
             delete x;
         }
         catch( ... ) {
-            ((MP4File*)srcFile)->errorf( "%s: failed", __FUNCTION__ );
+            mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
         }
 
         return false;
@@ -3104,11 +3077,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                            trackId, sampleId);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return 0;
@@ -3123,11 +3096,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return ((MP4File*)hFile)->GetTrackMaxSampleSize(trackId);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return 0;
@@ -3145,11 +3118,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                            trackId, when, wantSyncSample);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return MP4_INVALID_SAMPLE_ID;
@@ -3166,11 +3139,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                            trackId, sampleId);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return MP4_INVALID_TIMESTAMP;
@@ -3187,11 +3160,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                            trackId, sampleId);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return MP4_INVALID_DURATION;
@@ -3208,11 +3181,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                            trackId, sampleId);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return MP4_INVALID_DURATION;
@@ -3231,11 +3204,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return true;
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return false;
@@ -3252,11 +3225,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                            trackId, sampleId);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return -1;
@@ -3274,11 +3247,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                            duration, timeScale);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return (uint64_t)MP4_INVALID_DURATION;
@@ -3296,11 +3269,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                            trackId, timeStamp, timeScale);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return (uint64_t)MP4_INVALID_TIMESTAMP;
@@ -3318,11 +3291,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                            trackId, timeStamp, timeScale);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return MP4_INVALID_TIMESTAMP;
@@ -3340,11 +3313,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                            trackId, duration, timeScale);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return (uint64_t)MP4_INVALID_DURATION;
@@ -3362,11 +3335,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                            trackId, duration, timeScale);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return MP4_INVALID_DURATION;
@@ -3388,11 +3361,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return true;
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return false;
@@ -3416,11 +3389,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return true;
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return false;
@@ -3434,11 +3407,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return ((MP4File*)hFile)->GetSessionSdp();
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return NULL;
@@ -3454,11 +3427,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return true;
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return false;
@@ -3474,11 +3447,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return true;
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return false;
@@ -3493,11 +3466,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return ((MP4File*)hFile)->GetHintTrackSdp(hintTrackId);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return NULL;
@@ -3514,11 +3487,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return true;
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return false;
@@ -3535,11 +3508,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return true;
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return false;
@@ -3555,11 +3528,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                        GetHintTrackReferenceTrackId(hintTrackId);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return MP4_INVALID_TRACK_ID;
@@ -3578,11 +3551,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return true;
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return false;
@@ -3597,11 +3570,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return ((MP4File*)hFile)->GetRtpHintNumberOfPackets(hintTrackId);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return 0;
@@ -3618,11 +3591,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                        GetRtpPacketBFrame(hintTrackId, packetIndex);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return -1;
@@ -3639,11 +3612,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                        GetRtpPacketTransmitOffset(hintTrackId, packetIndex);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return 0;
@@ -3668,11 +3641,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return true;
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return false;
@@ -3687,11 +3660,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return ((MP4File*)hFile)->GetRtpTimestampStart(hintTrackId);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return MP4_INVALID_TIMESTAMP;
@@ -3709,11 +3682,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return true;
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return false;
@@ -3739,11 +3712,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return true;
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return false;
@@ -3762,11 +3735,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return true;
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return false;
@@ -3785,11 +3758,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return true;
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return false;
@@ -3809,11 +3782,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return true;
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return false;
@@ -3829,11 +3802,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return true;
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return false;
@@ -3852,11 +3825,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return true;
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf( "%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
             }
         }
         return false;
@@ -3865,7 +3838,6 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
 
     bool MP4Make3GPCompliant(
         const char* fileName,
-        uint32_t verbosity,
         char* majorBrand,
         uint32_t minorVersion,
         char** supportedBrands,
@@ -3877,7 +3849,7 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
 
         MP4File* pFile = NULL;
         try {
-            pFile = new MP4File(verbosity);
+            pFile = new MP4File();
             pFile->Modify(fileName);
             pFile->Make3GPCompliant(fileName, majorBrand, minorVersion, supportedBrands, supportedBrandsCount, deleteIodsAtom);
             pFile->Close();
@@ -3888,11 +3860,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
             mp4v2::impl::log.errorf("%s: unable to allocate MP4File",__FUNCTION__);
         }
         catch( Exception* x ) {
-            Log::errorf(pFile,*x);
+            mp4v2::impl::log.errorf(*x);
             delete x;
         }
         catch( ... ) {
-            Log::errorf(pFile, "%s: failed", __FUNCTION__ );
+            mp4v2::impl::log.errorf("%s: failed", __FUNCTION__ );
         }
 
         if (pFile)
@@ -3904,7 +3876,6 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
 
     bool MP4MakeIsmaCompliant(
         const char* fileName,
-        uint32_t verbosity,
         bool addIsmaComplianceSdp)
     {
         if (!fileName)
@@ -3912,7 +3883,7 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
 
         MP4File* pFile = NULL;
         try {
-            pFile = new MP4File(verbosity);
+            pFile = new MP4File();
             pFile->Modify(fileName);
             pFile->MakeIsmaCompliant(addIsmaComplianceSdp);
             pFile->Close();
@@ -3923,11 +3894,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
             mp4v2::impl::log.errorf("%s: unable to allocate MP4File",__FUNCTION__);
         }
         catch( Exception* x ) {
-            Log::errorf(pFile,*x);
+            mp4v2::impl::log.errorf(*x);
             delete x;
         }
         catch( ... ) {
-            Log::errorf(pFile, "%s: failed", __FUNCTION__ );
+            mp4v2::impl::log.errorf("%s: failed", __FUNCTION__ );
         }
 
         if (pFile)
@@ -3943,12 +3914,12 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
         uint8_t audioProfile,
         uint32_t audioBitrate,
         uint8_t* audioConfig,
-        uint32_t audioConfigLength,
-        uint32_t verbosity)
+        uint32_t audioConfigLength)
+
     {
         MP4File* pFile = NULL;
         try {
-            pFile = new MP4File(verbosity);
+            pFile = new MP4File();
 
             uint8_t* pBytes = NULL;
             uint64_t numBytes = 0;
@@ -3984,11 +3955,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
             mp4v2::impl::log.errorf("%s: unable to allocate MP4File",__FUNCTION__);
         }
         catch( Exception* x ) {
-            Log::errorf(pFile,*x);
+            mp4v2::impl::log.errorf(*x);
             delete x;
         }
         catch( ... ) {
-            Log::errorf(pFile, "%s: failed", __FUNCTION__ );
+            mp4v2::impl::log.errorf("%s: failed", __FUNCTION__ );
         }
 
         if (pFile)
@@ -4023,11 +3994,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return newEditId;
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf("%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf("%s: failed", __FUNCTION__ );
             }
         }
         return MP4_INVALID_EDIT_ID;
@@ -4044,11 +4015,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return true;
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf("%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf("%s: failed", __FUNCTION__ );
             }
         }
         return false;
@@ -4063,11 +4034,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return ((MP4File*)hFile)->GetTrackNumberOfEdits(trackId);
             }
             catch( Exception* x ) {
-                //((MP4File*)hFile)->errorf(*x);
+                //mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf("%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf("%s: failed", __FUNCTION__ );
             }
         }
         return 0;
@@ -4084,11 +4055,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                            trackId, editId);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf("%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf("%s: failed", __FUNCTION__ );
             }
         }
         return MP4_INVALID_TIMESTAMP;
@@ -4105,11 +4076,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                            trackId, editId);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf("%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf("%s: failed", __FUNCTION__ );
             }
         }
         return MP4_INVALID_DURATION;
@@ -4128,11 +4099,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return true;
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf("%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf("%s: failed", __FUNCTION__ );
             }
         }
         return false;
@@ -4148,11 +4119,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return ((MP4File*)hFile)->GetTrackEditDuration(trackId, editId);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf("%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf("%s: failed", __FUNCTION__ );
             }
         }
         return MP4_INVALID_DURATION;
@@ -4170,11 +4141,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return true;
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf("%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf("%s: failed", __FUNCTION__ );
             }
         }
         return false;
@@ -4190,11 +4161,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return ((MP4File*)hFile)->GetTrackEditDwell(trackId, editId);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf("%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf("%s: failed", __FUNCTION__ );
             }
         }
         return -1;
@@ -4212,11 +4183,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                 return true;
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf("%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf("%s: failed", __FUNCTION__ );
             }
         }
         return false;
@@ -4268,11 +4239,11 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
                            trackId, when, pStartTime, pDuration);
             }
             catch( Exception* x ) {
-                ((MP4File*)hFile)->errorf(*x);
+                mp4v2::impl::log.errorf(*x);
                 delete x;
             }
             catch( ... ) {
-                ((MP4File*)hFile)->errorf("%s: failed", __FUNCTION__ );
+                mp4v2::impl::log.errorf("%s: failed", __FUNCTION__ );
             }
         }
         return MP4_INVALID_SAMPLE_ID;
@@ -4338,14 +4309,14 @@ MP4FileHandle MP4ReadProvider( const char* fileName, uint32_t verbosity, const M
             return true;
         }
         catch( std::bad_alloc ) {
-            ((MP4File*)hFile)->errorf("%s: unable to allocate IPodUUIDAtom", __FUNCTION__);
+            mp4v2::impl::log.errorf("%s: unable to allocate IPodUUIDAtom", __FUNCTION__);
         }
         catch( Exception* x ) {
-            ((MP4File*)hFile)->errorf(*x);
+            mp4v2::impl::log.errorf(*x);
             delete x;
         }
         catch( ... ) {
-            ((MP4File*)hFile)->errorf("%s: failed", __FUNCTION__ );
+            mp4v2::impl::log.errorf("%s: failed", __FUNCTION__ );
         }
 
         return false;
@@ -4365,11 +4336,11 @@ bool MP4GetTrackLanguage(
         return ((MP4File*)hFile)->GetTrackLanguage( trackId, code );
     }
     catch( Exception* x ) {
-        ((MP4File*)hFile)->errorf(*x);
+        mp4v2::impl::log.errorf(*x);
         delete x;
     }
     catch( ... ) {
-        ((MP4File*)hFile)->errorf("%s: failed", __FUNCTION__ );
+        mp4v2::impl::log.errorf("%s: failed", __FUNCTION__ );
     }
 
     return false;
@@ -4389,11 +4360,11 @@ bool MP4SetTrackLanguage(
         return ((MP4File*)hFile)->SetTrackLanguage( trackId, code );
     }   
     catch( Exception* x ) {
-        ((MP4File*)hFile)->errorf(*x);
+        mp4v2::impl::log.errorf(*x);
         delete x;
     }
     catch( ... ) {
-        ((MP4File*)hFile)->errorf("%s: failed", __FUNCTION__ );
+        mp4v2::impl::log.errorf("%s: failed", __FUNCTION__ );
     }
 
     return false;
@@ -4413,11 +4384,11 @@ bool MP4GetTrackName(
         return ((MP4File*)hFile)->GetTrackName( trackId, name );
     }
     catch( Exception* x ) {
-        ((MP4File*)hFile)->errorf(*x);
+        mp4v2::impl::log.errorf(*x);
         delete x;
     }
     catch( ... ) {
-        ((MP4File*)hFile)->errorf("%s: failed", __FUNCTION__ );
+        mp4v2::impl::log.errorf("%s: failed", __FUNCTION__ );
     }
 
     return false;
@@ -4437,11 +4408,11 @@ bool MP4SetTrackName(
         return ((MP4File*)hFile)->SetTrackName( trackId, code );
     }
     catch( Exception* x ) {
-        ((MP4File*)hFile)->errorf(*x);
+        mp4v2::impl::log.errorf(*x);
         delete x;
     }
     catch( ... ) {
-        ((MP4File*)hFile)->errorf("%s: failed", __FUNCTION__ );
+        mp4v2::impl::log.errorf("%s: failed", __FUNCTION__ );
     }
 
     return false;
@@ -4465,11 +4436,11 @@ bool MP4GetTrackDurationPerChunk(
         return true;
     }
     catch( Exception* x ) {
-        ((MP4File*)hFile)->errorf(*x);
+        mp4v2::impl::log.errorf(*x);
         delete x;
     }
     catch( ... ) {
-        ((MP4File*)hFile)->errorf("%s: failed", __FUNCTION__ );
+        mp4v2::impl::log.errorf("%s: failed", __FUNCTION__ );
     }
 
     return false;
@@ -4490,11 +4461,11 @@ bool MP4SetTrackDurationPerChunk(
         return true;
     }
     catch( Exception* x ) {
-        ((MP4File*)hFile)->errorf(*x);
+        mp4v2::impl::log.errorf(*x);
         delete x;
     }
     catch( ... ) {
-        ((MP4File*)hFile)->errorf("%s: failed", __FUNCTION__ );
+        mp4v2::impl::log.errorf("%s: failed", __FUNCTION__ );
     }
 
     return false;

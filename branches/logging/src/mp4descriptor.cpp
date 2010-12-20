@@ -86,8 +86,7 @@ void MP4Descriptor::Read(MP4File* pFile)
 void MP4Descriptor::ReadHeader(MP4File* pFile)
 {
     ASSERT(pFile);
-    pFile->verbose1f("ReadDescriptor: pos = 0x%" PRIx64,
-                     pFile->GetPosition());
+    log.verbose1f("ReadDescriptor: pos = 0x%" PRIx64, pFile->GetPosition());
 
     // read tag and length
     uint8_t tag = pFile->ReadUInt8();
@@ -99,8 +98,8 @@ void MP4Descriptor::ReadHeader(MP4File* pFile)
     m_size = pFile->ReadMpegLength();
     m_start = pFile->GetPosition();
 
-    pFile->verbose1f("ReadDescriptor: tag 0x%02x data size %u (0x%x)",
-                     m_tag, m_size, m_size);
+    log.verbose1f("ReadDescriptor: tag 0x%02x data size %u (0x%x)",
+                  m_tag, m_size, m_size);
 }
 
 void MP4Descriptor::ReadProperties(MP4File* pFile,
@@ -131,13 +130,13 @@ void MP4Descriptor::ReadProperties(MP4File* pFile,
                     (pProperty->GetType() == TableProperty) ?
                     MP4_LOG_VERBOSE2 : MP4_LOG_VERBOSE1;
 
-                if (pFile->verbosity >= thisVerbosity) {
-                    //                    pFile->printf(thisVerbosity,"Read: ");
+                if (log.verbosity >= thisVerbosity) {
+                    // log.printf(thisVerbosity,"Read: ");
                     pProperty->Dump(0, true);
                 }
             } else {
-                pFile->errorf("Overran descriptor, tag %u data size %u property %u",
-                              m_tag, m_size, i);
+                log.errorf("Overran descriptor, tag %u data size %u property %u",
+                           m_tag, m_size, i);
                 throw new Exception("overran descriptor",__FILE__, __LINE__, __FUNCTION__);
             }
         }
@@ -152,7 +151,7 @@ void MP4Descriptor::Write(MP4File* pFile)
     uint32_t numProperties = m_pProperties.Size();
 
     if (numProperties == 0) {
-        WARNING(pFile,numProperties == 0);
+        WARNING(numProperties == 0);
         return;
     }
 
@@ -197,8 +196,7 @@ void MP4Descriptor::Dump(uint8_t indent, bool dumpImplicits)
     uint32_t numProperties = m_pProperties.Size();
 
     if (numProperties == 0) {
-        // Note: using the global log object here.
-        WARNING(&log,numProperties == 0);
+        WARNING(numProperties == 0);
         return;
     }
     for (uint32_t i = 0; i < numProperties; i++) {

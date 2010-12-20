@@ -21,6 +21,8 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
+#include <iomanip>
+#include <iostream>
 #include "src/impl.h"
 
 namespace mp4v2 { namespace impl {
@@ -585,7 +587,7 @@ Log::hexDump( uint8_t           indent,
     // snprintf.
     char *desc = (char *)MP4Calloc(256 + indent);
     sprintf(desc,"%*c",indent,' ');
-    vsnprintf(desc + indent,sizeof(desc) - indent,format,ap);
+    vsnprintf(desc + indent,255,format,ap);
     va_end(ap);
 
     for (uint32_t i = 0;(i < numBytes);i += 16)
@@ -596,19 +598,21 @@ Log::hexDump( uint8_t           indent,
         // an 8 character, leading 0, hex number.  Leave the
         // fill character set to 0 for the remaining
         // operations
-        oneLine << ":" << std::hex << std::setw(8) << setfill('0') <<
-            std::right << i << ": ";
-
-        // From here we the width to be 2 since we're
-        // printing a byte at a time
-        oneLine << std::setw(2);
+        oneLine << ':' << hex << setw(8) << setfill('0') <<
+            std::right << i << setw(0) << setfill(' ') << ": ";
 
         uint32_t curlen = min((uint32_t)16,numBytes - i);
 
         const uint8_t *b = pBytes + i;
         for (uint32_t j = 0;(j < curlen);j++)
         {
-            oneLine << b[j] << " ";
+            // Not sure why the cast is necessary, but
+            // without it some NUL bytes get into the string
+            oneLine << hex << setw(2) << setfill('0') << right << static_cast<uint32_t>(b[j]);
+            if (j < (curlen - 1))
+            {
+                oneLine << setw(0) << setfill(' ') << ' ';
+            }
         }
 
         // Finally, log this line.  We can either call the
@@ -641,50 +645,6 @@ Log::errorf ( const Exception&      x )
 
 ///////////////////////////////////////////////////////////////////////////////
 
-/**
- * Log an error message
- *
- * @param olog the log object to use (or the global log
- * object if NULL)
- *
- * @param format the format string to use to process the
- * remaining arguments.  @p format should not contain a
- * newline.
- */
-void
-Log::errorf( Log*               olog,
-             const char*        format,
-             ... )
-{
-    va_list     ap;
-    Log&        o = olog ? *olog : log;
-
-    va_start(ap,format);
-    o.vprintf(MP4_LOG_ERROR,format,ap);
-    va_end(ap);
-}
-
-///////////////////////////////////////////////////////////////////////////////
-
-/**
- * Log an Exception as an error
- *
- * @param olog the log object to use (or the global log
- * object if NULL)
- *
- * @param x the exception to log
- */
-void
-Log::errorf( Log*               olog,
-             const Exception&   x )
-{
-    Log& o = olog ? *olog : log;
-
-    o.errorf(x);
-}
-
-///////////////////////////////////////////////////////////////////////////////
-
 }} // namespace mp4v2::impl
 
 using namespace mp4v2::impl;
@@ -694,3 +654,26 @@ void MP4SetLogCallback( MP4LogCallback cb_func )
 {
     Log::setLogCallback(cb_func);
 }
+
+extern "C"
+MP4LogLevel MP4LogGetLevel(void)
+{
+    return mp4v2::impl::log.verbosity;
+}
+
+extern "C"
+void MP4LogSetLevel( MP4LogLevel verbosity )
+{
+    try
+    {
+        mp4v2::impl::log.setVerbosity(verbosity);
+    }
+    catch( Exception* x ) {
+        mp4v2::impl::log.errorf(*x);
+        delete x;
+    }
+    catch( ... ) {
+        mp4v2::impl::log.errorf( "%s: failed", __FUNCTION__ );
+    }
+}
+

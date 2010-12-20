@@ -598,7 +598,7 @@ char* MP4Info(
             }
         }
         catch (Exception* x) {
-            ((MP4File *)mp4File)->errorf(*x);
+            mp4v2::impl::log.errorf(*x);
             delete x;
         }
     }

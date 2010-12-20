@@ -228,9 +228,6 @@ protected:
     uint8_t GetVersion();
     void SetVersion(uint8_t version);
 
-    /* debugging aid */
-    uint32_t GetVerbosity();
-
     void SetLargesizeMode( bool );
 
 protected:

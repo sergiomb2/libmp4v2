@@ -68,6 +68,7 @@ void MP4RtpAtom::AddPropertiesHntiType()
 
 void MP4RtpAtom::Generate()
 {
+    ASSERT(m_pParentAtom);
     if (!strcmp(m_pParentAtom->GetType(), "stsd")) {
         AddPropertiesStsdType();
         GenerateStsdType();
@@ -75,8 +76,7 @@ void MP4RtpAtom::Generate()
         AddPropertiesHntiType();
         GenerateHntiType();
     } else {
-        ASSERT(m_pFile);
-        m_pFile->warningf("rtp atom in unexpected context, can not generate");
+        log.warningf("rtp atom in unexpected context, can not generate");
     }
 }
 
@@ -99,6 +99,7 @@ void MP4RtpAtom::GenerateHntiType()
 
 void MP4RtpAtom::Read()
 {
+    ASSERT(m_pParentAtom);
     if (!strcmp(m_pParentAtom->GetType(), "stsd")) {
         AddPropertiesStsdType();
         ReadStsdType();
@@ -106,8 +107,7 @@ void MP4RtpAtom::Read()
         AddPropertiesHntiType();
         ReadHntiType();
     } else {
-        ASSERT(m_pFile);
-        m_pFile->verbose1f("rtp atom in unexpected context, can not read");
+        log.verbose1f("rtp atom in unexpected context, can not read");
     }
 
     Skip(); // to end of atom

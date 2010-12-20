@@ -254,9 +254,8 @@ void MP4RtpHintTrack::ReadPacket(
         throw x;
     }
 
-    ASSERT(m_pFile);
-    m_pFile->hexDump(0, MP4_LOG_VERBOSE1, *ppBytes, *pNumBytes,
-                     "ReadPacket: %u ", packetIndex);
+    log.hexDump(0, MP4_LOG_VERBOSE1, *ppBytes, *pNumBytes,
+                "ReadPacket: %u ", packetIndex);
 }
 
 MP4Timestamp MP4RtpHintTrack::GetRtpTimestampStart()
@@ -752,8 +751,8 @@ void MP4RtpHint::Read(MP4File* pFile)
     }
 
     ASSERT(pFile);
-    if (pFile->verbosity >= MP4_LOG_VERBOSE1) {
-        pFile->verbose1f("ReadHint:");
+    if (log.verbosity >= MP4_LOG_VERBOSE1) {
+        log.verbose1f("ReadHint:");
         Dump(10, false);
     }
 }
@@ -791,7 +790,7 @@ void MP4RtpHint::Write(MP4File* pFile)
 
     pFile->SetPosition(endPos);
 
-    pFile->verbose1f("WriteRtpHint:"); Dump(14, false);
+    log.verbose1f("WriteRtpHint:"); Dump(14, false);
 }
 
 void MP4RtpHint::Dump(uint8_t indent, bool dumpImplicits)

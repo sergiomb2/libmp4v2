@@ -78,13 +78,6 @@ public:
 
     void errorf ( const Exception&      x );
 
-    static void errorf ( Log            *olog,
-                         const char     *format,
-                         ... ) MP4V2_WFORMAT_PRINTF(3,4);
-
-    static void errorf ( Log                    *olog,
-                         const Exception        &x );
-
 private:
     static MP4LogLevel detailsToLevel ( uint32_t );
 };
