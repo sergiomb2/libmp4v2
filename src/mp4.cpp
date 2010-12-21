@@ -40,6 +40,26 @@
 
 using namespace mp4v2::impl;
 
+static MP4File  *ConstructMP4File ( void )
+{
+    MP4File* pFile = NULL;
+    try {
+        pFile = new MP4File();
+    }
+    catch( std::bad_alloc ) {
+        mp4v2::impl::log.errorf("%s: unable to allocate MP4File", __FUNCTION__);
+    }
+    catch( Exception* x ) {
+        mp4v2::impl::log.errorf(*x);
+        delete x;
+    }
+    catch( ... ) {
+        mp4v2::impl::log.errorf("%s: unknown exception constructing MP4File", __FUNCTION__ );
+    }
+
+    return pFile;
+}
+
 extern "C" {
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -49,14 +69,15 @@ MP4FileHandle MP4Read( const char* fileName )
     if (!fileName)
         return MP4_INVALID_FILE_HANDLE;
 
-    MP4File* pFile = NULL;
-    try {
-        pFile = new MP4File();
+    MP4File *pFile = ConstructMP4File();
+    if (!pFile)
+        return MP4_INVALID_FILE_HANDLE;
+
+    try
+    {
+        ASSERT(pFile);
         pFile->Read( fileName, NULL );
         return (MP4FileHandle)pFile;
-    }
-    catch( std::bad_alloc ) {
-        mp4v2::impl::log.errorf("%s: unable to allocate MP4File", __FUNCTION__);
     }
     catch( Exception* x ) {
         mp4v2::impl::log.errorf(*x);
@@ -76,15 +97,13 @@ MP4FileHandle MP4ReadProvider( const char* fileName, const MP4FileProvider* file
     if (!fileName)
         return MP4_INVALID_FILE_HANDLE;
 
-    MP4File* pFile = NULL;
+    MP4File *pFile = ConstructMP4File();
+    if (!pFile)
+        return MP4_INVALID_FILE_HANDLE;
+
     try {
-        pFile = new MP4File();
         pFile->Read( fileName, fileProvider );
         return (MP4FileHandle)pFile;
-    }
-    catch( std::bad_alloc ) {
-        mp4v2::impl::log.errorf("%s: unable to allocate MP4File",__FUNCTION__);
-        return MP4_INVALID_FILE_HANDLE;
     }
     catch( Exception* x ) {
         mp4v2::impl::log.errorf(*x);
@@ -119,17 +138,17 @@ MP4FileHandle MP4ReadProvider( const char* fileName, const MP4FileProvider* file
         if (!fileName)
             return MP4_INVALID_FILE_HANDLE;
 
-        MP4File* pFile = NULL;
+        MP4File* pFile = ConstructMP4File();
+        if (!pFile)
+            return MP4_INVALID_FILE_HANDLE;
+
         try {
-            pFile = new MP4File();
+            ASSERT(pFile);
             // LATER useExtensibleFormat, moov first, then mvex's
             pFile->Create(fileName, flags, add_ftyp, add_iods,
                           majorBrand, minorVersion,
                           supportedBrands, supportedBrandsCount);
             return (MP4FileHandle)pFile;
-        }
-        catch( std::bad_alloc ) {
-            mp4v2::impl::log.errorf("%s: unable to allocate MP4File",__FUNCTION__);
         }
         catch( Exception* x ) {
             mp4v2::impl::log.errorf(*x);
@@ -139,9 +158,8 @@ MP4FileHandle MP4ReadProvider( const char* fileName, const MP4FileProvider* file
             mp4v2::impl::log.errorf("%s: failed", __FUNCTION__ );
         }
 
-    if (pFile)
-        delete pFile;
-
+        if (pFile)
+            delete pFile;
         return MP4_INVALID_FILE_HANDLE;
     }
 
@@ -151,15 +169,15 @@ MP4FileHandle MP4ReadProvider( const char* fileName, const MP4FileProvider* file
         if (!fileName)
             return MP4_INVALID_FILE_HANDLE;
 
-        MP4File* pFile = NULL;
+        MP4File* pFile = ConstructMP4File();
+        if (!pFile)
+            return MP4_INVALID_FILE_HANDLE;
+
         try {
-            pFile = new MP4File();
+            ASSERT(pFile);
             // LATER useExtensibleFormat, moov first, then mvex's
             if (pFile->Modify(fileName))
                 return (MP4FileHandle)pFile;
-        }
-        catch( std::bad_alloc ) {
-            mp4v2::impl::log.errorf("%s: unable to allocate MP4File",__FUNCTION__);
         }
         catch( Exception* x ) {
             mp4v2::impl::log.errorf(*x);
@@ -180,15 +198,15 @@ MP4FileHandle MP4ReadProvider( const char* fileName, const MP4FileProvider* file
         if (!existingFileName || !newFileName)
             return false;
 
-        MP4File* pFile = NULL;
+        MP4File* pFile = ConstructMP4File();
+        if (!pFile)
+            return MP4_INVALID_FILE_HANDLE;
+
         try {
-            pFile = new MP4File();
+            ASSERT(pFile);
             pFile->Optimize(existingFileName, newFileName);
             delete pFile;
             return true;
-        }
-        catch( std::bad_alloc ) {
-            mp4v2::impl::log.errorf("%s: unable to allocate MP4File",__FUNCTION__);
         }
         catch( Exception* x ) {
             mp4v2::impl::log.errorf(*x);
@@ -3847,17 +3865,17 @@ MP4FileHandle MP4ReadProvider( const char* fileName, const MP4FileProvider* file
         if (!fileName)
             return false;
 
-        MP4File* pFile = NULL;
+        MP4File* pFile = ConstructMP4File();
+        if (!pFile)
+            return MP4_INVALID_FILE_HANDLE;
+
         try {
-            pFile = new MP4File();
+            ASSERT(pFile);
             pFile->Modify(fileName);
             pFile->Make3GPCompliant(fileName, majorBrand, minorVersion, supportedBrands, supportedBrandsCount, deleteIodsAtom);
             pFile->Close();
             delete pFile;
             return true;
-        }
-        catch( std::bad_alloc ) {
-            mp4v2::impl::log.errorf("%s: unable to allocate MP4File",__FUNCTION__);
         }
         catch( Exception* x ) {
             mp4v2::impl::log.errorf(*x);
@@ -3881,17 +3899,17 @@ MP4FileHandle MP4ReadProvider( const char* fileName, const MP4FileProvider* file
         if (!fileName)
             return false;
 
-        MP4File* pFile = NULL;
+        MP4File* pFile = ConstructMP4File();
+        if (!pFile)
+            return MP4_INVALID_FILE_HANDLE;
+
         try {
-            pFile = new MP4File();
+            ASSERT(pFile);
             pFile->Modify(fileName);
             pFile->MakeIsmaCompliant(addIsmaComplianceSdp);
             pFile->Close();
             delete pFile;
             return true;
-        }
-        catch( std::bad_alloc ) {
-            mp4v2::impl::log.errorf("%s: unable to allocate MP4File",__FUNCTION__);
         }
         catch( Exception* x ) {
             mp4v2::impl::log.errorf(*x);
@@ -3917,13 +3935,15 @@ MP4FileHandle MP4ReadProvider( const char* fileName, const MP4FileProvider* file
         uint32_t audioConfigLength)
 
     {
-        MP4File* pFile = NULL;
-        try {
-            pFile = new MP4File();
+        MP4File* pFile = ConstructMP4File();
+        if (!pFile)
+            return NULL;
 
+        try {
             uint8_t* pBytes = NULL;
             uint64_t numBytes = 0;
 
+            ASSERT(pFile);
             pFile->CreateIsmaIodFromParams(
                 videoProfile,
                 videoBitrate,
@@ -3950,9 +3970,6 @@ MP4FileHandle MP4ReadProvider( const char* fileName, const MP4FileProvider* file
             delete pFile;
 
             return sdpIod;
-        }
-        catch( std::bad_alloc ) {
-            mp4v2::impl::log.errorf("%s: unable to allocate MP4File",__FUNCTION__);
         }
         catch( Exception* x ) {
             mp4v2::impl::log.errorf(*x);
