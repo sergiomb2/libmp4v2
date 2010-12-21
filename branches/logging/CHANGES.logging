@@ -7,6 +7,12 @@ $Date$
 
 (20-dec-10, dbyron)
 
+- make try/catch blocks more granular in MP4Read,
+MP4ReadProvider, MP4Create, MP4CreateEx, MP4Modify,
+MP4Optimize, MP4Make3GPCompliant, MP4MakeIsmaCompliant,
+MP4MakeIsmaSdpIod so it's easier to figure out the cause of
+failure based on the log message.
+
 - log more specific messages, clean up leak if there's an
 error adding the IpodUUID atom in MP4AddIPodUUID
 
