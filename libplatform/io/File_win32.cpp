@@ -1,4 +1,9 @@
 #include "libplatform/impl.h"
+#include "src/impl.h"
+
+namespace mp4v2 {
+    using namespace impl;
+}
 
 namespace mp4v2 { namespace platform { namespace io {
 
@@ -17,6 +22,11 @@ public:
 
 private:
     HANDLE _handle;
+
+    /**
+     * The UTF-8 encoded file name
+     */
+    std::string _name;
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -26,6 +36,15 @@ StandardFileProvider::StandardFileProvider()
 {
 }
 
+/**
+ * Open a file
+ *
+ * @param name the name of a file to open
+ * @param mode the mode to open @p name
+ *
+ * @retval false successfully opened @p name
+ * @retval true error opening @p name
+ */
 bool
 StandardFileProvider::open( std::string name, Mode mode )
 {
@@ -57,41 +76,142 @@ StandardFileProvider::open( std::string name, Mode mode )
     }
 
     _handle = CreateFileW( win32::Utf8ToWideChar( name ), access, share, NULL, crdisp, flags, NULL );
-    return _handle == INVALID_HANDLE_VALUE;
+    if (_handle == INVALID_HANDLE_VALUE)
+    {
+        log.errorf("%s: CreateFileW(%s) failed (%d)",__FUNCTION__,name.c_str(),GetLastError());
+        return true;
+    }
+
+    /*
+    ** Make a copy of the name for future log messages, etc.
+    */
+    _name = name;
+    return false;
 }
 
+/**
+ * Seek to an offset in the file
+ *
+ * @param pos the offset from the beginning of the file to
+ * seek to
+ *
+ * @retval false successfully seeked to @p pos
+ * @retval true error seeking to @p pos
+ */
 bool
 StandardFileProvider::seek( Size pos )
 {
     LARGE_INTEGER n;
+
+    ASSERT(_handle);
+
     n.QuadPart = pos;
-    return SetFilePointerEx( _handle, n, NULL, FILE_BEGIN ) == 0;
+    if (!SetFilePointerEx( _handle, n, NULL, FILE_BEGIN ))
+    {
+        log.errorf("%s: SetFilePointerEx(%s,%" PRId64 ") failed (%d)",__FUNCTION__,_name.c_str(),
+                                pos,GetLastError());
+        return true;
+    }
+
+    return false;
 }
 
+/**
+ * Read from the file
+ *
+ * @param buffer populated with at most @p size bytes from
+ * the file
+ *
+ * @param size the maximum number of bytes to read
+ *
+ * @param nin the 
+ *
+ * @retval false successfully read from the file
+ * @retval true error reading from the file
+ */
 bool
 StandardFileProvider::read( void* buffer, Size size, Size& nin, Size maxChunkSize )
 {
     DWORD nread = 0;
-    if( ReadFile( _handle, buffer, (DWORD)size, &nread, NULL ) == 0 )
+
+    ASSERT(_handle);
+
+    // ReadFile takes a DWORD for number of bytes to read so
+    // make sure we're not asking for more than fits.
+    // MAXDWORD from WinNT.h.
+    ASSERT(size <= MAXDWORD);
+    if( ReadFile( _handle, buffer, (DWORD)(size & MAXDWORD), &nread, NULL ) == 0 )
+    {
+        log.errorf("%s: ReadFile(%s,%d) failed (%d)",__FUNCTION__,_name.c_str(),
+                   (DWORD)(size & MAXDWORD),GetLastError());
         return true;
+    }
+    log.verbose2f("%s: ReadFile(%s,%d) succeeded: read %d byte(s)",__FUNCTION__,
+                  _name.c_str(),(DWORD)(size & MAXDWORD),nread);
     nin = nread;
     return false;
 }
 
+/**
+ * Write to the file
+ *
+ * @param buffer the data to write
+ *
+ * @param size the number of bytes of @p buffer to write
+ *
+ * @param nout populated with the number of bytes actually
+ * written if the function succeeds
+ *
+ * @retval false successfully wrote to the file
+ * @retval true error writing to the file
+ */
 bool
 StandardFileProvider::write( const void* buffer, Size size, Size& nout, Size maxChunkSize )
 {
     DWORD nwrote = 0;
-    if( WriteFile( _handle, buffer, (DWORD)size, &nwrote, NULL ) == 0 )
+
+    ASSERT(_handle);
+
+    // ReadFile takes a DWORD for number of bytes to read so
+    // make sure we're not asking for more than fits.
+    // MAXDWORD from WinNT.h.
+    ASSERT(size <= MAXDWORD);
+    if( WriteFile( _handle, buffer, (DWORD)(size & MAXDWORD), &nwrote, NULL ) == 0 )
+    {
+        log.errorf("%s: WriteFile(%s,%d) failed (%d)",__FUNCTION__,_name.c_str(),
+                   (DWORD)(size & MAXDWORD),GetLastError());
         return true;
+    }
+    log.verbose2f("%s: WriteFile(%s,%d) succeeded: wrote %d byte(s)",__FUNCTION__,
+                  _name.c_str(),(DWORD)(size & MAXDWORD),nwrote);
     nout = nwrote;
     return false;
 }
 
+/**
+ * Close the file
+ *
+ * @retval false successfully closed the file
+ * @retval true error closing the file
+ */
 bool
 StandardFileProvider::close()
 {
-    return CloseHandle( _handle ) == 0;
+    BOOL retval;
+
+    retval = CloseHandle( _handle );
+    if (!retval)
+    {
+        log.errorf("%s: CloseHandle(%s) failed (%d)",__FUNCTION__,
+                   _name.c_str(),GetLastError());
+    }
+
+    // Whether we succeeded or not, clear the handle and
+    // forget the name
+    _handle = NULL;
+    _name.clear();
+
+    return retval;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
