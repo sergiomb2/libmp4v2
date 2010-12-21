@@ -5,6 +5,10 @@ $Date$
 
 -------------------
 
+(21-dec-10, dbyron)
+
+- add logging to win32 StandardFileProvider
+
 (20-dec-10, dbyron)
 
 - make try/catch blocks more granular in MP4Read,
