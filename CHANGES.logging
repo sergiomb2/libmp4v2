@@ -5,6 +5,31 @@ $Date$
 
 -------------------
 
+(27-dec-10, dbyron)
+
+- remove m_tempFileName from MP4File since it's not used
+
+- throw an exception from the win32 implementation of
+FileSystem::exists, FileSystem::isDirectory and
+FileSystem::isFile if there's an error
+
+- add logging to win32 FileSystem
+
+- add Utf8ToFilename::GetUTF8 to get the UTF-8
+representation of the filename actually used
+
+- add Utf8ToFilename::IsUTF16Valid so users of the class can
+detect errors
+
+- rename Utf8ToWideChar to Utf8ToFilename to more accurately
+reflect what the class does
+
+- replace MultiByteToWideChar with custom code to remove
+differences across versions of windows and for improved
+error detection and illegal character handling
+
+- add long filename support to Utf8ToWideChar
+
 (21-dec-10, dbyron)
 
 - add logging to win32 StandardFileProvider

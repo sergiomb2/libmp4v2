@@ -5,6 +5,23 @@ namespace mp4v2 {
     using namespace impl;
 }
 
+/**
+ * Set this to 1 to compile in extra debugging
+ */
+#define EXTRA_DEBUG 0
+
+/**
+ * @def LOG_PRINTF
+ *
+ * call log.printf if EXTRA_DEBUG is defined to 1.  Do
+ * nothing otherwise
+ */
+#if EXTRA_DEBUG
+#define LOG_PRINTF(X) log.printf X
+#else
+#define LOG_PRINTF(X)
+#endif
+
 namespace mp4v2 { namespace platform { namespace io {
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -75,17 +92,28 @@ StandardFileProvider::open( std::string name, Mode mode )
             break;
     }
 
-    _handle = CreateFileW( win32::Utf8ToWideChar( name ), access, share, NULL, crdisp, flags, NULL );
+    win32::Utf8ToFilename filename(name);
+
+    if (!filename.IsUTF16Valid())
+    {
+        // The logging is done
+        return true;
+    }
+
+    ASSERT(LPCWSTR(filename));
+    _handle = CreateFileW( filename, access, share, NULL, crdisp, flags, NULL );
     if (_handle == INVALID_HANDLE_VALUE)
     {
-        log.errorf("%s: CreateFileW(%s) failed (%d)",__FUNCTION__,name.c_str(),GetLastError());
+        log.errorf("%s: CreateFileW(%s) failed (%d)",__FUNCTION__,filename.utf8.c_str(),GetLastError());
         return true;
     }
 
     /*
     ** Make a copy of the name for future log messages, etc.
     */
-    _name = name;
+    log.verbose2f("%s: CreateFileW(%s) succeeded",__FUNCTION__,filename.utf8.c_str());
+
+    _name = filename.utf8;
     return false;
 }
 
@@ -146,8 +174,8 @@ StandardFileProvider::read( void* buffer, Size size, Size& nin, Size maxChunkSiz
                    (DWORD)(size & MAXDWORD),GetLastError());
         return true;
     }
-    log.verbose2f("%s: ReadFile(%s,%d) succeeded: read %d byte(s)",__FUNCTION__,
-                  _name.c_str(),(DWORD)(size & MAXDWORD),nread);
+    LOG_PRINTF((MP4_LOG_VERBOSE3,"%s: ReadFile(%s,%d) succeeded: read %d byte(s)",__FUNCTION__,
+               _name.c_str(),(DWORD)(size & MAXDWORD),nread));
     nin = nread;
     return false;
 }
