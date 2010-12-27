@@ -194,7 +194,7 @@ extern "C" int main( int argc, char** argv )
 void ExtractTrack( MP4FileHandle mp4File, MP4TrackId trackId,
                    bool sampleMode, MP4SampleId sampleId, char* dstFileName )
 {
-    char outName[MP4V2_PATH_MAX];
+    static char outName[MP4V2_PATH_MAX];
     File out;
 
     if( !sampleMode ) {

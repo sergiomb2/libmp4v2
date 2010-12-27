@@ -969,7 +969,6 @@ protected:
     uint8_t m_numWriteBits;
     uint8_t m_bufWriteBits;
 
-    char m_tempFileName[MP4V2_PATH_MAX];
     char m_trakName[1024];
     char *m_editName;
 };

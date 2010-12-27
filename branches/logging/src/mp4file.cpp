@@ -65,7 +65,6 @@ void MP4File::Init()
     m_numWriteBits = 0;
     m_bufWriteBits = 0;
     m_editName = NULL;
-    m_tempFileName[0] = '\0';
     m_trakName[0] = '\0';
 }
 
