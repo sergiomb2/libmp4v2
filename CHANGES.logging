@@ -5,6 +5,12 @@ $Date$
 
 -------------------
 
+(31-dec-10, dbyron)
+
+- add MP4GetFilename so the filename associated with a
+MP4FileHandle is available.  Add MP4File::GetFilename to
+support it.
+
 (27-dec-10, dbyron)
 
 - remove m_tempFileName from MP4File since it's not used

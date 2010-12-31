@@ -182,6 +182,17 @@ char* MP4FileInfo(
     const char* fileName,
     MP4TrackId  trackId DEFAULT(MP4_INVALID_TRACK_ID) );
 
+/** Accessor for the filename associated with a file handle
+ *
+ * @param hFile a file handle
+ *
+ * @return the NUL-terminated, UTF-8 encoded filename
+ * associated with @p hFile
+ */
+MP4V2_EXPORT
+const char* MP4GetFilename(
+    MP4FileHandle hFile );
+
 /** Return a textual summary of an mp4 file.
  *
  *  MP4FileInfo provides a string that contains a textual summary of the

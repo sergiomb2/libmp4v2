@@ -62,6 +62,29 @@ static MP4File  *ConstructMP4File ( void )
 
 extern "C" {
 
+const char* MP4GetFilename( MP4FileHandle hFile )
+{
+    if (!MP4_IS_VALID_FILE_HANDLE(hFile))
+        return NULL;
+    try
+    {
+        ASSERT(hFile);
+        MP4File& file = *static_cast<MP4File*>(hFile);
+        ASSERT(file.GetFilename().c_str());
+        return file.GetFilename().c_str();
+    }
+    catch( Exception* x ) {
+        mp4v2::impl::log.errorf(*x);
+        delete x;
+    }
+    catch( ... ) {
+        mp4v2::impl::log.errorf("%s: unknown exception accessing MP4File "
+                                "filename", __FUNCTION__ );
+    }
+
+    return NULL;
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 
 MP4FileHandle MP4Read( const char* fileName )

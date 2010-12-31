@@ -83,6 +83,7 @@ public:
                  char**      supportedBrands = NULL,
                  uint32_t    supportedBrandsCount = 0 );
 
+    const std::string &GetFilename() const;
     void Read( const char* name, const MP4FileProvider* provider );
     bool Modify( const char* fileName );
     void Optimize( const char* srcFileName, const char* dstFileName = NULL );
