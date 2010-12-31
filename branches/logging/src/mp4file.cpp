@@ -78,6 +78,18 @@ MP4File::~MP4File()
     delete m_file;
 }
 
+const std::string &
+MP4File::GetFilename() const
+{
+    // No one should call this unless Read, etc. has
+    // succeeded and m_file exists since this method really
+    // only exists for the public API.  This helps us
+    // guarantee that MP4GetFilename always returns a valid
+    // string given a valid MP4FileHandle
+    ASSERT(m_file);
+    return m_file->name;
+}
+
 void MP4File::Read( const char* name, const MP4FileProvider* provider )
 {
     Open( name, File::MODE_READ, provider );
