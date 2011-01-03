@@ -7,6 +7,9 @@ $Date$
 
 (3-jan-11, dbyron)
 
+- declare MP4File copy constructor and assignment operator
+private but don't implement them to prohibit copies
+
 - remove MP4HexDump and Indent from mp4util since they're
 not used anymore
 

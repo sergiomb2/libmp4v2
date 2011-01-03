@@ -972,6 +972,10 @@ protected:
 
     char m_trakName[1024];
     char *m_editName;
+
+ private:
+    MP4File ( const MP4File &src );
+    MP4File &operator= ( const MP4File &src );
 };
 
 ///////////////////////////////////////////////////////////////////////////////
