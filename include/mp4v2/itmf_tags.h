@@ -207,6 +207,23 @@ bool MP4TagsStore( const MP4Tags* tags, MP4FileHandle hFile );
 MP4V2_EXPORT
 void MP4TagsFree( const MP4Tags* tags );
 
+/** Accessor that indicates whether a tags structure
+ * contains any metadata
+ *
+ * @param tags the structure to inspect
+ *
+ * @param hasMetadata populated with false if @p tags
+ * contains no metadata, true if @p tags contains metadata
+ *
+ * @retval false error determining if @p tags contains
+ * metadata
+ *
+ * @retval true successfully determined if @p tags contains
+ * metadata
+ */
+MP4V2_EXPORT
+bool MP4TagsHasMetadata ( const MP4Tags* tags, bool *hasMetadata );
+
 MP4V2_EXPORT bool MP4TagsSetName            ( const MP4Tags*, const char* );
 MP4V2_EXPORT bool MP4TagsSetArtist          ( const MP4Tags*, const char* );
 MP4V2_EXPORT bool MP4TagsSetAlbumArtist     ( const MP4Tags*, const char* );
