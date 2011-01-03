@@ -29,18 +29,6 @@ typedef enum {
 
 /*****************************************************************************/
 
-typedef void (*error_msg_func_t)(
-    int         loglevel,
-    const char* lib,
-    const char* fmt,
-    va_list     ap );
-
-typedef void (*lib_message_func_t)(
-    int         loglevel,
-    const char* lib,
-    const char* fmt,
-    ... );
-
 typedef void (*MP4LogCallback)(
     MP4LogLevel loglevel,
     const char* fmt,
@@ -476,10 +464,6 @@ uint8_t* Base64ToBinary(
 MP4V2_EXPORT
 void MP4Free(
     void* p );
-
-MP4V2_EXPORT
-void MP4SetLibFunc(
-    lib_message_func_t libfunc );
 
 /** Set the function to call in place of default logging behavior
  *
