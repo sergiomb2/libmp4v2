@@ -5,6 +5,11 @@ $Date$
 
 -------------------
 
+(3-jan-11, dbyron)
+
+- add MP4TagsHasMetadata to indicate whether a file contains
+any metadata at all
+
 (31-dec-10, dbyron)
 
 - add MP4GetFilename so the filename associated with a

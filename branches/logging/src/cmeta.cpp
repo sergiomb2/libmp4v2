@@ -14,7 +14,7 @@
 // 
 //  The Initial Developer of the Original Code is Kona Blend.
 //  Portions created by Kona Blend are Copyright (C) 2008.
-//  Portions created by David Byron are Copyright (C) 2009, 2010.
+//  Portions created by David Byron are Copyright (C) 2009, 2010, 2011.
 //  All Rights Reserved.
 //
 //  Contributors:
@@ -142,6 +142,21 @@ MP4TagsFetch( const MP4Tags* tags, MP4FileHandle hFile )
     }
 
     return false;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+
+bool
+MP4TagsHasMetadata ( const MP4Tags* tags, bool *hasMetadata )
+{
+    if( !tags || !tags->__handle || !hasMetadata )
+        return false;
+
+    itmf::Tags& cpp = *static_cast<itmf::Tags*>(tags->__handle);
+
+    (*hasMetadata) = cpp.hasMetadata;
+
+    return true;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
