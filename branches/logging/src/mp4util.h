@@ -51,16 +51,6 @@ namespace mp4v2 { namespace impl {
 
 ///////////////////////////////////////////////////////////////////////////////
 
-#if 0
-inline void Indent(FILE* pFile, uint8_t depth) {
-    fprintf(pFile, "%*c", depth, ' ');
-}
-#endif
-
-void MP4HexDump(
-    const uint8_t* pBytes, uint32_t numBytes,
-    FILE* pFile = stdout, uint8_t indent = 0);
-
 inline void* MP4Malloc(size_t size) {
     if (size == 0) return NULL;
     void* p = malloc(size);

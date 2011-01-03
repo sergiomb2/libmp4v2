@@ -26,29 +26,6 @@ namespace mp4v2 { namespace impl {
 
 ///////////////////////////////////////////////////////////////////////////////
 
-static inline void Indent(FILE* pFile, uint8_t depth) {
-    fprintf(pFile, "%*c", depth, ' ');
-}
-
-void MP4HexDump(
-    const uint8_t* pBytes, uint32_t numBytes,
-    FILE* pFile, uint8_t indent)
-{
-    if (pFile == NULL) {
-        pFile = stdout;
-    }
-    Indent(pFile, indent);
-    fprintf(pFile, "<%u bytes> ", numBytes);
-    for (uint32_t i = 0; i < numBytes; i++) {
-        if ((i % 16) == 0 && numBytes > 16) {
-            fprintf(pFile, "\n");
-            Indent(pFile, indent);
-        }
-        fprintf(pFile, "%02x ", pBytes[i]);
-    }
-    fprintf(pFile, "\n");
-}
-
 bool MP4NameFirstMatches(const char* s1, const char* s2)
 {
     if (s1 == NULL || *s1 == '\0' || s2 == NULL || *s2 == '\0') {
