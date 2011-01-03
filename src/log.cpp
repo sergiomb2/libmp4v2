@@ -388,8 +388,7 @@ Log::vprintf( MP4LogLevel       verbosity_,
  * describe @p pBytes.  The resulting string should not
  * contain a newline.  Only the first 255 characters of the
  * resulting string (not including the NUL terminator) make
- * it to the log callback.  If there is no log callback, the
- * entire string makes it to stdout.
+ * it to the log callback or stdout.
  */
 void
 Log::hexDump( uint8_t           indent,
@@ -410,41 +409,26 @@ Log::hexDump( uint8_t           indent,
         return;
     }
 
-    // For backwards compatibility, if there's no callback
-    // function call MP4HexDump.  If there is a callback,
-    // format things so they make sense in a log file.
-    va_start(ap,format);
-    if (!Log::_cb_func)
+    // Build the description by processing format and the
+    // remaining args.  Since we don't have asprintf, pick
+    // an arbitrary length for the string and use snprintf.
+    // To save a memory allocation, only do this if there's
+    // a non-empty format string or non-zero indent
+    char *desc = NULL;
+    if (format[0] || indent)
     {
-        if (indent > 0)
-        {
-            ::fprintf(stdout,"%*c",indent,' ');
-        }
-        vfprintf(stdout,format,ap);
+        desc = (char *)MP4Calloc(256 + indent);
+        sprintf(desc,"%*c",indent,' ');
+        va_start(ap,format);
+        vsnprintf(desc + indent,255,format,ap);
         va_end(ap);
-        fprintf(stdout,"\n");
-        MP4HexDump(pBytes,numBytes);
-        return;
     }
 
-    // Try to act like MP4HexDump, but to make sure each
-    // line in the log file doesn't need other context to
-    // make sense (since it may get interleaved with other
-    // messages), put the description on each line, as well
-    // as the offset into the buffer where the data comes
-    // from.
-
-    // Build the description.  Since we don't have asprintf,
-    // pick an arbitrary length for the string and use
-    // snprintf.
-    char *desc = (char *)MP4Calloc(256 + indent);
-    sprintf(desc,"%*c",indent,' ');
-    vsnprintf(desc + indent,255,format,ap);
-    va_end(ap);
-
+    // From here we can use the C++ standard lib classes and
+    // build a string for each line
     for (uint32_t i = 0;(i < numBytes);i += 16)
     {
-        ostringstream oneLine(desc);
+        ostringstream oneLine(desc ? desc : "");
 
         // Append the byte offset this line starts with as
         // an 8 character, leading 0, hex number.  Leave the
@@ -454,32 +438,49 @@ Log::hexDump( uint8_t           indent,
             std::right << i << setw(0) << setfill(' ') << ": ";
 
         uint32_t curlen = min((uint32_t)16,numBytes - i);
-
         const uint8_t *b = pBytes + i;
-        for (uint32_t j = 0;(j < curlen);j++)
+        uint32_t j;
+
+        for (j = 0;(j < curlen);j++)
         {
-            // Not sure why the cast is necessary, but
-            // without it some NUL bytes get into the string
             oneLine << hex << setw(2) << setfill('0') << right << static_cast<uint32_t>(b[j]);
-            if (j < (curlen - 1))
+            oneLine << setw(0) << setfill(' ') << ' ';
+        }
+
+        for (; j < 16; j++)
+        {
+            oneLine << "   ";
+        }
+
+        b = pBytes + i;
+        for (j = 0;(j < curlen);j++)
+        {
+            if (isprint(static_cast<int>(b[j])))
             {
-                oneLine << setw(0) << setfill(' ') << ' ';
+                oneLine << static_cast<char>(b[j]);
+            }
+            else
+            {
+                oneLine << '.';
             }
         }
 
-        // Finally, log this line.  We can either call the
-        // callback directly or use the Log::printf
-        // function.  To call the callback directly, we need
-        // a va_list.  (I think) we need and extra function
-        // call to build that, so we may as well call
-        // Log::printf.  It's going to double-check the
-        // verbosity and the callback function pointer, but
-        // that seems OK (13-feb-09, dbyron)
+        // We can either call the callback directly or use
+        // the Log::printf function.  To call the callback
+        // directly, we need a va_list.  (I think) we need
+        // and extra function call to build that, so we may
+        // as well call Log::printf.  It's going to
+        // double-check the verbosity and the callback
+        // function pointer, but that seems OK (13-feb-09,
+        // dbyron)
         this->printf(verbosity_,"%s",oneLine.str().c_str());
     }
 
-    MP4Free(desc);
-    desc = NULL;
+    if (desc)
+    {
+        MP4Free(desc);
+        desc = NULL;
+    }
 }
 
 ///////////////////////////////////////////////////////////////////////////////
