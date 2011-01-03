@@ -7,6 +7,10 @@ $Date$
 
 (3-jan-11, dbyron)
 
+- remove error_msg_func_t, lib_message_func_t and
+MP4SetLibFunc from general.h since they're not used and
+don't really make sense now that MP4SetLogCallback exists
+
 - add MP4TagsHasMetadata to indicate whether a file contains
 any metadata at all
 
