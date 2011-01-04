@@ -13,7 +13,7 @@
 //  The Original Code is MP4v2.
 // 
 //  The Initial Developer of the Original Code is David Byron.
-//  Portions created by David Byron are Copyright (C) 2009, 2010.
+//  Portions created by David Byron are Copyright (C) 2009, 2010, 2011.
 //  All Rights Reserved.
 //
 //  Contributors:
@@ -63,9 +63,9 @@ public:
                  MP4LogLevel   verbosity_,
                  const char*   format, va_list ap ) MP4V2_WFORMAT_PRINTF(3,4);
     void printf ( MP4LogLevel   verbosity_,
-                  const char*   format, ... ) MP4V2_WFORMAT_PRINTF(2,3);
+                  const char*   format, ... ) MP4V2_WFORMAT_PRINTF(3,4);
     void vprintf ( MP4LogLevel  verbosity_,
-                   const char*  format, va_list ap ) MP4V2_WFORMAT_PRINTF(2,3);
+                   const char*  format, va_list ap );
 
     void hexDump ( uint8_t              indent,
                    MP4LogLevel          verbosity_,
