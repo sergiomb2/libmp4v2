@@ -169,7 +169,7 @@ typedef struct MP4Tags_s
  *  @return structure with all tags missing.
  */
 MP4V2_EXPORT
-const MP4Tags* MP4TagsAlloc();
+const MP4Tags* MP4TagsAlloc( void );
 
 /** Fetch data from mp4 file and populate structure.
  *
