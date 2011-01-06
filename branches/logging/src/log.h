@@ -58,10 +58,10 @@ public:
 
     void dump ( uint8_t       indent,
                 MP4LogLevel   verbosity_,
-                const char*   format, ... ) MP4V2_WFORMAT_PRINTF(3,4);
+                const char*   format, ... ) MP4V2_WFORMAT_PRINTF(4,5);
     void vdump ( uint8_t       indent,
                  MP4LogLevel   verbosity_,
-                 const char*   format, va_list ap ) MP4V2_WFORMAT_PRINTF(3,4);
+                 const char*   format, va_list ap );
     void printf ( MP4LogLevel   verbosity_,
                   const char*   format, ... ) MP4V2_WFORMAT_PRINTF(3,4);
     void vprintf ( MP4LogLevel  verbosity_,
@@ -71,7 +71,7 @@ public:
                    MP4LogLevel          verbosity_,
                    const uint8_t*       pBytes,
                    uint32_t             numBytes,
-                   const char*          format, ... ) MP4V2_WFORMAT_PRINTF(5,6);
+                   const char*          format, ... ) MP4V2_WFORMAT_PRINTF(6,7);
 
     void errorf ( const Exception&      x );
 
