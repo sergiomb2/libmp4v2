@@ -628,7 +628,7 @@ void MP4BytesProperty::Dump(uint8_t indent,
     ostringstream text;
 
     log.dump(indent, MP4_LOG_VERBOSE2, "%s = <%u bytes>", m_name, size );
-    log.hexDump(indent, MP4_LOG_VERBOSE2, value, adjsize, "");
+    log.hexDump(indent, MP4_LOG_VERBOSE2, value, adjsize, "%s", m_name);
 
 #if 0
     for( uint32_t i = 0; i < adjsize; i++ ) {
