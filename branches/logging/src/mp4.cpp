@@ -4348,7 +4348,7 @@ MP4FileHandle MP4ReadProvider( const char* fileName, const MP4FileProvider* file
             track = ((MP4File*)hFile)->GetTrack(trackId);
             ASSERT(track);
             ASSERT(track->GetTrakAtom());
-            MP4Atom* avc1 = track->GetTrakAtom()->FindChildAtom("mdia.minf.stbl.stsd.avc1");
+            avc1 = track->GetTrakAtom()->FindChildAtom("mdia.minf.stbl.stsd.avc1");
         }
         catch( Exception* x ) {
             mp4v2::impl::log.errorf(*x);
