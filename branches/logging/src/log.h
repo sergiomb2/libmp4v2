@@ -76,6 +76,8 @@ public:
     void errorf ( const Exception&      x );
 
 private:
+    Log ( const Log &src );
+    Log &operator= ( const Log &src );
 };
 
 /**

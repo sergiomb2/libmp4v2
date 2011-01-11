@@ -5,6 +5,11 @@ $Date$
 
 -------------------
 
+(11-jan-11, dbyron)
+
+- declare Log copy constructor and assignment operator
+private but don't implement them to prohibit copies
+
 (6-jan-11, dbyron)
 
 - add mp4subtitle.vcproj to build on windows
