@@ -34,8 +34,8 @@ namespace impl {
 
 #define H263_VENDOR 0x6d346970
 
-MP4D263Atom::MP4D263Atom()
-        : MP4Atom("d263")
+MP4D263Atom::MP4D263Atom(MP4File &file)
+        : MP4Atom(file, "d263")
 {
     AddProperty( /* 0 */
         new MP4Integer32Property("vendor"));

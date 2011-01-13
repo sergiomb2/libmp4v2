@@ -26,8 +26,8 @@ namespace impl {
 
 ///////////////////////////////////////////////////////////////////////////////
 
-MP4RtpAtom::MP4RtpAtom()
-        : MP4Atom("rtp ")
+MP4RtpAtom::MP4RtpAtom(MP4File &file)
+        : MP4Atom(file, "rtp ")
 {
     // The atom type "rtp " is used in two complete unrelated ways
     // i.e. it's real two atoms with the same name
@@ -123,10 +123,10 @@ void MP4RtpAtom::ReadHntiType()
     ReadProperties(0, 1);
 
     // read sdp string, length is implicit in size of atom
-    uint64_t size = GetEnd() - m_pFile->GetPosition();
+    uint64_t size = GetEnd() - m_File.GetPosition();
     char* data = (char*)MP4Malloc(size + 1);
     ASSERT(data != NULL);
-    m_pFile->ReadBytes((uint8_t*)data, size);
+    m_File.ReadBytes((uint8_t*)data, size);
     data[size] = '\0';
     ((MP4StringProperty*)m_pProperties[1])->SetValue(data);
     MP4Free(data);

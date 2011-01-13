@@ -39,6 +39,10 @@ bool
 ColorParameterBox::add( MP4FileHandle file, uint16_t trackIndex, const Item& item )
 {
     MP4Atom* coding;
+
+    if( !MP4_IS_VALID_FILE_HANDLE( file ))
+        throw new Exception( "invalid file handle", __FILE__, __LINE__, __FUNCTION__ );
+
     if( findCoding( file, trackIndex, coding ))
         throw new Exception( "supported coding not found", __FILE__, __LINE__, __FUNCTION__ );
 
@@ -46,7 +50,7 @@ ColorParameterBox::add( MP4FileHandle file, uint16_t trackIndex, const Item& ite
     if( !findColorParameterBox( file, *coding, colr ))
         throw new Exception( "colr-box already exists", __FILE__, __LINE__, __FUNCTION__ );
 
-    colr = MP4Atom::CreateAtom( coding, BOX_CODE.c_str() );
+    colr = MP4Atom::CreateAtom( *((MP4File *)file), coding, BOX_CODE.c_str() );
     coding->AddChildAtom( colr );
     colr->Generate();
 

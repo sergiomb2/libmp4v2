@@ -26,8 +26,8 @@ namespace impl {
 
 ///////////////////////////////////////////////////////////////////////////////
 
-MP4TrunAtom::MP4TrunAtom()
-        : MP4Atom("trun")
+MP4TrunAtom::MP4TrunAtom(MP4File &file)
+        : MP4Atom(file, "trun")
 {
     AddVersionAndFlags();   /* 0, 1 */
     AddProperty( /* 2 */

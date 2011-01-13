@@ -4363,7 +4363,7 @@ MP4FileHandle MP4ReadProvider( const char* fileName, const MP4FileProvider* file
         IPodUUIDAtom    *ipod_uuid = NULL;
         try
         {
-            ipod_uuid = new IPodUUIDAtom();
+            ipod_uuid = new IPodUUIDAtom(*(MP4File*)hFile);
         }
         catch( std::bad_alloc ) {
             mp4v2::impl::log.errorf("%s: unable to allocate IPodUUIDAtom", __FUNCTION__);

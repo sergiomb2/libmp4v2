@@ -25,7 +25,7 @@ namespace mp4v2 { namespace impl {
 
 ///////////////////////////////////////////////////////////////////////////////
 
-MP4StandardAtom::MP4StandardAtom (const char *type) : MP4Atom(type)
+MP4StandardAtom::MP4StandardAtom (MP4File &file, const char *type) : MP4Atom(file, type)
 {
     /*
      * This is a big if else loop.  Make sure that you don't break it

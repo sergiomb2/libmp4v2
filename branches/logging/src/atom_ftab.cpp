@@ -23,8 +23,8 @@ namespace impl {
 
 ///////////////////////////////////////////////////////////////////////////////
 
-MP4FtabAtom::MP4FtabAtom()
-        : MP4Atom("ftab")
+MP4FtabAtom::MP4FtabAtom(MP4File &file)
+        : MP4Atom(file, "ftab")
 {
     MP4Integer16Property* pCount = new MP4Integer16Property("entryCount"); /* 0 */
     AddProperty(pCount);

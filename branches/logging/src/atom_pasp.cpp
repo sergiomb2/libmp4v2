@@ -24,8 +24,8 @@ namespace impl {
 
 ///////////////////////////////////////////////////////////////////////////////
 
-MP4PaspAtom::MP4PaspAtom()
-        : MP4Atom("pasp")
+MP4PaspAtom::MP4PaspAtom(MP4File &file)
+        : MP4Atom(file, "pasp")
 {
 
     AddProperty( /* 0 */

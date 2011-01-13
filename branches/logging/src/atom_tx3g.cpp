@@ -23,8 +23,8 @@ namespace impl {
 
 ///////////////////////////////////////////////////////////////////////////////
 
-MP4Tx3gAtom::MP4Tx3gAtom()
-        : MP4Atom("tx3g")
+MP4Tx3gAtom::MP4Tx3gAtom(MP4File &file)
+        : MP4Atom(file, "tx3g")
 {
     AddReserved("reserved1", 4); /* 0 */
     AddReserved("reserved2", 2); /* 1 */

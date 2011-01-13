@@ -7,6 +7,14 @@ $Date$
 
 (13-jan-11, dbyron)
 
+- change MP4Atom constructor to take an (MP4File &), remove
+MP4Atom::SetFile and change MP4Atom::GetFile to return an
+(MP4File &).  Change the internal member variable to an
+(MP4File &) as well.  Corresponding changes to
+MP4Atom::ReadAtom, CreateAtom, factory and child class
+constructors.  This makes it impossible to dereference a
+NULL pointer by accident.
+
 - convert messages with warning in the text to use
 Log::warningf
 

@@ -26,8 +26,8 @@ namespace impl {
 
 ///////////////////////////////////////////////////////////////////////////////
 
-IPodUUIDAtom::IPodUUIDAtom()
-        : MP4Atom("uuid")
+IPodUUIDAtom::IPodUUIDAtom(MP4File &file)
+        : MP4Atom(file, "uuid")
 {
     //
     // This is a hack, the contents of this atom need to be well defined.

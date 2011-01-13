@@ -32,8 +32,8 @@ namespace impl {
 
 ///////////////////////////////////////////////////////////////////////////////
 
-MP4AmrAtom::MP4AmrAtom(const char *type)
-        : MP4Atom(type)
+MP4AmrAtom::MP4AmrAtom(MP4File &file, const char *type)
+        : MP4Atom(file, type)
 {
     AddReserved("reserved1", 6); /* 0 */
 
