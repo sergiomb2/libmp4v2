@@ -5,6 +5,14 @@ $Date$
 
 -------------------
 
+(13-jan-11, dbyron)
+
+- convert messages with warning in the text to use
+Log::warningf
+
+- include __FUNCTION__ and filename in log messages in
+mp4atom.cpp
+
 (11-jan-11, dbyron)
 
 - declare Log copy constructor and assignment operator
