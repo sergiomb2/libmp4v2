@@ -26,8 +26,8 @@ namespace impl {
 
 ///////////////////////////////////////////////////////////////////////////////
 
-MP4VmhdAtom::MP4VmhdAtom()
-        : MP4Atom("vmhd")
+MP4VmhdAtom::MP4VmhdAtom(MP4File &file)
+        : MP4Atom(file, "vmhd")
 {
     AddVersionAndFlags();
     AddReserved("reserved", 8);

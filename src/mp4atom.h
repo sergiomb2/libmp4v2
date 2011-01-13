@@ -61,23 +61,20 @@ MP4ARRAY_DECL(MP4AtomInfo, MP4AtomInfo*);
 class MP4Atom
 {
 public:
-    static MP4Atom* ReadAtom( MP4File* pFile, MP4Atom* pParentAtom );
-    static MP4Atom* CreateAtom( MP4Atom* parent, const char* type );
+    static MP4Atom* ReadAtom( MP4File& file, MP4Atom* pParentAtom );
+    static MP4Atom* CreateAtom( MP4File& file, MP4Atom* parent, const char* type );
     static bool IsReasonableType( const char* type );
 
 private:
-    static MP4Atom* factory( MP4Atom* parent, const char* type );
+    static MP4Atom* factory( MP4File &file, MP4Atom* parent, const char* type );
     static bool descendsFrom( MP4Atom* parent, const char* type );
 
 public:
-    MP4Atom(const char* type = NULL);
+    MP4Atom(MP4File& file, const char* type = NULL);
     virtual ~MP4Atom();
 
-    MP4File* GetFile() {
-        return m_pFile;
-    };
-    void SetFile(MP4File* pFile) {
-        m_pFile = pFile;
+    MP4File& GetFile() {
+        return m_File;
     };
 
     uint64_t GetStart() {
@@ -140,13 +137,11 @@ public:
     }
 
     void AddChildAtom(MP4Atom* pChildAtom) {
-        pChildAtom->SetFile(m_pFile);
         pChildAtom->SetParentAtom(this);
         m_pChildAtoms.Add(pChildAtom);
     }
 
     void InsertChildAtom(MP4Atom* pChildAtom, uint32_t index) {
-        pChildAtom->SetFile(m_pFile);
         pChildAtom->SetParentAtom(this);
         m_pChildAtoms.Insert(pChildAtom, index);
     }
@@ -231,7 +226,7 @@ protected:
     void SetLargesizeMode( bool );
 
 protected:
-    MP4File*    m_pFile;
+    MP4File&    m_File;
     uint64_t    m_start;
     uint64_t    m_end;
     bool        m_largesizeMode; // true if largesize mode
@@ -246,6 +241,10 @@ protected:
     MP4PropertyArray    m_pProperties;
     MP4AtomInfoArray    m_pChildAtomInfos;
     MP4AtomArray        m_pChildAtoms;
+private:
+    MP4Atom();
+    MP4Atom( const MP4Atom &src );
+    MP4Atom &operator= ( const MP4Atom &src );
 };
 
 inline uint32_t ATOMID(const char* type) {

@@ -1436,7 +1436,8 @@ MP4Atom* MP4Track::AddAtom(const char* parentName, const char* childName)
     MP4Atom* pParentAtom = m_pTrakAtom->FindAtom(parentName);
     ASSERT(pParentAtom);
 
-    MP4Atom* pChildAtom = MP4Atom::CreateAtom(pParentAtom, childName);
+    ASSERT(GetFile());
+    MP4Atom* pChildAtom = MP4Atom::CreateAtom(*GetFile(), pParentAtom, childName);
 
     pParentAtom->AddChildAtom(pChildAtom);
 

@@ -24,8 +24,8 @@ namespace impl {
 
 ///////////////////////////////////////////////////////////////////////////////
 
-MP4ColrAtom::MP4ColrAtom()
-        : MP4Atom("colr")
+MP4ColrAtom::MP4ColrAtom(MP4File &file)
+        : MP4Atom(file, "colr")
 {
     MP4StringProperty* cpt = new MP4StringProperty("colorParameterType");
     cpt->SetFixedLength(4);

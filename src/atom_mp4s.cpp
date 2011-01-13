@@ -26,8 +26,8 @@ namespace impl {
 
 ///////////////////////////////////////////////////////////////////////////////
 
-MP4Mp4sAtom::MP4Mp4sAtom()
-        : MP4Atom("mp4s")
+MP4Mp4sAtom::MP4Mp4sAtom(MP4File &file)
+        : MP4Atom(file, "mp4s")
 {
     AddReserved("reserved1", 6);
     AddProperty(

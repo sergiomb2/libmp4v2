@@ -26,8 +26,8 @@ namespace impl {
 
 ///////////////////////////////////////////////////////////////////////////////
 
-MP4TrefTypeAtom::MP4TrefTypeAtom(const char* type)
-        : MP4Atom(type)
+MP4TrefTypeAtom::MP4TrefTypeAtom(MP4File &file, const char* type)
+        : MP4Atom(file, type)
 {
     MP4Integer32Property* pCount =
         new MP4Integer32Property("entryCount");

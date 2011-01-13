@@ -26,8 +26,8 @@ namespace impl {
 
 ///////////////////////////////////////////////////////////////////////////////
 
-MP4MvhdAtom::MP4MvhdAtom()
-        : MP4Atom("mvhd")
+MP4MvhdAtom::MP4MvhdAtom(MP4File &file)
+        : MP4Atom(file, "mvhd")
 {
     AddVersionAndFlags();
 }
@@ -75,7 +75,7 @@ void MP4MvhdAtom::AddProperties(uint8_t version)
 
 void MP4MvhdAtom::Generate()
 {
-    uint8_t version = m_pFile->Use64Bits(GetType()) ? 1 : 0;
+    uint8_t version = m_File.Use64Bits(GetType()) ? 1 : 0;
     SetVersion(version);
     AddProperties(version);
 

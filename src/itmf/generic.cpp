@@ -217,12 +217,12 @@ __itemModelToAtom( const MP4ItmfItem& model, MP4ItemAtom& atom )
 {
     if( ATOMID( atom.GetType() ) == ATOMID( "----" )) {
         ASSERT( model.mean ); // mandatory
-        MP4MeanAtom& meanAtom = *(MP4MeanAtom*)MP4Atom::CreateAtom( &atom, "mean" );
+        MP4MeanAtom& meanAtom = *(MP4MeanAtom*)MP4Atom::CreateAtom( atom.GetFile(), &atom, "mean" );
         atom.AddChildAtom( &meanAtom );
         meanAtom.value.SetValue( (const uint8_t*)model.mean, (uint32_t)strlen( model.mean ));
 
         if( model.name ) {
-            MP4NameAtom& nameAtom = *(MP4NameAtom*)MP4Atom::CreateAtom( &atom, "name" );
+            MP4NameAtom& nameAtom = *(MP4NameAtom*)MP4Atom::CreateAtom( atom.GetFile(), &atom, "name" );
             atom.AddChildAtom( &nameAtom );
             nameAtom.value.SetValue( (const uint8_t*)model.name, (uint32_t)strlen( model.name ));
         }
@@ -230,7 +230,7 @@ __itemModelToAtom( const MP4ItmfItem& model, MP4ItemAtom& atom )
 
     for( uint32_t i = 0; i < model.dataList.size; i++ ) {
         MP4ItmfData& dataModel = model.dataList.elements[i];
-        MP4DataAtom& dataAtom = *(MP4DataAtom*)MP4Atom::CreateAtom( &atom, "data" );
+        MP4DataAtom& dataAtom = *(MP4DataAtom*)MP4Atom::CreateAtom( atom.GetFile(), &atom, "data" );
         atom.AddChildAtom( &dataAtom );
 
         dataAtom.typeSetIdentifier.SetValue( dataModel.typeSetIdentifier );
@@ -411,7 +411,7 @@ genericAddItem( MP4File& file, const MP4ItmfItem* item )
         ASSERT( ilst );
     }
 
-    MP4ItemAtom& itemAtom = *(MP4ItemAtom*)MP4Atom::CreateAtom( ilst, item->code );
+    MP4ItemAtom& itemAtom = *(MP4ItemAtom*)MP4Atom::CreateAtom( file, ilst, item->code );
     ilst->AddChildAtom( &itemAtom );
 
     return __itemModelToAtom( *item, itemAtom );
@@ -446,7 +446,7 @@ genericSetItem( MP4File& file, const MP4ItmfItem* item )
     ilst->DeleteChildAtom( old );
     delete old;
 
-    MP4ItemAtom& itemAtom = *(MP4ItemAtom*)MP4Atom::CreateAtom( ilst, item->code );
+    MP4ItemAtom& itemAtom = *(MP4ItemAtom*)MP4Atom::CreateAtom( file, ilst, item->code );
     ilst->InsertChildAtom( &itemAtom, fidx );
 
     return __itemModelToAtom( *item, itemAtom );

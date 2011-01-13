@@ -34,8 +34,8 @@ namespace impl {
 
 #define AMR_VENDOR 0x6d346970
 
-MP4DamrAtom::MP4DamrAtom()
-        : MP4Atom("damr")
+MP4DamrAtom::MP4DamrAtom(MP4File &file)
+        : MP4Atom(file, "damr")
 {
     AddProperty( /* 0 */
         new MP4Integer32Property("vendor"));

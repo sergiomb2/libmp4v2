@@ -26,8 +26,8 @@ namespace impl {
 
 ///////////////////////////////////////////////////////////////////////////////
 
-MP4TfhdAtom::MP4TfhdAtom()
-        : MP4Atom("tfhd")
+MP4TfhdAtom::MP4TfhdAtom(MP4File &file)
+        : MP4Atom(file, "tfhd")
 {
     AddVersionAndFlags();   /* 0, 1 */
     AddProperty( /* 2 */

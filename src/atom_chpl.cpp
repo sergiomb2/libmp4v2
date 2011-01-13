@@ -24,8 +24,8 @@ namespace impl {
 ///////////////////////////////////////////////////////////////////////////////
 
 // MP4ChplAtom is for Nero chapter list atom which is a child of udta
-MP4ChplAtom::MP4ChplAtom ()
-        : MP4Atom("chpl")
+MP4ChplAtom::MP4ChplAtom (MP4File &file)
+        : MP4Atom(file, "chpl")
 {
     // it is not completely clear if version, flags, reserved and chaptercount
     // have the right sizes but

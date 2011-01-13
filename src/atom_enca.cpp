@@ -27,8 +27,8 @@ namespace impl {
 
 ///////////////////////////////////////////////////////////////////////////////
 
-MP4EncaAtom::MP4EncaAtom()
-        : MP4Atom("enca")
+MP4EncaAtom::MP4EncaAtom(MP4File &file)
+        : MP4Atom(file, "enca")
 {
     AddReserved("reserved1", 6); /* 0 */
 

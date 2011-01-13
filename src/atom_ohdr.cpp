@@ -58,7 +58,7 @@ public:
 */
 /*! \brief Constructor.
 */
-MP4OhdrAtom::MP4OhdrAtom(): MP4Atom("ohdr") {
+MP4OhdrAtom::MP4OhdrAtom(MP4File &file): MP4Atom(file, "ohdr") {
     AddVersionAndFlags();
 
     AddProperty(new MP4Integer8Property("EncryptionMethod"));

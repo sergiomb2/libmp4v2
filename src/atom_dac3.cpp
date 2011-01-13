@@ -29,8 +29,8 @@ namespace impl {
 ///////////////////////////////////////////////////////////////////////////////
 
 
-MP4DAc3Atom::MP4DAc3Atom()
-        : MP4Atom("dac3")
+MP4DAc3Atom::MP4DAc3Atom(MP4File &file)
+        : MP4Atom(file, "dac3")
 {
     AddProperty( new MP4BitfieldProperty("fscod", 2)); /* 0 */
     AddProperty( new MP4BitfieldProperty("bsid", 5)); /* 1 */

@@ -26,8 +26,8 @@ namespace impl {
 
 ///////////////////////////////////////////////////////////////////////////////
 
-MP4UrnAtom::MP4UrnAtom()
-        : MP4Atom("urn ")
+MP4UrnAtom::MP4UrnAtom(MP4File &file)
+        : MP4Atom(file, "urn ")
 {
     AddVersionAndFlags();
     AddProperty(new MP4StringProperty("name"));
@@ -40,7 +40,7 @@ void MP4UrnAtom::Read()
     ReadProperties(0, 3);
 
     // check if location is present
-    if (m_pFile->GetPosition() < GetEnd()) {
+    if (m_File.GetPosition() < GetEnd()) {
         // read it
         ReadProperties(3);
     }

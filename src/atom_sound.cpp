@@ -26,8 +26,8 @@ namespace impl {
 
 ///////////////////////////////////////////////////////////////////////////////
 
-MP4SoundAtom::MP4SoundAtom(const char *atomid)
-        : MP4Atom(atomid)
+MP4SoundAtom::MP4SoundAtom(MP4File &file, const char *atomid)
+        : MP4Atom(file, atomid)
 {
     AddReserved("reserved1", 6); /* 0 */
 

@@ -26,8 +26,8 @@ namespace impl {
 
 ///////////////////////////////////////////////////////////////////////////////
 
-MP4HrefAtom::MP4HrefAtom()
-        : MP4Atom("href")
+MP4HrefAtom::MP4HrefAtom(MP4File &file)
+        : MP4Atom(file, "href")
 {
     AddReserved("reserved1", 6); /* 0 */
 

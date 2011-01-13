@@ -50,8 +50,8 @@ protected:
     };
 };
 
-MP4AvcCAtom::MP4AvcCAtom()
-        : MP4Atom("avcC")
+MP4AvcCAtom::MP4AvcCAtom(MP4File &file)
+        : MP4Atom(file, "avcC")
 {
     MP4BitfieldProperty *pCount;
     MP4TableProperty *pTable;

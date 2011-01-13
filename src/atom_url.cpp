@@ -26,8 +26,8 @@ namespace impl {
 
 ///////////////////////////////////////////////////////////////////////////////
 
-MP4UrlAtom::MP4UrlAtom(const char *type)
-        : MP4Atom(type)
+MP4UrlAtom::MP4UrlAtom(MP4File &file, const char *type)
+        : MP4Atom(file, type)
 {
     AddVersionAndFlags();
     AddProperty(new MP4StringProperty("location"));

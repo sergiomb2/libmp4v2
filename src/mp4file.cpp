@@ -110,8 +110,7 @@ void MP4File::Create( const char* fileName,
     Open( fileName, File::MODE_CREATE, NULL );
 
     // generate a skeletal atom tree
-    m_pRootAtom = MP4Atom::CreateAtom(NULL, NULL);
-    m_pRootAtom->SetFile(this);
+    m_pRootAtom = MP4Atom::CreateAtom(*this, NULL, NULL);
     m_pRootAtom->Generate();
 
     if (add_ftyp != 0) {
@@ -216,7 +215,7 @@ bool MP4File::Modify( const char* fileName )
 
             } else { // last atom isn't moov
                 // need to place a free atom
-                MP4Atom* pFreeAtom = MP4Atom::CreateAtom(NULL, "free");
+                MP4Atom* pFreeAtom = MP4Atom::CreateAtom(*this, NULL, "free");
 
                 // in existing position of the moov atom
                 m_pRootAtom->InsertChildAtom(pFreeAtom, i);
@@ -403,11 +402,10 @@ void MP4File::ReadFromFile()
 
     // create a new root atom
     ASSERT(m_pRootAtom == NULL);
-    m_pRootAtom = MP4Atom::CreateAtom(NULL, NULL);
+    m_pRootAtom = MP4Atom::CreateAtom(*this, NULL, NULL);
 
     uint64_t fileSize = GetSize();
 
-    m_pRootAtom->SetFile(this);
     m_pRootAtom->SetStart(0);
     m_pRootAtom->SetSize(fileSize);
     m_pRootAtom->SetEnd(fileSize);
@@ -575,7 +573,7 @@ void MP4File::FinishWrite()
         else
             size -= 8;
 
-        MP4FreeAtom* freeAtom = (MP4FreeAtom*)MP4Atom::CreateAtom( NULL, "free" );
+        MP4FreeAtom* freeAtom = (MP4FreeAtom*)MP4Atom::CreateAtom( *this, NULL, "free" );
         ASSERT( freeAtom );
         freeAtom->SetSize( size );
         root->AddChildAtom( freeAtom );
@@ -666,7 +664,7 @@ MP4Atom* MP4File::InsertChildAtom(
     const char* childName,
     uint32_t index)
 {
-    MP4Atom* pChildAtom = MP4Atom::CreateAtom(pParentAtom, childName);
+    MP4Atom* pChildAtom = MP4Atom::CreateAtom(*this, pParentAtom, childName);
 
     ASSERT(pParentAtom);
     pParentAtom->InsertChildAtom(pChildAtom, index);

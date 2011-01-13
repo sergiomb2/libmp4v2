@@ -48,8 +48,8 @@ public:
 };
 
 
-MP4Stz2Atom::MP4Stz2Atom()
-        : MP4Atom("stz2")
+MP4Stz2Atom::MP4Stz2Atom(MP4File &file)
+        : MP4Atom(file, "stz2")
 {
     AddVersionAndFlags(); /* 0, 1 */
 

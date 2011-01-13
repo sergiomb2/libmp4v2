@@ -26,8 +26,8 @@ namespace impl {
 
 ///////////////////////////////////////////////////////////////////////////////
 
-MP4StscAtom::MP4StscAtom()
-        : MP4Atom("stsc")
+MP4StscAtom::MP4StscAtom(MP4File &file)
+        : MP4Atom(file, "stsc")
 {
     AddVersionAndFlags();
 

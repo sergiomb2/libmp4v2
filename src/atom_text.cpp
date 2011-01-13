@@ -22,8 +22,8 @@ namespace impl {
 
 ///////////////////////////////////////////////////////////////////////////////
 
-MP4TextAtom::MP4TextAtom()
-        : MP4Atom("text")
+MP4TextAtom::MP4TextAtom(MP4File &file)
+        : MP4Atom(file, "text")
 {
     // The atom type "text" is used in two complete unrelated ways
     // i.e. it's real two atoms with the same name

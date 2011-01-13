@@ -26,8 +26,8 @@ namespace impl {
 
 ///////////////////////////////////////////////////////////////////////////////
 
-MP4HdlrAtom::MP4HdlrAtom()
-        : MP4Atom("hdlr")
+MP4HdlrAtom::MP4HdlrAtom(MP4File &file)
+        : MP4Atom(file, "hdlr")
 {
     AddVersionAndFlags(); /* 0, 1 */
     AddReserved("reserved1", 4); /* 2 */
@@ -48,7 +48,7 @@ void MP4HdlrAtom::Read()
     // read all the properties but the "name" field
     ReadProperties(0, 5);
 
-    uint64_t pos = m_pFile->GetPosition();
+    uint64_t pos = m_File.GetPosition();
     uint64_t end = GetEnd();
     if (pos == end) {
         // A hdlr atom with missing "name".     
@@ -58,7 +58,7 @@ void MP4HdlrAtom::Read()
 
     // take a peek at the next byte
     uint8_t strLength;
-    m_pFile->PeekBytes(&strLength, 1);
+    m_File.PeekBytes(&strLength, 1);
     // if the value matches the remaining atom length
     if (pos + strLength + 1 == end) {
         // read a counted string
@@ -79,7 +79,7 @@ void MP4HdlrAtom::Read()
             ReadProperties(5);
         }
         catch(Exception* x) { 
-            if( m_pFile->GetPosition() - GetEnd() == 1 )
+            if( m_File.GetPosition() - GetEnd() == 1 )
                 delete x;
             else
                 throw x;

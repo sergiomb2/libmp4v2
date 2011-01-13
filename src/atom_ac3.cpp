@@ -28,8 +28,8 @@ namespace impl {
 
 ///////////////////////////////////////////////////////////////////////////////
 
-MP4Ac3Atom::MP4Ac3Atom()
-        : MP4Atom("ac-3")
+MP4Ac3Atom::MP4Ac3Atom(MP4File &file)
+        : MP4Atom(file, "ac-3")
 {
     AddReserved("reserved1", 6); /* 0 */
 

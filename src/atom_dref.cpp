@@ -26,8 +26,8 @@ namespace impl {
 
 ///////////////////////////////////////////////////////////////////////////////
 
-MP4DrefAtom::MP4DrefAtom()
-        : MP4Atom("dref")
+MP4DrefAtom::MP4DrefAtom(MP4File &file)
+        : MP4Atom(file, "dref")
 {
     AddVersionAndFlags();
 
@@ -43,8 +43,6 @@ MP4DrefAtom::MP4DrefAtom()
 
 void MP4DrefAtom::Read()
 {
-    ASSERT(m_pFile);
-
     /* do the usual read */
     MP4Atom::Read();
 

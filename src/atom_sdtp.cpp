@@ -27,8 +27,8 @@ namespace mp4v2 { namespace impl {
 
 ///////////////////////////////////////////////////////////////////////////////
 
-MP4SdtpAtom::MP4SdtpAtom()
-    : MP4FullAtom ( "sdtp" )
+MP4SdtpAtom::MP4SdtpAtom(MP4File &file)
+    : MP4FullAtom ( file, "sdtp" )
     , data        ( *new MP4BytesProperty( "data" ))
 {
     AddProperty( &data );

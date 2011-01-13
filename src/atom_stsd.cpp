@@ -34,8 +34,8 @@ namespace impl {
 
 ///////////////////////////////////////////////////////////////////////////////
 
-MP4StsdAtom::MP4StsdAtom()
-        : MP4Atom("stsd")
+MP4StsdAtom::MP4StsdAtom(MP4File &file)
+        : MP4Atom(file, "stsd")
 {
     AddVersionAndFlags();
 
@@ -61,8 +61,6 @@ MP4StsdAtom::MP4StsdAtom()
 
 void MP4StsdAtom::Read()
 {
-    ASSERT(m_pFile);
-
     /* do the usual read */
     MP4Atom::Read();
 
