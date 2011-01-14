@@ -5,6 +5,11 @@ $Date$
 
 -------------------
 
+(14-jan-11, dbyron)
+
+- change MP4Track, MP4RtpHintTrack constructors to take a
+(MP4File &).  Corresponding changes to MP4Track::GetFile.
+
 (13-jan-11, dbyron)
 
 - change MP4Atom constructor to take an (MP4File &), remove

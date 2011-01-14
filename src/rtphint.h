@@ -241,7 +241,7 @@ protected:
 
 class MP4RtpHintTrack : public MP4Track {
 public:
-    MP4RtpHintTrack(MP4File* pFile, MP4Atom* pTrakAtom);
+    MP4RtpHintTrack(MP4File& file, MP4Atom* pTrakAtom);
 
     ~MP4RtpHintTrack();
 

@@ -37,9 +37,9 @@ namespace mp4v2 { namespace impl {
 #define AMR_TRUE 0
 #define AMR_FALSE 1
 
-MP4Track::MP4Track(MP4File* pFile, MP4Atom* pTrakAtom)
+MP4Track::MP4Track(MP4File& file, MP4Atom* pTrakAtom)
+    : m_File(file)
 {
-    m_pFile = pFile;
     m_pTrakAtom = pTrakAtom;
 
     m_lastStsdIndex = 0;
@@ -318,10 +318,10 @@ void MP4Track::ReadSample(
         bufferMalloc = true;
     }
 
-    uint64_t oldPos = m_pFile->GetPosition( fin ); // only used in mode == 'w'
+    uint64_t oldPos = m_File.GetPosition( fin ); // only used in mode == 'w'
     try {
-        m_pFile->SetPosition( fileOffset, fin );
-        m_pFile->ReadBytes( *ppBytes, *pNumBytes, fin );
+        m_File.SetPosition( fileOffset, fin );
+        m_File.ReadBytes( *ppBytes, *pNumBytes, fin );
 
         if (pStartTime || pDuration) {
             GetSampleTimes(sampleId, pStartTime, pDuration);
@@ -349,14 +349,14 @@ void MP4Track::ReadSample(
             *ppBytes = NULL;
         }
 
-        if( m_pFile->IsWriteMode() )
-            m_pFile->SetPosition( oldPos, fin );
+        if( m_File.IsWriteMode() )
+            m_File.SetPosition( oldPos, fin );
 
         throw x;
     }
 
-    if( m_pFile->IsWriteMode() )
-        m_pFile->SetPosition( oldPos, fin );
+    if( m_File.IsWriteMode() )
+        m_File.SetPosition( oldPos, fin );
 }
 
 void MP4Track::ReadSampleFragment(
@@ -482,12 +482,10 @@ void MP4Track::WriteChunkBuffer()
         return;
     }
 
-    ASSERT(m_pFile);
-
-    uint64_t chunkOffset = m_pFile->GetPosition();
+    uint64_t chunkOffset = m_File.GetPosition();
 
     // write chunk buffer
-    m_pFile->WriteBytes(m_pChunkBuffer, m_chunkBufferSize);
+    m_File.WriteBytes(m_pChunkBuffer, m_chunkBufferSize);
 
     log.verbose3f("WriteChunk: track %u offset 0x%" PRIx64 " size %u (0x%x) numSamples %u",
                   m_trackId, chunkOffset, m_chunkBufferSize,
@@ -583,7 +581,7 @@ void MP4Track::FinishSdtp()
     sdtp->data.SetValue( (const uint8_t*)m_sdtpLog.data(), (uint32_t)m_sdtpLog.size() );
 
     // add avc1 compatibility indicator if not present
-    MP4FtypAtom* ftyp = (MP4FtypAtom*)m_pFile->FindAtom( "ftyp" );
+    MP4FtypAtom* ftyp = (MP4FtypAtom*)m_File.FindAtom( "ftyp" );
     if( ftyp ) {
         bool found = false;
         const uint32_t max = ftyp->compatibleBrands.GetCount();
@@ -1436,8 +1434,7 @@ MP4Atom* MP4Track::AddAtom(const char* parentName, const char* childName)
     MP4Atom* pParentAtom = m_pTrakAtom->FindAtom(parentName);
     ASSERT(pParentAtom);
 
-    ASSERT(GetFile());
-    MP4Atom* pChildAtom = MP4Atom::CreateAtom(*GetFile(), pParentAtom, childName);
+    MP4Atom* pChildAtom = MP4Atom::CreateAtom(m_File, pParentAtom, childName);
 
     pParentAtom->AddChildAtom(pChildAtom);
 
@@ -1466,12 +1463,12 @@ void MP4Track::UpdateDurations(MP4Duration duration)
         m_pMediaDurationProperty->GetValue());
     m_pTrackDurationProperty->SetValue(movieDuration);
 
-    m_pFile->UpdateDuration(m_pTrackDurationProperty->GetValue());
+    m_File.UpdateDuration(m_pTrackDurationProperty->GetValue());
 }
 
 MP4Duration MP4Track::ToMovieDuration(MP4Duration trackDuration)
 {
-    return (trackDuration * m_pFile->GetTimeScale())
+    return (trackDuration * m_File.GetTimeScale())
            / m_pTimeScaleProperty->GetValue();
 }
 
@@ -1566,37 +1563,34 @@ void MP4Track::ReadChunk(MP4ChunkId chunkId,
     *pChunkSize = GetChunkSize(chunkId);
     *ppChunk = (uint8_t*)MP4Malloc(*pChunkSize);
 
-    ASSERT(m_pFile);
     log.verbose3f("ReadChunk: track %u id %u offset 0x%" PRIx64 " size %u (0x%x)",
                   m_trackId, chunkId, chunkOffset, *pChunkSize, *pChunkSize);
 
-    uint64_t oldPos = m_pFile->GetPosition(); // only used in mode == 'w'
+    uint64_t oldPos = m_File.GetPosition(); // only used in mode == 'w'
     try {
-        m_pFile->SetPosition( chunkOffset );
-        m_pFile->ReadBytes( *ppChunk, *pChunkSize );
+        m_File.SetPosition( chunkOffset );
+        m_File.ReadBytes( *ppChunk, *pChunkSize );
     }
     catch( Exception* x ) {
         MP4Free( *ppChunk );
         *ppChunk = NULL;
 
-        if( m_pFile->IsWriteMode() )
-            m_pFile->SetPosition( oldPos );
+        if( m_File.IsWriteMode() )
+            m_File.SetPosition( oldPos );
 
         throw x;
     }
 
-    if( m_pFile->IsWriteMode() )
-        m_pFile->SetPosition( oldPos );
+    if( m_File.IsWriteMode() )
+        m_File.SetPosition( oldPos );
 }
 
 void MP4Track::RewriteChunk(MP4ChunkId chunkId,
                             uint8_t* pChunk, uint32_t chunkSize)
 {
-    ASSERT(m_pFile);
+    uint64_t chunkOffset = m_File.GetPosition();
 
-    uint64_t chunkOffset = m_pFile->GetPosition();
-
-    m_pFile->WriteBytes(pChunk, chunkSize);
+    m_File.WriteBytes(pChunk, chunkSize);
 
     m_pChunkOffsetProperty->SetValue(chunkOffset, chunkId - 1);
 
@@ -1649,7 +1643,7 @@ bool MP4Track::InitEditListProperties()
 MP4EditId MP4Track::AddEdit(MP4EditId editId)
 {
     if (!m_pElstCountProperty) {
-        (void)m_pFile->AddDescendantAtoms(m_pTrakAtom, "edts.elst");
+        (void)m_File.AddDescendantAtoms(m_pTrakAtom, "edts.elst");
         if (InitEditListProperties() == false) return MP4_INVALID_EDIT_ID;
     }
 

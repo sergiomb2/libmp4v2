@@ -49,7 +49,7 @@ class MP4StringProperty;
 class MP4Track
 {
 public:
-    MP4Track(MP4File* pFile, MP4Atom* pTrakAtom);
+    MP4Track(MP4File& file, MP4Atom* pTrakAtom);
 
     virtual ~MP4Track();
 
@@ -61,8 +61,8 @@ public:
 
     void SetType(const char* type);
 
-    MP4File* GetFile() {
-        return m_pFile;
+    MP4File& GetFile() {
+        return m_File;
     }
 
     MP4Atom* GetTrakAtom() {
@@ -201,7 +201,7 @@ protected:
     void FinishSdtp();
 
 protected:
-    MP4File*    m_pFile;
+    MP4File&    m_File;
     MP4Atom*    m_pTrakAtom;        // moov.trak[]
     MP4TrackId  m_trackId;          // moov.trak[].tkhd.trackId
     MP4StringProperty* m_pTypeProperty; // moov.trak[].mdia.hdlr.handlerType

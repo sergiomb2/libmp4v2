@@ -28,8 +28,8 @@ namespace impl {
 
 /* rtp hint track operations */
 
-MP4RtpHintTrack::MP4RtpHintTrack(MP4File* pFile, MP4Atom* pTrakAtom)
-        : MP4Track(pFile, pTrakAtom)
+MP4RtpHintTrack::MP4RtpHintTrack(MP4File& file, MP4Atom* pTrakAtom)
+        : MP4Track(file, pTrakAtom)
 {
     m_pRefTrack = NULL;
 
@@ -83,7 +83,7 @@ void MP4RtpHintTrack::InitRefTrack()
             (MP4Property**)&pRefTrackIdProperty);
         ASSERT(pRefTrackIdProperty);
 
-        m_pRefTrack = m_pFile->GetTrack(pRefTrackIdProperty->GetValue());
+        m_pRefTrack = m_File.GetTrack(pRefTrackIdProperty->GetValue());
     }
 }
 
@@ -137,12 +137,12 @@ void MP4RtpHintTrack::ReadHint(
         &m_readHintSampleSize,
         &m_readHintTimestamp);
 
-    m_pFile->EnableMemoryBuffer(m_pReadHintSample, m_readHintSampleSize);
+    m_File.EnableMemoryBuffer(m_pReadHintSample, m_readHintSampleSize);
 
     m_pReadHint = new MP4RtpHint(this);
-    m_pReadHint->Read(m_pFile);
+    m_pReadHint->Read(&m_File);
 
-    m_pFile->DisableMemoryBuffer();
+    m_File.DisableMemoryBuffer();
 
     if (pNumPackets) {
         *pNumPackets = GetHintNumberOfPackets();
@@ -272,7 +272,7 @@ void MP4RtpHintTrack::SetRtpTimestampStart(MP4Timestamp start)
 {
     if (!m_pTsroProperty) {
         MP4Atom* pTsroAtom =
-            m_pFile->AddDescendantAtoms(m_pTrakAtom, "udta.hnti.rtp .tsro");
+            m_File.AddDescendantAtoms(m_pTrakAtom, "udta.hnti.rtp .tsro");
 
         ASSERT(pTsroAtom);
 
@@ -569,8 +569,8 @@ void MP4RtpHintTrack::AddESConfigurationPacket()
     uint8_t* pConfig = NULL;
     uint32_t configSize = 0;
 
-    m_pFile->GetTrackESConfiguration(m_pRefTrack->GetId(),
-                                     &pConfig, &configSize);
+    m_File.GetTrackESConfiguration(m_pRefTrack->GetId(),
+                                   &pConfig, &configSize);
 
     if (pConfig == NULL) {
         return;
@@ -614,11 +614,11 @@ void MP4RtpHintTrack::WriteHint(MP4Duration duration, bool isSyncSample)
     uint8_t* pBytes;
     uint64_t numBytes;
 
-    m_pFile->EnableMemoryBuffer();
+    m_File.EnableMemoryBuffer();
 
-    m_pWriteHint->Write(m_pFile);
+    m_pWriteHint->Write(&m_File);
 
-    m_pFile->DisableMemoryBuffer(&pBytes, &numBytes);
+    m_File.DisableMemoryBuffer(&pBytes, &numBytes);
 
     WriteSample(pBytes, numBytes, duration, 0, isSyncSample);
 
@@ -1101,7 +1101,7 @@ MP4Track* MP4RtpData::FindTrackFromRefIndex(uint8_t refIndex)
         uint32_t refTrackId =
             pTrackIdProperty->GetValue(refIndex - 1);
 
-        pTrack = pHintTrack->GetFile()->GetTrack(refTrackId);
+        pTrack = pHintTrack->GetFile().GetTrack(refTrackId);
     }
 
     return pTrack;
@@ -1340,9 +1340,9 @@ void MP4RtpSampleDescriptionData::GetData(uint8_t* pDest)
 
     // now we use the raw file to get the desired bytes
 
-    MP4File* pFile = GetPacket()->GetHint()->GetTrack()->GetFile();
+    MP4File& file = GetPacket()->GetHint()->GetTrack()->GetFile();
 
-    uint64_t orgPos = pFile->GetPosition();
+    uint64_t orgPos = file.GetPosition();
 
     // It's not entirely clear from the spec whether the offset is from
     // the start of the sample descirption atom, or the start of the atom's
@@ -1351,11 +1351,11 @@ void MP4RtpSampleDescriptionData::GetData(uint8_t* pDest)
     uint64_t dataPos = pSdAtom->GetStart();
     //uint64_t dataPos = pSdAtom->GetEnd() - pSdAtom->GetSize();
 
-    pFile->SetPosition(dataPos + offset);
+    file.SetPosition(dataPos + offset);
 
-    pFile->ReadBytes(pDest, length);
+    file.ReadBytes(pDest, length);
 
-    pFile->SetPosition(orgPos);
+    file.SetPosition(orgPos);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
