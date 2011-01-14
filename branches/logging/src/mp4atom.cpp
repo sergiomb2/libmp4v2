@@ -372,7 +372,7 @@ void MP4Atom::ReadProperties(uint32_t startIndex, uint32_t count)
     // read any properties of the atom
     for (uint32_t i = startIndex; i < startIndex + numProperties; i++) {
 
-        m_pProperties[i]->Read(&m_File);
+        m_pProperties[i]->Read(m_File);
 
         if (m_File.GetPosition() > m_end) {
             log.verbose1f("ReadProperties: insufficient data for property: %s pos 0x%" PRIx64 " atom end 0x%" PRIx64,
@@ -549,7 +549,7 @@ void MP4Atom::WriteProperties(uint32_t startIndex, uint32_t count)
     log.verbose1f("Write: \"%s\": type %s", m_File.GetFilename().c_str(), m_type);
 
     for (uint32_t i = startIndex; i < startIndex + numProperties; i++) {
-        m_pProperties[i]->Write(&m_File);
+        m_pProperties[i]->Write(m_File);
 
         MP4LogLevel thisVerbosity =
             (m_pProperties[i]->GetType() == TableProperty) ?

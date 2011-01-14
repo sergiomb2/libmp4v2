@@ -36,9 +36,9 @@ public:
 
     void AddProperty(MP4Property* pProperty);
 
-    virtual void Read(MP4File* pFile);
+    virtual void Read(MP4File& file);
 
-    virtual void Write(MP4File* pFile);
+    virtual void Write(MP4File& file);
 
     virtual void Dump(uint8_t indent, bool dumpImplicits);
 

@@ -44,7 +44,7 @@ const uint8_t MP4OCIDescrTagsEnd            = 0x5F;
 class MP4ContentClassDescriptor : public MP4Descriptor {
 public:
     MP4ContentClassDescriptor();
-    void Read(MP4File* pFile);
+    void Read(MP4File& file);
 };
 
 class MP4KeywordDescriptor : public MP4Descriptor {
@@ -57,7 +57,7 @@ protected:
 class MP4RatingDescriptor : public MP4Descriptor {
 public:
     MP4RatingDescriptor();
-    void Read(MP4File* pFile);
+    void Read(MP4File& file);
 };
 
 class MP4LanguageDescriptor : public MP4Descriptor {
@@ -97,7 +97,7 @@ public:
 class MP4UnknownOCIDescriptor : public MP4Descriptor {
 public:
     MP4UnknownOCIDescriptor();
-    void Read(MP4File* pFile);
+    void Read(MP4File& file);
 };
 
 

@@ -69,40 +69,39 @@ void MP4Descriptor::Generate()
     }
 }
 
-void MP4Descriptor::Read(MP4File* pFile)
+void MP4Descriptor::Read(MP4File& file)
 {
-    ReadHeader(pFile);
+    ReadHeader(file);
 
-    ReadProperties(pFile, 0, m_readMutatePoint);
+    ReadProperties(file, 0, m_readMutatePoint);
 
     Mutate();
 
-    ReadProperties(pFile, m_readMutatePoint);
+    ReadProperties(file, m_readMutatePoint);
 
     // flush any leftover read bits
-    pFile->FlushReadBits();
+    file.FlushReadBits();
 }
 
-void MP4Descriptor::ReadHeader(MP4File* pFile)
+void MP4Descriptor::ReadHeader(MP4File& file)
 {
-    ASSERT(pFile);
-    log.verbose1f("ReadDescriptor: pos = 0x%" PRIx64, pFile->GetPosition());
+    log.verbose1f("ReadDescriptor: pos = 0x%" PRIx64, file.GetPosition());
 
     // read tag and length
-    uint8_t tag = pFile->ReadUInt8();
+    uint8_t tag = file.ReadUInt8();
     if (m_tag) {
         ASSERT(tag == m_tag);
     } else {
         m_tag = tag;
     }
-    m_size = pFile->ReadMpegLength();
-    m_start = pFile->GetPosition();
+    m_size = file.ReadMpegLength();
+    m_start = file.GetPosition();
 
     log.verbose1f("ReadDescriptor: tag 0x%02x data size %u (0x%x)",
                   m_tag, m_size, m_size);
 }
 
-void MP4Descriptor::ReadProperties(MP4File* pFile,
+void MP4Descriptor::ReadProperties(MP4File& file,
                                    uint32_t propStartIndex, uint32_t propCount)
 {
     uint32_t numProperties = min(propCount,
@@ -113,18 +112,18 @@ void MP4Descriptor::ReadProperties(MP4File* pFile,
 
         MP4Property* pProperty = m_pProperties[i];
 
-        int32_t remaining = m_size - (pFile->GetPosition() - m_start);
+        int32_t remaining = m_size - (file.GetPosition() - m_start);
 
         if (pProperty->GetType() == DescriptorProperty) {
             if (remaining > 0) {
                 // place a limit on how far this sub-descriptor looks
                 ((MP4DescriptorProperty*)pProperty)->SetSizeLimit(remaining);
-                pProperty->Read(pFile);
+                pProperty->Read(file);
             } // else do nothing, empty descriptor
         } else {
             // non-descriptor property
             if (remaining >= 0) {
-                pProperty->Read(pFile);
+                pProperty->Read(file);
 
                 MP4LogLevel thisVerbosity =
                     (pProperty->GetType() == TableProperty) ?
@@ -143,7 +142,7 @@ void MP4Descriptor::ReadProperties(MP4File* pFile,
     }
 }
 
-void MP4Descriptor::Write(MP4File* pFile)
+void MP4Descriptor::Write(MP4File& file)
 {
     // call virtual function to adapt properties before writing
     Mutate();
@@ -156,36 +155,36 @@ void MP4Descriptor::Write(MP4File* pFile)
     }
 
     // write tag and length placeholder
-    pFile->WriteUInt8(m_tag);
-    uint64_t lengthPos = pFile->GetPosition();
-    pFile->WriteMpegLength(0);
-    uint64_t startPos = pFile->GetPosition();
+    file.WriteUInt8(m_tag);
+    uint64_t lengthPos = file.GetPosition();
+    file.WriteMpegLength(0);
+    uint64_t startPos = file.GetPosition();
 
     for (uint32_t i = 0; i < numProperties; i++) {
-        m_pProperties[i]->Write(pFile);
+        m_pProperties[i]->Write(file);
     }
 
     // align with byte boundary (rarely necessary)
-    pFile->PadWriteBits();
+    file.PadWriteBits();
 
     // go back and write correct length
-    uint64_t endPos = pFile->GetPosition();
-    pFile->SetPosition(lengthPos);
-    pFile->WriteMpegLength(endPos - startPos);
-    pFile->SetPosition(endPos);
+    uint64_t endPos = file.GetPosition();
+    file.SetPosition(lengthPos);
+    file.WriteMpegLength(endPos - startPos);
+    file.SetPosition(endPos);
 }
 
-void MP4Descriptor::WriteToMemory(MP4File* pFile,
+void MP4Descriptor::WriteToMemory(MP4File& file,
                                   uint8_t** ppBytes, uint64_t* pNumBytes)
 {
     // use memory buffer to save descriptor in memory
     // instead of going directly to disk
 
-    pFile->EnableMemoryBuffer();
+    file.EnableMemoryBuffer();
 
-    Write(pFile);
+    Write(file);
 
-    pFile->DisableMemoryBuffer(ppBytes, pNumBytes);
+    file.DisableMemoryBuffer(ppBytes, pNumBytes);
 }
 
 void MP4Descriptor::Dump(uint8_t indent, bool dumpImplicits)

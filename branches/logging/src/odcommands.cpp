@@ -51,14 +51,14 @@ MP4ODRemoveDescriptor::MP4ODRemoveDescriptor()
         new MP4BitfieldProperty("objectDescriptorId", 10));
 }
 
-void MP4ODRemoveDescriptor::Read(MP4File* pFile)
+void MP4ODRemoveDescriptor::Read(MP4File& file)
 {
     // table entry count computed from descriptor size
     ((MP4Integer32Property*)m_pProperties[0])->SetReadOnly(false);
     ((MP4Integer32Property*)m_pProperties[0])->SetValue((m_size * 8) / 10);
     ((MP4Integer32Property*)m_pProperties[0])->SetReadOnly(true);
 
-    MP4Descriptor::Read(pFile);
+    MP4Descriptor::Read(file);
 }
 
 MP4ESUpdateDescriptor::MP4ESUpdateDescriptor()
