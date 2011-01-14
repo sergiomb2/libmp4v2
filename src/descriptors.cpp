@@ -116,14 +116,14 @@ MP4BytesDescriptor::MP4BytesDescriptor (uint8_t tag) : MP4Descriptor(tag)
     }
 }
 
-void MP4BytesDescriptor::Read(MP4File *pFile)
+void MP4BytesDescriptor::Read(MP4File& file)
 {
-    ReadHeader(pFile);
+    ReadHeader(file);
 
     /* byte properties need to know how long they are before reading */
     ((MP4BytesProperty*)m_pProperties[m_bytes_index])->SetValueSize(m_size - m_size_offset);
 
-    ReadProperties(pFile);
+    ReadProperties(file);
 }
 MP4IODescriptor::MP4IODescriptor()
         : MP4Descriptor(MP4FileIODescrTag)
@@ -393,25 +393,25 @@ void MP4SLConfigDescriptor::Generate()
     ((MP4BitfieldProperty*)m_pProperties[18])->SetValue(3);
 }
 
-void MP4SLConfigDescriptor::Read(MP4File* pFile)
+void MP4SLConfigDescriptor::Read(MP4File& file)
 {
-    ReadHeader(pFile);
+    ReadHeader(file);
 
     // read the first property, 'predefined'
-    ReadProperties(pFile, 0, 1);
+    ReadProperties(file, 0, 1);
 
     // if predefined == 0
     if (((MP4Integer8Property*)m_pProperties[0])->GetValue() == 0) {
 
         /* read the next 18 properties */
-        ReadProperties(pFile, 1, 18);
+        ReadProperties(file, 1, 18);
     }
 
     // now mutate
     Mutate();
 
     // and read the remaining properties
-    ReadProperties(pFile, 19);
+    ReadProperties(file, 19);
 }
 
 void MP4SLConfigDescriptor::Mutate()
@@ -495,13 +495,12 @@ MP4ContentIdDescriptor::MP4ContentIdDescriptor()
         new MP4BytesProperty("contentId"));
 }
 
-void MP4ContentIdDescriptor::Read(MP4File* pFile)
+void MP4ContentIdDescriptor::Read(MP4File& file)
 {
-    ASSERT(pFile);
-    ReadHeader(pFile);
+    ReadHeader(file);
 
     /* read the first property, 'compatiblity' */
-    ReadProperties(pFile, 0, 1);
+    ReadProperties(file, 0, 1);
 
     /* if compatiblity != 0 */
     if (((MP4Integer8Property*)m_pProperties[0])->GetValue() != 0) {
@@ -511,7 +510,7 @@ void MP4ContentIdDescriptor::Read(MP4File* pFile)
     }
 
     /* read the next four properties */
-    ReadProperties(pFile, 1, 4);
+    ReadProperties(file, 1, 4);
 
     /* which allows us to reconfigure ourselves */
     Mutate();
@@ -537,7 +536,7 @@ void MP4ContentIdDescriptor::Read(MP4File* pFile)
 
 
     /* read the remaining properties */
-    ReadProperties(pFile, 5);
+    ReadProperties(file, 5);
 }
 
 void MP4ContentIdDescriptor::Mutate()

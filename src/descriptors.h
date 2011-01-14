@@ -55,7 +55,7 @@ public:
 class MP4BytesDescriptor : public MP4Descriptor {
 public:
     MP4BytesDescriptor(uint8_t tag);
-    void Read(MP4File* pFile);
+    void Read(MP4File& file);
 protected:
     uint32_t m_size_offset; // size to adjust the size for the bytes property
     uint32_t m_bytes_index; // index into properties for bytes property
@@ -96,7 +96,7 @@ class MP4SLConfigDescriptor : public MP4Descriptor {
 public:
     MP4SLConfigDescriptor();
     void Generate();
-    void Read(MP4File* pFile);
+    void Read(MP4File& file);
 protected:
     void Mutate();
 };
@@ -109,7 +109,7 @@ public:
 class MP4ContentIdDescriptor : public MP4Descriptor {
 public:
     MP4ContentIdDescriptor();
-    void Read(MP4File* pFile);
+    void Read(MP4File& file);
 protected:
     void Mutate();
 };

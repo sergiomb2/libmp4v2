@@ -37,16 +37,16 @@ public:
     SizeTableProperty(const char *name, MP4IntegerProperty *pCountProperty) :
             MP4TableProperty(name, pCountProperty) {};
 protected:
-    void ReadEntry(MP4File *pFile, uint32_t index) {
+    void ReadEntry(MP4File& file, uint32_t index) {
         // Each table has a size, followed by the length field
         // first, read the length
-        m_pProperties[0]->Read(pFile, index);
+        m_pProperties[0]->Read(file, index);
         MP4IntegerProperty *pIntProp = (MP4IntegerProperty *)m_pProperties[0];
         // set the size in the bytes property
         MP4BytesProperty *pBytesProp = (MP4BytesProperty *)m_pProperties[1];
         pBytesProp->SetValueSize(pIntProp->GetValue(index), index);
         // And read the bytes
-        m_pProperties[1]->Read(pFile, index);
+        m_pProperties[1]->Read(file, index);
     };
 };
 

@@ -395,7 +395,7 @@ void MP4File::CreateIsmaIodFromFile(
 
 
     // finally get the whole thing written to a memory
-    pIod->WriteToMemory(this, ppBytes, pNumBytes);
+    pIod->WriteToMemory(*this, ppBytes, pNumBytes);
 
 
     // now carefully replace esd properties before destroying
@@ -563,7 +563,7 @@ void MP4File::CreateIsmaIodFromParams(
     pBytes = NULL;
 
     // finally get the whole thing written to a memory
-    pIod->WriteToMemory(this, ppIodBytes, pIodNumBytes);
+    pIod->WriteToMemory(*this, ppIodBytes, pIodNumBytes);
 
     delete pIod;
 
@@ -713,7 +713,7 @@ void MP4File::CreateIsmaODUpdateCommandFromFileForFile(
         pRefIndexProperty->SetValue(mpodIndex);
     }
 
-    pCommand->WriteToMemory(this, ppBytes, pNumBytes);
+    pCommand->WriteToMemory(*this, ppBytes, pNumBytes);
 
     delete pCommand;
 }
@@ -875,7 +875,7 @@ void MP4File::CreateIsmaODUpdateCommandForStream(
     }
 
     // serialize OD command
-    pCommand->WriteToMemory(this, ppBytes, pNumBytes);
+    pCommand->WriteToMemory(*this, ppBytes, pNumBytes);
 
     // detach from esd descriptor params
     if (pAudioOd) {

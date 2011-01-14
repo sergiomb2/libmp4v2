@@ -190,16 +190,16 @@ void MP4Container::SetBytesProperty(const char* name,
     ((MP4BytesProperty*)pProperty)->SetValue(pValue, valueSize, index);
 }
 
-void MP4Container::Read(MP4File* pFile)
+void MP4Container::Read(MP4File& file)
 {
     uint32_t numProperties = m_pProperties.Size();
 
     for (uint32_t i = 0; i < numProperties; i++) {
-        m_pProperties[i]->Read(pFile);
+        m_pProperties[i]->Read(file);
     }
 }
 
-void MP4Container::Write(MP4File* pFile)
+void MP4Container::Write(MP4File& file)
 {
     uint32_t numProperties = m_pProperties.Size();
 
@@ -209,7 +209,7 @@ void MP4Container::Write(MP4File* pFile)
     }
 
     for (uint32_t i = 0; i < numProperties; i++) {
-        m_pProperties[i]->Write(pFile);
+        m_pProperties[i]->Write(file);
     }
 }
 

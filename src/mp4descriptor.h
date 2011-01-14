@@ -50,8 +50,8 @@ public:
     void AddProperty(MP4Property* pProperty);
 
     virtual void Generate();
-    virtual void Read(MP4File* pFile);
-    virtual void Write(MP4File* pFile);
+    virtual void Read(MP4File& file);
+    virtual void Write(MP4File& file);
     virtual void Dump(uint8_t indent, bool dumpImplicits);
 
     MP4Property* GetProperty(uint32_t index) {
@@ -69,7 +69,7 @@ public:
         return FindContainedProperty(name, ppProperty, pIndex);
     }
 
-    void WriteToMemory(MP4File* pFile,
+    void WriteToMemory(MP4File& file,
                        uint8_t** ppBytes, uint64_t* pNumBytes);
 
 protected:
@@ -77,8 +77,8 @@ protected:
         m_readMutatePoint = propIndex;
     }
 
-    void ReadHeader(MP4File* pFile);
-    void ReadProperties(MP4File* pFile,
+    void ReadHeader(MP4File& file);
+    void ReadProperties(MP4File& file,
                         uint32_t startIndex = 0, uint32_t count = 0xFFFFFFFF);
 
     virtual void Mutate() {

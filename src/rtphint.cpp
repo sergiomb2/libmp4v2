@@ -140,7 +140,7 @@ void MP4RtpHintTrack::ReadHint(
     m_File.EnableMemoryBuffer(m_pReadHintSample, m_readHintSampleSize);
 
     m_pReadHint = new MP4RtpHint(this);
-    m_pReadHint->Read(&m_File);
+    m_pReadHint->Read(m_File);
 
     m_File.DisableMemoryBuffer();
 
@@ -616,7 +616,7 @@ void MP4RtpHintTrack::WriteHint(MP4Duration duration, bool isSyncSample)
 
     m_File.EnableMemoryBuffer();
 
-    m_pWriteHint->Write(&m_File);
+    m_pWriteHint->Write(m_File);
 
     m_File.DisableMemoryBuffer(&pBytes, &numBytes);
 
@@ -734,10 +734,10 @@ MP4RtpPacket* MP4RtpHint::AddPacket()
     return pPacket;
 }
 
-void MP4RtpHint::Read(MP4File* pFile)
+void MP4RtpHint::Read(MP4File& file)
 {
     // call base class Read for required properties
-    MP4Container::Read(pFile);
+    MP4Container::Read(file);
 
     uint16_t numPackets =
         ((MP4Integer16Property*)m_pProperties[0])->GetValue();
@@ -747,48 +747,46 @@ void MP4RtpHint::Read(MP4File* pFile)
 
         m_rtpPackets.Add(pPacket);
 
-        pPacket->Read(pFile);
+        pPacket->Read(file);
     }
 
-    ASSERT(pFile);
     if (log.verbosity >= MP4_LOG_VERBOSE1) {
         log.verbose1f("ReadHint:");
         Dump(10, false);
     }
 }
 
-void MP4RtpHint::Write(MP4File* pFile)
+void MP4RtpHint::Write(MP4File& file)
 {
-    ASSERT(pFile);
-    uint64_t hintStartPos = pFile->GetPosition();
+    uint64_t hintStartPos = file.GetPosition();
 
-    MP4Container::Write(pFile);
+    MP4Container::Write(file);
 
-    uint64_t packetStartPos = pFile->GetPosition();
+    uint64_t packetStartPos = file.GetPosition();
 
     uint32_t i;
 
     // first write out packet (and data) entries
     for (i = 0; i < m_rtpPackets.Size(); i++) {
-        m_rtpPackets[i]->Write(pFile);
+        m_rtpPackets[i]->Write(file);
     }
 
     // now let packets write their extra data into the hint sample
     for (i = 0; i < m_rtpPackets.Size(); i++) {
-        m_rtpPackets[i]->WriteEmbeddedData(pFile, hintStartPos);
+        m_rtpPackets[i]->WriteEmbeddedData(file, hintStartPos);
     }
 
-    uint64_t endPos = pFile->GetPosition();
+    uint64_t endPos = file.GetPosition();
 
-    pFile->SetPosition(packetStartPos);
+    file.SetPosition(packetStartPos);
 
     // finally rewrite the packet and data entries
     // which now contain the correct offsets for the embedded data
     for (i = 0; i < m_rtpPackets.Size(); i++) {
-        m_rtpPackets[i]->Write(pFile);
+        m_rtpPackets[i]->Write(file);
     }
 
-    pFile->SetPosition(endPos);
+    file.SetPosition(endPos);
 
     log.verbose1f("WriteRtpHint:"); Dump(14, false);
 }
@@ -864,15 +862,15 @@ void MP4RtpPacket::AddExtraProperties()
     ((MP4StringProperty*)m_pProperties[15])->SetValue("rtpo");
 }
 
-void MP4RtpPacket::Read(MP4File* pFile)
+void MP4RtpPacket::Read(MP4File& file)
 {
     // call base class Read for required properties
-    MP4Container::Read(pFile);
+    MP4Container::Read(file);
 
     // read extra info if present
     // we only support the rtpo field!
     if (((MP4BitfieldProperty*)m_pProperties[9])->GetValue() == 1) {
-        ReadExtra(pFile);
+        ReadExtra(file);
     }
 
     uint16_t numDataEntries =
@@ -881,7 +879,7 @@ void MP4RtpPacket::Read(MP4File* pFile)
     // read data entries
     for (uint16_t i = 0; i < numDataEntries; i++) {
         uint8_t dataType;
-        pFile->PeekBytes(&dataType, 1);
+        file.PeekBytes(&dataType, 1);
 
         MP4RtpData* pData;
 
@@ -905,15 +903,15 @@ void MP4RtpPacket::Read(MP4File* pFile)
         m_rtpData.Add(pData);
 
         // read data entry's properties
-        pData->Read(pFile);
+        pData->Read(file);
     }
 }
 
-void MP4RtpPacket::ReadExtra(MP4File* pFile)
+void MP4RtpPacket::ReadExtra(MP4File& file)
 {
     AddExtraProperties();
 
-    int32_t extraLength = (int32_t)pFile->ReadUInt32();
+    int32_t extraLength = (int32_t)file.ReadUInt32();
 
     if (extraLength < 4) {
         throw new Exception("bad packet extra info length", __FILE__, __LINE__, __FUNCTION__ );
@@ -921,8 +919,8 @@ void MP4RtpPacket::ReadExtra(MP4File* pFile)
     extraLength -= 4;
 
     while (extraLength > 0) {
-        uint32_t entryLength = pFile->ReadUInt32();
-        uint32_t entryTag = pFile->ReadUInt32();
+        uint32_t entryLength = file.ReadUInt32();
+        uint32_t entryTag = file.ReadUInt32();
 
         if (entryLength < 8) {
             throw new Exception("bad packet extra info entry length", __FILE__, __LINE__, __FUNCTION__ );
@@ -930,10 +928,10 @@ void MP4RtpPacket::ReadExtra(MP4File* pFile)
 
         if (entryTag == STRTOINT32("rtpo") && entryLength == 12) {
             // read the rtp timestamp offset
-            m_pProperties[16]->Read(pFile);
+            m_pProperties[16]->Read(file);
         } else {
             // ignore it, LATER carry it along
-            pFile->SetPosition(pFile->GetPosition() + entryLength - 8);
+            file.SetPosition(file.GetPosition() + entryLength - 8);
         }
 
         extraLength -= entryLength;
@@ -1040,19 +1038,19 @@ void MP4RtpPacket::GetData(uint8_t* pDest)
     }
 }
 
-void MP4RtpPacket::Write(MP4File* pFile)
+void MP4RtpPacket::Write(MP4File& file)
 {
-    MP4Container::Write(pFile);
+    MP4Container::Write(file);
 
     for (uint32_t i = 0; i < m_rtpData.Size(); i++) {
-        m_rtpData[i]->Write(pFile);
+        m_rtpData[i]->Write(file);
     }
 }
 
-void MP4RtpPacket::WriteEmbeddedData(MP4File* pFile, uint64_t startPos)
+void MP4RtpPacket::WriteEmbeddedData(MP4File& file, uint64_t startPos)
 {
     for (uint32_t i = 0; i < m_rtpData.Size(); i++) {
-        m_rtpData[i]->WriteEmbeddedData(pFile, startPos);
+        m_rtpData[i]->WriteEmbeddedData(file, startPos);
     }
 }
 
@@ -1234,7 +1232,7 @@ void MP4RtpSampleData::GetData(uint8_t* pDest)
         pDest);
 }
 
-void MP4RtpSampleData::WriteEmbeddedData(MP4File* pFile, uint64_t startPos)
+void MP4RtpSampleData::WriteEmbeddedData(MP4File& file, uint64_t startPos)
 {
     // if not using embedded data, nothing to do
     if (((MP4Integer8Property*)m_pProperties[1])->GetValue() != (uint8_t)-1) {
@@ -1242,14 +1240,14 @@ void MP4RtpSampleData::WriteEmbeddedData(MP4File* pFile, uint64_t startPos)
     }
 
     // figure out the offset within this hint sample for this embedded data
-    uint64_t offset = pFile->GetPosition() - startPos;
+    uint64_t offset = file.GetPosition() - startPos;
     ASSERT(offset <= 0xFFFFFFFF);
     ((MP4Integer32Property*)m_pProperties[4])->SetValue((uint32_t)offset);
 
     uint16_t length = ((MP4Integer16Property*)m_pProperties[2])->GetValue();
 
     if (m_pRefData) {
-        pFile->WriteBytes(m_pRefData, length);
+        file.WriteBytes(m_pRefData, length);
         return;
     }
 
@@ -1262,7 +1260,7 @@ void MP4RtpSampleData::WriteEmbeddedData(MP4File* pFile, uint64_t startPos)
 
         ASSERT(m_refSampleOffset + length <= sampleSize);
 
-        pFile->WriteBytes(&pSample[m_refSampleOffset], length);
+        file.WriteBytes(&pSample[m_refSampleOffset], length);
 
         MP4Free(pSample);
         return;

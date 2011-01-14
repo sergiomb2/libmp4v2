@@ -44,7 +44,7 @@ public:
 class MP4ODRemoveDescriptor : public MP4Descriptor {
 public:
     MP4ODRemoveDescriptor();
-    void Read(MP4File* pFile);
+    void Read(MP4File& file);
 };
 
 class MP4ESUpdateDescriptor : public MP4Descriptor {

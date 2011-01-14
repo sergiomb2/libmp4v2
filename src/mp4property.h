@@ -85,9 +85,9 @@ public:
 
     virtual void Generate() { /* default is a no-op */ };
 
-    virtual void Read(MP4File* pFile, uint32_t index = 0) = 0;
+    virtual void Read(MP4File& file, uint32_t index = 0) = 0;
 
-    virtual void Write(MP4File* pFile, uint32_t index = 0) = 0;
+    virtual void Write(MP4File& file, uint32_t index = 0) = 0;
 
     virtual void Dump(uint8_t indent,
                       bool dumpImplicits, uint32_t index = 0) = 0;
@@ -165,18 +165,18 @@ public:
         void IncrementValue(int32_t increment = 1, uint32_t index = 0) { \
             m_values[index] += increment; \
         } \
-        void Read(MP4File* pFile, uint32_t index = 0) { \
+        void Read(MP4File& file, uint32_t index = 0) { \
             if (m_implicit) { \
                 return; \
             } \
-            m_values[index] = pFile->ReadUInt##xsize(); \
+            m_values[index] = file.ReadUInt##xsize(); \
         } \
         \
-        void Write(MP4File* pFile, uint32_t index = 0) { \
+        void Write(MP4File& file, uint32_t index = 0) { \
             if (m_implicit) { \
                 return; \
             } \
-            pFile->WriteUInt##xsize(m_values[index]); \
+            file.WriteUInt##xsize(m_values[index]); \
         } \
         void Dump(uint8_t indent, \
             bool dumpImplicits, uint32_t index = 0); \
@@ -210,8 +210,8 @@ public:
         m_numBits = numBits;
     }
 
-    void Read(MP4File* pFile, uint32_t index = 0);
-    void Write(MP4File* pFile, uint32_t index = 0);
+    void Read(MP4File& file, uint32_t index = 0);
+    void Write(MP4File& file, uint32_t index = 0);
     void Dump(uint8_t indent,
               bool dumpImplicits, uint32_t index = 0);
 
@@ -277,8 +277,8 @@ public:
         m_useFixed32Format = useFixed32Format;
     }
 
-    void Read(MP4File* pFile, uint32_t index = 0);
-    void Write(MP4File* pFile, uint32_t index = 0);
+    void Read(MP4File& file, uint32_t index = 0);
+    void Write(MP4File& file, uint32_t index = 0);
     void Dump(uint8_t indent,
               bool dumpImplicits, uint32_t index = 0);
 
@@ -349,8 +349,8 @@ public:
         m_fixedLength = fixedLength;
     }
 
-    void Read(MP4File* pFile, uint32_t index = 0);
-    void Write(MP4File* pFile, uint32_t index = 0);
+    void Read(MP4File& file, uint32_t index = 0);
+    void Write(MP4File& file, uint32_t index = 0);
     void Dump(uint8_t indent,
               bool dumpImplicits, uint32_t index = 0);
 
@@ -427,8 +427,8 @@ public:
 
     void SetFixedSize(uint32_t fixedSize);
 
-    void Read(MP4File* pFile, uint32_t index = 0);
-    void Write(MP4File* pFile, uint32_t index = 0);
+    void Read(MP4File& file, uint32_t index = 0);
+    void Write(MP4File& file, uint32_t index = 0);
     void Dump(uint8_t indent,
               bool dumpImplicits, uint32_t index = 0);
 
@@ -469,8 +469,8 @@ public:
         m_pCountProperty->SetValue(count);
     }
 
-    void Read(MP4File* pFile, uint32_t index = 0);
-    void Write(MP4File* pFile, uint32_t index = 0);
+    void Read(MP4File& file, uint32_t index = 0);
+    void Write(MP4File& file, uint32_t index = 0);
     void Dump(uint8_t indent,
               bool dumpImplicits, uint32_t index = 0);
 
@@ -478,8 +478,8 @@ public:
                       MP4Property** ppProperty, uint32_t* pIndex = NULL);
 
 protected:
-    virtual void ReadEntry(MP4File* pFile, uint32_t index);
-    virtual void WriteEntry(MP4File* pFile, uint32_t index);
+    virtual void ReadEntry(MP4File& file, uint32_t index);
+    virtual void WriteEntry(MP4File& file, uint32_t index);
 
     bool FindContainedProperty(const char* name,
                                MP4Property** ppProperty, uint32_t* pIndex);
@@ -528,8 +528,8 @@ public:
     void DeleteDescriptor(uint32_t index);
 
     void Generate();
-    void Read(MP4File* pFile, uint32_t index = 0);
-    void Write(MP4File* pFile, uint32_t index = 0);
+    void Read(MP4File& file, uint32_t index = 0);
+    void Write(MP4File& file, uint32_t index = 0);
     void Dump(uint8_t indent,
               bool dumpImplicits, uint32_t index = 0);
 
@@ -580,8 +580,8 @@ public:
     MP4PropertyType GetType();
     uint32_t        GetCount();
     void            SetCount( uint32_t );
-    void            Read( MP4File*, uint32_t = 0 );
-    void            Write( MP4File*, uint32_t = 0 );
+    void            Read( MP4File&, uint32_t = 0 );
+    void            Write( MP4File&, uint32_t = 0 );
     void            Dump( uint8_t, bool, uint32_t = 0 );
 
     bmff::LanguageCode GetValue();
@@ -600,8 +600,8 @@ public:
     MP4PropertyType GetType();
     uint32_t        GetCount();
     void            SetCount( uint32_t );
-    void            Read( MP4File*, uint32_t = 0 );
-    void            Write( MP4File*, uint32_t = 0 );
+    void            Read( MP4File&, uint32_t = 0 );
+    void            Write( MP4File&, uint32_t = 0 );
     void            Dump( uint8_t, bool, uint32_t = 0 );
     itmf::BasicType GetValue();
     void            SetValue( itmf::BasicType );

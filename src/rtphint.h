@@ -45,7 +45,7 @@ public:
 
     MP4Track* FindTrackFromRefIndex(uint8_t refIndex);
 
-    virtual void WriteEmbeddedData(MP4File* pFile, uint64_t startPos) {
+    virtual void WriteEmbeddedData(MP4File& file, uint64_t startPos) {
         // default is no-op
     }
 
@@ -104,7 +104,7 @@ public:
 
     void GetData(uint8_t* pDest);
 
-    void WriteEmbeddedData(MP4File* pFile, uint64_t startPos);
+    void WriteEmbeddedData(MP4File& file, uint64_t startPos);
 
 protected:
     uint8_t*        m_pRefData;
@@ -166,13 +166,13 @@ public:
 
     void GetData(uint8_t* pDest);
 
-    void Read(MP4File* pFile);
+    void Read(MP4File& file);
 
-    void ReadExtra(MP4File* pFile);
+    void ReadExtra(MP4File& file);
 
-    void Write(MP4File* pFile);
+    void Write(MP4File& file);
 
-    void WriteEmbeddedData(MP4File* pFile, uint64_t startPos);
+    void WriteEmbeddedData(MP4File& file, uint64_t startPos);
 
     void Dump(uint8_t indent, bool dumpImplicits);
 
@@ -224,9 +224,9 @@ public:
         return m_rtpPackets[m_rtpPackets.Size() - 1];
     }
 
-    void Read(MP4File* pFile);
+    void Read(MP4File& file);
 
-    void Write(MP4File* pFile);
+    void Write(MP4File& file);
 
     void Dump(uint8_t indent, bool dumpImplicits);
 

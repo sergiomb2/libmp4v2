@@ -93,7 +93,7 @@ public:
 class MP4UnknownQosQualifier : public MP4Descriptor {
 public:
     MP4UnknownQosQualifier();
-    void Read(MP4File* pFile);
+    void Read(MP4File& file);
 };
 
 ///////////////////////////////////////////////////////////////////////////////

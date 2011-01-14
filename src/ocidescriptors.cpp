@@ -37,14 +37,14 @@ MP4ContentClassDescriptor::MP4ContentClassDescriptor()
         new MP4BytesProperty("contentClassificationData"));
 }
 
-void MP4ContentClassDescriptor::Read(MP4File* pFile)
+void MP4ContentClassDescriptor::Read(MP4File& file)
 {
-    ReadHeader(pFile);
+    ReadHeader(file);
 
     /* byte properties need to know how long they are before reading */
     ((MP4BytesProperty*)m_pProperties[2])->SetValueSize(m_size - 6);
 
-    ReadProperties(pFile);
+    ReadProperties(file);
 }
 
 MP4KeywordDescriptor::MP4KeywordDescriptor()
@@ -89,14 +89,14 @@ MP4RatingDescriptor::MP4RatingDescriptor()
         new MP4BytesProperty("ratingInfo"));
 }
 
-void MP4RatingDescriptor::Read(MP4File* pFile)
+void MP4RatingDescriptor::Read(MP4File& file)
 {
-    ReadHeader(pFile);
+    ReadHeader(file);
 
     /* byte properties need to know how long they are before reading */
     ((MP4BytesProperty*)m_pProperties[2])->SetValueSize(m_size - 6);
 
-    ReadProperties(pFile);
+    ReadProperties(file);
 }
 
 MP4LanguageDescriptor::MP4LanguageDescriptor()
@@ -180,8 +180,8 @@ public:
             MP4TableProperty(name, pCountProperty) {
     };
 protected:
-    void ReadEntry(MP4File* pFile, uint32_t index);
-    void WriteEntry(MP4File* pFile, uint32_t index);
+    void ReadEntry(MP4File& file, uint32_t index);
+    void WriteEntry(MP4File& file, uint32_t index);
 };
 
 MP4CreatorDescriptor::MP4CreatorDescriptor(uint8_t tag)
@@ -204,24 +204,24 @@ MP4CreatorDescriptor::MP4CreatorDescriptor(uint8_t tag)
         new MP4StringProperty("name", Counted));
 }
 
-void MP4CreatorTableProperty::ReadEntry(MP4File* pFile, uint32_t index)
+void MP4CreatorTableProperty::ReadEntry(MP4File& file, uint32_t index)
 {
-    m_pProperties[0]->Read(pFile, index);
-    m_pProperties[1]->Read(pFile, index);
+    m_pProperties[0]->Read(file, index);
+    m_pProperties[1]->Read(file, index);
 
     bool utf8Flag = ((MP4BitfieldProperty*)m_pProperties[1])->GetValue(index);
     ((MP4StringProperty*)m_pProperties[3])->SetUnicode(!utf8Flag);
 
-    m_pProperties[2]->Read(pFile, index);
-    m_pProperties[3]->Read(pFile, index);
+    m_pProperties[2]->Read(file, index);
+    m_pProperties[3]->Read(file, index);
 }
 
-void MP4CreatorTableProperty::WriteEntry(MP4File* pFile, uint32_t index)
+void MP4CreatorTableProperty::WriteEntry(MP4File& file, uint32_t index)
 {
     bool utf8Flag = ((MP4BitfieldProperty*)m_pProperties[1])->GetValue(index);
     ((MP4StringProperty*)m_pProperties[3])->SetUnicode(!utf8Flag);
 
-    MP4TableProperty::WriteEntry(pFile, index);
+    MP4TableProperty::WriteEntry(file, index);
 }
 
 MP4CreationDescriptor::MP4CreationDescriptor(uint8_t tag)
@@ -254,14 +254,14 @@ MP4UnknownOCIDescriptor::MP4UnknownOCIDescriptor()
         new MP4BytesProperty("data"));
 }
 
-void MP4UnknownOCIDescriptor::Read(MP4File* pFile)
+void MP4UnknownOCIDescriptor::Read(MP4File& file)
 {
-    ReadHeader(pFile);
+    ReadHeader(file);
 
     /* byte properties need to know how long they are before reading */
     ((MP4BytesProperty*)m_pProperties[0])->SetValueSize(m_size);
 
-    ReadProperties(pFile);
+    ReadProperties(file);
 }
 
 MP4Descriptor* CreateOCIDescriptor(uint8_t tag)

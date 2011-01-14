@@ -137,14 +137,14 @@ MP4UnknownQosQualifier::MP4UnknownQosQualifier()
         new MP4BytesProperty("data"));
 }
 
-void MP4UnknownQosQualifier::Read(MP4File* pFile)
+void MP4UnknownQosQualifier::Read(MP4File& file)
 {
-    ReadHeader(pFile);
+    ReadHeader(file);
 
     /* byte properties need to know how long they are before reading */
     ((MP4BytesProperty*)m_pProperties[0])->SetValueSize(m_size);
 
-    ReadProperties(pFile);
+    ReadProperties(file);
 }
 
 MP4Descriptor* MP4QosQualifierProperty::CreateDescriptor(uint8_t tag)
