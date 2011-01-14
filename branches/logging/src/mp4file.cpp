@@ -452,9 +452,9 @@ void MP4File::GenerateTracks()
             MP4Track* pTrack = NULL;
             try {
                 if (!strcmp(pTypeProperty->GetValue(), MP4_HINT_TRACK_TYPE)) {
-                    pTrack = new MP4RtpHintTrack(this, pTrakAtom);
+                    pTrack = new MP4RtpHintTrack(*this, pTrakAtom);
                 } else {
-                    pTrack = new MP4Track(this, pTrakAtom);
+                    pTrack = new MP4Track(*this, pTrakAtom);
                 }
                 m_pTracks.Add(pTrack);
             }
@@ -925,9 +925,9 @@ MP4TrackId MP4File::AddTrack(const char* type, uint32_t timeScale)
     // now have enough to create MP4Track object
     MP4Track* pTrack = NULL;
     if (!strcmp(normType, MP4_HINT_TRACK_TYPE)) {
-        pTrack = new MP4RtpHintTrack(this, pTrakAtom);
+        pTrack = new MP4RtpHintTrack(*this, pTrakAtom);
     } else {
-        pTrack = new MP4Track(this, pTrakAtom);
+        pTrack = new MP4Track(*this, pTrakAtom);
     }
     m_pTracks.Add(pTrack);
 
