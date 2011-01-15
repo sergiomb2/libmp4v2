@@ -36,41 +36,41 @@ void MP4MvhdAtom::AddProperties(uint8_t version)
 {
     if (version == 1) {
         AddProperty( /* 2 */
-            new MP4Integer64Property("creationTime"));
+            new MP4Integer64Property(*this, "creationTime"));
         AddProperty( /* 3 */
-            new MP4Integer64Property("modificationTime"));
+            new MP4Integer64Property(*this, "modificationTime"));
     } else {
         AddProperty( /* 2 */
-            new MP4Integer32Property("creationTime"));
+            new MP4Integer32Property(*this, "creationTime"));
         AddProperty( /* 3 */
-            new MP4Integer32Property("modificationTime"));
+            new MP4Integer32Property(*this, "modificationTime"));
     }
 
     AddProperty( /* 4 */
-        new MP4Integer32Property("timeScale"));
+        new MP4Integer32Property(*this, "timeScale"));
 
     if (version == 1) {
         AddProperty( /* 5 */
-            new MP4Integer64Property("duration"));
+            new MP4Integer64Property(*this, "duration"));
     } else {
         AddProperty( /* 5 */
-            new MP4Integer32Property("duration"));
+            new MP4Integer32Property(*this, "duration"));
     }
 
     MP4Float32Property* pProp;
 
-    pProp = new MP4Float32Property("rate");
+    pProp = new MP4Float32Property(*this, "rate");
     pProp->SetFixed32Format();
     AddProperty(pProp); /* 6 */
 
-    pProp = new MP4Float32Property("volume");
+    pProp = new MP4Float32Property(*this, "volume");
     pProp->SetFixed16Format();
     AddProperty(pProp); /* 7 */
 
-    AddReserved("reserved1", 70); /* 8 */
+    AddReserved(*this, "reserved1", 70); /* 8 */
 
     AddProperty( /* 9 */
-        new MP4Integer32Property("nextTrackId"));
+        new MP4Integer32Property(*this, "nextTrackId"));
 }
 
 void MP4MvhdAtom::Generate()

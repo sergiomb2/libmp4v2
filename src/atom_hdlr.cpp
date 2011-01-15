@@ -30,13 +30,13 @@ MP4HdlrAtom::MP4HdlrAtom(MP4File &file)
         : MP4Atom(file, "hdlr")
 {
     AddVersionAndFlags(); /* 0, 1 */
-    AddReserved("reserved1", 4); /* 2 */
-    MP4StringProperty* pProp = new MP4StringProperty("handlerType");
+    AddReserved(*this, "reserved1", 4); /* 2 */
+    MP4StringProperty* pProp = new MP4StringProperty(*this, "handlerType");
     pProp->SetFixedLength(4);
     AddProperty(pProp); /* 3 */
-    AddReserved("reserved2", 12); /* 4 */
+    AddReserved(*this, "reserved2", 12); /* 4 */
     AddProperty( /* 5 */
-        new MP4StringProperty("name"));
+        new MP4StringProperty(*this, "name"));
 }
 
 // There is a spec incompatiblity between QT and MP4

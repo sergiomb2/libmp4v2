@@ -29,7 +29,7 @@ namespace impl {
 
 class MP4Descriptor {
 public:
-    MP4Descriptor(uint8_t tag = 0);
+    MP4Descriptor(MP4Atom& parentAtom, uint8_t tag = 0);
 
     virtual ~MP4Descriptor();
 
@@ -38,13 +38,6 @@ public:
     }
     void SetTag(uint8_t tag) {
         m_tag = tag;
-    }
-
-    void SetParentAtom(MP4Atom* pParentAtom) {
-        m_pParentAtom = pParentAtom;
-        for (uint32_t i = 0; i < m_pProperties.Size(); i++) {
-            m_pProperties[i]->SetParentAtom(pParentAtom);
-        }
     }
 
     void AddProperty(MP4Property* pProperty);
@@ -91,12 +84,16 @@ protected:
     uint8_t GetDepth();
 
 protected:
-    MP4Atom*            m_pParentAtom;
+    MP4Atom&            m_parentAtom;
     uint8_t             m_tag;
     uint64_t            m_start;
     uint32_t            m_size;
     MP4PropertyArray    m_pProperties;
     uint32_t            m_readMutatePoint;
+private:
+    MP4Descriptor();
+    MP4Descriptor ( const MP4Descriptor &src );
+    MP4Descriptor &operator= ( const MP4Descriptor &src );
 };
 
 ///////////////////////////////////////////////////////////////////////////////

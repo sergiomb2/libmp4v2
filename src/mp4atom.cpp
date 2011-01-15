@@ -188,7 +188,7 @@ MP4Atom* MP4Atom::ReadAtom(MP4File& file, MP4Atom* pParentAtom)
 
         if (dataSize > 0) {
             pAtom->AddProperty(
-                new MP4BytesProperty("data", dataSize));
+                new MP4BytesProperty(*pAtom, "data", dataSize));
         }
     }
 
@@ -576,18 +576,17 @@ void MP4Atom::AddProperty(MP4Property* pProperty)
 {
     ASSERT(pProperty);
     m_pProperties.Add(pProperty);
-    pProperty->SetParentAtom(this);
 }
 
 void MP4Atom::AddVersionAndFlags()
 {
-    AddProperty(new MP4Integer8Property("version"));
-    AddProperty(new MP4Integer24Property("flags"));
+    AddProperty(new MP4Integer8Property(*this, "version"));
+    AddProperty(new MP4Integer24Property(*this, "flags"));
 }
 
-void MP4Atom::AddReserved(const char* name, uint32_t size)
+void MP4Atom::AddReserved(MP4Atom& parentAtom, const char* name, uint32_t size)
 {
-    MP4BytesProperty* pReserved = new MP4BytesProperty(name, size);
+    MP4BytesProperty* pReserved = new MP4BytesProperty(parentAtom, name, size);
     pReserved->SetReadOnly();
     AddProperty(pReserved);
 }

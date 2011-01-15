@@ -30,12 +30,12 @@ MP4GminAtom::MP4GminAtom(MP4File &file)
 
     AddVersionAndFlags(); /* 0, 1 */
 
-    AddProperty(new MP4Integer16Property("graphicsMode")); /* 2 */
-    AddProperty(new MP4Integer16Property("opColorRed")); /* 3 */
-    AddProperty(new MP4Integer16Property("opColorGreen")); /* 4 */
-    AddProperty(new MP4Integer16Property("opColorBlue")); /* 5 */
-    AddProperty(new MP4Integer16Property("balance")); /* 6 */
-    AddReserved("reserved", 2); /* 7 */
+    AddProperty(new MP4Integer16Property(*this, "graphicsMode")); /* 2 */
+    AddProperty(new MP4Integer16Property(*this, "opColorRed")); /* 3 */
+    AddProperty(new MP4Integer16Property(*this, "opColorGreen")); /* 4 */
+    AddProperty(new MP4Integer16Property(*this, "opColorBlue")); /* 5 */
+    AddProperty(new MP4Integer16Property(*this, "balance")); /* 6 */
+    AddReserved(*this, "reserved", 2); /* 7 */
 
 }
 

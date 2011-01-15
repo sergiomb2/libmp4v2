@@ -32,23 +32,23 @@ MP4StscAtom::MP4StscAtom(MP4File &file)
     AddVersionAndFlags();
 
     MP4Integer32Property* pCount =
-        new MP4Integer32Property("entryCount");
+        new MP4Integer32Property(*this, "entryCount");
     AddProperty(pCount);
 
-    MP4TableProperty* pTable = new MP4TableProperty("entries", pCount);
+    MP4TableProperty* pTable = new MP4TableProperty(*this, "entries", pCount);
     AddProperty(pTable);
 
     pTable->AddProperty(
-        new MP4Integer32Property("firstChunk"));
+        new MP4Integer32Property(pTable->GetParentAtom(), "firstChunk"));
     pTable->AddProperty(
-        new MP4Integer32Property("samplesPerChunk"));
+        new MP4Integer32Property(pTable->GetParentAtom(), "samplesPerChunk"));
     pTable->AddProperty(
-        new MP4Integer32Property("sampleDescriptionIndex"));
+        new MP4Integer32Property(pTable->GetParentAtom(), "sampleDescriptionIndex"));
 
     // As an optimization we add an implicit property to this table,
     // "firstSample" that corresponds to the first sample of the firstChunk
     MP4Integer32Property* pSample =
-        new MP4Integer32Property("firstSample");
+        new MP4Integer32Property(*this, "firstSample");
     pSample->SetImplicit();
     pTable->AddProperty(pSample);
 }

@@ -230,14 +230,14 @@ void MP4File::CreateIsmaIodFromFile(
     uint8_t** ppBytes,
     uint64_t* pNumBytes)
 {
-    MP4Descriptor* pIod = new MP4IODescriptor();
-    pIod->SetTag(MP4IODescrTag);
-    pIod->Generate();
-
     MP4Atom* pIodsAtom = FindAtom("moov.iods");
     ASSERT(pIodsAtom);
     MP4DescriptorProperty* pSrcIod =
         (MP4DescriptorProperty*)pIodsAtom->GetProperty(2);
+
+    MP4Descriptor* pIod = new MP4IODescriptor(*pIodsAtom);
+    pIod->SetTag(MP4IODescrTag);
+    pIod->Generate();
 
     CloneIntegerProperty(pIod, pSrcIod, "objectDescriptorId");
     CloneIntegerProperty(pIod, pSrcIod, "ODProfileLevelId");
@@ -425,8 +425,14 @@ void MP4File::CreateIsmaIodFromParams(
     uint8_t* pBytes = NULL;
     uint64_t numBytes;
 
+    // Descriptor constructors need a parent atom.  In this
+    // case we don't have one so create a dummy one.  This
+    // is OK as we only build the descriptor and then dump
+    // its contents to a buffer
+    MP4Atom     dummyParent(*this);
+
     // Create the IOD
-    MP4Descriptor* pIod = new MP4IODescriptor();
+    MP4Descriptor* pIod = new MP4IODescriptor(dummyParent);
     pIod->SetTag(MP4IODescrTag);
     pIod->Generate();
 
@@ -488,7 +494,7 @@ void MP4File::CreateIsmaIodFromParams(
 
     // Video
     MP4DescriptorProperty* pVideoEsdProperty =
-        new MP4DescriptorProperty();
+        new MP4DescriptorProperty(dummyParent);
     pVideoEsdProperty->SetTags(MP4ESDescrTag);
 
     /* MP4Descriptor* pVideoEsd = */
@@ -505,7 +511,7 @@ void MP4File::CreateIsmaIodFromParams(
 
     // Audio
     MP4DescriptorProperty* pAudioEsdProperty =
-        new MP4DescriptorProperty();
+        new MP4DescriptorProperty(dummyParent);
     pAudioEsdProperty->SetTags(MP4ESDescrTag);
 
     /* MP4Descriptor* pAudioEsd = */
@@ -656,7 +662,12 @@ void MP4File::CreateIsmaODUpdateCommandFromFileForFile(
     uint8_t** ppBytes,
     uint64_t* pNumBytes)
 {
-    MP4Descriptor* pCommand = CreateODCommand(MP4ODUpdateODCommandTag);
+    // Descriptor constructors need a parent atom.  In this
+    // case we don't have one so create a dummy one.  This
+    // is OK as we only build the descriptor and then dump
+    // its contents to a buffer
+    MP4Atom     dummyParent(*this);
+    MP4Descriptor* pCommand = CreateODCommand(dummyParent, MP4ODUpdateODCommandTag);
     pCommand->Generate();
 
     for (uint8_t i = 0; i < 2; i++) {
@@ -829,8 +840,13 @@ void MP4File::CreateIsmaODUpdateCommandForStream(
     MP4Descriptor* pAudioOd = NULL;
     MP4Descriptor* pVideoOd = NULL;
 
+    // Descriptor constructors need a parent atom.  In this
+    // case we don't have one so create a dummy one.  This
+    // is OK as we only build the descriptor and then dump
+    // its contents to a buffer
+    MP4Atom     dummyParent(*this);
     MP4Descriptor* pCommand =
-        CreateODCommand(MP4ODUpdateODCommandTag);
+        CreateODCommand(dummyParent, MP4ODUpdateODCommandTag);
     pCommand->Generate();
 
     for (uint8_t i = 0; i < 2; i++) {
