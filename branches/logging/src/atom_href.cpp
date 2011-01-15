@@ -29,10 +29,10 @@ namespace impl {
 MP4HrefAtom::MP4HrefAtom(MP4File &file)
         : MP4Atom(file, "href")
 {
-    AddReserved("reserved1", 6); /* 0 */
+    AddReserved(*this, "reserved1", 6); /* 0 */
 
     AddProperty( /* 1 */
-        new MP4Integer16Property("dataReferenceIndex"));
+        new MP4Integer16Property(*this, "dataReferenceIndex"));
     ExpectChildAtom("burl", Optional, OnlyOne);
 }
 

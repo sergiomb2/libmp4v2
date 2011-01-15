@@ -39,7 +39,7 @@ IPodUUIDAtom::IPodUUIDAtom(MP4File &file)
 
     SetExtendedType(ipod_magic);
 
-    MP4Integer32Property* value = new MP4Integer32Property("value");
+    MP4Integer32Property* value = new MP4Integer32Property(*this, "value");
     value->SetValue(1);
     AddProperty(value);
 }

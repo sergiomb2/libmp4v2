@@ -49,15 +49,12 @@ enum MP4PropertyType {
 
 class MP4Property {
 public:
-    MP4Property(const char *name = NULL);
+    MP4Property(MP4Atom& parentAtom, const char *name = NULL);
 
     virtual ~MP4Property() { }
 
-    MP4Atom* GetParentAtom() {
-        return m_pParentAtom;
-    }
-    virtual void SetParentAtom(MP4Atom* pParentAtom) {
-        m_pParentAtom = pParentAtom;
+    MP4Atom& GetParentAtom() {
+        return m_parentAtom;
     }
 
     const char *GetName() {
@@ -96,18 +93,23 @@ public:
                               MP4Property** ppProperty, uint32_t* pIndex = NULL);
 
 protected:
-    MP4Atom* m_pParentAtom;
+    MP4Atom& m_parentAtom;
     const char* m_name;
     bool m_readOnly;
     bool m_implicit;
+
+private:
+    MP4Property();
+    MP4Property ( const MP4Property &src );
+    MP4Property &operator= ( const MP4Property &src );
 };
 
 MP4ARRAY_DECL(MP4Property, MP4Property*);
 
 class MP4IntegerProperty : public MP4Property {
 protected:
-    MP4IntegerProperty(const char* name)
-            : MP4Property(name) { };
+    MP4IntegerProperty(MP4Atom& parentAtom, const char* name)
+            : MP4Property(parentAtom, name) { };
 
 public:
     uint64_t GetValue(uint32_t index = 0);
@@ -119,13 +121,18 @@ public:
     void DeleteValue(uint32_t index = 0);
 
     void IncrementValue(int32_t increment = 1, uint32_t index = 0);
+
+private:
+    MP4IntegerProperty();
+    MP4IntegerProperty ( const MP4IntegerProperty &src );
+    MP4IntegerProperty &operator= ( const MP4IntegerProperty &src );
 };
 
 #define MP4INTEGER_PROPERTY_DECL2(isize, xsize) \
     class MP4Integer##xsize##Property : public MP4IntegerProperty { \
     public: \
-        MP4Integer##xsize##Property(const char* name) \
-            : MP4IntegerProperty(name) { \
+        MP4Integer##xsize##Property(MP4Atom& parentAtom, const char* name) \
+            : MP4IntegerProperty(parentAtom, name) { \
             SetCount(1); \
             m_values[0] = 0; \
         } \
@@ -183,6 +190,10 @@ public:
     \
     protected: \
         MP4Integer##isize##Array m_values; \
+    private: \
+        MP4Integer##xsize##Property(); \
+        MP4Integer##xsize##Property ( const MP4Integer##xsize##Property &src ); \
+        MP4Integer##xsize##Property &operator= ( const MP4Integer##xsize##Property &src ); \
     };
 
 #define MP4INTEGER_PROPERTY_DECL(size) \
@@ -196,8 +207,8 @@ MP4INTEGER_PROPERTY_DECL(64);
 
 class MP4BitfieldProperty : public MP4Integer64Property {
 public:
-    MP4BitfieldProperty(const char* name, uint8_t numBits)
-            : MP4Integer64Property(name) {
+    MP4BitfieldProperty(MP4Atom& parentAtom, const char* name, uint8_t numBits)
+            : MP4Integer64Property(parentAtom, name) {
         ASSERT(numBits != 0);
         ASSERT(numBits <= 64);
         m_numBits = numBits;
@@ -217,12 +228,17 @@ public:
 
 protected:
     uint8_t m_numBits;
+
+private:
+    MP4BitfieldProperty();
+    MP4BitfieldProperty ( const MP4BitfieldProperty &src );
+    MP4BitfieldProperty &operator= ( const MP4BitfieldProperty &src );
 };
 
 class MP4Float32Property : public MP4Property {
 public:
-    MP4Float32Property(const char* name)
-            : MP4Property(name) {
+    MP4Float32Property(MP4Atom& parentAtom, const char* name)
+            : MP4Property(parentAtom, name) {
         m_useFixed16Format = false;
         m_useFixed32Format = false;
         SetCount(1);
@@ -286,11 +302,16 @@ protected:
     bool m_useFixed16Format;
     bool m_useFixed32Format;
     MP4Float32Array m_values;
+
+private:
+    MP4Float32Property();
+    MP4Float32Property ( const MP4Float32Property &src );
+    MP4Float32Property &operator= ( const MP4Float32Property &src );
 };
 
 class MP4StringProperty : public MP4Property {
 public:
-    MP4StringProperty(const char* name,
+    MP4StringProperty(MP4Atom& parentAtom, const char* name,
                       bool useCountedFormat = false, bool useUnicode = false, bool arrayMode = false);
 
     ~MP4StringProperty();
@@ -362,11 +383,16 @@ protected:
     uint32_t m_fixedLength;
 
     MP4StringArray m_values;
+
+private:
+    MP4StringProperty();
+    MP4StringProperty ( const MP4StringProperty &src );
+    MP4StringProperty &operator= ( const MP4StringProperty &src );
 };
 
 class MP4BytesProperty : public MP4Property {
 public:
-    MP4BytesProperty(const char* name, uint32_t valueSize = 0,
+    MP4BytesProperty(MP4Atom& parentAtom, const char* name, uint32_t valueSize = 0,
                      uint32_t defaultValueSize = 0);
 
     ~MP4BytesProperty();
@@ -437,23 +463,21 @@ protected:
     uint32_t        m_defaultValueSize;
     MP4Integer32Array   m_valueSizes;
     MP4BytesArray       m_values;
+
+private:
+    MP4BytesProperty();
+    MP4BytesProperty ( const MP4BytesProperty &src );
+    MP4BytesProperty &operator= ( const MP4BytesProperty &src );
 };
 
 class MP4TableProperty : public MP4Property {
 public:
-    MP4TableProperty(const char* name, MP4IntegerProperty* pCountProperty);
+    MP4TableProperty(MP4Atom& parentAtom, const char* name, MP4IntegerProperty* pCountProperty);
 
     ~MP4TableProperty();
 
     MP4PropertyType GetType() {
         return TableProperty;
-    }
-
-    void SetParentAtom(MP4Atom* pParentAtom) {
-        m_pParentAtom = pParentAtom;
-        for (uint32_t i = 0; i < m_pProperties.Size(); i++) {
-            m_pProperties[i]->SetParentAtom(pParentAtom);
-        }
     }
 
     void AddProperty(MP4Property* pProperty);
@@ -487,11 +511,16 @@ protected:
 protected:
     MP4IntegerProperty* m_pCountProperty;
     MP4PropertyArray    m_pProperties;
+
+private:
+    MP4TableProperty();
+    MP4TableProperty ( const MP4TableProperty &src );
+    MP4TableProperty &operator= ( const MP4TableProperty &src );
 };
 
 class MP4DescriptorProperty : public MP4Property {
 public:
-    MP4DescriptorProperty(const char* name = NULL,
+    MP4DescriptorProperty(MP4Atom& parentAtom, const char* name = NULL,
                           uint8_t tagsStart = 0, uint8_t tagsEnd = 0,
                           bool mandatory = false, bool onlyOne = false);
 
@@ -537,7 +566,7 @@ public:
                       MP4Property** ppProperty, uint32_t* pIndex = NULL);
 
 protected:
-    virtual MP4Descriptor* CreateDescriptor(uint8_t tag);
+    virtual MP4Descriptor* CreateDescriptor(MP4Atom& parentAtom, uint8_t tag);
 
     bool FindContainedProperty(const char* name,
                                MP4Property** ppProperty, uint32_t* pIndex);
@@ -549,17 +578,27 @@ protected:
     bool                m_mandatory;
     bool                m_onlyOne;
     MP4DescriptorArray  m_pDescriptors;
+
+private:
+    MP4DescriptorProperty();
+    MP4DescriptorProperty ( const MP4DescriptorProperty &src );
+    MP4DescriptorProperty &operator= ( const MP4DescriptorProperty &src );
 };
 
 class MP4QosQualifierProperty : public MP4DescriptorProperty {
 public:
-    MP4QosQualifierProperty(const char* name = NULL,
+    MP4QosQualifierProperty(MP4Atom& parentAtom, const char* name = NULL,
                             uint8_t tagsStart = 0, uint8_t tagsEnd = 0,
                             bool mandatory = false, bool onlyOne = false) :
-            MP4DescriptorProperty(name, tagsStart, tagsEnd, mandatory, onlyOne) { }
+            MP4DescriptorProperty(parentAtom, name, tagsStart, tagsEnd, mandatory, onlyOne) { }
 
 protected:
-    MP4Descriptor* CreateDescriptor(uint8_t tag);
+    MP4Descriptor* CreateDescriptor(MP4Atom& parentAtom, uint8_t tag);
+
+private:
+    MP4QosQualifierProperty();
+    MP4QosQualifierProperty ( const MP4QosQualifierProperty &src );
+    MP4QosQualifierProperty &operator= ( const MP4QosQualifierProperty &src );
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -574,8 +613,8 @@ private:
     bmff::LanguageCode _value;
 
 public:
-    explicit MP4LanguageCodeProperty( const char* , bmff::LanguageCode = bmff::ILC_UND );
-    MP4LanguageCodeProperty( const char* , const string& );
+    explicit MP4LanguageCodeProperty( MP4Atom& parentAtom, const char* , bmff::LanguageCode = bmff::ILC_UND );
+    MP4LanguageCodeProperty( MP4Atom& parentAtom, const char* , const string& );
 
     MP4PropertyType GetType();
     uint32_t        GetCount();
@@ -586,6 +625,11 @@ public:
 
     bmff::LanguageCode GetValue();
     void               SetValue( bmff::LanguageCode );
+
+private:
+    MP4LanguageCodeProperty();
+    MP4LanguageCodeProperty ( const MP4LanguageCodeProperty &src );
+    MP4LanguageCodeProperty &operator= ( const MP4LanguageCodeProperty &src );
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -595,7 +639,7 @@ private:
     itmf::BasicType _value;
 
 public:
-    explicit MP4BasicTypeProperty( const char* , itmf::BasicType = itmf::BT_UNDEFINED );
+    explicit MP4BasicTypeProperty( MP4Atom& parentAtom, const char* , itmf::BasicType = itmf::BT_UNDEFINED );
 
     MP4PropertyType GetType();
     uint32_t        GetCount();
@@ -605,6 +649,11 @@ public:
     void            Dump( uint8_t, bool, uint32_t = 0 );
     itmf::BasicType GetValue();
     void            SetValue( itmf::BasicType );
+
+private:
+    MP4BasicTypeProperty();
+    MP4BasicTypeProperty ( const MP4BasicTypeProperty &src );
+    MP4BasicTypeProperty &operator= ( const MP4BasicTypeProperty &src );
 };
 
 ///////////////////////////////////////////////////////////////////////////////

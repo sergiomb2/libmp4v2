@@ -40,7 +40,7 @@ MP4StsdAtom::MP4StsdAtom(MP4File &file)
     AddVersionAndFlags();
 
     MP4Integer32Property* pCount =
-        new MP4Integer32Property("entryCount");
+        new MP4Integer32Property(*this, "entryCount");
     pCount->SetReadOnly();
     AddProperty(pCount);
 

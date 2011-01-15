@@ -29,7 +29,7 @@ namespace impl {
 MP4SdpAtom::MP4SdpAtom(MP4File &file) : MP4Atom(file, "sdp ")
 {
     AddProperty(
-        new MP4StringProperty("sdpText"));
+        new MP4StringProperty(*this, "sdpText"));
 }
 
 void MP4SdpAtom::Read()

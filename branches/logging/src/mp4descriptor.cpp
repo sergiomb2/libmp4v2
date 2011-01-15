@@ -26,9 +26,10 @@ namespace impl {
 
 ///////////////////////////////////////////////////////////////////////////////
 
-MP4Descriptor::MP4Descriptor(uint8_t tag) {
+MP4Descriptor::MP4Descriptor(MP4Atom& parentAtom, uint8_t tag)
+    : m_parentAtom(parentAtom)
+{
     m_tag = tag;
-    m_pParentAtom = NULL;
     m_start = 0;
     m_size = 0;
     m_readMutatePoint = 0;
@@ -45,7 +46,6 @@ void MP4Descriptor::AddProperty(MP4Property* pProperty)
 {
     ASSERT(pProperty);
     m_pProperties.Add(pProperty);
-    pProperty->SetParentAtom(m_pParentAtom);
 }
 
 bool MP4Descriptor::FindContainedProperty(const char *name,
@@ -205,10 +205,7 @@ void MP4Descriptor::Dump(uint8_t indent, bool dumpImplicits)
 
 uint8_t MP4Descriptor::GetDepth()
 {
-    if (m_pParentAtom) {
-        return m_pParentAtom->GetDepth();
-    }
-    return 0;
+    return m_parentAtom.GetDepth();
 }
 
 ///////////////////////////////////////////////////////////////////////////////

@@ -36,50 +36,50 @@ void MP4TkhdAtom::AddProperties(uint8_t version)
 {
     if (version == 1) {
         AddProperty( /* 2 */
-            new MP4Integer64Property("creationTime"));
+            new MP4Integer64Property(*this, "creationTime"));
         AddProperty( /* 3 */
-            new MP4Integer64Property("modificationTime"));
+            new MP4Integer64Property(*this, "modificationTime"));
     } else { // version == 0
         AddProperty( /* 2 */
-            new MP4Integer32Property("creationTime"));
+            new MP4Integer32Property(*this, "creationTime"));
         AddProperty( /* 3 */
-            new MP4Integer32Property("modificationTime"));
+            new MP4Integer32Property(*this, "modificationTime"));
     }
 
     AddProperty( /* 4 */
-        new MP4Integer32Property("trackId"));
-    AddReserved("reserved1", 4); /* 5 */
+        new MP4Integer32Property(*this, "trackId"));
+    AddReserved(*this, "reserved1", 4); /* 5 */
 
     if (version == 1) {
         AddProperty( /* 6 */
-            new MP4Integer64Property("duration"));
+            new MP4Integer64Property(*this, "duration"));
     } else {
         AddProperty( /* 6 */
-            new MP4Integer32Property("duration"));
+            new MP4Integer32Property(*this, "duration"));
     }
 
-    AddReserved("reserved2", 8); /* 7 */
+    AddReserved(*this, "reserved2", 8); /* 7 */
 
     AddProperty( /* 8 */
-        new MP4Integer16Property("layer"));
+        new MP4Integer16Property(*this, "layer"));
     AddProperty( /* 9 */
-        new MP4Integer16Property("alternate_group"));
+        new MP4Integer16Property(*this, "alternate_group"));
 
     MP4Float32Property* pProp;
 
-    pProp = new MP4Float32Property("volume");
+    pProp = new MP4Float32Property(*this, "volume");
     pProp->SetFixed16Format();
     AddProperty(pProp); /* 10 */
 
-    AddReserved("reserved3", 2); /* 11 */
+    AddReserved(*this, "reserved3", 2); /* 11 */
 
-    AddProperty(new MP4BytesProperty("matrix", 36)); /* 12 */
+    AddProperty(new MP4BytesProperty(*this, "matrix", 36)); /* 12 */
 
-    pProp = new MP4Float32Property("width");
+    pProp = new MP4Float32Property(*this, "width");
     pProp->SetFixed32Format();
     AddProperty(pProp); /* 13 */
 
-    pProp = new MP4Float32Property("height");
+    pProp = new MP4Float32Property(*this, "height");
     pProp->SetFixed32Format();
     AddProperty(pProp); /* 14 */
 }

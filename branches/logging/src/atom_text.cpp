@@ -35,40 +35,40 @@ MP4TextAtom::MP4TextAtom(MP4File &file)
 void MP4TextAtom::AddPropertiesStsdType()
 {
 
-    AddReserved("reserved1", 6); /* 0 */
+    AddReserved(*this, "reserved1", 6); /* 0 */
 
-    AddProperty(new MP4Integer16Property("dataReferenceIndex"));/* 1 */
+    AddProperty(new MP4Integer16Property(*this, "dataReferenceIndex"));/* 1 */
 
-    AddProperty(new MP4Integer32Property("displayFlags")); /* 2 */
-    AddProperty(new MP4Integer32Property("textJustification")); /* 3 */
+    AddProperty(new MP4Integer32Property(*this, "displayFlags")); /* 2 */
+    AddProperty(new MP4Integer32Property(*this, "textJustification")); /* 3 */
 
-    AddProperty(new MP4Integer16Property("bgColorRed")); /* 4 */
-    AddProperty(new MP4Integer16Property("bgColorGreen")); /* 5 */
-    AddProperty(new MP4Integer16Property("bgColorBlue")); /* 6 */
+    AddProperty(new MP4Integer16Property(*this, "bgColorRed")); /* 4 */
+    AddProperty(new MP4Integer16Property(*this, "bgColorGreen")); /* 5 */
+    AddProperty(new MP4Integer16Property(*this, "bgColorBlue")); /* 6 */
 
-    AddProperty(new MP4Integer16Property("defTextBoxTop")); /* 7 */
-    AddProperty(new MP4Integer16Property("defTextBoxLeft")); /* 8 */
-    AddProperty(new MP4Integer16Property("defTextBoxBottom")); /* 9 */
-    AddProperty(new MP4Integer16Property("defTextBoxRight")); /* 10 */
+    AddProperty(new MP4Integer16Property(*this, "defTextBoxTop")); /* 7 */
+    AddProperty(new MP4Integer16Property(*this, "defTextBoxLeft")); /* 8 */
+    AddProperty(new MP4Integer16Property(*this, "defTextBoxBottom")); /* 9 */
+    AddProperty(new MP4Integer16Property(*this, "defTextBoxRight")); /* 10 */
 
-    AddReserved("reserved2", 8); /* 11 */
+    AddReserved(*this, "reserved2", 8); /* 11 */
 
-    AddProperty(new MP4Integer16Property("fontNumber")); /* 12 */
-    AddProperty(new MP4Integer16Property("fontFace")); /* 13 */
+    AddProperty(new MP4Integer16Property(*this, "fontNumber")); /* 12 */
+    AddProperty(new MP4Integer16Property(*this, "fontFace")); /* 13 */
 
-    AddReserved("reserved3", 1); /* 14 */
-    AddReserved("reserved4", 2); /* 15 */
+    AddReserved(*this, "reserved3", 1); /* 14 */
+    AddReserved(*this, "reserved4", 2); /* 15 */
 
-    AddProperty(new MP4Integer16Property("foreColorRed")); /* 16 */
-    AddProperty(new MP4Integer16Property("foreColorGreen")); /* 17 */
-    AddProperty(new MP4Integer16Property("foreColorBlue")); /* 18 */
+    AddProperty(new MP4Integer16Property(*this, "foreColorRed")); /* 16 */
+    AddProperty(new MP4Integer16Property(*this, "foreColorGreen")); /* 17 */
+    AddProperty(new MP4Integer16Property(*this, "foreColorBlue")); /* 18 */
 
 }
 
 void MP4TextAtom::AddPropertiesGmhdType()
 {
 
-    AddProperty(new MP4BytesProperty("textData", 36)); /* 0 */
+    AddProperty(new MP4BytesProperty(*this, "textData", 36)); /* 0 */
 
 }
 

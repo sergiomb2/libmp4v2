@@ -26,10 +26,10 @@ namespace mp4v2 { namespace impl {
 
 ///////////////////////////////////////////////////////////////////////////////
 
-MP4Property::MP4Property(const char* name)
+MP4Property::MP4Property(MP4Atom& parentAtom, const char* name)
+    : m_parentAtom(parentAtom)
 {
     m_name = name;
-    m_pParentAtom = NULL;
     m_readOnly = false;
     m_implicit = false;
 }
@@ -299,12 +299,13 @@ void MP4Float32Property::Dump(uint8_t indent,
 // MP4StringProperty
 
 MP4StringProperty::MP4StringProperty(
+    MP4Atom& parentAtom,
     const char* name,
     bool        useCountedFormat,
     bool        useUnicode,
     bool        arrayMode )
 
-    : MP4Property( name )
+    : MP4Property( parentAtom, name )
     , m_arrayMode        ( arrayMode )
     , m_useCountedFormat ( useCountedFormat )
     , m_useExpandedCount ( false )
@@ -458,9 +459,9 @@ void MP4StringProperty::Dump( uint8_t indent, bool dumpImplicits, uint32_t index
 
 // MP4BytesProperty
 
-MP4BytesProperty::MP4BytesProperty(const char* name, uint32_t valueSize,
+MP4BytesProperty::MP4BytesProperty(MP4Atom& parentAtom, const char* name, uint32_t valueSize,
                                    uint32_t defaultValueSize)
-        : MP4Property(name)
+        : MP4Property(parentAtom, name)
         , m_fixedValueSize(0)
         , m_defaultValueSize(defaultValueSize)
 {
@@ -501,7 +502,7 @@ void MP4BytesProperty::SetValue(const uint8_t* pValue, uint32_t valueSize,
     if (m_fixedValueSize) {
         if (valueSize > m_fixedValueSize) {
             ostringstream msg;
-            msg << GetParentAtom()->GetType() << "." << GetName() << " value size " << valueSize << " exceeds fixed value size " << m_fixedValueSize;
+            msg << GetParentAtom().GetType() << "." << GetName() << " value size " << valueSize << " exceeds fixed value size " << m_fixedValueSize;
             throw new Exception(msg.str().c_str(), __FILE__, __LINE__, __FUNCTION__ );
         }
         if (m_values[index] == NULL) {
@@ -597,17 +598,13 @@ void MP4BytesProperty::Dump(uint8_t indent,
 
     // specialization for ilst item data always show all bytes except for covr
     bool showall = false;
-    if( m_pParentAtom ) {
-         MP4Atom* const datac = m_pParentAtom->GetParentAtom(); // data container
-        if( datac ) {
-            MP4Atom* const datacc = datac->GetParentAtom();
-            if( datacc &&
-                ATOMID( datacc->GetType() ) == ATOMID( "ilst" ) &&
-                ATOMID( datac->GetType() ) != ATOMID( "covr" ) )
-            {
-                showall = true;
-            }
-        }
+    MP4Atom* const datac = m_parentAtom.GetParentAtom(); // data container
+    MP4Atom* const datacc = datac->GetParentAtom();
+    if( datacc &&
+        ATOMID( datacc->GetType() ) == ATOMID( "ilst" ) &&
+        ATOMID( datac->GetType() ) != ATOMID( "covr" ) )
+    {
+        showall = true;
     }
 
     uint32_t adjsize;
@@ -680,8 +677,8 @@ void MP4BytesProperty::Dump(uint8_t indent,
 
 // MP4TableProperty
 
-MP4TableProperty::MP4TableProperty(const char* name, MP4IntegerProperty* pCountProperty)
-        : MP4Property(name)
+MP4TableProperty::MP4TableProperty(MP4Atom& parentAtom, const char* name, MP4IntegerProperty* pCountProperty)
+        : MP4Property(parentAtom, name)
 {
     m_pCountProperty = pCountProperty;
     m_pCountProperty->SetReadOnly();
@@ -700,7 +697,6 @@ void MP4TableProperty::AddProperty(MP4Property* pProperty)
     ASSERT(pProperty->GetType() != TableProperty);
     ASSERT(pProperty->GetType() != DescriptorProperty);
     m_pProperties.Add(pProperty);
-    pProperty->SetParentAtom(m_pParentAtom);
     pProperty->SetCount(0);
 }
 
@@ -808,7 +804,7 @@ void MP4TableProperty::Write(MP4File& file, uint32_t index)
 
     if (m_pProperties[0]->GetCount() != numEntries) {
         log.errorf("%s %s \"%s\"table entries %u doesn't match count %u",
-                   GetParentAtom() != NULL ? GetParentAtom()->GetType() : "",
+                   GetParentAtom().GetType(),
                    GetName(), m_pProperties[0]->GetName(),
                    m_pProperties[0]->GetCount(), numEntries);
 
@@ -855,9 +851,9 @@ void MP4TableProperty::Dump(uint8_t indent,
 
 // MP4DescriptorProperty
 
-MP4DescriptorProperty::MP4DescriptorProperty(const char* name,
+MP4DescriptorProperty::MP4DescriptorProperty(MP4Atom& parentAtom, const char* name,
         uint8_t tagsStart, uint8_t tagsEnd, bool mandatory, bool onlyOne)
-        : MP4Property(name)
+        : MP4Property(parentAtom, name)
 {
     SetTags(tagsStart, tagsEnd);
     m_sizeLimit = 0;
@@ -872,23 +868,15 @@ MP4DescriptorProperty::~MP4DescriptorProperty()
     }
 }
 
-void MP4DescriptorProperty::SetParentAtom(MP4Atom* pParentAtom) {
-    m_pParentAtom = pParentAtom;
-    for (uint32_t i = 0; i < m_pDescriptors.Size(); i++) {
-        m_pDescriptors[i]->SetParentAtom(pParentAtom);
-    }
-}
-
 MP4Descriptor* MP4DescriptorProperty::AddDescriptor(uint8_t tag)
 {
     // check that tag is in expected range
     ASSERT(tag >= m_tagsStart && tag <= m_tagsEnd);
 
-    MP4Descriptor* pDescriptor = CreateDescriptor(tag);
+    MP4Descriptor* pDescriptor = CreateDescriptor(m_parentAtom, tag);
     ASSERT(pDescriptor);
 
     m_pDescriptors.Add(pDescriptor);
-    pDescriptor->SetParentAtom(m_pParentAtom);
 
     return pDescriptor;
 }
@@ -1050,14 +1038,14 @@ void MP4DescriptorProperty::Dump(uint8_t indent,
 
 ///////////////////////////////////////////////////////////////////////////////
 
-MP4LanguageCodeProperty::MP4LanguageCodeProperty( const char* name, bmff::LanguageCode value )
-    : MP4Property( name )
+MP4LanguageCodeProperty::MP4LanguageCodeProperty( MP4Atom& parentAtom, const char* name, bmff::LanguageCode value )
+    : MP4Property( parentAtom, name )
 {
     SetValue( value );
 }
 
-MP4LanguageCodeProperty::MP4LanguageCodeProperty( const char* name, const string& code )
-    : MP4Property( name )
+MP4LanguageCodeProperty::MP4LanguageCodeProperty( MP4Atom& parentAtom, const char* name, const string& code )
+    : MP4Property( parentAtom, name )
 {
     SetValue( bmff::enumLanguageCode.toType( code ));
 }
@@ -1140,8 +1128,8 @@ MP4LanguageCodeProperty::Write( MP4File& file, uint32_t index )
 
 ///////////////////////////////////////////////////////////////////////////////
 
-MP4BasicTypeProperty::MP4BasicTypeProperty( const char* name, itmf::BasicType type )
-    : MP4Property( name )
+MP4BasicTypeProperty::MP4BasicTypeProperty( MP4Atom& parentAtom, const char* name, itmf::BasicType type )
+    : MP4Property( parentAtom, name )
 {
     SetValue( type );
 }

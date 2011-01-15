@@ -38,17 +38,17 @@ MP4RtpAtom::MP4RtpAtom(MP4File &file)
 
 void MP4RtpAtom::AddPropertiesStsdType()
 {
-    AddReserved("reserved1", 6); /* 0 */
+    AddReserved(*this, "reserved1", 6); /* 0 */
 
     AddProperty( /* 1 */
-        new MP4Integer16Property("dataReferenceIndex"));
+        new MP4Integer16Property(*this, "dataReferenceIndex"));
 
     AddProperty( /* 2 */
-        new MP4Integer16Property("hintTrackVersion"));
+        new MP4Integer16Property(*this, "hintTrackVersion"));
     AddProperty( /* 3 */
-        new MP4Integer16Property("highestCompatibleVersion"));
+        new MP4Integer16Property(*this, "highestCompatibleVersion"));
     AddProperty( /* 4 */
-        new MP4Integer32Property("maxPacketSize"));
+        new MP4Integer32Property(*this, "maxPacketSize"));
 
     ExpectChildAtom("tims", Required, OnlyOne);
     ExpectChildAtom("tsro", Optional, OnlyOne);
@@ -58,12 +58,12 @@ void MP4RtpAtom::AddPropertiesStsdType()
 void MP4RtpAtom::AddPropertiesHntiType()
 {
     MP4StringProperty* pProp =
-        new MP4StringProperty("descriptionFormat");
+        new MP4StringProperty(*this, "descriptionFormat");
     pProp->SetFixedLength(4);
     AddProperty(pProp); /* 0 */
 
     AddProperty( /* 1 */
-        new MP4StringProperty("sdpText"));
+        new MP4StringProperty(*this, "sdpText"));
 }
 
 void MP4RtpAtom::Generate()

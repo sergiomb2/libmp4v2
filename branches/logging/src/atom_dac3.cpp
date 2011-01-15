@@ -32,13 +32,13 @@ namespace impl {
 MP4DAc3Atom::MP4DAc3Atom(MP4File &file)
         : MP4Atom(file, "dac3")
 {
-    AddProperty( new MP4BitfieldProperty("fscod", 2)); /* 0 */
-    AddProperty( new MP4BitfieldProperty("bsid", 5)); /* 1 */
-    AddProperty( new MP4BitfieldProperty("bsmod", 3)); /* 2 */
-    AddProperty( new MP4BitfieldProperty("acmod", 3)); /* 3 */
-    AddProperty( new MP4BitfieldProperty("lfeon", 1)); /* 4 */
-    AddProperty( new MP4BitfieldProperty("bit_rate_code", 5)); /* 5 */
-    AddProperty( new MP4BitfieldProperty("reserved", 5)); /* 6 */
+    AddProperty( new MP4BitfieldProperty(*this, "fscod", 2)); /* 0 */
+    AddProperty( new MP4BitfieldProperty(*this, "bsid", 5)); /* 1 */
+    AddProperty( new MP4BitfieldProperty(*this, "bsmod", 3)); /* 2 */
+    AddProperty( new MP4BitfieldProperty(*this, "acmod", 3)); /* 3 */
+    AddProperty( new MP4BitfieldProperty(*this, "lfeon", 1)); /* 4 */
+    AddProperty( new MP4BitfieldProperty(*this, "bit_rate_code", 5)); /* 5 */
+    AddProperty( new MP4BitfieldProperty(*this, "reserved", 5)); /* 6 */
     m_pProperties[6]->SetReadOnly(true);
 }
 

@@ -30,7 +30,7 @@ MP4VmhdAtom::MP4VmhdAtom(MP4File &file)
         : MP4Atom(file, "vmhd")
 {
     AddVersionAndFlags();
-    AddReserved("reserved", 8);
+    AddReserved(*this, "reserved", 8);
 }
 
 void MP4VmhdAtom::Generate()

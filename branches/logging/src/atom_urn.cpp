@@ -30,8 +30,8 @@ MP4UrnAtom::MP4UrnAtom(MP4File &file)
         : MP4Atom(file, "urn ")
 {
     AddVersionAndFlags();
-    AddProperty(new MP4StringProperty("name"));
-    AddProperty(new MP4StringProperty("location"));
+    AddProperty(new MP4StringProperty(*this, "name"));
+    AddProperty(new MP4StringProperty(*this, "location"));
 }
 
 void MP4UrnAtom::Read()

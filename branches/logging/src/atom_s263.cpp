@@ -35,20 +35,20 @@ namespace impl {
 MP4S263Atom::MP4S263Atom(MP4File &file)
         : MP4Atom(file, "s263")
 {
-    AddReserved("reserved1", 6); /* 0 */
+    AddReserved(*this, "reserved1", 6); /* 0 */
 
     AddProperty( /* 1 */
-        new MP4Integer16Property("dataReferenceIndex"));
+        new MP4Integer16Property(*this, "dataReferenceIndex"));
 
-    AddReserved("reserved2", 16); /* 2 */
+    AddReserved(*this, "reserved2", 16); /* 2 */
 
     AddProperty( /* 3 */
-        new MP4Integer16Property("width"));
+        new MP4Integer16Property(*this, "width"));
 
     AddProperty( /* 4 */
-        new MP4Integer16Property("height"));
+        new MP4Integer16Property(*this, "height"));
 
-    AddReserved("reserved3", 50); /* 5 */
+    AddReserved(*this, "reserved3", 50); /* 5 */
 
 
     ExpectChildAtom("d263", Required, OnlyOne);

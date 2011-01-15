@@ -32,17 +32,17 @@ MP4StszAtom::MP4StszAtom(MP4File &file)
     AddVersionAndFlags(); /* 0, 1 */
 
     AddProperty( /* 2 */
-        new MP4Integer32Property("sampleSize"));
+        new MP4Integer32Property(*this, "sampleSize"));
 
     MP4Integer32Property* pCount =
-        new MP4Integer32Property("sampleCount");
+        new MP4Integer32Property(*this, "sampleCount");
     AddProperty(pCount); /* 3 */
 
-    MP4TableProperty* pTable = new MP4TableProperty("entries", pCount);
+    MP4TableProperty* pTable = new MP4TableProperty(*this, "entries", pCount);
     AddProperty(pTable); /* 4 */
 
     pTable->AddProperty( /* 4/0 */
-        new MP4Integer32Property("entrySize"));
+        new MP4Integer32Property(pTable->GetParentAtom(), "entrySize"));
 }
 
 void MP4StszAtom::Read()

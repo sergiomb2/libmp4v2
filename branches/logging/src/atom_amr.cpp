@@ -35,17 +35,17 @@ namespace impl {
 MP4AmrAtom::MP4AmrAtom(MP4File &file, const char *type)
         : MP4Atom(file, type)
 {
-    AddReserved("reserved1", 6); /* 0 */
+    AddReserved(*this,"reserved1", 6); /* 0 */
 
     AddProperty( /* 1 */
-        new MP4Integer16Property("dataReferenceIndex"));
+        new MP4Integer16Property(*this,"dataReferenceIndex"));
 
-    AddReserved("reserved2", 16); /* 2 */
+    AddReserved(*this,"reserved2", 16); /* 2 */
 
     AddProperty( /* 3 */
-        new MP4Integer16Property("timeScale"));
+        new MP4Integer16Property(*this,"timeScale"));
 
-    AddReserved("reserved3", 2); /* 4 */
+    AddReserved(*this,"reserved3", 2); /* 4 */
 
     ExpectChildAtom("damr", Required, OnlyOne);
 }

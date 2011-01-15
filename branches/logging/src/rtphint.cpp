@@ -707,10 +707,11 @@ MP4RtpHint::MP4RtpHint(MP4RtpHintTrack* pTrack)
 {
     m_pTrack = pTrack;
 
+    ASSERT(this->GetTrack()->GetTrakAtom());
     AddProperty( /* 0 */
-        new MP4Integer16Property("packetCount"));
+        new MP4Integer16Property(*this->GetTrack()->GetTrakAtom(), "packetCount"));
     AddProperty( /* 1 */
-        new MP4Integer16Property("reserved"));
+        new MP4Integer16Property(*this->GetTrack()->GetTrakAtom(), "reserved"));
 }
 
 MP4RtpHint::~MP4RtpHint()
@@ -805,32 +806,33 @@ MP4RtpPacket::MP4RtpPacket(MP4RtpHint* pHint)
 {
     m_pHint = pHint;
 
+    ASSERT(this->GetHint()->GetTrack()->GetTrakAtom());
     AddProperty( /* 0 */
-        new MP4Integer32Property("relativeXmitTime"));
+        new MP4Integer32Property(*this->GetHint()->GetTrack()->GetTrakAtom(), "relativeXmitTime"));
     AddProperty( /* 1 */
-        new MP4BitfieldProperty("reserved1", 2));
+        new MP4BitfieldProperty(*this->GetHint()->GetTrack()->GetTrakAtom(), "reserved1", 2));
     AddProperty( /* 2 */
-        new MP4BitfieldProperty("Pbit", 1));
+        new MP4BitfieldProperty(*this->GetHint()->GetTrack()->GetTrakAtom(), "Pbit", 1));
     AddProperty( /* 3 */
-        new MP4BitfieldProperty("Xbit", 1));
+        new MP4BitfieldProperty(*this->GetHint()->GetTrack()->GetTrakAtom(), "Xbit", 1));
     AddProperty( /* 4 */
-        new MP4BitfieldProperty("reserved2", 4));
+        new MP4BitfieldProperty(*this->GetHint()->GetTrack()->GetTrakAtom(), "reserved2", 4));
     AddProperty( /* 5 */
-        new MP4BitfieldProperty("Mbit", 1));
+        new MP4BitfieldProperty(*this->GetHint()->GetTrack()->GetTrakAtom(), "Mbit", 1));
     AddProperty( /* 6 */
-        new MP4BitfieldProperty("payloadType", 7));
+        new MP4BitfieldProperty(*this->GetHint()->GetTrack()->GetTrakAtom(), "payloadType", 7));
     AddProperty( /* 7  */
-        new MP4Integer16Property("sequenceNumber"));
+        new MP4Integer16Property(*this->GetHint()->GetTrack()->GetTrakAtom(), "sequenceNumber"));
     AddProperty( /* 8 */
-        new MP4BitfieldProperty("reserved3", 13));
+        new MP4BitfieldProperty(*this->GetHint()->GetTrack()->GetTrakAtom(), "reserved3", 13));
     AddProperty( /* 9 */
-        new MP4BitfieldProperty("extraFlag", 1));
+        new MP4BitfieldProperty(*this->GetHint()->GetTrack()->GetTrakAtom(), "extraFlag", 1));
     AddProperty( /* 10 */
-        new MP4BitfieldProperty("bFrameFlag", 1));
+        new MP4BitfieldProperty(*this->GetHint()->GetTrack()->GetTrakAtom(), "bFrameFlag", 1));
     AddProperty( /* 11 */
-        new MP4BitfieldProperty("repeatFlag", 1));
+        new MP4BitfieldProperty(*this->GetHint()->GetTrack()->GetTrakAtom(), "repeatFlag", 1));
     AddProperty( /* 12 */
-        new MP4Integer16Property("entryCount"));
+        new MP4Integer16Property(*this->GetHint()->GetTrack()->GetTrakAtom(), "entryCount"));
 }
 
 MP4RtpPacket::~MP4RtpPacket()
@@ -842,19 +844,20 @@ MP4RtpPacket::~MP4RtpPacket()
 
 void MP4RtpPacket::AddExtraProperties()
 {
+    ASSERT(this->GetHint()->GetTrack()->GetTrakAtom());
     AddProperty( /* 13 */
-        new MP4Integer32Property("extraInformationLength"));
+        new MP4Integer32Property(*this->GetHint()->GetTrack()->GetTrakAtom(), "extraInformationLength"));
 
     // This is a bit of a hack, since the tlv entries are really defined
     // as atoms but there is only one type defined now, rtpo, and getting
     // our atom code hooked up here would be a major pain with little gain
 
     AddProperty( /* 14 */
-        new MP4Integer32Property("tlvLength"));
+        new MP4Integer32Property(*this->GetHint()->GetTrack()->GetTrakAtom(), "tlvLength"));
     AddProperty( /* 15 */
-        new MP4StringProperty("tlvType"));
+        new MP4StringProperty(*this->GetHint()->GetTrack()->GetTrakAtom(), "tlvType"));
     AddProperty( /* 16 */
-        new MP4Integer32Property("timestampOffset"));
+        new MP4Integer32Property(*this->GetHint()->GetTrack()->GetTrakAtom(), "timestampOffset"));
 
     ((MP4Integer32Property*)m_pProperties[13])->SetValue(16);
     ((MP4Integer32Property*)m_pProperties[14])->SetValue(12);
@@ -1068,8 +1071,12 @@ MP4RtpData::MP4RtpData(MP4RtpPacket* pPacket)
 {
     m_pPacket = pPacket;
 
+    ASSERT(this->GetPacket());
+    ASSERT(this->GetPacket()->GetHint());
+    ASSERT(this->GetPacket()->GetHint()->GetTrack());
+    ASSERT(this->GetPacket()->GetHint()->GetTrack()->GetTrakAtom());
     AddProperty( /* 0 */
-        new MP4Integer8Property("type"));
+        new MP4Integer8Property(*this->GetPacket()->GetHint()->GetTrack()->GetTrakAtom(), "type"));
 }
 
 MP4Track* MP4RtpData::FindTrackFromRefIndex(uint8_t refIndex)
@@ -1110,8 +1117,12 @@ MP4RtpNullData::MP4RtpNullData(MP4RtpPacket* pPacket)
 {
     ((MP4Integer8Property*)m_pProperties[0])->SetValue(0);
 
+    ASSERT(this->GetPacket());
+    ASSERT(this->GetPacket()->GetHint());
+    ASSERT(this->GetPacket()->GetHint()->GetTrack());
+    ASSERT(this->GetPacket()->GetHint()->GetTrack()->GetTrakAtom());
     AddProperty( /* 1 */
-        new MP4BytesProperty("pad", 15));
+        new MP4BytesProperty(*this->GetPacket()->GetHint()->GetTrack()->GetTrakAtom(), "pad", 15));
 
     ((MP4BytesProperty*)m_pProperties[1])->SetFixedSize(15);
 }
@@ -1121,10 +1132,14 @@ MP4RtpImmediateData::MP4RtpImmediateData(MP4RtpPacket* pPacket)
 {
     ((MP4Integer8Property*)m_pProperties[0])->SetValue(1);
 
+    ASSERT(this->GetPacket());
+    ASSERT(this->GetPacket()->GetHint());
+    ASSERT(this->GetPacket()->GetHint()->GetTrack());
+    ASSERT(this->GetPacket()->GetHint()->GetTrack()->GetTrakAtom());
     AddProperty( /* 1 */
-        new MP4Integer8Property("count"));
+        new MP4Integer8Property(*this->GetPacket()->GetHint()->GetTrack()->GetTrakAtom(), "count"));
     AddProperty( /* 2 */
-        new MP4BytesProperty("data", 14));
+        new MP4BytesProperty(*this->GetPacket()->GetHint()->GetTrack()->GetTrakAtom(), "data", 14));
 
     ((MP4BytesProperty*)m_pProperties[2])->SetFixedSize(14);
 }
@@ -1155,18 +1170,22 @@ MP4RtpSampleData::MP4RtpSampleData(MP4RtpPacket* pPacket)
 {
     ((MP4Integer8Property*)m_pProperties[0])->SetValue(2);
 
+    ASSERT(this->GetPacket());
+    ASSERT(this->GetPacket()->GetHint());
+    ASSERT(this->GetPacket()->GetHint()->GetTrack());
+    ASSERT(this->GetPacket()->GetHint()->GetTrack()->GetTrakAtom());
     AddProperty( /* 1 */
-        new MP4Integer8Property("trackRefIndex"));
+        new MP4Integer8Property(*this->GetPacket()->GetHint()->GetTrack()->GetTrakAtom(), "trackRefIndex"));
     AddProperty( /* 2 */
-        new MP4Integer16Property("length"));
+        new MP4Integer16Property(*this->GetPacket()->GetHint()->GetTrack()->GetTrakAtom(), "length"));
     AddProperty( /* 3 */
-        new MP4Integer32Property("sampleNumber"));
+        new MP4Integer32Property(*this->GetPacket()->GetHint()->GetTrack()->GetTrakAtom(), "sampleNumber"));
     AddProperty( /* 4 */
-        new MP4Integer32Property("sampleOffset"));
+        new MP4Integer32Property(*this->GetPacket()->GetHint()->GetTrack()->GetTrakAtom(), "sampleOffset"));
     AddProperty( /* 5 */
-        new MP4Integer16Property("bytesPerBlock"));
+        new MP4Integer16Property(*this->GetPacket()->GetHint()->GetTrack()->GetTrakAtom(), "bytesPerBlock"));
     AddProperty( /* 6 */
-        new MP4Integer16Property("samplesPerBlock"));
+        new MP4Integer16Property(*this->GetPacket()->GetHint()->GetTrack()->GetTrakAtom(), "samplesPerBlock"));
 
     ((MP4Integer16Property*)m_pProperties[5])->SetValue(1);
     ((MP4Integer16Property*)m_pProperties[6])->SetValue(1);
@@ -1272,16 +1291,20 @@ MP4RtpSampleDescriptionData::MP4RtpSampleDescriptionData(MP4RtpPacket* pPacket)
 {
     ((MP4Integer8Property*)m_pProperties[0])->SetValue(3);
 
+    ASSERT(this->GetPacket());
+    ASSERT(this->GetPacket()->GetHint());
+    ASSERT(this->GetPacket()->GetHint()->GetTrack());
+    ASSERT(this->GetPacket()->GetHint()->GetTrack()->GetTrakAtom());
     AddProperty( /* 1 */
-        new MP4Integer8Property("trackRefIndex"));
+        new MP4Integer8Property(*this->GetPacket()->GetHint()->GetTrack()->GetTrakAtom(), "trackRefIndex"));
     AddProperty( /* 2 */
-        new MP4Integer16Property("length"));
+        new MP4Integer16Property(*this->GetPacket()->GetHint()->GetTrack()->GetTrakAtom(), "length"));
     AddProperty( /* 3 */
-        new MP4Integer32Property("sampleDescriptionIndex"));
+        new MP4Integer32Property(*this->GetPacket()->GetHint()->GetTrack()->GetTrakAtom(), "sampleDescriptionIndex"));
     AddProperty( /* 4 */
-        new MP4Integer32Property("sampleDescriptionOffset"));
+        new MP4Integer32Property(*this->GetPacket()->GetHint()->GetTrack()->GetTrakAtom(), "sampleDescriptionOffset"));
     AddProperty( /* 5 */
-        new MP4Integer32Property("reserved"));
+        new MP4Integer32Property(*this->GetPacket()->GetHint()->GetTrack()->GetTrakAtom(), "reserved"));
 }
 
 void MP4RtpSampleDescriptionData::Set(uint32_t sampleDescrIndex,
