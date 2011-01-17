@@ -5,6 +5,14 @@ $Date$
 
 -------------------
 
+(17-jan-11, dbyron)
+
+- change the MP4RtpData, MP4RtpNullData,
+MP4RtpImmediateData, MP4RtpSampleData,
+MP4RtpSampleDescriptionData, MP4RtpPacket, MP4RtpHint and
+MP4Track to take references instead of pointers, with
+accessors changed appropriately.
+
 (14-jan-11, dbyron)
 
 - change the MP4Descriptor constructor (and the constructors

@@ -452,9 +452,9 @@ void MP4File::GenerateTracks()
             MP4Track* pTrack = NULL;
             try {
                 if (!strcmp(pTypeProperty->GetValue(), MP4_HINT_TRACK_TYPE)) {
-                    pTrack = new MP4RtpHintTrack(*this, pTrakAtom);
+                    pTrack = new MP4RtpHintTrack(*this, *pTrakAtom);
                 } else {
-                    pTrack = new MP4Track(*this, pTrakAtom);
+                    pTrack = new MP4Track(*this, *pTrakAtom);
                 }
                 m_pTracks.Add(pTrack);
             }
@@ -887,6 +887,7 @@ MP4TrackId MP4File::AddTrack(const char* type, uint32_t timeScale)
 
     // create and add new trak atom
     MP4Atom* pTrakAtom = AddChildAtom("moov", "trak");
+    ASSERT(pTrakAtom);
 
     // allocate a new track id
     MP4TrackId trackId = AllocTrackId();
@@ -925,9 +926,9 @@ MP4TrackId MP4File::AddTrack(const char* type, uint32_t timeScale)
     // now have enough to create MP4Track object
     MP4Track* pTrack = NULL;
     if (!strcmp(normType, MP4_HINT_TRACK_TYPE)) {
-        pTrack = new MP4RtpHintTrack(*this, pTrakAtom);
+        pTrack = new MP4RtpHintTrack(*this, *pTrakAtom);
     } else {
-        pTrack = new MP4Track(*this, pTrakAtom);
+        pTrack = new MP4Track(*this, *pTrakAtom);
     }
     m_pTracks.Add(pTrack);
 
@@ -2748,10 +2749,10 @@ void MP4File::ChangeMovieTimeScale(uint32_t timescale)
     for (uint32_t i = 0; i < trackCount; ++i)
     {
         MP4Track * track = GetTrack(FindTrackId(i));
-        MP4Atom * trackAtom = track->GetTrakAtom();
+        MP4Atom & trackAtom = track->GetTrakAtom();
         MP4IntegerProperty * duration;
 
-        if (trackAtom->FindProperty("trak.tkhd.duration", (MP4Property**)&duration))
+        if (trackAtom.FindProperty("trak.tkhd.duration", (MP4Property**)&duration))
         {
             duration->SetValue(MP4ConvertTime(duration->GetValue(), origTimeScale, timescale));
         }
@@ -2766,8 +2767,7 @@ void MP4File::DeleteTrack(MP4TrackId trackId)
     uint16_t trackIndex = FindTrackIndex(trackId);
     MP4Track* pTrack = m_pTracks[trackIndex];
 
-    MP4Atom* pTrakAtom = pTrack->GetTrakAtom();
-    ASSERT(pTrakAtom);
+    MP4Atom& trakAtom = pTrack->GetTrakAtom();
 
     MP4Atom* pMoovAtom = FindAtom("moov");
     ASSERT(pMoovAtom);
@@ -2779,14 +2779,14 @@ void MP4File::DeleteTrack(MP4TrackId trackId)
         m_odTrackId = 0;
     }
 
-    pMoovAtom->DeleteChildAtom(pTrakAtom);
+    pMoovAtom->DeleteChildAtom(&trakAtom);
 
     m_trakIds.Delete(trakIndex);
 
     m_pTracks.Delete(trackIndex);
 
     delete pTrack;
-    delete pTrakAtom;
+    delete &trakAtom;
 }
 
 uint32_t MP4File::GetNumberOfTracks(const char* type, uint8_t subType)
@@ -3757,10 +3757,10 @@ uint8_t MP4File::AllocRtpPayloadNumber()
 
     // collect rtp payload numbers in use by existing tracks
     for (i = 0; i < m_pTracks.Size(); i++) {
-        MP4Atom* pTrakAtom = m_pTracks[i]->GetTrakAtom();
+        MP4Atom& trakAtom = m_pTracks[i]->GetTrakAtom();
 
         MP4Integer32Property* pPayloadProperty = NULL;
-        if (pTrakAtom->FindProperty("trak.udta.hinf.payt.payloadNumber",
+        if (trakAtom.FindProperty("trak.udta.hinf.payt.payloadNumber",
                                     (MP4Property**)&pPayloadProperty) &&
                 pPayloadProperty) {
             usedPayloads.Add(pPayloadProperty->GetValue());

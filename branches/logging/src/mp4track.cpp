@@ -37,11 +37,10 @@ namespace mp4v2 { namespace impl {
 #define AMR_TRUE 0
 #define AMR_FALSE 1
 
-MP4Track::MP4Track(MP4File& file, MP4Atom* pTrakAtom)
+MP4Track::MP4Track(MP4File& file, MP4Atom& trakAtom)
     : m_File(file)
+    , m_trakAtom(trakAtom)
 {
-    m_pTrakAtom = pTrakAtom;
-
     m_lastStsdIndex = 0;
     m_lastSampleFile = NULL;
 
@@ -69,14 +68,14 @@ MP4Track::MP4Track(MP4File& file, MP4Atom* pTrakAtom)
     bool success = true;
 
     MP4Integer32Property* pTrackIdProperty;
-    success &= m_pTrakAtom->FindProperty(
+    success &= m_trakAtom.FindProperty(
                    "trak.tkhd.trackId",
                    (MP4Property**)&pTrackIdProperty);
     if (success) {
         m_trackId = pTrackIdProperty->GetValue();
     }
 
-    success &= m_pTrakAtom->FindProperty(
+    success &= m_trakAtom.FindProperty(
                    "trak.mdia.mdhd.timeScale",
                    (MP4Property**)&m_pTimeScaleProperty);
     if (success) {
@@ -84,23 +83,23 @@ MP4Track::MP4Track(MP4File& file, MP4Atom* pTrakAtom)
         m_durationPerChunk = m_pTimeScaleProperty->GetValue();
     }
 
-    success &= m_pTrakAtom->FindProperty(
+    success &= m_trakAtom.FindProperty(
                    "trak.tkhd.duration",
                    (MP4Property**)&m_pTrackDurationProperty);
 
-    success &= m_pTrakAtom->FindProperty(
+    success &= m_trakAtom.FindProperty(
                    "trak.mdia.mdhd.duration",
                    (MP4Property**)&m_pMediaDurationProperty);
 
-    success &= m_pTrakAtom->FindProperty(
+    success &= m_trakAtom.FindProperty(
                    "trak.tkhd.modificationTime",
                    (MP4Property**)&m_pTrackModificationProperty);
 
-    success &= m_pTrakAtom->FindProperty(
+    success &= m_trakAtom.FindProperty(
                    "trak.mdia.mdhd.modificationTime",
                    (MP4Property**)&m_pMediaModificationProperty);
 
-    success &= m_pTrakAtom->FindProperty(
+    success &= m_trakAtom.FindProperty(
                    "trak.mdia.hdlr.handlerType",
                    (MP4Property**)&m_pTypeProperty);
 
@@ -109,27 +108,27 @@ MP4Track::MP4Track(MP4File& file, MP4Atom* pTrakAtom)
 
     m_pStszFixedSampleSizeProperty = NULL;
     bool have_stsz =
-        m_pTrakAtom->FindProperty("trak.mdia.minf.stbl.stsz.sampleSize",
+        m_trakAtom.FindProperty("trak.mdia.minf.stbl.stsz.sampleSize",
                                   (MP4Property**)&m_pStszFixedSampleSizeProperty);
 
     if (have_stsz) {
-        success &= m_pTrakAtom->FindProperty(
+        success &= m_trakAtom.FindProperty(
                        "trak.mdia.minf.stbl.stsz.sampleCount",
                        (MP4Property**)&m_pStszSampleCountProperty);
 
-        success &= m_pTrakAtom->FindProperty(
+        success &= m_trakAtom.FindProperty(
                        "trak.mdia.minf.stbl.stsz.entries.entrySize",
                        (MP4Property**)&m_pStszSampleSizeProperty);
         m_stsz_sample_bits = 32;
     } else {
-        success &= m_pTrakAtom->FindProperty(
+        success &= m_trakAtom.FindProperty(
                        "trak.mdia.minf.stbl.stz2.sampleCount",
                        (MP4Property**)&m_pStszSampleCountProperty);
-        success &= m_pTrakAtom->FindProperty(
+        success &= m_trakAtom.FindProperty(
                        "trak.mdia.minf.stbl.stz2.entries.entrySize",
                        (MP4Property**)&m_pStszSampleSizeProperty);
         MP4Integer8Property *stz2_field_size;
-        if (m_pTrakAtom->FindProperty(
+        if (m_trakAtom.FindProperty(
                     "trak.mdia.minf.stbl.stz2.fieldSize",
                     (MP4Property **)&stz2_field_size)) {
             m_stsz_sample_bits = stz2_field_size->GetValue();
@@ -139,55 +138,55 @@ MP4Track::MP4Track(MP4File& file, MP4Atom* pTrakAtom)
 
     // get handles on information needed to map sample id's to file offsets
 
-    success &= m_pTrakAtom->FindProperty(
+    success &= m_trakAtom.FindProperty(
                    "trak.mdia.minf.stbl.stsc.entryCount",
                    (MP4Property**)&m_pStscCountProperty);
 
-    success &= m_pTrakAtom->FindProperty(
+    success &= m_trakAtom.FindProperty(
                    "trak.mdia.minf.stbl.stsc.entries.firstChunk",
                    (MP4Property**)&m_pStscFirstChunkProperty);
 
-    success &= m_pTrakAtom->FindProperty(
+    success &= m_trakAtom.FindProperty(
                    "trak.mdia.minf.stbl.stsc.entries.samplesPerChunk",
                    (MP4Property**)&m_pStscSamplesPerChunkProperty);
 
-    success &= m_pTrakAtom->FindProperty(
+    success &= m_trakAtom.FindProperty(
                    "trak.mdia.minf.stbl.stsc.entries.sampleDescriptionIndex",
                    (MP4Property**)&m_pStscSampleDescrIndexProperty);
 
-    success &= m_pTrakAtom->FindProperty(
+    success &= m_trakAtom.FindProperty(
                    "trak.mdia.minf.stbl.stsc.entries.firstSample",
                    (MP4Property**)&m_pStscFirstSampleProperty);
 
-    bool haveStco = m_pTrakAtom->FindProperty(
+    bool haveStco = m_trakAtom.FindProperty(
                         "trak.mdia.minf.stbl.stco.entryCount",
                         (MP4Property**)&m_pChunkCountProperty);
 
     if (haveStco) {
-        success &= m_pTrakAtom->FindProperty(
+        success &= m_trakAtom.FindProperty(
                        "trak.mdia.minf.stbl.stco.entries.chunkOffset",
                        (MP4Property**)&m_pChunkOffsetProperty);
     } else {
-        success &= m_pTrakAtom->FindProperty(
+        success &= m_trakAtom.FindProperty(
                        "trak.mdia.minf.stbl.co64.entryCount",
                        (MP4Property**)&m_pChunkCountProperty);
 
-        success &= m_pTrakAtom->FindProperty(
+        success &= m_trakAtom.FindProperty(
                        "trak.mdia.minf.stbl.co64.entries.chunkOffset",
                        (MP4Property**)&m_pChunkOffsetProperty);
     }
 
     // get handles on sample timing info
 
-    success &= m_pTrakAtom->FindProperty(
+    success &= m_trakAtom.FindProperty(
                    "trak.mdia.minf.stbl.stts.entryCount",
                    (MP4Property**)&m_pSttsCountProperty);
 
-    success &= m_pTrakAtom->FindProperty(
+    success &= m_trakAtom.FindProperty(
                    "trak.mdia.minf.stbl.stts.entries.sampleCount",
                    (MP4Property**)&m_pSttsSampleCountProperty);
 
-    success &= m_pTrakAtom->FindProperty(
+    success &= m_trakAtom.FindProperty(
                    "trak.mdia.minf.stbl.stts.entries.sampleDelta",
                    (MP4Property**)&m_pSttsSampleDeltaProperty);
 
@@ -197,16 +196,16 @@ MP4Track::MP4Track(MP4File& file, MP4Atom* pTrakAtom)
     m_pCttsSampleCountProperty = NULL;
     m_pCttsSampleOffsetProperty = NULL;
 
-    bool haveCtts = m_pTrakAtom->FindProperty(
+    bool haveCtts = m_trakAtom.FindProperty(
                         "trak.mdia.minf.stbl.ctts.entryCount",
                         (MP4Property**)&m_pCttsCountProperty);
 
     if (haveCtts) {
-        success &= m_pTrakAtom->FindProperty(
+        success &= m_trakAtom.FindProperty(
                        "trak.mdia.minf.stbl.ctts.entries.sampleCount",
                        (MP4Property**)&m_pCttsSampleCountProperty);
 
-        success &= m_pTrakAtom->FindProperty(
+        success &= m_trakAtom.FindProperty(
                        "trak.mdia.minf.stbl.ctts.entries.sampleOffset",
                        (MP4Property**)&m_pCttsSampleOffsetProperty);
     }
@@ -216,12 +215,12 @@ MP4Track::MP4Track(MP4File& file, MP4Atom* pTrakAtom)
     m_pStssCountProperty = NULL;
     m_pStssSampleProperty = NULL;
 
-    bool haveStss = m_pTrakAtom->FindProperty(
+    bool haveStss = m_trakAtom.FindProperty(
                         "trak.mdia.minf.stbl.stss.entryCount",
                         (MP4Property**)&m_pStssCountProperty);
 
     if (haveStss) {
-        success &= m_pTrakAtom->FindProperty(
+        success &= m_trakAtom.FindProperty(
                        "trak.mdia.minf.stbl.stss.entries.sampleNumber",
                        (MP4Property**)&m_pStssSampleProperty);
     }
@@ -236,7 +235,7 @@ MP4Track::MP4Track(MP4File& file, MP4Atom* pTrakAtom)
     CalculateBytesPerSample();
 
     // update sdtp log from sdtp atom
-    MP4SdtpAtom* sdtp = (MP4SdtpAtom*)m_pTrakAtom->FindAtom( "trak.mdia.minf.stbl.sdtp" );
+    MP4SdtpAtom* sdtp = (MP4SdtpAtom*)m_trakAtom.FindAtom( "trak.mdia.minf.stbl.sdtp" );
     if( sdtp ) {
         uint8_t* buffer;
         uint32_t bufsize;
@@ -410,8 +409,8 @@ void MP4Track::WriteSample(
 
     if (m_isAmr == AMR_UNINITIALIZED ) {
         // figure out if this is an AMR audio track
-        if (m_pTrakAtom->FindAtom("trak.mdia.minf.stbl.stsd.samr") ||
-                m_pTrakAtom->FindAtom("trak.mdia.minf.stbl.stsd.sawb")) {
+        if (m_trakAtom.FindAtom("trak.mdia.minf.stbl.stsd.samr") ||
+                m_trakAtom.FindAtom("trak.mdia.minf.stbl.stsd.sawb")) {
             m_isAmr = AMR_TRUE;
             m_curMode = (pBytes[0] >> 3) & 0x000F;
         } else {
@@ -523,7 +522,7 @@ void MP4Track::FinishWrite()
     // record buffer size and bitrates
     MP4BitfieldProperty* pBufferSizeProperty;
 
-    if (m_pTrakAtom->FindProperty(
+    if (m_trakAtom.FindProperty(
                 "trak.mdia.minf.stbl.stsd.*.esds.decConfigDescr.bufferSizeDB",
                 (MP4Property**)&pBufferSizeProperty)) {
         pBufferSizeProperty->SetValue(GetMaxSampleSize());
@@ -531,13 +530,13 @@ void MP4Track::FinishWrite()
 
     MP4Integer32Property* pBitrateProperty;
 
-    if (m_pTrakAtom->FindProperty(
+    if (m_trakAtom.FindProperty(
                 "trak.mdia.minf.stbl.stsd.*.esds.decConfigDescr.maxBitrate",
                 (MP4Property**)&pBitrateProperty)) {
         pBitrateProperty->SetValue(GetMaxBitrate());
     }
 
-    if (m_pTrakAtom->FindProperty(
+    if (m_trakAtom.FindProperty(
                 "trak.mdia.minf.stbl.stsd.*.esds.decConfigDescr.avgBitrate",
                 (MP4Property**)&pBitrateProperty)) {
         pBitrateProperty->SetValue(GetAvgBitrate());
@@ -545,10 +544,10 @@ void MP4Track::FinishWrite()
 
     // cleaup trak.udta
     MP4BytesProperty* nameProperty = NULL;
-    m_pTrakAtom->FindProperty("trak.udta.name.value", (MP4Property**) &nameProperty);
+    m_trakAtom.FindProperty("trak.udta.name.value", (MP4Property**) &nameProperty);
     if( nameProperty != NULL && nameProperty->GetValueSize() == 0 ){
         // Zero length name value--delete name, and then udta if no child atoms
-        MP4Atom* name = m_pTrakAtom->FindChildAtom("udta.name");
+        MP4Atom* name = m_trakAtom.FindChildAtom("udta.name");
         if( name ) {
             MP4Atom* udta = name->GetParentAtom();
             udta->DeleteChildAtom( name );
@@ -575,7 +574,7 @@ void MP4Track::FinishSdtp()
     if( m_sdtpLog.empty() )
         return;
 
-    MP4SdtpAtom* sdtp = (MP4SdtpAtom*)m_pTrakAtom->FindAtom( "trak.mdia.minf.stbl.sdtp" );
+    MP4SdtpAtom* sdtp = (MP4SdtpAtom*)m_trakAtom.FindAtom( "trak.mdia.minf.stbl.sdtp" );
     if( !sdtp )
         sdtp = (MP4SdtpAtom*)AddAtom( "trak.mdia.minf.stbl", "sdtp" );
     sdtp->data.SetValue( (const uint8_t*)m_sdtpLog.data(), (uint32_t)m_sdtpLog.size() );
@@ -882,7 +881,7 @@ File* MP4Track::GetSampleFile( MP4SampleId sampleId )
     if( m_lastStsdIndex && stsdIndex == m_lastStsdIndex )
         return m_lastSampleFile;
 
-    MP4Atom* pStsdAtom = m_pTrakAtom->FindAtom( "trak.mdia.minf.stbl.stsd" );
+    MP4Atom* pStsdAtom = m_trakAtom.FindAtom( "trak.mdia.minf.stbl.stsd" );
     ASSERT( pStsdAtom );
 
     MP4Atom* pStsdEntryAtom = pStsdAtom->GetChildAtom( stsdIndex - 1 );
@@ -897,7 +896,7 @@ File* MP4Track::GetSampleFile( MP4SampleId sampleId )
 
     uint32_t drefIndex = pDrefIndexProperty->GetValue();
 
-    MP4Atom* pDrefAtom = m_pTrakAtom->FindAtom( "trak.mdia.minf.dinf.dref" );
+    MP4Atom* pDrefAtom = m_trakAtom.FindAtom( "trak.mdia.minf.dinf.dref" );
     ASSERT(pDrefAtom);
 
     MP4Atom* pUrlAtom = pDrefAtom->GetChildAtom( drefIndex - 1 );
@@ -1431,7 +1430,7 @@ void MP4Track::UpdateSyncSamples(MP4SampleId sampleId, bool isSyncSample)
 
 MP4Atom* MP4Track::AddAtom(const char* parentName, const char* childName)
 {
-    MP4Atom* pParentAtom = m_pTrakAtom->FindAtom(parentName);
+    MP4Atom* pParentAtom = m_trakAtom.FindAtom(parentName);
     ASSERT(pParentAtom);
 
     MP4Atom* pChildAtom = MP4Atom::CreateAtom(m_File, pParentAtom, childName);
@@ -1610,7 +1609,7 @@ bool MP4Track::InitEditListProperties()
     m_pElstReservedProperty = NULL;
 
     MP4Atom* pElstAtom =
-        m_pTrakAtom->FindAtom("trak.edts.elst");
+        m_trakAtom.FindAtom("trak.edts.elst");
 
     if (!pElstAtom) {
         return false;
@@ -1643,7 +1642,7 @@ bool MP4Track::InitEditListProperties()
 MP4EditId MP4Track::AddEdit(MP4EditId editId)
 {
     if (!m_pElstCountProperty) {
-        (void)m_File.AddDescendantAtoms(m_pTrakAtom, "edts.elst");
+        (void)m_File.AddDescendantAtoms(&m_trakAtom, "edts.elst");
         if (InitEditListProperties() == false) return MP4_INVALID_EDIT_ID;
     }
 
@@ -1689,8 +1688,8 @@ void MP4Track::DeleteEdit(MP4EditId editId)
         m_pElstRateProperty = NULL;
         m_pElstReservedProperty = NULL;
 
-        m_pTrakAtom->DeleteChildAtom(
-            m_pTrakAtom->FindAtom("trak.edts"));
+        m_trakAtom.DeleteChildAtom(
+            m_trakAtom.FindAtom("trak.edts"));
     }
 }
 
@@ -1854,7 +1853,7 @@ MP4SampleId MP4Track::GetSampleIdFromEditTime(
 
 void MP4Track::CalculateBytesPerSample ()
 {
-    MP4Atom *pMedia = m_pTrakAtom->FindAtom("trak.mdia.minf.stbl.stsd");
+    MP4Atom *pMedia = m_trakAtom.FindAtom("trak.mdia.minf.stbl.stsd");
     MP4Atom *pMediaData;
     const char *media_data_name;
     if (pMedia == NULL) return;
