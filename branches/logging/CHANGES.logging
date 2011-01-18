@@ -7,6 +7,11 @@ $Date$
 
 (18-jan-11, dbyron)
 
+- add __FUNCTION__, filename to warning messages
+
+- add warning to MP4File::Modify when failing because the
+file has no moov atom
+
 - add __FUNCTION__, filename to error messages
 
 - add filename to verbose log messages in mp4descriptor.cpp

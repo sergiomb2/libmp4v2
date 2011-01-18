@@ -170,6 +170,8 @@ bool MP4File::Modify( const char* fileName )
 
     if (pMoovAtom == NULL) {
         // there isn't one, odd but we can still proceed
+        log.warningf("%s: \"%s\": no moov atom, can't modify",
+                     __FUNCTION__, GetFilename().c_str());
         return false;
         //pMoovAtom = AddChildAtom(m_pRootAtom, "moov");
     } else {
@@ -468,7 +470,8 @@ void MP4File::GenerateTracks()
                 if (m_odTrackId == MP4_INVALID_TRACK_ID) {
                     m_odTrackId = pTrackIdProperty->GetValue();
                 } else {
-                    log.warningf("multiple OD tracks present");
+                    log.warningf("%s: \"%s\": multiple OD tracks present",
+                                 __FUNCTION__, GetFilename().c_str() );
                 }
             }
         } else {
@@ -906,7 +909,8 @@ MP4TrackId MP4File::AddTrack(const char* type, uint32_t timeScale)
 
     // sanity check for user defined types
     if (strlen(normType) > 4) {
-        log.warningf("type truncated to four characters");
+        log.warningf("%s: \"%s\": type truncated to four characters",
+                     __FUNCTION__, GetFilename().c_str());
         // StringProperty::SetValue() will do the actual truncation
     }
 
@@ -1953,6 +1957,8 @@ void MP4File::AddH264PictureParameterSet (MP4TrackId trackId,
                    __FUNCTION__, GetFilename().c_str());
         return;
     }
+
+    ASSERT(pCount);
     uint32_t count = pCount->GetValue();
 
     if (count > 0) {
@@ -1963,7 +1969,8 @@ void MP4File::AddH264PictureParameterSet (MP4TrackId trackId,
                 uint32_t seqlen;
                 pUnit->GetValue(&seq, &seqlen, index);
                 if (memcmp(seq, pPict, pictLen) == 0) {
-                    log.verbose1f("picture matches %d", index);
+                    log.verbose1f("\"%s\": picture matches %d", 
+                                  GetFilename().c_str(), index);
                     free(seq);
                     return;
                 }
@@ -1974,7 +1981,8 @@ void MP4File::AddH264PictureParameterSet (MP4TrackId trackId,
     pLength->AddValue(pictLen);
     pUnit->AddValue(pPict, pictLen);
     pCount->IncrementValue();
-    log.verbose1f("new picture added %d", pCount->GetValue());
+    log.verbose1f("\"%s\": new picture added %d", GetFilename().c_str(),
+                  pCount->GetValue());
 
     return;
 }
@@ -2561,14 +2569,16 @@ MP4ChapterType MP4File::GetChapters(MP4Chapter_t ** chapterList, uint32_t * chap
         MP4Integer32Property * pCounter = 0;
         if (!pChpl->FindProperty("chpl.chaptercount", (MP4Property **)&pCounter))
         {
-            log.warningf("Nero chapter count does not exist");
+            log.warningf("%s: \"%s\": Nero chapter count does not exist",
+                         __FUNCTION__, GetFilename().c_str());
             return MP4ChapterTypeNone;
         }
 
         uint32_t counter = pCounter->GetValue();
         if (0 == counter)
         {
-            log.warningf("No Nero chapters available");
+            log.warningf("%s: \"%s\": No Nero chapters available",
+                         __FUNCTION__, GetFilename().c_str());
             return MP4ChapterTypeNone;
         }
 
@@ -2580,18 +2590,21 @@ MP4ChapterType MP4File::GetChapters(MP4Chapter_t ** chapterList, uint32_t * chap
 
         if (!pChpl->FindProperty("chpl.chapters", (MP4Property **)&pTable))
         {
-            log.warningf("Nero chapter list does not exist");
+            log.warningf("%s: \"%s\": Nero chapter list does not exist",
+                         __FUNCTION__, GetFilename().c_str());
             return MP4ChapterTypeNone;
         }
 
         if (0 == (pStartTime = (MP4Integer64Property *) pTable->GetProperty(0)))
         {
-            log.warningf("List of Chapter starttimes does not exist");
+            log.warningf("%s: \"%s\": List of Chapter starttimes does not exist",
+                         __FUNCTION__, GetFilename().c_str());
             return MP4ChapterTypeNone;
         }
         if (0 == (pName = (MP4StringProperty *) pTable->GetProperty(1)))
         {
-            log.warningf("List of Chapter titles does not exist");
+            log.warningf("%s: \"%s\": List of Chapter titles does not exist",
+                         __FUNCTION__, GetFilename().c_str());
             return MP4ChapterTypeNone;
         }
 
@@ -2721,7 +2734,8 @@ MP4ChapterType MP4File::ConvertChapters(MP4ChapterType toChapterType)
     GetChapters(&chapters, &chapterCount, sourceType);
     if (0 == chapterCount)
     {
-        log.verbose1f("%s", errMsg);
+        log.warningf("%s: \"%s\": %s", __FUNCTION__, GetFilename().c_str(),
+                     errMsg);
         return MP4ChapterTypeNone;
     }
 
