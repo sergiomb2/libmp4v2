@@ -989,11 +989,11 @@ void MP4DescriptorProperty::Read(MP4File& file, uint32_t index)
 
     // warnings
     if (m_mandatory && m_pDescriptors.Size() == 0) {
-        log.warningf("\"%s\": Mandatory descriptor 0x%02x missing",
-                     GetParentAtom().GetFile().GetFilename().c_str(), m_tagsStart);
+        log.warningf("%s: \"%s\": Mandatory descriptor 0x%02x missing",
+                     __FUNCTION__, GetParentAtom().GetFile().GetFilename().c_str(), m_tagsStart);
     } else if (m_onlyOne && m_pDescriptors.Size() > 1) {
-        log.warningf("\"%s\": Descriptor 0x%02x has more than one instance",
-                     GetParentAtom().GetFile().GetFilename().c_str(), m_tagsStart);
+        log.warningf("%s: \"%s\": Descriptor 0x%02x has more than one instance",
+                     __FUNCTION__, GetParentAtom().GetFile().GetFilename().c_str(), m_tagsStart);
     }
 }
 

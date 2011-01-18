@@ -83,7 +83,8 @@ void MP4TextAtom::Generate()
         AddPropertiesGmhdType();
         GenerateGmhdType();
     } else {
-        log.warningf("%s text atom in unexpected context, can not generate", __FUNCTION__);
+        log.warningf("%s: \"%s\": text atom in unexpected context, can not generate", __FUNCTION__,
+                     GetFile().GetFilename().c_str());
     }
 
 }

@@ -51,8 +51,8 @@ void MP4DrefAtom::Read()
         (MP4Integer32Property*)m_pProperties[2];
 
     if (m_pChildAtoms.Size() != pCount->GetValue()) {
-        log.warningf("\"%s\": dref inconsistency with number of entries",
-                     GetFile().GetFilename().c_str() );
+        log.warningf("%s: \"%s\": dref inconsistency with number of entries",
+                     __FUNCTION__, GetFile().GetFilename().c_str() );
 
         /* fix it */
         pCount->SetReadOnly(false);
