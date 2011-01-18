@@ -591,7 +591,7 @@ void MP4File::UpdateDuration(MP4Duration duration)
 
 void MP4File::Dump( bool dumpImplicits )
 {
-    log.dump(0, MP4_LOG_VERBOSE1, "Dumping %s meta-information...", m_file->name.c_str() );
+    log.dump(0, MP4_LOG_VERBOSE1, "\"%s\": Dumping meta-information...", m_file->name.c_str() );
     m_pRootAtom->Dump( 0, dumpImplicits);
 }
 
@@ -1906,7 +1906,8 @@ void MP4File::AddH264SequenceParameterSet (MP4TrackId trackId,
                                     (MP4Property **)&pLength) == false) ||
             (avcCAtom->FindProperty("avcC.sequenceEntries.sequenceParameterSetNALUnit",
                                     (MP4Property **)&pUnit) == false)) {
-        log.errorf("Could not find avcC properties");
+        log.errorf("%s: \"%s\": Could not find avcC properties",
+                   __FUNCTION__, GetFilename().c_str() );
         return;
     }
     uint32_t count = pCount->GetValue();
@@ -1948,7 +1949,8 @@ void MP4File::AddH264PictureParameterSet (MP4TrackId trackId,
                                     (MP4Property **)&pLength) == false) ||
             (avcCAtom->FindProperty("avcC.pictureEntries.pictureParameterSetNALUnit",
                                     (MP4Property **)&pUnit) == false)) {
-        log.errorf("Could not find avcC picture table properties");
+        log.errorf("%s: \"%s\": Could not find avcC picture table properties",
+                   __FUNCTION__, GetFilename().c_str());
         return;
     }
     uint32_t count = pCount->GetValue();
@@ -3385,7 +3387,8 @@ const char *MP4File::GetTrackMediaDataName (MP4TrackId trackId)
         FindAtom(MakeTrackName(trackId,
                                "mdia.minf.stbl.stsd"));
     if (pAtom->GetNumberOfChildAtoms() != 1) {
-        log.errorf("track %d has more than 1 child atoms in stsd", trackId);
+        log.errorf("%s: \"%s\": track %d has more than 1 child atoms in stsd", 
+                   __FUNCTION__, GetFilename().c_str(), trackId);
         return NULL;
     }
     pChild = pAtom->GetChildAtom(0);
@@ -3612,7 +3615,7 @@ void MP4File::GetTrackH264SeqPictHeaders (MP4TrackId trackId,
                                     (MP4Property **)&pSeqLen) == false) ||
             (avcCAtom->FindProperty("avcC.sequenceEntries.sequenceParameterSetNALUnit",
                                     (MP4Property **)&pSeqVal) == false)) {
-        log.errorf("Could not find avcC properties");
+        log.errorf("%s: \"%s\": Could not find avcC properties", __FUNCTION__, GetFilename().c_str());
         return ;
     }
     uint8_t **ppSeqHeader =
@@ -3639,7 +3642,8 @@ void MP4File::GetTrackH264SeqPictHeaders (MP4TrackId trackId,
                                     (MP4Property **)&pPictLen) == false) ||
             (avcCAtom->FindProperty("avcC.pictureEntries.pictureParameterSetNALUnit",
                                     (MP4Property **)&pPictVal) == false)) {
-        log.errorf("Could not find avcC picture table properties");
+        log.errorf("%s: \"%s\": Could not find avcC picture table properties",
+                   __FUNCTION__, GetFilename().c_str());
         return ;
     }
     uint8_t
@@ -4271,6 +4275,7 @@ void MP4File::EncAndCopySample(
     bool hasDependencyFlags;
     uint32_t dependencyFlags;
 
+    ASSERT(srcFile);
     srcFile->ReadSample(
          srcTrackId,
          srcSampleId,
@@ -4286,6 +4291,8 @@ void MP4File::EncAndCopySample(
     if( !dstFile )
         dstFile = srcFile;
 
+    ASSERT(dstFile);
+
     if( dstTrackId == MP4_INVALID_TRACK_ID )
         dstTrackId = srcTrackId;
 
@@ -4294,7 +4301,8 @@ void MP4File::EncAndCopySample(
 
     //if( ismacrypEncryptSampleAddHeader( ismaCryptSId, numBytes, pBytes, &encSampleLength, &encSampleData ) != 0)
     if( encfcnp( encfcnparam1, numBytes, pBytes, &encSampleLength, &encSampleData ) != 0 )
-        log.errorf("Can't encrypt the sample and add its header %u", srcSampleId );
+        log.errorf("%s(%s,%s) Can't encrypt the sample and add its header %u", 
+                   __FUNCTION__, srcFile->GetFilename().c_str(), dstFile->GetFilename().c_str(), srcSampleId );
 
     if( hasDependencyFlags ) {
         dstFile->WriteSampleDependency(

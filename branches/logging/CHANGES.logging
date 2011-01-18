@@ -7,6 +7,17 @@ $Date$
 
 (18-jan-11, dbyron)
 
+- add __FUNCTION__, filename to error messages
+
+- add filename to verbose log messages in mp4descriptor.cpp
+
+- remove __FUNCTION__ from verbose log messages in
+mp4atom.cpp since it makes the dump output hard to read
+
+- add filename to descriptions passed to Log::dump
+
+- change log messages with Warning: to use Log::warningf
+
 - fix Log::hexdump to make sure output begins with format
 string/varargs instead of overwriting with ascii-hex
 

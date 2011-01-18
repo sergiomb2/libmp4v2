@@ -84,7 +84,8 @@ void MP4DAc3Atom::Dump(uint8_t indent, bool dumpImplicits)
     MP4BitfieldProperty* brcProp = ((MP4BitfieldProperty*)m_pProperties[5]);
     MP4BitfieldProperty* resProp = ((MP4BitfieldProperty*)m_pProperties[6]);
     
-    log.dump(indent++, MP4_LOG_VERBOSE2, "type = dac3");
+    log.dump(indent++, MP4_LOG_VERBOSE2, "\"%s\": type = dac3",
+             GetFile().GetFilename().c_str() );
 
     if (fscodProp) { 
         uint64_t fscod = 0xFF;
@@ -106,8 +107,9 @@ void MP4DAc3Atom::Dump(uint8_t indent, bool dumpImplicits)
             hexWidth++;
         }
 
-        log.dump(indent, MP4_LOG_VERBOSE2, "fscod = %" PRIu64 " (0x%0*" PRIx64 ") <%u bits> [%s kHz]",
-                fscod, (int)hexWidth, fscod, fscodProp->GetNumBits(), fscodString);
+        log.dump(indent, MP4_LOG_VERBOSE2, "\"%s\": fscod = %" PRIu64 " (0x%0*" PRIx64 ") <%u bits> [%s kHz]",
+                 GetFile().GetFilename().c_str(),
+                 fscod, (int)hexWidth, fscod, fscodProp->GetNumBits(), fscodString);
     }
     if (bsidProp)  bsidProp->Dump(indent, dumpImplicits);
 
@@ -139,8 +141,9 @@ void MP4DAc3Atom::Dump(uint8_t indent, bool dumpImplicits)
         }
 
         log.dump(indent, MP4_LOG_VERBOSE2,
-                "bsmod = %" PRIu64 " (0x%0*" PRIx64 ") <%u bits> [%s]",
-                bsmod, (int)hexWidth, bsmod, bsmodProp->GetNumBits(), bsmodString);
+                "\"%s\": bsmod = %" PRIu64 " (0x%0*" PRIx64 ") <%u bits> [%s]",
+                 GetFile().GetFilename().c_str(),
+                 bsmod, (int)hexWidth, bsmod, bsmodProp->GetNumBits(), bsmodString);
     }
     
     if (acmodProp) { 
@@ -172,8 +175,9 @@ void MP4DAc3Atom::Dump(uint8_t indent, bool dumpImplicits)
         }
 
         log.dump(indent, MP4_LOG_VERBOSE2,
-                "acmod = %" PRIu64 " (0x%0*" PRIx64 ") <%u bits> [%s]",
-                acmod, (int)hexWidth, acmod, acmodProp->GetNumBits(), acmodString);
+                 "\"%s\": acmod = %" PRIu64 " (0x%0*" PRIx64 ") <%u bits> [%s]",
+                 GetFile().GetFilename().c_str(),
+                 acmod, (int)hexWidth, acmod, acmodProp->GetNumBits(), acmodString);
     }
 
     if (lfeonProp) {
@@ -185,9 +189,9 @@ void MP4DAc3Atom::Dump(uint8_t indent, bool dumpImplicits)
         }
         
         log.dump(indent, MP4_LOG_VERBOSE2,
-                "lfeon = %" PRIu64 " (0x%0*" PRIx64 ") <%u bits> [%s]",
-                lfeon, (int)hexWidth, lfeon, 
-                lfeonProp->GetNumBits(), lfeon ? "ENABLED" : "DISABLED"); 
+                "\"%s\": lfeon = %" PRIu64 " (0x%0*" PRIx64 ") <%u bits> [%s]",
+                 GetFile().GetFilename().c_str(), lfeon, (int)hexWidth, lfeon, 
+                 lfeonProp->GetNumBits(), lfeon ? "ENABLED" : "DISABLED"); 
     }
     
     if (brcProp) {
@@ -227,9 +231,10 @@ void MP4DAc3Atom::Dump(uint8_t indent, bool dumpImplicits)
         }
         
         log.dump(indent, MP4_LOG_VERBOSE2,
-                "bit_rate_code = %" PRIu64 " (0x%0*" PRIx64 ") <%u bits> [%" PRIu32 " kbit/s]",
-                bit_rate_code, (int)hexWidth, bit_rate_code, 
-                brcProp->GetNumBits(), bit_rate); 
+                 "\"%s\": bit_rate_code = %" PRIu64 " (0x%0*" PRIx64 ") <%u bits> [%" PRIu32 " kbit/s]",
+                 GetFile().GetFilename().c_str(),
+                 bit_rate_code, (int)hexWidth, bit_rate_code, 
+                 brcProp->GetNumBits(), bit_rate); 
     }
     if (resProp) resProp->Dump(indent, dumpImplicits);
 }

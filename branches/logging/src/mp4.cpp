@@ -107,7 +107,8 @@ MP4FileHandle MP4Read( const char* fileName )
         delete x;
     }
     catch( ... ) {
-        mp4v2::impl::log.errorf("%s: failed", __FUNCTION__ );
+        mp4v2::impl::log.errorf("%s: \"%s\": failed", __FUNCTION__,
+                                fileName );
     }
 
     if (pFile)
@@ -133,7 +134,8 @@ MP4FileHandle MP4ReadProvider( const char* fileName, const MP4FileProvider* file
         delete x;
     }
     catch( ... ) {
-        mp4v2::impl::log.errorf("%s: failed", __FUNCTION__ );
+        mp4v2::impl::log.errorf("%s: \"%s\": failed", __FUNCTION__,
+                                fileName );
     }
 
     if (pFile)
@@ -178,7 +180,8 @@ MP4FileHandle MP4ReadProvider( const char* fileName, const MP4FileProvider* file
             delete x;
         }
         catch( ... ) {
-            mp4v2::impl::log.errorf("%s: failed", __FUNCTION__ );
+            mp4v2::impl::log.errorf("%s: \"%s\": failed", __FUNCTION__,
+                                    fileName );
         }
 
         if (pFile)
@@ -207,7 +210,8 @@ MP4FileHandle MP4ReadProvider( const char* fileName, const MP4FileProvider* file
             delete x;
         }
         catch( ... ) {
-            mp4v2::impl::log.errorf("%s: failed", __FUNCTION__ );
+            mp4v2::impl::log.errorf("%s: \"%s\": failed", __FUNCTION__,
+                                    fileName );
         }
 
         if (pFile)
@@ -236,7 +240,8 @@ MP4FileHandle MP4ReadProvider( const char* fileName, const MP4FileProvider* file
             delete x;
         }
         catch( ... ) {
-            mp4v2::impl::log.errorf("%s: failed", __FUNCTION__ );
+            mp4v2::impl::log.errorf("%s(%s,%s) failed", __FUNCTION__,
+                                    existingFileName, newFileName );
         }
 
         if (pFile)
@@ -3939,7 +3944,8 @@ MP4FileHandle MP4ReadProvider( const char* fileName, const MP4FileProvider* file
             delete x;
         }
         catch( ... ) {
-            mp4v2::impl::log.errorf("%s: failed", __FUNCTION__ );
+            mp4v2::impl::log.errorf("%s: \"%s\": failed", __FUNCTION__,
+                                    fileName );
         }
 
         if (pFile)

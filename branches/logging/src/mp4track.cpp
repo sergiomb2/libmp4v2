@@ -308,8 +308,8 @@ void MP4Track::ReadSample(
     }
     *pNumBytes = sampleSize;
 
-    log.verbose3f("ReadSample: track %u id %u offset 0x%" PRIx64 " size %u (0x%x)",
-                  m_trackId, sampleId, fileOffset, *pNumBytes, *pNumBytes);
+    log.verbose3f("\"%s\": ReadSample: track %u id %u offset 0x%" PRIx64 " size %u (0x%x)",
+                  GetFile().GetFilename().c_str(), m_trackId, sampleId, fileOffset, *pNumBytes, *pNumBytes);
 
     bool bufferMalloc = false;
     if (*ppBytes == NULL) {
@@ -325,20 +325,21 @@ void MP4Track::ReadSample(
         if (pStartTime || pDuration) {
             GetSampleTimes(sampleId, pStartTime, pDuration);
 
-            log.verbose3f("ReadSample:  start %" PRIu64 " duration %" PRId64,
-                          (pStartTime ? *pStartTime : 0),
+            log.verbose3f("\"%s\": ReadSample:  start %" PRIu64 " duration %" PRId64,
+                          GetFile().GetFilename().c_str(), (pStartTime ? *pStartTime : 0),
                           (pDuration ? *pDuration : 0));
         }
         if (pRenderingOffset) {
             *pRenderingOffset = GetSampleRenderingOffset(sampleId);
 
-            log.verbose3f("ReadSample:  renderingOffset %" PRId64,
-                          *pRenderingOffset);
+            log.verbose3f("\"%s\": ReadSample:  renderingOffset %" PRId64,
+                          GetFile().GetFilename().c_str(), *pRenderingOffset);
         }
         if (pIsSyncSample) {
             *pIsSyncSample = IsSyncSample(sampleId);
 
-            log.verbose3f("ReadSample:  isSyncSample %u",*pIsSyncSample);
+            log.verbose3f("\"%s\": ReadSample:  isSyncSample %u",
+                          GetFile().GetFilename().c_str(), *pIsSyncSample);
         }
     }
 
@@ -400,7 +401,8 @@ void MP4Track::WriteSample(
 {
     uint8_t curMode = 0;
 
-    log.verbose3f("WriteSample: track %u id %u size %u (0x%x) ",
+    log.verbose3f("\"%s\": WriteSample: track %u id %u size %u (0x%x) ",
+                  GetFile().GetFilename().c_str(),
                   m_trackId, m_writeSampleId, numBytes, numBytes);
 
     if (pBytes == NULL && numBytes > 0) {
@@ -426,7 +428,8 @@ void MP4Track::WriteSample(
         duration = GetFixedSampleDuration();
     }
 
-    log.verbose3f("duration %" PRIu64, duration);
+    log.verbose3f("\"%s\": duration %" PRIu64, GetFile().GetFilename().c_str(), 
+                  duration);
 
     if ((m_isAmr == AMR_TRUE) &&
             (m_curMode != curMode)) {
@@ -486,7 +489,8 @@ void MP4Track::WriteChunkBuffer()
     // write chunk buffer
     m_File.WriteBytes(m_pChunkBuffer, m_chunkBufferSize);
 
-    log.verbose3f("WriteChunk: track %u offset 0x%" PRIx64 " size %u (0x%x) numSamples %u",
+    log.verbose3f("\"%s\": WriteChunk: track %u offset 0x%" PRIx64 " size %u (0x%x) numSamples %u",
+                  GetFile().GetFilename().c_str(), 
                   m_trackId, chunkOffset, m_chunkBufferSize,
                   m_chunkBufferSize, m_chunkSamples);
 
@@ -720,7 +724,8 @@ void MP4Track::UpdateSampleSizes(MP4SampleId sampleId, uint32_t numBytes)
     if (m_bytesPerSample > 1) {
         if ((numBytes % m_bytesPerSample) != 0) {
             // error
-            log.errorf("UpdateSampleSize: numBytes %u not divisible by bytesPerSample %u sampleId %u",
+            log.errorf("%s: \"%s\": numBytes %u not divisible by bytesPerSample %u sampleId %u",
+                       __FUNCTION__, GetFile().GetFilename().c_str(),
                        numBytes, m_bytesPerSample, sampleId);
         }
         numBytes /= m_bytesPerSample;
@@ -916,7 +921,8 @@ File* MP4Track::GetSampleFile( MP4SampleId sampleId )
 
         const char* url = pLocationProperty->GetValue();
 
-        log.verbose3f("dref url = %s", url);
+        log.verbose3f("\"%s\": dref url = %s", GetFile().GetFilename().c_str(), 
+                      url);
 
         file = (File*)-1;
 
@@ -1104,8 +1110,8 @@ MP4SampleId MP4Track::GetSampleIdFromTime(
             m_pSttsSampleDeltaProperty->GetValue(sttsIndex);
 
         if (sampleDelta == 0 && sttsIndex < numStts - 1) {
-            log.verbose1f("Warning: Zero sample duration, stts entry %u",
-                          sttsIndex);
+            log.warningf("%s: \"%s\": Zero sample duration, stts entry %u",
+                         __FUNCTION__, GetFile().GetFilename().c_str(), sttsIndex);
         }
 
         MP4Duration d = when - elapsed;
@@ -1562,7 +1568,8 @@ void MP4Track::ReadChunk(MP4ChunkId chunkId,
     *pChunkSize = GetChunkSize(chunkId);
     *ppChunk = (uint8_t*)MP4Malloc(*pChunkSize);
 
-    log.verbose3f("ReadChunk: track %u id %u offset 0x%" PRIx64 " size %u (0x%x)",
+    log.verbose3f("\"%s\": ReadChunk: track %u id %u offset 0x%" PRIx64 " size %u (0x%x)",
+                  GetFile().GetFilename().c_str(),
                   m_trackId, chunkId, chunkOffset, *pChunkSize, *pChunkSize);
 
     uint64_t oldPos = m_File.GetPosition(); // only used in mode == 'w'
@@ -1593,7 +1600,8 @@ void MP4Track::RewriteChunk(MP4ChunkId chunkId,
 
     m_pChunkOffsetProperty->SetValue(chunkOffset, chunkId - 1);
 
-    log.verbose3f("RewriteChunk: track %u id %u offset 0x%" PRIx64 " size %u (0x%x)",
+    log.verbose3f("\"%s\": RewriteChunk: track %u id %u offset 0x%" PRIx64 " size %u (0x%x)",
+                  GetFile().GetFilename().c_str(),
                   m_trackId, chunkId, chunkOffset, chunkSize, chunkSize);
 }
 
@@ -1829,8 +1837,9 @@ MP4SampleId MP4Track::GetSampleIdFromEditTime(
                 *pDuration = editSampleDuration;
             }
 
-            log.verbose2f("GetSampleIdFromEditTime: when %" PRIu64 " "
+            log.verbose2f("\"%s\": GetSampleIdFromEditTime: when %" PRIu64 " "
                           "sampleId %u start %" PRIu64 " duration %" PRId64,
+                          GetFile().GetFilename().c_str(),
                           editWhen, sampleId,
                           editSampleStartTime, editSampleDuration);
 

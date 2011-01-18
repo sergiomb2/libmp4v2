@@ -69,7 +69,8 @@ void MP4StsdAtom::Read()
         (MP4Integer32Property*)m_pProperties[2];
 
     if (m_pChildAtoms.Size() != pCount->GetValue()) {
-        log.verbose1f("Warning: stsd inconsistency with number of entries");
+        log.warningf("\"%s\": stsd inconsistency with number of entries",
+                     GetFile().GetFilename().c_str() );
 
         /* fix it */
         pCount->SetReadOnly(false);
