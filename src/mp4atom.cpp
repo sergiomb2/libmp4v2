@@ -116,7 +116,7 @@ MP4Atom* MP4Atom::ReadAtom(MP4File& file, MP4Atom* pParentAtom)
 
     uint64_t pos = file.GetPosition();
 
-    log.verbose1f("%s: \"%s\": pos = 0x%" PRIx64, __FUNCTION__, file.GetFilename().c_str(), pos);
+    log.verbose1f("\"%s\": pos = 0x%" PRIx64, file.GetFilename().c_str(), pos);
 
     uint64_t dataSize = file.ReadUInt32();
 
@@ -145,16 +145,16 @@ MP4Atom* MP4Atom::ReadAtom(MP4File& file, MP4Atom* pParentAtom)
 
     dataSize -= hdrSize;
 
-    log.verbose1f("%s: \"%s\": type = \"%s\" data-size = %" PRIu64 " (0x%" PRIx64 ") hdr %u",
-                  __FUNCTION__, file.GetFilename().c_str(), type, dataSize, dataSize, hdrSize);
+    log.verbose1f("\"%s\": type = \"%s\" data-size = %" PRIu64 " (0x%" PRIx64 ") hdr %u",
+                  file.GetFilename().c_str(), type, dataSize, dataSize, hdrSize);
 
     if (pos + hdrSize + dataSize > pParentAtom->GetEnd()) {
         log.errorf("%s: \"%s\": invalid atom size, extends outside parent atom - skipping to end of \"%s\" \"%s\" %" PRIu64 " vs %" PRIu64,
                    __FUNCTION__, file.GetFilename().c_str(), pParentAtom->GetType(), type,
                    pos + hdrSize + dataSize,
                    pParentAtom->GetEnd());
-        log.verbose1f("%s: \"%s\": parent %s (%" PRIu64 ") pos %" PRIu64 " hdr %d data %" PRIu64 " sum %" PRIu64,
-                      __FUNCTION__, file.GetFilename().c_str(), pParentAtom->GetType(),
+        log.verbose1f("\"%s\": parent %s (%" PRIu64 ") pos %" PRIu64 " hdr %d data %" PRIu64 " sum %" PRIu64,
+                      file.GetFilename().c_str(), pParentAtom->GetType(),
                       pParentAtom->GetEnd(),
                       pos,
                       hdrSize,
@@ -182,7 +182,7 @@ MP4Atom* MP4Atom::ReadAtom(MP4File& file, MP4Atom* pParentAtom)
             log.warningf("%s: \"%s\": atom type %s is suspect", __FUNCTION__, file.GetFilename().c_str(),
                          pAtom->GetType());
         } else {
-            log.verbose1f("%s: \"%s\": Info: atom type %s is unknown", __FUNCTION__, file.GetFilename().c_str(),
+            log.verbose1f("\"%s\": Info: atom type %s is unknown", file.GetFilename().c_str(),
                           pAtom->GetType());
         }
 
@@ -242,7 +242,7 @@ void MP4Atom::Read()
 void MP4Atom::Skip()
 {
     if (m_File.GetPosition() != m_end) {
-        log.verbose1f("%s: \"%s\": Skip: %" PRIu64 " bytes", __FUNCTION__,
+        log.verbose1f("\"%s\": Skip: %" PRIu64 " bytes",
                       m_File.GetFilename().c_str(), m_end - m_File.GetPosition());
     }
     m_File.SetPosition(m_end);
@@ -255,7 +255,8 @@ MP4Atom* MP4Atom::FindAtom(const char* name)
     }
 
     if (!IsRootAtom()) {
-        log.verbose1f("FindAtom: matched %s", name);
+        log.verbose1f("\"%s\": FindAtom: matched %s", 
+                      GetFile().GetFilename().c_str(), name);
 
         name = MP4NameAfterFirst(name);
 
@@ -277,7 +278,8 @@ bool MP4Atom::FindProperty(const char *name,
     }
 
     if (!IsRootAtom()) {
-        log.verbose1f("FindProperty: matched %s", name);
+        log.verbose1f("\"%s\": FindProperty: matched %s", 
+                      GetFile().GetFilename().c_str(), name);
 
         name = MP4NameAfterFirst(name);
 
@@ -361,7 +363,8 @@ bool MP4Atom::FindContainedProperty(const char *name,
         }
     }
 
-    log.verbose1f("FindProperty: no match for %s", name);
+    log.verbose1f("\"%s\": FindProperty: no match for %s", 
+                  GetFile().GetFilename().c_str(), name);
     return false;
 }
 
@@ -399,7 +402,7 @@ void MP4Atom::ReadChildAtoms()
 {
     bool this_is_udta = ATOMID(m_type) == ATOMID("udta");
 
-    log.verbose1f("%s: \"%s\": of %s", __FUNCTION__, m_File.GetFilename().c_str(), m_type[0] ? m_type : "root");
+    log.verbose1f("\"%s\": of %s", m_File.GetFilename().c_str(), m_type[0] ? m_type : "root");
     for (uint64_t position = m_File.GetPosition();
             position < m_end;
             position = m_File.GetPosition()) {
@@ -460,7 +463,7 @@ void MP4Atom::ReadChildAtoms()
         }
     }
 
-    log.verbose1f("%s: \"%s\": finished %s", __FUNCTION__, m_File.GetFilename().c_str(), m_type);
+    log.verbose1f("\"%s\": finished %s", m_File.GetFilename().c_str(), m_type);
 }
 
 MP4AtomInfo* MP4Atom::FindAtomInfo(const char* name)
@@ -647,7 +650,9 @@ void MP4Atom::Dump(uint8_t indent, bool dumpImplicits)
         if( can.length() )
             can.resize( can.length() - 1 );
 
-        log.dump(indent, MP4_LOG_VERBOSE1, "type %s (%s)", m_type, can.c_str() );
+        log.dump(indent, MP4_LOG_VERBOSE1, "\"%s\": type %s (%s)",
+                 GetFile().GetFilename().c_str(),
+                 m_type, can.c_str() );
     }
 
     uint32_t i;
@@ -660,7 +665,8 @@ void MP4Atom::Dump(uint8_t indent, bool dumpImplicits)
         /* skip details of tables unless we're told to be verbose */
         if (m_pProperties[i]->GetType() == TableProperty
                 && (log.verbosity < MP4_LOG_VERBOSE2)) {
-            log.dump(indent + 1, MP4_LOG_VERBOSE1, "<table entries suppressed>");
+            log.dump(indent + 1, MP4_LOG_VERBOSE1, "\"%s\": <table entries suppressed>",
+                     GetFile().GetFilename().c_str() );
             continue;
         }
 

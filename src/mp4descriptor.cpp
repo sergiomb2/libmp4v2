@@ -85,7 +85,8 @@ void MP4Descriptor::Read(MP4File& file)
 
 void MP4Descriptor::ReadHeader(MP4File& file)
 {
-    log.verbose1f("ReadDescriptor: pos = 0x%" PRIx64, file.GetPosition());
+    log.verbose1f("\"%s\": ReadDescriptor: pos = 0x%" PRIx64, file.GetFilename().c_str(),
+                  file.GetPosition());
 
     // read tag and length
     uint8_t tag = file.ReadUInt8();
@@ -97,8 +98,8 @@ void MP4Descriptor::ReadHeader(MP4File& file)
     m_size = file.ReadMpegLength();
     m_start = file.GetPosition();
 
-    log.verbose1f("ReadDescriptor: tag 0x%02x data size %u (0x%x)",
-                  m_tag, m_size, m_size);
+    log.verbose1f("\"%s\": ReadDescriptor: tag 0x%02x data size %u (0x%x)",
+                  file.GetFilename().c_str(), m_tag, m_size, m_size);
 }
 
 void MP4Descriptor::ReadProperties(MP4File& file,
@@ -134,8 +135,8 @@ void MP4Descriptor::ReadProperties(MP4File& file,
                     pProperty->Dump(0, true);
                 }
             } else {
-                log.errorf("Overran descriptor, tag %u data size %u property %u",
-                           m_tag, m_size, i);
+                log.errorf("%s: \"%s\": Overran descriptor, tag %u data size %u property %u",
+                           __FUNCTION__, file.GetFilename().c_str(), m_tag, m_size, i);
                 throw new Exception("overran descriptor",__FILE__, __LINE__, __FUNCTION__);
             }
         }
