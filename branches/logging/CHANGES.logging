@@ -5,6 +5,11 @@ $Date$
 
 -------------------
 
+(18-jan-11, dbyron)
+
+- fix Log::hexdump to make sure output begins with format
+string/varargs instead of overwriting with ascii-hex
+
 (17-jan-11, dbyron)
 
 - change the MP4RtpData, MP4RtpNullData,

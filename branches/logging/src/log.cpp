@@ -428,7 +428,9 @@ Log::hexDump( uint8_t           indent,
     // build a string for each line
     for (uint32_t i = 0;(i < numBytes);i += 16)
     {
-        ostringstream oneLine(desc ? desc : "");
+        // ios_base::ate means at end.  With out this desc
+        // gets overwritten with each << operation
+        ostringstream oneLine(desc ? desc : "",ios_base::ate);
 
         // Append the byte offset this line starts with as
         // an 8 character, leading 0, hex number.  Leave the
