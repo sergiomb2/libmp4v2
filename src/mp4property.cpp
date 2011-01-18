@@ -661,53 +661,10 @@ void MP4BytesProperty::Dump(uint8_t indent,
                 m_parentAtom.GetFile().GetFilename().c_str(),
                 m_name);
 
-#if 0
-    for( uint32_t i = 0; i < adjsize; i++ ) {
-        if( i % 16 == 0 ) {
-            fprintf(pFile, "%s", oss.str());
-            oss.str( "" );
-            oss << '\n'
-                << setw(indent) << setfill(' ') << ""
-                << hex << setw(8) << setfill('0') << right << i;
-
-            if( i > 0 ) {
-                fprintf( pFile, "  |" );
-                fprintf(pFile, "%s", oss.str());
-                fprintf( pFile, "|" );
-                text.str( "" );
-            }
-
-            fflush( pFile );
-        }
-
-        if( i % 8 == 0 )
-            oss << ' ';
-
-        oss << ' ' << hex << setw(2) << setfill('0') << right << static_cast<uint32_t>(value[i]);
-        text << (isprint( static_cast<int>(value[i]) ) ? static_cast<int>(value[i]) : '.');
-    }
-
-    const string stext = text.str();
-    if( !stext.empty() ) {
-        const string::size_type deficit = 16 - stext.length();
-        if( deficit > 7 )
-            oss << ' ';
-
-        oss << setfill(' ') << setw( deficit*3 ) << "" << "  |" << stext << '|';
-    }
-
-    oss << "\n";
-#endif
-
     if( supressed ) {
         log.dump(indent, MP4_LOG_VERBOSE1, "\"%s\": <remaining bytes supressed>",
                  m_parentAtom.GetFile().GetFilename().c_str() );
     }
-
-#if 0
-    fprintf(pFile, "%s", oss.str());
-    fflush( pFile );
-#endif
 }
 
 // MP4TableProperty

@@ -289,46 +289,6 @@ MP4FileHandle MP4ReadProvider( const char* fileName, const MP4FileProvider* file
         return false;
     }
 
-
-#if 0
-    /* specific file properties */
-
-    uint32_t MP4GetVerbosity(MP4FileHandle hFile)
-    {
-        if (MP4_IS_VALID_FILE_HANDLE(hFile)) {
-            try {
-                return log.verbosity;
-            }
-            catch( Exception* x ) {
-                log.errorf(*x);
-                delete x;
-            }
-            catch( ... ) {
-                log.errorf( "%s: failed", __FUNCTION__ );
-            }
-        }
-        return 0;
-    }
-
-    void MP4SetVerbosity(MP4FileHandle hFile, uint32_t verbosity)
-    {
-        if (MP4_IS_VALID_FILE_HANDLE(hFile)) {
-            try {
-                log.setVerbosity(verbosity);
-                return;
-            }
-            catch( Exception* x ) {
-                log.errorf(*x);
-                delete x;
-            }
-            catch( ... ) {
-                log.errorf( "%s: failed", __FUNCTION__ );
-            }
-        }
-        return;
-    }
-#endif
-
     MP4Duration MP4GetDuration(MP4FileHandle hFile)
     {
         if (MP4_IS_VALID_FILE_HANDLE(hFile)) {
