@@ -13,7 +13,7 @@
 //  The Original Code is MP4v2.
 // 
 //  The Initial Developer of the Original Code is David Byron.
-//  Portions created by David Byron are Copyright (C) 2009, 2010.
+//  Portions created by David Byron are Copyright (C) 2009, 2010, 2011.
 //  All Rights Reserved.
 //
 //  Contributors:
