@@ -236,10 +236,12 @@ StandardFileProvider::close()
 
     // Whether we succeeded or not, clear the handle and
     // forget the name
-    _handle = NULL;
+    _handle = INVALID_HANDLE_VALUE;
     _name.clear();
 
-    return retval;
+    // CloseHandle return 0/false to indicate failure, but
+    // we return 0/false to indicate success, so negate.
+    return !retval;
 }
 
 ///////////////////////////////////////////////////////////////////////////////

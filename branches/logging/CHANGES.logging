@@ -5,6 +5,13 @@ $Date$
 
 -------------------
 
+(31-jan-11, dbyron)
+
+- fix return value of win32 implementation of
+StandardFileProvider::close
+
+- merge r439 from trunk
+
 (18-jan-11, dbyron)
 
 - add __FUNCTION__, filename to warning messages
