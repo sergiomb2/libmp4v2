@@ -7,6 +7,11 @@ $Date$
 
 (31-jan-11, dbyron)
 
+- fix ASSERTs in win32 implementation of
+StandardFileProvider to check against _INVALID_FILE_HANDLE
+instead of NULL since that's what the constructor and close
+method use
+
 - merge r440, r441, r442, r443, r444 from trunk
 
 - fix return value of win32 implementation of
