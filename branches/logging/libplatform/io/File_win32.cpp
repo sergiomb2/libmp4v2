@@ -132,7 +132,7 @@ StandardFileProvider::seek( Size pos )
 {
     LARGE_INTEGER n;
 
-    ASSERT(_handle);
+    ASSERT(_handle != INVALID_HANDLE_VALUE);
 
     n.QuadPart = pos;
     if (!SetFilePointerEx( _handle, n, NULL, FILE_BEGIN ))
@@ -163,7 +163,7 @@ StandardFileProvider::read( void* buffer, Size size, Size& nin, Size maxChunkSiz
 {
     DWORD nread = 0;
 
-    ASSERT(_handle);
+    ASSERT(_handle != INVALID_HANDLE_VALUE);
 
     // ReadFile takes a DWORD for number of bytes to read so
     // make sure we're not asking for more than fits.
@@ -199,7 +199,7 @@ StandardFileProvider::write( const void* buffer, Size size, Size& nout, Size max
 {
     DWORD nwrote = 0;
 
-    ASSERT(_handle);
+    ASSERT(_handle != INVALID_HANDLE_VALUE);
 
     // ReadFile takes a DWORD for number of bytes to read so
     // make sure we're not asking for more than fits.
