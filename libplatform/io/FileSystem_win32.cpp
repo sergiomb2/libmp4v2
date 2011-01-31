@@ -1,5 +1,6 @@
-#include "libplatform/impl.h"
 #include "src/impl.h"
+#include "libplatform/impl.h" /* for platform_win32_impl.h which declares Utf8ToFilename */
+#include <windows.h>
 
 namespace mp4v2 {
     using namespace impl;
