@@ -7,7 +7,7 @@ $Date$
 
 (31-jan-11, dbyron)
 
-- merge r440 from trunk
+- merge r440, r441, r442 from trunk
 
 - fix return value of win32 implementation of
 StandardFileProvider::close
