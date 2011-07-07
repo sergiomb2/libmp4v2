@@ -3,7 +3,7 @@
 <title>Untitled</title>
 <meta http-equiv="Content-Type" content="text/html">
 <meta name="description" content="Untitled">
-<meta name="generator" content="makeinfo 4.8">
+<meta name="generator" content="makeinfo 4.13">
 <link title="Top" rel="top" href="#Top">
 <link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
 <meta http-equiv="Content-Style-Type" content="text/css">
@@ -20,7 +20,7 @@
 --></style>
 </head>
 <body>
-<h2 class="majorheading"><a name="TOC0"></a>MP4v2 trunk-r355 Command-line Tools Guide</h2>
+<h2 class="majorheading"><a name="TOC0"></a>MP4v2 trunk-r479 Command-line Tools Guide</h2>
 
 <div class="contents">
 <h2>Table of Contents</h2>
@@ -41,11 +41,11 @@
 <p>The following is a brief summary of the tools available and the functionality offered. Other tools may be packaged with the distribution but are not yet stable enough to even document. User beware.
 
      <dl>
-<dt>`<samp><span class="samp">mp4file</span></samp>'<dd>Operates on the entire file with actions such as list (summary information), optimization and ASCII dumps.
+<dt>&lsquo;<samp><span class="samp">mp4file</span></samp>&rsquo;<dd>Operates on the entire file with actions such as list (summary information), optimization and ASCII dumps.
 
-     <br><dt>`<samp><span class="samp">mp4track</span></samp>'<dd>Operates on individual tracks with actions such as colr-box and pasp-box manipulation.
+     <br><dt>&lsquo;<samp><span class="samp">mp4track</span></samp>&rsquo;<dd>Operates on individual tracks with actions such as colr-box and pasp-box manipulation.
 
-     <br><dt>`<samp><span class="samp">mp4art</span></samp>'<dd>Operates on iTunes Metadata Cover-art Boxes with actions such as list, add, replace, remove and extraction of Cover-art images. 
+     <br><dt>&lsquo;<samp><span class="samp">mp4art</span></samp>&rsquo;<dd>Operates on iTunes Metadata Cover-art Boxes with actions such as list, add, replace, remove and extraction of Cover-art images. 
 </dl>
 
 <h2 class="chapter"><a name="TOC2"></a>2 Introduction</h2>
@@ -64,23 +64,23 @@ toolname --something=value ...
 <p>The following is a list of common options available:
 
      <dl>
-<dt>`<samp><span class="samp">-y, --dryrun</span></samp>'<dd>do not actually create or modify any files. 
+<dt>&lsquo;<samp><span class="samp">-y, --dryrun</span></samp>&rsquo;<dd>do not actually create or modify any files. 
 In situations where the command will create new or modify existing files, specifying this option will cause the tool to do as much as possible stopping short of performing any actual writes. This is useful to guard against user mistakes or unexpected behavior.
 
-     <br><dt>`<samp><span class="samp">-k, --keepgoing</span></samp>'<dd>continue batch processing even after errors. 
+     <br><dt>&lsquo;<samp><span class="samp">-k, --keepgoing</span></samp>&rsquo;<dd>continue batch processing even after errors. 
 When actions involve multiple files or operations, the default behavior is to stop and exit on the first error encountered. Specify this option if it is desirable to record the error but continue processing.
 
-     <br><dt>`<samp><span class="samp">-o, --overwrite</span></samp>'<dd>overwrite existing files when creating. 
+     <br><dt>&lsquo;<samp><span class="samp">-o, --overwrite</span></samp>&rsquo;<dd>overwrite existing files when creating. 
 In situations where a new file will be created, the default behavior is to not overwrite a file if it already exists. Use this option to allow overwriting.
 
-     <br><dt>`<samp><span class="samp">-f, --force</span></samp>'<dd>force overwrite even if file is read-only. 
+     <br><dt>&lsquo;<samp><span class="samp">-f, --force</span></samp>&rsquo;<dd>force overwrite even if file is read-only. 
 If overwriting is enabled, file permissions may prevent writes. Specify this option to try and overwrite the file anyways. This usually involves deleting the file, then creating a new one.
 
-     <br><dt>`<samp><span class="samp">-q, --quiet</span></samp>'<dd>equivalent to &ndash;verbose 0. 
+     <br><dt>&lsquo;<samp><span class="samp">-q, --quiet</span></samp>&rsquo;<dd>equivalent to &ndash;verbose 0. 
 Default behavior is to print a low amount of informative information, usually one line of text per action/file. Specify this option to omit normal messages. Errors will still be reported.
 
-     <br><dt>`<samp><span class="samp">-d, --debug NUM</span></samp>'<dd>increase debug or long-option to set NUM. 
-File I/O with mp4 file structures have special debug options available to users interested in all the fine details. Default is level 1 . The short-syntax is accumulative and takes no argument, while long-syntax takes an argument. For exmaple, the following are equivalent and would set level 3: `<samp><span class="samp">-dd</span></samp>' or `<samp><span class="samp">-d -d</span></samp>' or `<samp><span class="samp">--debug=3</span></samp>'. The following levels are available:
+     <br><dt>&lsquo;<samp><span class="samp">-d, --debug NUM</span></samp>&rsquo;<dd>increase debug or long-option to set NUM. 
+File I/O with mp4 file structures have special debug options available to users interested in all the fine details. Default is level 1 . The short-syntax is accumulative and takes no argument, while long-syntax takes an argument. For exmaple, the following are equivalent and would set level 3: &lsquo;<samp><span class="samp">-dd</span></samp>&rsquo; or &lsquo;<samp><span class="samp">-d -d</span></samp>&rsquo; or &lsquo;<samp><span class="samp">--debug=3</span></samp>&rsquo;. The following levels are available:
           <ol type=1 start=0>
 <li>supressed
 <li>add warnings and errors (default)
@@ -89,7 +89,7 @@ File I/O with mp4 file structures have special debug options available to users 
 <li>everything
           </ol>
 
-     <br><dt>`<samp><span class="samp">-v, --verbose NUM</span></samp>'<dd>increase verbosity or long-option to set NUM. 
+     <br><dt>&lsquo;<samp><span class="samp">-v, --verbose NUM</span></samp>&rsquo;<dd>increase verbosity or long-option to set NUM. 
 Tool activity by default will generally print one informative message per action/file. Specify this option to change the default behavior. The short-syntax is accumulative and takes no argument, while long-syntax takes an argument.
           <ol type=1 start=0>
 <li>warnings and errors
@@ -98,17 +98,17 @@ Tool activity by default will generally print one informative message per action
 <li>everything
           </ol>
 
-     <br><dt>`<samp><span class="samp">-h, --help</span></samp>'<dd>print brief help or long-option for extended help. 
+     <br><dt>&lsquo;<samp><span class="samp">-h, --help</span></samp>&rsquo;<dd>print brief help or long-option for extended help. 
 The short-syntax will produce brief help. Specify the long-option for more extensive help.
 
-     <br><dt>`<samp><span class="samp">--version</span></samp>'<dd>print version information and exit. 
-Extended version information used for SCM purposes is not listed in help, but is available by specifying `<samp><span class="samp">--verionx</span></samp>'. 
+     <br><dt>&lsquo;<samp><span class="samp">--version</span></samp>&rsquo;<dd>print version information and exit. 
+Extended version information used for SCM purposes is not listed in help, but is available by specifying &lsquo;<samp><span class="samp">--verionx</span></samp>&rsquo;. 
 </dl>
 
 <h2 class="chapter"><a name="TOC4"></a>4 mp4file</h2>
 
      <dl>
-<dt>`<samp><span class="samp">--list</span></samp>'<dd>list (summary information). 
+<dt>&lsquo;<samp><span class="samp">--list</span></samp>&rsquo;<dd>list (summary information). 
 This will produce brief report when summarizing each mp4 file. 
 <b>BRAND</b> shows the file's main brand identifier. 
 <b>COMPAT</b> shows additional brands for which the file purports to be comaptible with. 
@@ -120,15 +120,15 @@ Example output:
      mp42   isom,mp42           32-bit  Movie1.m4v
      mp42   isom,mp42           32-bit  Movie2.m4v
 </pre>
-     <br><dt>`<samp><span class="samp">--optimize</span></samp>'<dd>optimize mp4 structure. 
+     <br><dt>&lsquo;<samp><span class="samp">--optimize</span></samp>&rsquo;<dd>optimize mp4 structure. 
 This will rewrite the entire mp4 file which, if needed, will clean up
 any unused (free) sections, and re-order the atoms in a manner somewhat
 consistent with the best-practices described in the ISO base media file
 specification.
 
-     <br><dt>`<samp><span class="samp">--dump</span></samp>'<dd>dump mp4 structure in human-readable format. 
+     <br><dt>&lsquo;<samp><span class="samp">--dump</span></samp>&rsquo;<dd>dump mp4 structure in human-readable format. 
 An ASCII dump of mp4 atoms is printed to stdout. This action is heavily
-influenced by `<samp><span class="samp">--debug</span></samp>' option.
+influenced by &lsquo;<samp><span class="samp">--debug</span></samp>&rsquo; option.
 
      <p>Example, list some files:
      <pre class="example">     mp4file --list *.mp4 *.m4a *.m4v
@@ -140,15 +140,15 @@ influenced by `<samp><span class="samp">--debug</span></samp>' option.
 
 <h2 class="chapter"><a name="TOC5"></a>5 mp4track</h2>
 
-<p>This tool is used to manage various aspects of individual tracks in an mp4 file. Some of the actions are mp4 (generic) while others may support standards based on mp4 files such as `<samp><span class="samp">.m4a</span></samp>' or `<samp><span class="samp">.m4v</span></samp>' files. Each action has an appropriate scope upon which it acts. See individual actions for details. The following parameters are used to set scopes for actions:
+<p>This tool is used to manage various aspects of individual tracks in an mp4 file. Some of the actions are mp4 (generic) while others may support standards based on mp4 files such as &lsquo;<samp><span class="samp">.m4a</span></samp>&rsquo; or &lsquo;<samp><span class="samp">.m4v</span></samp>&rsquo; files. Each action has an appropriate scope upon which it acts. See individual actions for details. The following parameters are used to set scopes for actions:
 
      <dl>
-<dt>`<samp><span class="samp">--track-any</span></samp>'<dd>act on any/all tracks.
+<dt>&lsquo;<samp><span class="samp">--track-any</span></samp>&rsquo;<dd>act on any/all tracks.
 
-     <br><dt>`<samp><span class="samp">--track-index IDX</span></samp>'<dd>act on a single track specified by <b>index</b> value. 
+     <br><dt>&lsquo;<samp><span class="samp">--track-index IDX</span></samp>&rsquo;<dd>act on a single track specified by <b>index</b> value. 
 A track index is 0-based and counts upwards for each track available.
 
-     <br><dt>`<samp><span class="samp">--track-id ID</span></samp>'<dd>act on a single track specified by <b>id</b> value. 
+     <br><dt>&lsquo;<samp><span class="samp">--track-id ID</span></samp>&rsquo;<dd>act on a single track specified by <b>id</b> value. 
 A track id is a unique value assigned to each track and never changes. 
 </dl>
 
@@ -157,7 +157,7 @@ Many (but not all) of the values shown may be modified by actions documented lat
 This will produce a brief report of each track for each mp4 file.
 
      <dl>
-<dt>`<samp><span class="samp">--list</span></samp>'<dd>list all tracks in mp4. 
+<dt>&lsquo;<samp><span class="samp">--list</span></samp>&rsquo;<dd>list all tracks in mp4. 
 Example output:
      <pre class="example">     track[0] id=1
        type           = video
@@ -178,41 +178,41 @@ Example output:
 <p>The following group of actions are used to modify the values shown by <b>&ndash;list</b> action. The modification of these values should be done with great care on any files, and as always you are cautioned to <b>backup</b> your media files before modification.
 
      <dl>
-<dt>`<samp><span class="samp">--enabled BOOL</span></samp>'<dd>set trak.tkhd.flags (enabled bit). 
+<dt>&lsquo;<samp><span class="samp">--enabled BOOL</span></samp>&rsquo;<dd>set trak.tkhd.flags (enabled bit). 
 When <b>true</b> indicates the track is enabled.
 
-     <br><dt>`<samp><span class="samp">--inmovie BOOL</span></samp>'<dd>set trak.tkhd.flags (inMovie bit). 
+     <br><dt>&lsquo;<samp><span class="samp">--inmovie BOOL</span></samp>&rsquo;<dd>set trak.tkhd.flags (inMovie bit). 
 When <b>true</b> indicates the track is used in the movie.
 
-     <br><dt>`<samp><span class="samp">--inpreview BOOL</span></samp>'<dd>set trak.tkhd.flags (inPreview bit). 
+     <br><dt>&lsquo;<samp><span class="samp">--inpreview BOOL</span></samp>&rsquo;<dd>set trak.tkhd.flags (inPreview bit). 
 When <b>true</b> indicates the track is used in the movie's preview.
 
-     <br><dt>`<samp><span class="samp">--layer NUM</span></samp>'<dd>set trak.tkhd.layer. 
+     <br><dt>&lsquo;<samp><span class="samp">--layer NUM</span></samp>&rsquo;<dd>set trak.tkhd.layer. 
 Specifies the front-to-back ordering of video tracks; tracks with lower numbers are closer to the viewer. 
 <b>0</b> is the normal value, and <b>-1</b> would be in front of track 0, and so on.
 
-     <br><dt>`<samp><span class="samp">--altgroup NUM</span></samp>'<dd>set trak.tkhd.alternate_group. 
+     <br><dt>&lsquo;<samp><span class="samp">--altgroup NUM</span></samp>&rsquo;<dd>set trak.tkhd.alternate_group. 
 An integer that specifies a group or collection of tracks. If this field is 0 there is no information on possible relations to other tracks. If this field is not 0, it should be the same for tracks that contain alternate data for one another and different for tracks belonging to different such groups. Only one track within an alternate group should be played or streamed at any one time, and must be distinguishable from other tracks in the group via attributes such as bitrate, codec, language, packet size etc. A group may have only one member.
 
-     <br><dt>`<samp><span class="samp">--volume FLOAT</span></samp>'<dd>set trak.tkhd.volume. 
+     <br><dt>&lsquo;<samp><span class="samp">--volume FLOAT</span></samp>&rsquo;<dd>set trak.tkhd.volume. 
 Specifies the track's relative audio volume. Full volume is <b>1.0</b> and is the normal value.
 
-     <br><dt>`<samp><span class="samp">--width FLOAT</span></samp>'<dd>set trak.tkhd.width. 
+     <br><dt>&lsquo;<samp><span class="samp">--width FLOAT</span></samp>&rsquo;<dd>set trak.tkhd.width. 
 Specifies the track's visual presentation width. By default this is the same as the pixel width of the images. All images in the sequence are scaled to this size <b>before</b> any overall transformation by the matrix.
 
-     <br><dt>`<samp><span class="samp">--height FLOAT</span></samp>'<dd>set trak.tkhd.height. 
+     <br><dt>&lsquo;<samp><span class="samp">--height FLOAT</span></samp>&rsquo;<dd>set trak.tkhd.height. 
 Specifies the track's visual presentation height. By default this is the same as the pixel width of the images. All images in the sequence are scaled to this size <b>before</b> any overall transformation by the matrix.
 
-     <br><dt>`<samp><span class="samp">--language CODE</span></samp>'<dd>set trak.mdia.mdhd.language. 
-Specifies the ISO-639-2/T langauge code of the track. For example, `<samp><span class="samp">eng</span></samp>' for English, `<samp><span class="samp">fra</span></samp>' for French.
+     <br><dt>&lsquo;<samp><span class="samp">--language CODE</span></samp>&rsquo;<dd>set trak.mdia.mdhd.language. 
+Specifies the ISO-639-2/T langauge code of the track. For example, &lsquo;<samp><span class="samp">eng</span></samp>&rsquo; for English, &lsquo;<samp><span class="samp">fra</span></samp>&rsquo; for French.
 
-     <br><dt>`<samp><span class="samp">--hdlrname STR</span></samp>'<dd>set trak.mdia.hdlr.name. 
+     <br><dt>&lsquo;<samp><span class="samp">--hdlrname STR</span></samp>&rsquo;<dd>set trak.mdia.hdlr.name. 
 Specifies a human-readable track type (for debugging and inspection purposes).
 
-     <br><dt>`<samp><span class="samp">--udtaname STR</span></samp>'<dd>set trak.udta.name.value. 
+     <br><dt>&lsquo;<samp><span class="samp">--udtaname STR</span></samp>&rsquo;<dd>set trak.udta.name.value. 
 Specifies an arbitrary track-name. This value is optional (may be absent).
 
-     <br><dt>`<samp><span class="samp">--udtaname-remove</span></samp>'<dd>remove trak.udta.name atom. 
+     <br><dt>&lsquo;<samp><span class="samp">--udtaname-remove</span></samp>&rsquo;<dd>remove trak.udta.name atom. 
 This action will remove the <b>optional</b> atom.
 
 </dl>
@@ -220,29 +220,29 @@ This action will remove the <b>optional</b> atom.
 <p>The <b>colr</b> related actions manage <b>Color Parameter</b> boxes which are used by QuickTime to map numerical values of pixels in a file to a common representation of color for video tracks. They may or may not be suitable for other Apple media players. Community feedback on compatibility is welcome.
 
      <dl>
-<dt>`<samp><span class="samp">--colr-list</span></samp>'<dd>list all colr-boxes in mp4.
+<dt>&lsquo;<samp><span class="samp">--colr-list</span></samp>&rsquo;<dd>list all colr-boxes in mp4.
 
-     <br><dt>`<samp><span class="samp">--colr-add</span></samp>'<dd>add colr-box to a video track. 
+     <br><dt>&lsquo;<samp><span class="samp">--colr-add</span></samp>&rsquo;<dd>add colr-box to a video track. 
 An individual track must be specified.
 
-     <br><dt>`<samp><span class="samp">--colr-set</span></samp>'<dd>set colr-box parms. 
+     <br><dt>&lsquo;<samp><span class="samp">--colr-set</span></samp>&rsquo;<dd>set colr-box parms. 
 An individual track must be specified.
 
-     <br><dt>`<samp><span class="samp">--colr-remove</span></samp>'<dd>remove colr-box from track. 
+     <br><dt>&lsquo;<samp><span class="samp">--colr-remove</span></samp>&rsquo;<dd>remove colr-box from track. 
 By default all colr-boxes will be removed unless an individual track is specified.
 
-     <br><dt>`<samp><span class="samp">--colr-parms CSV</span></samp>'<dd>where CSV is IDX1,IDX2,IDX3 . 
+     <br><dt>&lsquo;<samp><span class="samp">--colr-parms CSV</span></samp>&rsquo;<dd>where CSV is IDX1,IDX2,IDX3 . 
 Specify the exact parameters of an NCLC Color Parameter box as specified in the QuickTime specification. 
 IDX1 correlates to the 16-bit primaries index. 
 IDX2 correlates to the 16-bit transferFunction index. 
 IDX3 correlates to the 16-bit matrixIndex index. 
 Effects actions &ndash;colr-add, &ndash;colr-set.
 
-     <br><dt>`<samp><span class="samp">--colr-parm-hd</span></samp>'<dd>equivalent to &ndash;colr-parms=1,1,1 . 
+     <br><dt>&lsquo;<samp><span class="samp">--colr-parm-hd</span></samp>&rsquo;<dd>equivalent to &ndash;colr-parms=1,1,1 . 
 This is a convenience setting generally suitable for HD content. 
 Effects actions &ndash;colr-add, &ndash;colr-set.
 
-     <br><dt>`<samp><span class="samp">--colr-parm-sd</span></samp>'<dd>equivalent to &ndash;colr-parms=6,1,6 . 
+     <br><dt>&lsquo;<samp><span class="samp">--colr-parm-sd</span></samp>&rsquo;<dd>equivalent to &ndash;colr-parms=6,1,6 . 
 This is a convenience setting generally suitable for SD content. 
 Effects actions &ndash;colr-add, &ndash;colr-set.
 
@@ -257,18 +257,18 @@ Effects actions &ndash;colr-add, &ndash;colr-set.
 <p>The <b>pasp</b> related actions manage <b>Picture Aspect Ratio</b> boxes which are used by QuickTime to specify height-to-width ratio of pixels for video tracks. They may or may not be suitable for other Apple media players. Community feedback on compatibility is welcome.
 
      <dl>
-<dt>`<samp><span class="samp">--pasp-list</span></samp>'<dd>list all pasp-boxes in mp4.
+<dt>&lsquo;<samp><span class="samp">--pasp-list</span></samp>&rsquo;<dd>list all pasp-boxes in mp4.
 
-     <br><dt>`<samp><span class="samp">--pasp-add</span></samp>'<dd>add pasp-box to a video track. 
+     <br><dt>&lsquo;<samp><span class="samp">--pasp-add</span></samp>&rsquo;<dd>add pasp-box to a video track. 
 An individual track must be specified.
 
-     <br><dt>`<samp><span class="samp">--pasp-set</span></samp>'<dd>set pasp-box parms. 
+     <br><dt>&lsquo;<samp><span class="samp">--pasp-set</span></samp>&rsquo;<dd>set pasp-box parms. 
 An individual track must be specified.
 
-     <br><dt>`<samp><span class="samp">--pasp-remove</span></samp>'<dd>remove pasp-box from track
+     <br><dt>&lsquo;<samp><span class="samp">--pasp-remove</span></samp>&rsquo;<dd>remove pasp-box from track
 By default all pasp-boxes will be removed unless an individual track is specified.
 
-     <br><dt>`<samp><span class="samp">--pasp-parms CSV</span></samp>'<dd>where CSV is hSPACING,vSPACING. 
+     <br><dt>&lsquo;<samp><span class="samp">--pasp-parms CSV</span></samp>&rsquo;<dd>where CSV is hSPACING,vSPACING. 
 Specify the exact parameters of Picture Aspect Ratio box as specified in the QuickTime specification. 
 Effects actions &ndash;pasp-add, &ndash;pasp-set.
 
@@ -285,18 +285,18 @@ Effects actions &ndash;pasp-add, &ndash;pasp-set.
 
 <h2 class="chapter"><a name="TOC6"></a>6 mp4art</h2>
 
-<p>This tool is used to manage iTunes Metadata Cover-art which is typically used to embed an image to a song file. For example, the songs in an album collection might all contain an image of the album cover art. This data is usually found in `<samp><span class="samp">.m4a</span></samp>', `<samp><span class="samp">.m4v</span></samp>' and `<samp><span class="samp">.mov</span></samp>' files.
+<p>This tool is used to manage iTunes Metadata Cover-art which is typically used to embed an image to a song file. For example, the songs in an album collection might all contain an image of the album cover art. This data is usually found in &lsquo;<samp><span class="samp">.m4a</span></samp>&rsquo;, &lsquo;<samp><span class="samp">.m4v</span></samp>&rsquo; and &lsquo;<samp><span class="samp">.mov</span></samp>&rsquo; files.
 
      <dl>
-<dt>`<samp><span class="samp">--art-any</span></samp>'<dd>act on all covr-boxes (default). 
+<dt>&lsquo;<samp><span class="samp">--art-any</span></samp>&rsquo;<dd>act on all covr-boxes (default). 
 Specifies the scope of the action to operate on all, if applicable, covr-boxes.
 
-     <br><dt>`<samp><span class="samp">--art-index IDX</span></samp>'<dd>act on covr-box index IDX. 
+     <br><dt>&lsquo;<samp><span class="samp">--art-index IDX</span></samp>&rsquo;<dd>act on covr-box index IDX. 
 Specifies the scope of the action to operate on single covr-box INDEX. 
 </dl>
 
      <dl>
-<dt>`<samp><span class="samp">--list</span></samp>'<dd>list all covr-boxes.
+<dt>&lsquo;<samp><span class="samp">--list</span></samp>&rsquo;<dd>list all covr-boxes.
      <pre class="example">     IDX     BYTES  CRC32     TYPE       FILE
      ----------------------------------------------------------------------
        0    173613  710a3ec9  JPEG       01 Life In Technicolor.m4a
@@ -310,14 +310,14 @@ Specifies the scope of the action to operate on single covr-box INDEX.
        0    173613  710a3ec9  JPEG       09 Strawberry Swing.m4a
        0    173613  710a3ec9  JPEG       10 Death And All His Friends.m4a
 </pre>
-     <br><dt>`<samp><span class="samp">--add IMG</span></samp>'<dd>add covr-box from IMG file.
+     <br><dt>&lsquo;<samp><span class="samp">--add IMG</span></samp>&rsquo;<dd>add covr-box from IMG file.
 
-     <br><dt>`<samp><span class="samp">--replace IMG</span></samp>'<dd>replace covr-box with IMG file.
+     <br><dt>&lsquo;<samp><span class="samp">--replace IMG</span></samp>&rsquo;<dd>replace covr-box with IMG file.
 
-     <br><dt>`<samp><span class="samp">--remove</span></samp>'<dd>remove covr-box.
+     <br><dt>&lsquo;<samp><span class="samp">--remove</span></samp>&rsquo;<dd>remove covr-box.
 
-     <br><dt>`<samp><span class="samp">--extract</span></samp>'<dd>extract covr-box. 
-This will extract all covr-box data to image files in the format of `<samp><span class="samp">BASENAME.art[INDEX].TYPE</span></samp>' .
+     <br><dt>&lsquo;<samp><span class="samp">--extract</span></samp>&rsquo;<dd>extract covr-box. 
+This will extract all covr-box data to image files in the format of &lsquo;<samp><span class="samp">BASENAME.art[INDEX].TYPE</span></samp>&rsquo; .
 
      <p>Example, add PNG image file:
      <pre class="example">     mp4art --add ACDC.png mysong.m4a
