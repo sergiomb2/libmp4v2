@@ -1,0 +1,148 @@
+<html lang="en">
+<head>
+<title>Untitled</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="Untitled">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="top" href="#Top">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<h2 class="majorheading"><a name="TOC0"></a>MP4v2 2.0.0 Release Notes</h2>
+
+<div class="contents">
+<h2>Table of Contents</h2>
+<ul>
+<li><a name="toc_TOC1" href="#TOC1">1 What's New?</a>
+<li><a name="toc_TOC2" href="#TOC2">2 Breaking Changes</a>
+<ul>
+<li><a href="#TOC3">2.1 Removed deprecated metadata/free-form API.</a>
+</li></ul>
+<li><a name="toc_TOC4" href="#TOC4">Appendix A Changelog</a>
+<ul>
+<li><a href="#TOC5">A.1 Version 2.0</a>
+<li><a href="#TOC6">A.2 Version 1.9</a>
+<li><a href="#TOC7">A.3 Version 1.6</a>
+</li></ul>
+<li><a name="toc_TOC8" href="#TOC8">Appendix B SCM repository details</a>
+</li></ul>
+</div>
+
+<h2 class="chapter"><a name="TOC1"></a>1 What's New?</h2>
+
+<p>[TODO]
+
+<h2 class="chapter"><a name="TOC2"></a>2 Breaking Changes</h2>
+
+<h3 class="section"><a name="TOC3"></a>2.1 Removed deprecated metadata/free-form API.</h3>
+
+<p>The following functions have been removed and replaced with iTMF Generic and Tags API. Detailed documentation can be found under API modules section.
+
+<p>DeleteMetadataAtom(),
+DeleteMetadataFreeForm(),
+DeleteMetadataGenre(),
+GetMetadataByIndex(),
+GetMetadataCoverArt(),
+GetMetadataCoverArtCount(),
+GetMetadataDisk(),
+GetMetadataFreeForm(),
+GetMetadataGenre(),
+GetMetadataString(),
+GetMetadataTrack(),
+GetMetadataUint16(),
+GetMetadataUint8(),
+MetadataDelete(),
+SetMetadataCoverArt(),
+SetMetadataDisk(),
+SetMetadataFreeForm(),
+SetMetadataGenre(),
+SetMetadataString(),
+SetMetadataTrack(),
+SetMetadataUint16(),
+SetMetadataUint8().
+
+<h2 class="appendix"><a name="TOC4"></a>Appendix A Changelog</h2>
+
+<h3 class="appendixsec"><a name="TOC5"></a>A.1 Version 2.0</h3>
+
+     <ol type=1 start=1>
+<li>Removed deprecated metadata/free-form API and replaced with iTMF Generic and Tags API.
+
+     <li>Added new public-API: MP4SetLogCallback().
+
+     </ol>
+
+<h3 class="appendixsec"><a name="TOC6"></a>A.2 Version 1.9</h3>
+
+     <ol type=1 start=1>
+<li>Renamed public API top-level header to <code>&lt;mp4v2/mp4v2.h&gt;</code> and added namespaces for implementation (private) symbols. Only public API symbols are exported for dynamic (shared) or DLL libraries. All other symbols are now private, notwithstanding static-library usage.
+
+     <li>Added initial AC3 support.
+
+     <li>Added native Windows port. The port targets <code>WINVER 0x0500</code> which is Windows 2000 or higher.
+
+     <li>Added QuickTime and Nero chapter support. See <samp><span class="command">mp4chaps</span></samp> command-line utility. 
+<br> Contributed by Ullrich Pollähne &lt;u.pollaehne@gmail.com&gt;.
+
+     <li>Enhanced <samp><span class="command">mp4art</span></samp> to support multiple cover-art atoms.
+
+     <li>Dropped <samp><span class="command">mp4dump</span></samp> and replaced with <samp><span class="command">mp4file</span></samp> which supports general file operations.
+
+     <li>Added <samp><span class="command">mp4track</span></samp> with colr-box and pasp-box support.
+
+     <li>Fixed corruption of <b>udta.name</b> atom during read-in.
+
+     <li>Enhanced <samp><span class="command">mp4file --dump</span></samp> to show hexdump-style canonical hex+ASCII data.
+
+     <li>Enhanced <samp><span class="command">mp4file --dump</span></samp> to show human-readble value for tag <b>typeCode</b> values.
+
+     <li>Enhanced <samp><span class="command">mp4file --dump</span></samp> to show human-readble value for ISO-639-2/T language codes.
+
+     <li>Added new public-API: MP4GetTrackLanguage().
+
+     <li>Added new public-API: MP4SetTrackLanguage().
+
+     <li>Added support for GCC precompiled-headers on various *nix platforms to speed up builds as we are using quite a few C++ headers.
+
+     <li>Enhanced <samp><span class="command">mp4track</span></samp> to facilitate modification of { enabled, inmovie, inpreview, altgroup, volume, width, height, language, hdlrname, udtaname } properties.
+
+     <li>Added new public-API: MP4GetTrackDurationPerChunk().
+
+     <li>Added new public-API: MP4SetTrackDurationPerChunk() to override default per-track chunk duration.
+
+     <li>Added new public-API: MP4WriteSampleDependency().
+
+     <li>Replaced (undocumented) public-API: MP4CreateEx() with MP4CreateProvider().
+
+     <li>Added new public-API for iTMF Generic functionality.
+     </ol>
+
+<h3 class="appendixsec"><a name="TOC7"></a>A.3 Version 1.6</h3>
+
+     <ol type=1 start=1>
+<li>Branched libmp4v2 module from mpeg4ip project version 1.6.1.
+     </ol>
+
+<h2 class="appendix"><a name="TOC8"></a>Appendix B SCM repository details</h2>
+
+<pre class="example">url:  https://mp4v2.googlecode.com/svn/releases/2.0.0
+root: https://mp4v2.googlecode.com/svn
+uuid: 6e6572fa-98a6-11dd-ad9f-f77439c74b79
+rev:  493
+date: 2012-05-20 15:16:54 -0700 (Sun, 20 May 2012)
+type: stable
+</pre>
+</body></html>
+
