@@ -15,7 +15,7 @@ Description of currently known iTunes tags.
 || Artist || ©ART || UTF-8 string || || artist ||
 || Album Artist || aART || UTF-8 string || || albumArtist ||
 || Album || ©alb || UTF-8 string  || || album ||
-|| Grouping || grup ||  UTF-8 string || like TIT1 in ID3 || grouping ||
+|| Grouping || ©grp ||  UTF-8 string || like TIT1 in ID3 || grouping ||
 || Composer || ©wrt ||  UTF-8 string || || composer ||
 || Comment || ©cmt || UTF-8 string || || comments ||
 || Genre, Pre-defined || gnre || enum || Standard Genres according to ID3, the iTunes tag is one greater the the corresponding ID3 tag || genre ||
