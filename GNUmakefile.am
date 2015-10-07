@@ -296,6 +296,79 @@ if ADD_MANS
         doc/man/man1/mp4file.1      \
         doc/man/man1/mp4subtitle.1  \
         doc/man/man1/mp4track.1
+    man3_MANS = \
+		doc/MP4.3 \
+		doc/MP4AddRtpESConfigurationPacket.3 \
+		doc/MP4AddRtpHint.3 \
+		doc/MP4AddRtpImmediateData.3 \
+		doc/MP4AddRtpPacket.3 \
+		doc/MP4AddRtpSampleData.3 \
+		doc/MP4AddRtpVideoHint.3 \
+		doc/MP4AddTrackEdit.3 \
+		doc/MP4AppendHintTrackSdp.3 \
+		doc/MP4AppendSessionSdp.3 \
+		doc/MP4BinaryToBase16.3 \
+		doc/MP4BinaryToBase64.3 \
+		doc/MP4CloneTrack.3 \
+		doc/MP4ConvertFromMovieDuration.3 \
+		doc/MP4ConvertFromTrackTimestamp.3 \
+		doc/MP4ConvertToTrackTimestamp.3 \
+		doc/MP4CopyTrack.3 \
+		doc/MP4DeleteTrack.3 \
+		doc/MP4DeleteTrackEdit.3 \
+		doc/MP4FindTrackId.3 \
+		doc/MP4FindTrackIndex.3 \
+		doc/MP4GetAudioProfileLevel.3 \
+		doc/MP4GetDuration.3 \
+		doc/MP4GetGraphicsProfileLevel.3 \
+		doc/MP4GetHintTrackReferenceTrackId.3 \
+		doc/MP4GetHintTrackRtpPayload.3 \
+		doc/MP4GetHintTrackSdp.3 \
+		doc/MP4GetNumberOfTracks.3 \
+		doc/MP4GetODProfileLevel.3 \
+		doc/MP4GetRtpHintNumberOfPackets.3 \
+		doc/MP4GetRtpPacketBFrame.3 \
+		doc/MP4GetRtpPacketTransmitOffset.3 \
+		doc/MP4GetRtpTimestampStart.3 \
+		doc/MP4GetSampleIdFromEditTime.3 \
+		doc/MP4GetSceneProfileLevel.3 \
+		doc/MP4GetSessionSdp.3 \
+		doc/MP4GetTrackAudioMpeg4Type.3 \
+		doc/MP4GetTrackAudioType.3 \
+		doc/MP4GetTrackBitRate.3 \
+		doc/MP4GetTrackDuration.3 \
+		doc/MP4GetTrackEditDuration.3 \
+		doc/MP4GetTrackEditDwell.3 \
+		doc/MP4GetTrackEditMediaStart.3 \
+		doc/MP4GetTrackEditStart.3 \
+		doc/MP4GetTrackEditTotalDuration.3 \
+		doc/MP4GetTrackESConfiguration.3 \
+		doc/MP4GetTrackFixedSampleDuration.3 \
+		doc/MP4GetTrackNumberOfEdits.3 \
+		doc/MP4GetTrackNumberOfSamples.3 \
+		doc/MP4GetTrackVideoFrameRate.3 \
+		doc/MP4GetTrackVideoHeight.3 \
+		doc/MP4GetTrackVideoType.3 \
+		doc/MP4GetTrackVideoWidth.3 \
+		doc/MP4GetVideoProfileLevel.3 \
+		doc/MP4MakeIsmaCompliant.3 \
+		doc/MP4ReadRtpHint.3 \
+		doc/MP4ReadRtpPacket.3 \
+		doc/MP4ReadSampleFromEditTime.3 \
+		doc/MP4SetAudioProfileLevel.3 \
+		doc/MP4SetGraphicsProfileLevel.3 \
+		doc/MP4SetHintTrackRtpPayload.3 \
+		doc/MP4SetHintTrackSdp.3 \
+		doc/MP4SetODProfileLevel.3 \
+		doc/MP4SetRtpTimestampStart.3 \
+		doc/MP4SetSceneProfileLevel.3 \
+		doc/MP4SetSessionSdp.3 \
+		doc/MP4SetTrackEditDuration.3 \
+		doc/MP4SetTrackEditDwell.3 \
+		doc/MP4SetTrackEditMediaStart.3 \
+		doc/MP4SetTrackESConfiguration.3 \
+		doc/MP4SetVideoProfileLevel.3 \
+		doc/MP4WriteRtpHint.3
 endif
 endif
 

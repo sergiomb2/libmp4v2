@@ -98,7 +98,7 @@ DOC.m4.out = \
 DOC.man.utils = mp4art mp4file mp4subtitle mp4track
 DOC.man.out   = $(DOC.man.utils:%=$(DOC.out/)man/man1/%.1)
 
-DOC.texi.articles = $(wildcard $(DOC.in/)texi/*.texi $(DOC.out/)texi/*.texi)
+DOC.texi.articles = $(wildcard $(DOC.in/)texi/*.texi)
 
 DOC.texi.includes = \
     doc/texi/base/project.texi \
