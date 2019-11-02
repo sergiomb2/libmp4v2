@@ -778,8 +778,10 @@ MP4Atom::factory( MP4File &file, MP4Atom* parent, const char* type )
         const char* const ptype = parent->GetType();
 
         if( descendsFrom( parent, "ilst" )) {
-            if( ATOMID( ptype ) == ATOMID( "ilst" ))
+            if( ATOMID( ptype ) == ATOMID( "ilst" )) {
+                ASSERT(ATOMID( type ) != ATOMID( "ilst" ));
                 return new MP4ItemAtom( file, type );
+            }
 
             if( ATOMID( type ) == ATOMID( "data" ))
                 return new MP4DataAtom(file);
