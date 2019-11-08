@@ -143,6 +143,12 @@ MP4Atom* MP4Atom::ReadAtom(MP4File& file, MP4Atom* pParentAtom)
         dataSize = file.GetSize() - pos;
     }
 
+    if(dataSize < hdrSize) {
+        ostringstream oss;
+        oss << "Invalid atom size in '" << type << "' atom, dataSize = " << dataSize << " cannot be less than hdrSize = " << static_cast<unsigned>( hdrSize );
+        log.errorf( "%s: \"%s\": %s", __FUNCTION__, file.GetFilename().c_str(), oss.str().c_str() );
+        throw new Exception( oss.str().c_str(), __FILE__, __LINE__, __FUNCTION__ );
+    }
     dataSize -= hdrSize;
 
     log.verbose1f("\"%s\": type = \"%s\" data-size = %" PRIu64 " (0x%" PRIx64 ") hdr %u",
